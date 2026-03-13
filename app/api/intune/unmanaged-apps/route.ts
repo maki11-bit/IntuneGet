@@ -16,11 +16,57 @@ import type {
   UnmanagedAppsStats,
   MatchStatus
 } from '@/types/unmanaged';
+import type { Database, Json } from '@/types/database';
+
+export const maxDuration = 120;
 
 const GRAPH_API_BASE = 'https://graph.microsoft.com/v1.0';
 const CACHE_DURATION_MS = 60 * 60 * 1000; // 1 hour
 
-import type { Database, Json } from '@/types/database';
+// Module-scoped token cache keyed by tenantId
+const tokenCache = new Map<string, { token: string; expiresAt: number }>();
+const tokenInflight = new Map<string, Promise<string | null>>();
+
+/**
+ * Fetch with retry logic for Graph API rate limiting (429) and transient errors (5xx).
+ * Respects Retry-After header; falls back to exponential backoff capped at 30s.
+ */
+async function fetchWithRetry(
+  url: string,
+  options: RequestInit,
+  maxRetries = 3
+): Promise<Response> {
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    const response = await fetch(url, options);
+    const status = response.status;
+
+    const isRetryable = status === 429 || status >= 500;
+    if (!isRetryable || attempt === maxRetries) {
+      return response;
+    }
+
+    // Consume body to prevent memory leaks in serverless
+    await response.text().catch(() => {});
+
+    const retryAfter = response.headers.get('Retry-After');
+    let delayMs: number;
+    if (retryAfter) {
+      const parsed = Number(retryAfter);
+      delayMs = Number.isNaN(parsed) ? Math.pow(2, attempt) * 1000 : parsed * 1000;
+    } else {
+      delayMs = Math.pow(2, attempt) * 1000;
+    }
+    delayMs = Math.min(delayMs, 30000);
+
+    console.warn(
+      `Graph API ${status} on attempt ${attempt + 1}/${maxRetries + 1}, retrying in ${delayMs}ms`
+    );
+    await new Promise((resolve) => setTimeout(resolve, delayMs));
+  }
+
+  // Unreachable: loop always returns on attempt === maxRetries
+  throw new Error('Failed to fetch data from Intune');
+}
 
 // Database row types from Database types
 type DiscoveredAppCacheRow = Database['public']['Tables']['discovered_apps_cache']['Row'];
@@ -144,7 +190,7 @@ export async function GET(request: NextRequest) {
     let nextUrl: string | null = `${GRAPH_API_BASE}/deviceManagement/detectedApps?$top=100&$orderby=deviceCount desc`;
 
     while (nextUrl) {
-      const graphResponse: Response = await fetch(nextUrl, {
+      const graphResponse: Response = await fetchWithRetry(nextUrl, {
         headers: {
           Authorization: `Bearer ${graphToken}`,
           'Content-Type': 'application/json',
@@ -152,6 +198,11 @@ export async function GET(request: NextRequest) {
       });
 
       if (!graphResponse.ok) {
+        // Invalidate cached token on 401 (revoked/expired)
+        if (graphResponse.status === 401) {
+          tokenCache.delete(tenantId);
+        }
+
         const errorText = await graphResponse.text();
 
         // Check for permission error
@@ -184,6 +235,10 @@ export async function GET(request: NextRequest) {
 
       graphApps.push(...pageApps);
       nextUrl = graphData['@odata.nextLink'] || null;
+
+      if (nextUrl) {
+        await new Promise((resolve) => setTimeout(resolve, 200));
+      }
     }
 
     // Consolidate apps: group by normalized name+publisher, keep newest version, sum device counts
@@ -430,6 +485,24 @@ function mapPlatform(platform: string | undefined): GraphUnmanagedApp['platform'
  * Get access token for the service principal using client credentials flow
  */
 async function getServicePrincipalToken(tenantId: string): Promise<string | null> {
+  // Return cached token if still valid (with 10-min buffer)
+  const cached = tokenCache.get(tenantId);
+  if (cached && cached.expiresAt > Date.now() + 10 * 60 * 1000) {
+    return cached.token;
+  }
+
+  // Deduplicate concurrent token fetches for the same tenant
+  const inflight = tokenInflight.get(tenantId);
+  if (inflight) return inflight;
+
+  const promise = fetchServicePrincipalToken(tenantId).finally(() => {
+    tokenInflight.delete(tenantId);
+  });
+  tokenInflight.set(tenantId, promise);
+  return promise;
+}
+
+async function fetchServicePrincipalToken(tenantId: string): Promise<string | null> {
   const clientId = process.env.AZURE_CLIENT_ID || process.env.NEXT_PUBLIC_AZURE_AD_CLIENT_ID;
   const clientSecret = process.env.AZURE_CLIENT_SECRET || process.env.AZURE_AD_CLIENT_SECRET;
 
@@ -458,13 +531,21 @@ async function getServicePrincipalToken(tenantId: string): Promise<string | null
     if (!tokenResponse.ok) {
       const errorText = await tokenResponse.text().catch(() => 'unknown error');
       console.error(`Service principal token failure for tenant ${tenantId}: ${tokenResponse.status} - ${errorText}`);
+      tokenCache.delete(tenantId);
       return null;
     }
 
     const tokenData = await tokenResponse.json();
-    return tokenData.access_token;
+    const token = tokenData.access_token;
+    const expiresIn = tokenData.expires_in || 3600;
+    tokenCache.set(tenantId, {
+      token,
+      expiresAt: Date.now() + expiresIn * 1000,
+    });
+    return token;
   } catch (error) {
     console.error('Service principal token error:', error);
+    tokenCache.delete(tenantId);
     return null;
   }
 }
