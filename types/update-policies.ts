@@ -4,7 +4,7 @@
  */
 
 import type { Json } from './database';
-import type { DetectionRule } from './intune';
+import type { DetectionRule, RequirementRule } from './intune';
 import type { IntuneAppCategorySelection, PackageAssignment } from './upload';
 
 // Policy type options
@@ -39,7 +39,7 @@ export interface DeploymentConfig {
   assignedGroups?: {
     groupId: string;
     groupName: string;
-    assignmentType: 'required' | 'available' | 'uninstall';
+    assignmentType: 'required' | 'available' | 'uninstall' | 'updateOnly';
   }[];
 
   // Normalized assignment shape used by packaging workflows
@@ -47,6 +47,9 @@ export interface DeploymentConfig {
 
   // Intune app categories (optional)
   categories?: IntuneAppCategorySelection[];
+
+  // Requirement rules for "Update Only" mode (optional)
+  requirementRules?: RequirementRule[];
 
   // Update deployment behavior (optional)
   forceCreateNewApp?: boolean;

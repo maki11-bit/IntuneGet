@@ -386,6 +386,7 @@ export class AutoUpdateTrigger {
         assignments,
         categories,
         assignedGroups: config.assignedGroups,
+        requirementRules: config.requirementRules,
         forceCreate: config.forceCreateNewApp !== false,
         sourceIntuneAppId,
         assignmentMigration: {

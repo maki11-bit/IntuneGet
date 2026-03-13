@@ -27,7 +27,7 @@ import type {
   DeploymentConfig,
 } from '@/types/update-policies';
 import type { IntuneAppCategorySelection, PackageAssignment } from '@/types/upload';
-import type { DetectionRule } from '@/types/intune';
+import type { DetectionRule, RequirementRule } from '@/types/intune';
 import type { NormalizedInstaller } from '@/types/winget';
 import type { Json } from '@/types/database';
 
@@ -38,8 +38,9 @@ interface PackageConfigWithAssignments {
   assignedGroups?: Array<{
     groupId?: string;
     groupName?: string;
-    assignmentType?: 'required' | 'available' | 'uninstall';
+    assignmentType?: 'required' | 'available' | 'uninstall' | 'updateOnly';
   }>;
+  requirementRules?: RequirementRule[];
   assignmentMigration?: {
     carryOverAssignments?: boolean;
     removeAssignmentsFromPreviousApp?: boolean;
@@ -77,7 +78,8 @@ function parsePackageAssignments(packageConfig: unknown): PackageAssignment[] {
       if (
         intent !== 'required' &&
         intent !== 'available' &&
-        intent !== 'uninstall'
+        intent !== 'uninstall' &&
+        intent !== 'updateOnly'
       ) {
         return false;
       }
@@ -96,7 +98,7 @@ function parsePackageAssignments(packageConfig: unknown): PackageAssignment[] {
   }
 
   return assignedGroups
-    .filter((group): group is { groupId: string; groupName?: string; assignmentType?: 'required' | 'available' | 'uninstall' } => {
+    .filter((group): group is { groupId: string; groupName?: string; assignmentType?: 'required' | 'available' | 'uninstall' | 'updateOnly' } => {
       return isObject(group) && typeof group.groupId === 'string' && group.groupId.length > 0;
     })
     .map((group) => ({
@@ -105,6 +107,17 @@ function parsePackageAssignments(packageConfig: unknown): PackageAssignment[] {
       groupName: typeof group.groupName === 'string' ? group.groupName : undefined,
       intent: group.assignmentType || 'required',
     }));
+}
+
+function parseRequirementRules(packageConfig: unknown): RequirementRule[] | undefined {
+  if (!isObject(packageConfig)) {
+    return undefined;
+  }
+  const typedConfig = packageConfig as PackageConfigWithAssignments;
+  if (Array.isArray(typedConfig.requirementRules) && typedConfig.requirementRules.length > 0) {
+    return typedConfig.requirementRules as RequirementRule[];
+  }
+  return undefined;
 }
 
 function parseAssignmentMigration(packageConfig: unknown): DeploymentConfig['assignmentMigration'] | undefined {
@@ -333,6 +346,7 @@ export async function POST(request: NextRequest) {
             const packageConfig = packagingJob.package_config;
             const parsedAssignments = parsePackageAssignments(packageConfig);
             const parsedCategories = parsePackageCategories(packageConfig);
+            const parsedRequirementRules = parseRequirementRules(packageConfig);
             let assignmentMigration = parseAssignmentMigration(packageConfig);
 
             // If no explicit migration config was stored on the packaging job,
@@ -369,6 +383,7 @@ export async function POST(request: NextRequest) {
               detectionRules: parseDetectionRules(packagingJob.detection_rules),
               assignments: parsedAssignments,
               categories: parsedCategories,
+              requirementRules: parsedRequirementRules,
               forceCreateNewApp: true,
               assignmentMigration,
             };
@@ -512,6 +527,9 @@ export async function POST(request: NextRequest) {
                 : undefined,
               categories: deploymentConfig.categories
                 ? JSON.stringify(deploymentConfig.categories)
+                : undefined,
+              requirementRules: deploymentConfig.requirementRules
+                ? JSON.stringify(deploymentConfig.requirementRules)
                 : undefined,
               installScope: (deploymentConfig.installScope === 'user' ? 'user' : 'machine') as 'machine' | 'user',
               forceCreate: deploymentConfig.forceCreateNewApp !== false,
