@@ -3,6 +3,7 @@
 import { useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
 import Link from 'next/link';
+import { T, Var } from "gt-next";
 import { Button } from '@/components/ui/button';
 import { AlertTriangle } from 'lucide-react';
 
@@ -68,13 +69,13 @@ function ErrorContent() {
             <AlertTriangle className="w-8 h-8 text-red-500" />
           </div>
 
-          <h1 className="text-2xl font-bold text-text-primary mb-2">{title}</h1>
-          <p className="text-text-muted mb-8">{description}</p>
+          <h1 className="text-2xl font-bold text-text-primary mb-2"><T><Var>{title}</Var></T></h1>
+          <p className="text-text-muted mb-8"><T><Var>{description}</Var></T></p>
 
           {error && (
             <div className="mb-6 p-3 bg-bg-elevated/50 rounded-lg">
               <p className="text-text-muted text-sm font-mono">
-                Error code: {error}
+                <T>Error code: <Var>{error}</Var></T>
               </p>
             </div>
           )}
@@ -82,13 +83,13 @@ function ErrorContent() {
           <div className="space-y-3">
             <Link href="/auth/signin">
               <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
-                Try Again
+                <T>Try Again</T>
               </Button>
             </Link>
 
             <Link href="/">
               <Button variant="outline" className="w-full border-overlay/15 text-text-secondary hover:bg-overlay/10">
-                Back to Home
+                <T>Back to Home</T>
               </Button>
             </Link>
           </div>

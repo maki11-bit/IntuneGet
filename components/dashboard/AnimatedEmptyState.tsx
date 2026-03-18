@@ -9,18 +9,18 @@ interface AnimatedEmptyStateProps {
   /** Main icon */
   icon: LucideIcon;
   /** Title text */
-  title: string;
+  title: ReactNode;
   /** Description text */
-  description?: string;
+  description?: ReactNode;
   /** Action button */
   action?: {
-    label: string;
+    label: ReactNode;
     onClick: () => void;
     variant?: 'primary' | 'secondary';
   };
   /** Secondary action */
   secondaryAction?: {
-    label: string;
+    label: ReactNode;
     onClick: () => void;
   };
   /** Show floating gradient orbs */
@@ -289,9 +289,9 @@ export function AnimatedEmptyState({
 // Inline empty state for smaller areas
 interface InlineEmptyStateProps {
   icon: LucideIcon;
-  message: string;
+  message: React.ReactNode;
   action?: {
-    label: string;
+    label: ReactNode;
     onClick: () => void;
   };
   className?: string;

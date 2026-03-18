@@ -1,5 +1,6 @@
 "use client";
 
+import { T } from "gt-next";
 import { FadeIn } from "../animations/FadeIn";
 import { CountUp } from "../animations/CountUp";
 import { useLandingStats } from "@/hooks/useLandingStats";
@@ -27,10 +28,10 @@ export function TrustSection() {
         <FadeIn>
           <div className="text-center mb-10 md:mb-12">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-text-primary mb-3">
-              Open Source & Trusted
+              <T id="trust.heading">Open Source & Trusted</T>
             </h2>
             <p className="text-text-muted max-w-xl mx-auto">
-              From startups to enterprises, teams rely on IntuneGet to streamline their app deployments
+              <T id="trust.subheading">From startups to enterprises, teams rely on IntuneGet to streamline their app deployments</T>
             </p>
           </div>
         </FadeIn>
@@ -47,7 +48,7 @@ export function TrustSection() {
                     delay={0.2 + index * 0.1}
                   />
                 </div>
-                <div className="text-xs sm:text-sm text-text-muted">{metric.label}</div>
+                <div className="text-xs sm:text-sm text-text-muted"><T>{metric.label}</T></div>
               </div>
             ))}
           </div>
@@ -60,10 +61,10 @@ export function TrustSection() {
               {quickFacts.map((fact) => (
                 <div key={fact.label} className="flex flex-col">
                   <dt className="text-[10px] font-medium text-text-muted uppercase tracking-wider">
-                    {fact.label}
+                    <T>{fact.label}</T>
                   </dt>
                   <dd className="text-sm font-medium text-text-primary mt-1">
-                    {fact.value}
+                    <T>{fact.value}</T>
                   </dd>
                 </div>
               ))}

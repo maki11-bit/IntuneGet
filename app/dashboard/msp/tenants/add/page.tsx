@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
+import { T } from 'gt-next';
 import { useMsp } from '@/contexts/MspContext';
 import { AddTenantFlow } from '@/components/msp';
 
@@ -49,14 +50,14 @@ export default function AddTenantPage() {
         className="inline-flex items-center gap-2 text-sm text-text-muted hover:text-text-primary transition-colors"
       >
         <ArrowLeft className="w-4 h-4" />
-        Back to Tenants
+        <T>Back to Tenants</T>
       </Link>
 
       {/* Header */}
       <div className="text-center mb-8">
-        <h1 className="text-2xl font-bold text-text-primary">Add Customer Tenant</h1>
+        <h1 className="text-2xl font-bold text-text-primary"><T>Add Customer Tenant</T></h1>
         <p className="text-text-muted mt-1">
-          Set up a new customer tenant for management
+          <T>Set up a new customer tenant for management</T>
         </p>
       </div>
 

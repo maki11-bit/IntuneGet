@@ -13,7 +13,7 @@ import {
 import type { LucideIcon } from 'lucide-react';
 
 interface SidebarNavItemProps {
-  name: string;
+  name: React.ReactNode;
   href: string;
   icon: LucideIcon;
   badge?: React.ReactNode;

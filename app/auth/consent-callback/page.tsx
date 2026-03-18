@@ -3,6 +3,7 @@
 import { useEffect, useState, Suspense, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Loader2, CheckCircle2, XCircle } from 'lucide-react';
+import { T, Var } from "gt-next";
 import { Button } from '@/components/ui/button';
 import { useMicrosoftAuth } from '@/hooks/useMicrosoftAuth';
 import { markConsentGranted, verifyConsentApi } from '@/components/AdminConsentBanner';
@@ -111,10 +112,10 @@ function ConsentCallbackContent() {
           <>
             <Loader2 className="h-12 w-12 animate-spin text-blue-500 mx-auto mb-4" />
             <h2 className="text-xl font-semibold text-text-primary mb-2">
-              {status === 'verifying' ? 'Verifying Access' : 'Completing Setup'}
+              {status === 'verifying' ? <T>Verifying Access</T> : <T>Completing Setup</T>}
             </h2>
             <p className="text-text-muted">
-              {statusMessage}
+              <T><Var>{statusMessage}</Var></T>
             </p>
           </>
         )}
@@ -123,10 +124,10 @@ function ConsentCallbackContent() {
           <>
             <CheckCircle2 className="h-12 w-12 text-green-500 mx-auto mb-4" />
             <h2 className="text-xl font-semibold text-text-primary mb-2">
-              Setup Complete
+              <T>Setup Complete</T>
             </h2>
             <p className="text-text-muted">
-              {statusMessage}
+              <T><Var>{statusMessage}</Var></T>
             </p>
           </>
         )}
@@ -135,29 +136,29 @@ function ConsentCallbackContent() {
           <>
             <XCircle className="h-12 w-12 text-red-500 mx-auto mb-4" />
             <h2 className="text-xl font-semibold text-text-primary mb-2">
-              Admin Consent Not Granted
+              <T>Admin Consent Not Granted</T>
             </h2>
             <p className="text-text-muted mb-4">
-              {errorMessage || 'Something went wrong during setup.'}
+              <T><Var>{errorMessage || 'Something went wrong during setup.'}</Var></T>
             </p>
 
             {/* Detailed explanation */}
             <div className="bg-bg-surface/50 border border-overlay/10 rounded-xl p-4 mb-4 text-left">
               <p className="text-sm text-amber-400 font-medium mb-2">
-                Why did this happen?
+                <T>Why did this happen?</T>
               </p>
               <ul className="text-xs text-text-muted space-y-2">
                 <li className="flex items-start gap-2">
                   <span className="text-text-muted mt-0.5">1.</span>
-                  <span>You may not have the required role. Only <strong className="text-text-primary">Global Administrators</strong> or <strong className="text-text-primary">Privileged Role Administrators</strong> can grant admin consent.</span>
+                  <span><T>You may not have the required role. Only <Var><strong className="text-text-primary">Global Administrators</strong></Var> or <Var><strong className="text-text-primary">Privileged Role Administrators</strong></Var> can grant admin consent.</T></span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-text-muted mt-0.5">2.</span>
-                  <span>Intune Administrators, Application Administrators, and other roles <strong className="text-red-400">cannot</strong> grant organization-wide consent.</span>
+                  <span><T>Intune Administrators, Application Administrators, and other roles <Var><strong className="text-red-400">cannot</strong></Var> grant organization-wide consent.</T></span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-text-muted mt-0.5">3.</span>
-                  <span>If you&apos;re not sure of your role, ask your IT department who the Global Admin is.</span>
+                  <span><T>If you&apos;re not sure of your role, ask your IT department who the Global Admin is.</T></span>
                 </li>
               </ul>
             </div>
@@ -167,14 +168,14 @@ function ConsentCallbackContent() {
                 onClick={() => router.push('/onboarding?step=2')}
                 className="w-full bg-blue-600 hover:bg-blue-700"
               >
-                Go Back and Request from Admin
+                <T>Go Back and Request from Admin</T>
               </Button>
               <Button
                 onClick={() => router.push('/auth/signin')}
                 variant="outline"
                 className="w-full border-overlay/15 text-text-secondary hover:bg-overlay/10"
               >
-                Start Over
+                <T>Start Over</T>
               </Button>
             </div>
           </>

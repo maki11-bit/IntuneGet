@@ -24,6 +24,7 @@ import {
   PanelLeftClose,
   PanelLeftOpen,
 } from 'lucide-react';
+import { T } from 'gt-next';
 import { cn } from '@/lib/utils';
 import { springPresets, staggerContainerFast } from '@/lib/animations/variants';
 import { useSidebarStore } from '@/stores/sidebar-store';
@@ -139,7 +140,7 @@ export function Sidebar({ user, onSignOut }: SidebarProps) {
                 transition={{ duration: 0.15 }}
                 className="text-xl font-bold text-text-primary tracking-tight whitespace-nowrap overflow-hidden"
               >
-                IntuneGet
+                <T>IntuneGet</T>
               </motion.span>
             )}
           </AnimatePresence>
@@ -180,7 +181,7 @@ export function Sidebar({ user, onSignOut }: SidebarProps) {
                         transition={{ duration: 0.15 }}
                         className="text-[10px] font-semibold uppercase tracking-[0.1em] text-text-muted"
                       >
-                        {group.label}
+                        <T>{group.label}</T>
                       </motion.span>
                     )}
                   </AnimatePresence>
@@ -190,7 +191,7 @@ export function Sidebar({ user, onSignOut }: SidebarProps) {
               {group.items.map((item) => (
                 <SidebarNavItem
                   key={item.href}
-                  name={item.name}
+                  name={<T>{item.name}</T>}
                   href={item.href}
                   icon={item.icon}
                   badge={item.badge}
@@ -218,7 +219,7 @@ export function Sidebar({ user, onSignOut }: SidebarProps) {
           ) : (
             <>
               <PanelLeftClose className="w-5 h-5 flex-shrink-0" />
-              <span className="text-sm font-medium">Collapse</span>
+              <span className="text-sm font-medium"><T>Collapse</T></span>
             </>
           )}
         </button>

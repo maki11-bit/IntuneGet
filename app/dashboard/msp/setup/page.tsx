@@ -13,6 +13,7 @@ import {
   Users,
   Package,
 } from 'lucide-react';
+import { T } from 'gt-next';
 import { Button } from '@/components/ui/button';
 import { useMsp } from '@/contexts/MspContext';
 import { generateSlug } from '@/types/msp';
@@ -66,7 +67,7 @@ export default function MspSetupPage() {
       <div className="flex items-center justify-center min-h-[400px]">
         <div className="text-center">
           <Loader2 className="w-8 h-8 text-accent-cyan animate-spin mx-auto mb-3" />
-          <p className="text-sm text-text-muted">Loading...</p>
+          <p className="text-sm text-text-muted"><T>Loading...</T></p>
         </div>
       </div>
     );
@@ -85,7 +86,7 @@ export default function MspSetupPage() {
         className="inline-flex items-center gap-2 text-sm text-text-muted hover:text-text-primary transition-colors mb-6"
       >
         <ArrowLeft className="w-4 h-4" />
-        Back to Dashboard
+        <T>Back to Dashboard</T>
       </Link>
 
       {/* Header */}
@@ -93,9 +94,9 @@ export default function MspSetupPage() {
         <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-accent-cyan/20 to-accent-violet/20 mb-4">
           <Building2 className="w-8 h-8 text-accent-cyan" />
         </div>
-        <h1 className="text-2xl font-bold text-text-primary mb-2">Set Up MSP Mode</h1>
+        <h1 className="text-2xl font-bold text-text-primary mb-2"><T>Set Up MSP Mode</T></h1>
         <p className="text-text-muted">
-          Manage multiple customer Intune tenants from a single dashboard
+          <T>Manage multiple customer Intune tenants from a single dashboard</T>
         </p>
       </div>
 
@@ -103,30 +104,30 @@ export default function MspSetupPage() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
         <div className="p-4 rounded-xl bg-overlay/5 border border-overlay/10 text-center">
           <Users className="w-6 h-6 text-accent-cyan mx-auto mb-2" />
-          <p className="text-sm font-medium text-text-primary">Multi-Tenant</p>
-          <p className="text-xs text-text-muted mt-1">Manage all customers</p>
+          <p className="text-sm font-medium text-text-primary"><T>Multi-Tenant</T></p>
+          <p className="text-xs text-text-muted mt-1"><T>Manage all customers</T></p>
         </div>
         <div className="p-4 rounded-xl bg-overlay/5 border border-overlay/10 text-center">
           <Package className="w-6 h-6 text-accent-violet mx-auto mb-2" />
-          <p className="text-sm font-medium text-text-primary">Unified Deployment</p>
-          <p className="text-xs text-text-muted mt-1">Deploy apps anywhere</p>
+          <p className="text-sm font-medium text-text-primary"><T>Unified Deployment</T></p>
+          <p className="text-xs text-text-muted mt-1"><T>Deploy apps anywhere</T></p>
         </div>
         <div className="p-4 rounded-xl bg-overlay/5 border border-overlay/10 text-center">
           <Shield className="w-6 h-6 text-green-500 mx-auto mb-2" />
-          <p className="text-sm font-medium text-text-primary">Secure</p>
-          <p className="text-xs text-text-muted mt-1">Consent-based access</p>
+          <p className="text-sm font-medium text-text-primary"><T>Secure</T></p>
+          <p className="text-xs text-text-muted mt-1"><T>Consent-based access</T></p>
         </div>
       </div>
 
       {/* Form */}
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="p-6 rounded-xl bg-overlay/5 border border-overlay/10">
-          <h2 className="text-lg font-medium text-text-primary mb-4">Organization Details</h2>
+          <h2 className="text-lg font-medium text-text-primary mb-4"><T>Organization Details</T></h2>
 
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-text-secondary mb-1.5">
-                Organization Name *
+                <T>Organization Name *</T>
               </label>
               <input
                 type="text"
@@ -139,13 +140,13 @@ export default function MspSetupPage() {
                 maxLength={100}
               />
               <p className="mt-1 text-xs text-text-muted">
-                Your MSP company name
+                <T>Your MSP company name</T>
               </p>
             </div>
 
             <div>
               <label className="block text-sm font-medium text-text-secondary mb-1.5">
-                Organization Slug
+                <T>Organization Slug</T>
               </label>
               <div className="flex items-center gap-2">
                 <input
@@ -172,12 +173,12 @@ export default function MspSetupPage() {
                     }}
                     className="text-text-secondary hover:text-text-primary"
                   >
-                    Auto
+                    <T>Auto</T>
                   </Button>
                 )}
               </div>
               <p className="mt-1 text-xs text-text-muted">
-                URL-friendly identifier (auto-generated from name)
+                <T>URL-friendly identifier (auto-generated from name)</T>
               </p>
             </div>
           </div>
@@ -185,19 +186,19 @@ export default function MspSetupPage() {
 
         {/* Info box */}
         <div className="p-4 rounded-xl bg-accent-cyan/10 border border-accent-cyan/20">
-          <h3 className="text-sm font-medium text-text-primary mb-2">What happens next?</h3>
+          <h3 className="text-sm font-medium text-text-primary mb-2"><T>What happens next?</T></h3>
           <ul className="text-sm text-text-secondary space-y-1">
             <li className="flex items-start gap-2">
               <Check className="w-4 h-4 text-accent-cyan mt-0.5 flex-shrink-0" />
-              Your MSP organization will be created
+              <T>Your MSP organization will be created</T>
             </li>
             <li className="flex items-start gap-2">
               <Check className="w-4 h-4 text-accent-cyan mt-0.5 flex-shrink-0" />
-              Your current tenant will be added as the primary tenant
+              <T>Your current tenant will be added as the primary tenant</T>
             </li>
             <li className="flex items-start gap-2">
               <Check className="w-4 h-4 text-accent-cyan mt-0.5 flex-shrink-0" />
-              You can then invite customer tenants via consent links
+              <T>You can then invite customer tenants via consent links</T>
             </li>
           </ul>
         </div>
@@ -217,7 +218,7 @@ export default function MspSetupPage() {
               variant="ghost"
               className="text-text-secondary hover:text-text-primary"
             >
-              Cancel
+              <T>Cancel</T>
             </Button>
           </Link>
           <Button
@@ -228,11 +229,11 @@ export default function MspSetupPage() {
             {isSubmitting ? (
               <>
                 <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                Creating...
+                <T>Creating...</T>
               </>
             ) : (
               <>
-                Create MSP Organization
+                <T>Create MSP Organization</T>
                 <ArrowRight className="w-4 h-4 ml-2" />
               </>
             )}

@@ -21,6 +21,7 @@ import {
   Loader2,
   ChevronRight,
 } from 'lucide-react';
+import { T } from 'gt-next';
 import { cn, formatRelativeTime } from '@/lib/utils';
 
 interface BatchDeployment {
@@ -108,14 +109,14 @@ export default function BatchDeploymentsPage() {
       className="space-y-8"
     >
       <PageHeader
-        title="Batch Deployments"
-        description="Deploy applications to multiple tenants at once"
+        title={<T>Batch Deployments</T>}
+        description={<T>Deploy applications to multiple tenants at once</T>}
         icon={Layers}
         actions={
           <Link href="/dashboard/msp/batch/new">
             <Button className="bg-gradient-to-r from-accent-cyan to-accent-violet text-bg-elevated hover:opacity-90">
               <Plus className="w-4 h-4 mr-2" />
-              New Batch
+              <T>New Batch</T>
             </Button>
           </Link>
         }
@@ -124,7 +125,7 @@ export default function BatchDeploymentsPage() {
       <div className="grid lg:grid-cols-2 gap-6">
         {/* Batch list */}
         <div className="space-y-4">
-          <h3 className="text-sm font-medium text-text-secondary">Recent Batches</h3>
+          <h3 className="text-sm font-medium text-text-secondary"><T>Recent Batches</T></h3>
 
           {isLoading ? (
             <div className="space-y-3">
@@ -135,16 +136,16 @@ export default function BatchDeploymentsPage() {
           ) : error ? (
             <div className="p-6 rounded-xl glass-light border border-red-500/20 text-center">
               <XCircle className="w-8 h-8 text-red-400 mx-auto mb-3" />
-              <p className="text-sm text-red-400">Failed to load batch deployments</p>
+              <p className="text-sm text-red-400"><T>Failed to load batch deployments</T></p>
             </div>
           ) : batches.length === 0 ? (
             <div className="p-8 rounded-xl glass-light border border-overlay/5 text-center">
               <Layers className="w-10 h-10 text-text-muted mx-auto mb-3" />
-              <p className="text-sm text-text-secondary mb-4">No batch deployments yet</p>
+              <p className="text-sm text-text-secondary mb-4"><T>No batch deployments yet</T></p>
               <Link href="/dashboard/msp/batch/new">
                 <Button size="sm" variant="outline" className="border-black/20">
                   <Plus className="w-4 h-4 mr-2" />
-                  Create your first batch
+                  <T>Create your first batch</T>
                 </Button>
               </Link>
             </div>
@@ -175,7 +176,7 @@ export default function BatchDeploymentsPage() {
                       <div className="flex items-center gap-4 text-xs">
                         <span className="flex items-center gap-1 text-text-secondary">
                           <Building2 className="w-3 h-3" />
-                          {batch.total_tenants} tenants
+                          <T>{batch.total_tenants} tenants</T>
                         </span>
                         <span className="flex items-center gap-1 text-emerald-400">
                           <CheckCircle2 className="w-3 h-3" />
@@ -209,9 +210,9 @@ export default function BatchDeploymentsPage() {
           ) : (
             <div className="flex flex-col items-center justify-center h-full py-12 text-center">
               <Layers className="w-12 h-12 text-text-muted mb-4" />
-              <p className="text-text-secondary mb-2">Select a batch to view details</p>
+              <p className="text-text-secondary mb-2"><T>Select a batch to view details</T></p>
               <p className="text-xs text-text-muted">
-                Click on a batch from the list to see its progress
+                <T>Click on a batch from the list to see its progress</T>
               </p>
             </div>
           )}
@@ -235,7 +236,7 @@ function BatchStatusBadge({ status }: { status: BatchDeployment['status'] }) {
   return (
     <span className={cn('flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium', className)}>
       <Icon className={cn('w-3 h-3', status === 'in_progress' && 'animate-spin')} />
-      {label}
+      <T>{label}</T>
     </span>
   );
 }

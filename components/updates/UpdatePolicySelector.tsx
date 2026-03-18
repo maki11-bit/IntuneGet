@@ -1,5 +1,6 @@
 'use client';
 
+import { T } from "gt-next";
 import { useState } from 'react';
 import {
   RefreshCw,
@@ -122,7 +123,7 @@ export function UpdatePolicySelector({
                 />
               </div>
               {showLabel && (
-                <span className="text-[13px]">{selectedOption.label}</span>
+                <span className="text-[13px]"><T>{selectedOption.label}</T></span>
               )}
               <ChevronDown className="w-3.5 h-3.5 ml-1 opacity-40" />
             </>
@@ -149,14 +150,14 @@ export function UpdatePolicySelector({
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium text-text-primary">
-                  {option.label}
+                  <T>{option.label}</T>
                 </span>
                 {option.type === currentPolicy && (
                   <Check className="w-3.5 h-3.5 text-status-success flex-shrink-0" />
                 )}
               </div>
               <p className="text-[11px] text-text-muted mt-0.5 leading-relaxed">
-                {option.description}
+                <T>{option.description}</T>
               </p>
             </div>
           </DropdownMenuItem>
@@ -180,14 +181,14 @@ export function UpdatePolicySelector({
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium text-text-primary">
-                  {option.label}
+                  <T>{option.label}</T>
                 </span>
                 {option.type === currentPolicy && (
                   <Check className="w-3.5 h-3.5 text-status-success flex-shrink-0" />
                 )}
               </div>
               <p className="text-[11px] text-text-muted mt-0.5 leading-relaxed">
-                {option.description}
+                <T>{option.description}</T>
               </p>
             </div>
           </DropdownMenuItem>

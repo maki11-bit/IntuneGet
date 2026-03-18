@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Webhook } from 'lucide-react';
+import { T } from 'gt-next';
 import { useMsp } from '@/contexts/MspContext';
 import { PageHeader, SkeletonGrid } from '@/components/dashboard';
 import { MspWebhookManager } from '@/components/msp/webhooks';
@@ -41,15 +42,15 @@ export default function MspWebhooksPage() {
     return (
       <div className="space-y-8">
         <PageHeader
-          title="Webhooks"
+          title={<T>Webhooks</T>}
           icon={Webhook}
         />
         <div className="p-8 rounded-xl glass-light border border-overlay/5 text-center">
           <p className="text-text-secondary">
-            You do not have permission to manage webhooks.
+            <T>You do not have permission to manage webhooks.</T>
           </p>
           <p className="text-sm text-text-muted mt-2">
-            Contact your organization admin to request access.
+            <T>Contact your organization admin to request access.</T>
           </p>
         </div>
       </div>
@@ -64,8 +65,8 @@ export default function MspWebhooksPage() {
       className="space-y-8"
     >
       <PageHeader
-        title="Webhooks"
-        description="Receive real-time notifications for events in your organization"
+        title={<T>Webhooks</T>}
+        description={<T>Receive real-time notifications for events in your organization</T>}
         icon={Webhook}
       />
 

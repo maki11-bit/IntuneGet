@@ -8,6 +8,7 @@ import { ArrowLeft, Layers } from 'lucide-react';
 import { useMsp } from '@/contexts/MspContext';
 import { PageHeader, SkeletonGrid } from '@/components/dashboard';
 import { BatchDeploymentWizard } from '@/components/msp/BatchDeploymentWizard';
+import { T } from 'gt-next';
 import { Button } from '@/components/ui/button';
 
 export default function NewBatchDeploymentPage() {
@@ -43,15 +44,15 @@ export default function NewBatchDeploymentPage() {
     return (
       <div className="space-y-8">
         <PageHeader
-          title="New Batch Deployment"
+          title={<T>New Batch Deployment</T>}
           icon={Layers}
         />
         <div className="p-8 rounded-xl glass-light border border-overlay/5 text-center">
           <p className="text-text-secondary">
-            You do not have permission to create batch deployments.
+            <T>You do not have permission to create batch deployments.</T>
           </p>
           <p className="text-sm text-text-muted mt-2">
-            Contact your organization admin to request access.
+            <T>Contact your organization admin to request access.</T>
           </p>
         </div>
       </div>
@@ -69,14 +70,14 @@ export default function NewBatchDeploymentPage() {
         <Link href="/dashboard/msp/batch">
           <Button variant="ghost" size="sm" className="text-text-secondary">
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Back
+            <T>Back</T>
           </Button>
         </Link>
       </div>
 
       <PageHeader
-        title="New Batch Deployment"
-        description="Deploy an application to multiple tenants simultaneously"
+        title={<T>New Batch Deployment</T>}
+        description={<T>Deploy an application to multiple tenants simultaneously</T>}
         icon={Layers}
       />
 

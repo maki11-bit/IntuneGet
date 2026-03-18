@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { T } from "gt-next";
 import { WelcomeStep } from './WelcomeStep';
 import { ConsentStep } from './ConsentStep';
 import { SuccessStep } from './SuccessStep';
@@ -175,13 +176,13 @@ export function OnboardingWizard({
       <div className="relative flex justify-center mb-6 sm:mb-8">
         <div className="flex items-center gap-4 sm:gap-8 md:gap-12 text-xs text-text-muted">
           <span className={currentStep === 1 ? 'text-accent-cyan font-medium' : ''}>
-            Welcome
+            <T>Welcome</T>
           </span>
           <span className={currentStep === 2 ? 'text-accent-cyan font-medium' : ''}>
-            Setup
+            <T>Setup</T>
           </span>
           <span className={currentStep === 3 ? 'text-accent-cyan font-medium' : ''}>
-            Complete
+            <T>Complete</T>
           </span>
         </div>
       </div>

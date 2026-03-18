@@ -1,5 +1,6 @@
 'use client';
 
+import { T } from 'gt-next';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { Settings, LogOut, User, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
@@ -71,7 +72,7 @@ export function SidebarUserSection({
               </DropdownMenuTrigger>
             </TooltipTrigger>
             <TooltipContent side="right" sideOffset={8}>
-              <p className="font-medium">{user?.name || 'User'}</p>
+              <p className="font-medium">{user?.name || <T>User</T>}</p>
               {user?.email && (
                 <p className="text-xs text-text-muted">{user.email}</p>
               )}
@@ -80,7 +81,7 @@ export function SidebarUserSection({
           <DropdownMenuContent side="right" align="end" sideOffset={12} className="w-56">
             <DropdownMenuLabel className="font-normal">
               <div className="flex flex-col gap-1">
-                <p className="text-sm font-medium">{user?.name || 'User'}</p>
+                <p className="text-sm font-medium">{user?.name || <T>User</T>}</p>
                 {user?.email && (
                   <p className="text-xs text-text-muted">{user.email}</p>
                 )}
@@ -90,19 +91,19 @@ export function SidebarUserSection({
             <DropdownMenuItem asChild>
               <Link href="/dashboard/account" onClick={onNavigate}>
                 <User className="w-4 h-4 mr-2" />
-                Account
+                <T>Account</T>
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <Link href="/dashboard/settings" onClick={onNavigate}>
                 <Settings className="w-4 h-4 mr-2" />
-                Settings
+                <T>Settings</T>
               </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={onSignOut}>
               <LogOut className="w-4 h-4 mr-2" />
-              Sign out
+              <T>Sign out</T>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -127,7 +128,7 @@ export function SidebarUserSection({
                   className="flex-1 min-w-0 text-left"
                 >
                   <p className="text-sm font-medium text-text-primary truncate group-hover:text-accent-cyan-bright transition-colors">
-                    {user?.name || 'User'}
+                    {user?.name || <T>User</T>}
                   </p>
                   <p className="text-xs text-text-muted truncate">
                     {user?.email}
@@ -150,7 +151,7 @@ export function SidebarUserSection({
         >
           <DropdownMenuLabel className="font-normal">
             <div className="flex flex-col gap-1">
-              <p className="text-sm font-medium">{user?.name || 'User'}</p>
+              <p className="text-sm font-medium">{user?.name || <T>User</T>}</p>
               {user?.email && (
                 <p className="text-xs text-text-muted">{user.email}</p>
               )}
@@ -166,7 +167,7 @@ export function SidebarUserSection({
               )}
             >
               <User className="w-4 h-4 mr-2" />
-              Account
+              <T>Account</T>
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
@@ -178,13 +179,13 @@ export function SidebarUserSection({
               )}
             >
               <Settings className="w-4 h-4 mr-2" />
-              Settings
+              <T>Settings</T>
             </Link>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={onSignOut}>
             <LogOut className="w-4 h-4 mr-2" />
-            Sign out
+            <T>Sign out</T>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

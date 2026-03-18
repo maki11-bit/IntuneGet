@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import { T } from "gt-next";
 import { ArrowRight, ExternalLink, Shield, AlertCircle } from "lucide-react";
 import {
   Callout,
@@ -34,39 +35,39 @@ export default function AzureSetupPage() {
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold text-text-primary sm:text-4xl">
-          Entra ID Setup
+          <T>Entra ID Setup</T>
         </h1>
         <p className="mt-4 text-lg text-text-secondary leading-relaxed">
-          Configure Microsoft Entra ID to enable user
-          authentication and Intune API access for IntuneGet.
+          <T>Configure Microsoft Entra ID to enable user
+          authentication and Intune API access for IntuneGet.</T>
         </p>
       </div>
 
       {/* Overview */}
       <section>
-        <h2 className="text-2xl font-semibold text-text-primary mb-4">Overview</h2>
+        <h2 className="text-2xl font-semibold text-text-primary mb-4"><T>Overview</T></h2>
         <p className="text-text-secondary mb-4">
-          IntuneGet uses a multi-tenant app registration that allows users from any
-          Microsoft 365 organization to:
+          <T>IntuneGet uses a multi-tenant app registration that allows users from any
+          Microsoft 365 organization to:</T>
         </p>
         <ul className="list-disc list-inside space-y-2 text-text-secondary">
-          <li>Sign in with their work account</li>
-          <li>Grant admin consent for app deployment permissions</li>
-          <li>Deploy applications to their Intune tenant</li>
+          <li><T>Sign in with their work account</T></li>
+          <li><T>Grant admin consent for app deployment permissions</T></li>
+          <li><T>Deploy applications to their Intune tenant</T></li>
         </ul>
       </section>
 
       {/* Create App Registration */}
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-6">
-          Create App Registration
+          <T>Create App Registration</T>
         </h2>
 
         <Steps>
           <StepIndicator step={1} title="Navigate to App Registrations">
             <ol className="list-decimal list-inside space-y-2 text-text-secondary">
               <li>
-                Go to{" "}
+                <T>Go to{" "}
                 <a
                   href="https://portal.azure.com"
                   target="_blank"
@@ -75,195 +76,195 @@ export default function AzureSetupPage() {
                 >
                   Azure Portal
                   <ExternalLink className="h-3.5 w-3.5" />
-                </a>
+                </a></T>
               </li>
               <li>
-                Navigate to <strong>Microsoft Entra ID</strong> (you can search for
-                it)
+                <T>Navigate to <strong>Microsoft Entra ID</strong> (you can search for
+                it)</T>
               </li>
               <li>
-                Click <strong>App registrations</strong> in the left menu
+                <T>Click <strong>App registrations</strong> in the left menu</T>
               </li>
               <li>
-                Click <strong>New registration</strong>
+                <T>Click <strong>New registration</strong></T>
               </li>
             </ol>
           </StepIndicator>
 
           <StepIndicator step={2} title="Configure Registration Settings">
-            <p className="mb-4">Fill in the registration form:</p>
+            <p className="mb-4"><T>Fill in the registration form:</T></p>
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableHeader>Setting</TableHeader>
-                  <TableHeader>Value</TableHeader>
+                  <TableHeader><T>Setting</T></TableHeader>
+                  <TableHeader><T>Value</T></TableHeader>
                 </TableRow>
               </TableHead>
               <TableBody>
                 <TableRow>
-                  <TableCell className="font-medium text-text-primary">Name</TableCell>
+                  <TableCell className="font-medium text-text-primary"><T>Name</T></TableCell>
                   <TableCell>
-                    <code className="text-accent-cyan">IntuneGet</code> (or your
-                    preferred name)
+                    <T><code className="text-accent-cyan">IntuneGet</code> (or your
+                    preferred name)</T>
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell className="font-medium text-text-primary">
-                    Supported account types
+                    <T>Supported account types</T>
                   </TableCell>
                   <TableCell>
                     <strong>
-                      Accounts in any organizational directory (Any Microsoft Entra
-                      ID tenant - Multitenant)
+                      <T>Accounts in any organizational directory (Any Microsoft Entra
+                      ID tenant - Multitenant)</T>
                     </strong>
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell className="font-medium text-text-primary">
-                    Redirect URI (type)
+                    <T>Redirect URI (type)</T>
                   </TableCell>
                   <TableCell>
-                    <strong>Single-page application (SPA)</strong>
+                    <strong><T>Single-page application (SPA)</T></strong>
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell className="font-medium text-text-primary">
-                    Redirect URI (value)
+                    <T>Redirect URI (value)</T>
                   </TableCell>
                   <TableCell>
-                    <code className="text-accent-cyan">http://localhost:3000</code>{" "}
-                    (for development)
+                    <T><code className="text-accent-cyan">http://localhost:3000</code>{" "}
+                    (for development)</T>
                   </TableCell>
                 </TableRow>
               </TableBody>
             </Table>
             <p className="mt-4 text-text-secondary">
-              Click <strong>Register</strong> to create the app.
+              <T>Click <strong>Register</strong> to create the app.</T>
             </p>
           </StepIndicator>
 
           <StepIndicator step={3} title="Add Production Redirect URI">
             <p className="mb-4">
-              After registration, add your production URL:
+              <T>After registration, add your production URL:</T>
             </p>
             <ol className="list-decimal list-inside space-y-2 text-text-secondary">
               <li>
-                Go to <strong>Authentication</strong> in the left menu
+                <T>Go to <strong>Authentication</strong> in the left menu</T>
               </li>
               <li>
-                Under <strong>Single-page application</strong>, click{" "}
-                <strong>Add URI</strong>
+                <T>Under <strong>Single-page application</strong>, click{" "}
+                <strong>Add URI</strong></T>
               </li>
               <li>
-                Add your production URL (e.g.,{" "}
+                <T>Add your production URL (e.g.,{" "}
                 <code className="text-accent-cyan">
                   https://your-app.vercel.app
                 </code>
-                )
+                )</T>
               </li>
               <li>
-                Click <strong>Save</strong>
+                <T>Click <strong>Save</strong></T>
               </li>
             </ol>
             <Callout type="warning" title="Exact URL Match Required">
               <p>
-                The redirect URI must match exactly - including the protocol
-                (https://) and without a trailing slash.
+                <T>The redirect URI must match exactly - including the protocol
+                (https://) and without a trailing slash.</T>
               </p>
             </Callout>
           </StepIndicator>
 
           <StepIndicator step={4} title="Configure API Permissions">
             <p className="mb-4">
-              IntuneGet requires two types of permissions:
+              <T>IntuneGet requires two types of permissions:</T>
             </p>
 
             <h4 className="font-semibold text-text-primary mt-6 mb-3">
-              Delegated Permissions (User Sign-in)
+              <T>Delegated Permissions (User Sign-in)</T>
             </h4>
             <ol className="list-decimal list-inside space-y-2 text-text-secondary">
               <li>
-                Go to <strong>API permissions</strong> in the left menu
+                <T>Go to <strong>API permissions</strong> in the left menu</T>
               </li>
               <li>
-                Click <strong>Add a permission</strong>
+                <T>Click <strong>Add a permission</strong></T>
               </li>
               <li>
-                Select <strong>Microsoft Graph</strong>
+                <T>Select <strong>Microsoft Graph</strong></T>
               </li>
               <li>
-                Select <strong>Delegated permissions</strong>
+                <T>Select <strong>Delegated permissions</strong></T>
               </li>
               <li>
-                Search and add: <code className="text-accent-cyan">User.Read</code>
+                <T>Search and add: <code className="text-accent-cyan">User.Read</code></T>
               </li>
               <li>
-                Click <strong>Add permissions</strong>
+                <T>Click <strong>Add permissions</strong></T>
               </li>
             </ol>
 
             <h4 className="font-semibold text-text-primary mt-6 mb-3">
-              Application Permissions (Service Principal)
+              <T>Application Permissions (Service Principal)</T>
             </h4>
             <ol className="list-decimal list-inside space-y-2 text-text-secondary">
               <li>
-                Click <strong>Add a permission</strong> again
+                <T>Click <strong>Add a permission</strong> again</T>
               </li>
               <li>
-                Select <strong>Microsoft Graph</strong>
+                <T>Select <strong>Microsoft Graph</strong></T>
               </li>
               <li>
-                Select <strong>Application permissions</strong>
+                <T>Select <strong>Application permissions</strong></T>
               </li>
               <li>
-                Search and add:{" "}
+                <T>Search and add:{" "}
                 <code className="text-accent-cyan">
                   DeviceManagementApps.ReadWrite.All
-                </code>
+                </code></T>
               </li>
               <li>
-                Search and add:{" "}
+                <T>Search and add:{" "}
                 <code className="text-accent-cyan">
                   DeviceManagementManagedDevices.Read.All
-                </code>
+                </code></T>
               </li>
               <li>
-                Click <strong>Add permissions</strong>
+                <T>Click <strong>Add permissions</strong></T>
               </li>
             </ol>
 
             <div className="mt-6">
               <p className="text-sm text-text-secondary mb-3">
-                Your permissions should look like this:
+                <T>Your permissions should look like this:</T>
               </p>
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableHeader>Permission</TableHeader>
-                    <TableHeader>Type</TableHeader>
-                    <TableHeader>Status</TableHeader>
+                    <TableHeader><T>Permission</T></TableHeader>
+                    <TableHeader><T>Type</T></TableHeader>
+                    <TableHeader><T>Status</T></TableHeader>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   <TableRow>
                     <TableCell>User.Read</TableCell>
-                    <TableCell>Delegated</TableCell>
+                    <TableCell><T>Delegated</T></TableCell>
                     <TableCell className="text-status-success">
-                      Granted for your org
+                      <T>Granted for your org</T>
                     </TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell>DeviceManagementApps.ReadWrite.All</TableCell>
-                    <TableCell>Application</TableCell>
+                    <TableCell><T>Application</T></TableCell>
                     <TableCell className="text-status-warning">
-                      Requires admin consent
+                      <T>Requires admin consent</T>
                     </TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell>DeviceManagementManagedDevices.Read.All</TableCell>
-                    <TableCell>Application</TableCell>
+                    <TableCell><T>Application</T></TableCell>
                     <TableCell className="text-status-warning">
-                      Requires admin consent
+                      <T>Requires admin consent</T>
                     </TableCell>
                   </TableRow>
                 </TableBody>
@@ -274,27 +275,27 @@ export default function AzureSetupPage() {
           <StepIndicator step={5} title="Create Client Secret" isLast>
             <ol className="list-decimal list-inside space-y-2 text-text-secondary">
               <li>
-                Go to <strong>Certificates & secrets</strong> in the left menu
+                <T>Go to <strong>Certificates & secrets</strong> in the left menu</T>
               </li>
               <li>
-                Click <strong>New client secret</strong>
+                <T>Click <strong>New client secret</strong></T>
               </li>
               <li>
-                Add a description: <code>IntuneGet Production</code>
+                <T>Add a description: <code>IntuneGet Production</code></T>
               </li>
-              <li>Select expiration (recommend: 24 months)</li>
+              <li><T>Select expiration (recommend: 24 months)</T></li>
               <li>
-                Click <strong>Add</strong>
+                <T>Click <strong>Add</strong></T>
               </li>
               <li>
-                <strong>Immediately copy the secret value</strong> - it won&apos;t
-                be shown again!
+                <T><strong>Immediately copy the secret value</strong> - it won&apos;t
+                be shown again!</T>
               </li>
             </ol>
             <Callout type="error" title="Copy the Secret Now!">
               <p>
-                The client secret value is only shown once. If you navigate away
-                without copying it, you&apos;ll need to create a new one.
+                <T>The client secret value is only shown once. If you navigate away
+                without copying it, you&apos;ll need to create a new one.</T>
               </p>
             </Callout>
           </StepIndicator>
@@ -304,26 +305,26 @@ export default function AzureSetupPage() {
       {/* Collect Values */}
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-4">
-          Collect Required Values
+          <T>Collect Required Values</T>
         </h2>
         <p className="text-text-secondary mb-6">
-          After setup, collect these values for your environment configuration:
+          <T>After setup, collect these values for your environment configuration:</T>
         </p>
 
         <Table>
           <TableHead>
             <TableRow>
-              <TableHeader>Value</TableHeader>
-              <TableHeader>Location</TableHeader>
-              <TableHeader>Environment Variable</TableHeader>
+              <TableHeader><T>Value</T></TableHeader>
+              <TableHeader><T>Location</T></TableHeader>
+              <TableHeader><T>Environment Variable</T></TableHeader>
             </TableRow>
           </TableHead>
           <TableBody>
             <TableRow>
               <TableCell className="font-medium text-text-primary">
-                Application (client) ID
+                <T>Application (client) ID</T>
               </TableCell>
-              <TableCell>Overview page</TableCell>
+              <TableCell><T>Overview page</T></TableCell>
               <TableCell>
                 <code className="text-accent-cyan text-xs">
                   NEXT_PUBLIC_AZURE_AD_CLIENT_ID
@@ -331,8 +332,8 @@ export default function AzureSetupPage() {
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell className="font-medium text-text-primary">Client secret</TableCell>
-              <TableCell>Certificates & secrets</TableCell>
+              <TableCell className="font-medium text-text-primary"><T>Client secret</T></TableCell>
+              <TableCell><T>Certificates & secrets</T></TableCell>
               <TableCell>
                 <code className="text-accent-cyan text-xs">
                   AZURE_CLIENT_SECRET
@@ -346,34 +347,34 @@ export default function AzureSetupPage() {
       {/* Admin Consent */}
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-4">
-          Admin Consent Flow
+          <T>Admin Consent Flow</T>
         </h2>
         <p className="text-text-secondary mb-4">
-          When users from other organizations use IntuneGet, a Global Administrator
-          from their tenant must grant consent for the application permissions.
+          <T>When users from other organizations use IntuneGet, a Global Administrator
+          from their tenant must grant consent for the application permissions.</T>
         </p>
 
         <div className="rounded-lg border border-overlay/10 bg-bg-elevated p-6 mb-6">
           <h3 className="font-semibold text-text-primary mb-4 flex items-center gap-2">
             <Shield className="h-5 w-5 text-accent-cyan" />
-            How Admin Consent Works
+            <T>How Admin Consent Works</T>
           </h3>
           <ol className="list-decimal list-inside space-y-2 text-text-secondary">
-            <li>User signs in to IntuneGet</li>
-            <li>IntuneGet checks if admin consent was granted</li>
-            <li>If not, user sees instructions to request consent</li>
-            <li>Global Admin visits the consent URL</li>
-            <li>Admin reviews and grants permissions</li>
-            <li>User can now deploy apps</li>
+            <li><T>User signs in to IntuneGet</T></li>
+            <li><T>IntuneGet checks if admin consent was granted</T></li>
+            <li><T>If not, user sees instructions to request consent</T></li>
+            <li><T>Global Admin visits the consent URL</T></li>
+            <li><T>Admin reviews and grants permissions</T></li>
+            <li><T>User can now deploy apps</T></li>
           </ol>
         </div>
 
-        <h3 className="font-semibold text-text-primary mb-3">Admin Consent URL Format</h3>
+        <h3 className="font-semibold text-text-primary mb-3"><T>Admin Consent URL Format</T></h3>
         <CodeBlock language="text">
 {`https://login.microsoftonline.com/{tenant-id}/adminconsent?client_id={client-id}&redirect_uri={redirect-uri}`}
         </CodeBlock>
 
-        <p className="text-text-secondary mt-4 mb-2">Example:</p>
+        <p className="text-text-secondary mt-4 mb-2"><T>Example:</T></p>
         <CodeBlock language="text">
 {`https://login.microsoftonline.com/contoso.onmicrosoft.com/adminconsent?client_id=12345678-1234-1234-1234-123456789abc&redirect_uri=https://your-app.vercel.app`}
         </CodeBlock>
@@ -382,7 +383,7 @@ export default function AzureSetupPage() {
       {/* Security Recommendations */}
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-4">
-          Security Recommendations
+          <T>Security Recommendations</T>
         </h2>
         <div className="grid gap-4 sm:grid-cols-2">
           {[
@@ -411,8 +412,8 @@ export default function AzureSetupPage() {
               key={item.title}
               className="rounded-lg border border-overlay/10 bg-bg-elevated p-4"
             >
-              <h3 className="font-medium text-text-primary mb-2">{item.title}</h3>
-              <p className="text-sm text-text-secondary">{item.description}</p>
+              <h3 className="font-medium text-text-primary mb-2"><T>{item.title}</T></h3>
+              <p className="text-sm text-text-secondary"><T>{item.description}</T></p>
             </div>
           ))}
         </div>
@@ -421,7 +422,7 @@ export default function AzureSetupPage() {
       {/* Troubleshooting */}
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-4">
-          Common Issues
+          <T>Common Issues</T>
         </h2>
 
         <div className="space-y-4">
@@ -431,12 +432,12 @@ export default function AzureSetupPage() {
               AADSTS50011: Reply URL does not match
             </h3>
             <p className="text-sm text-text-secondary mb-2">
-              Your redirect URI doesn&apos;t match what&apos;s configured:
+              <T>Your redirect URI doesn&apos;t match what&apos;s configured:</T>
             </p>
             <ul className="list-disc list-inside text-sm text-text-secondary space-y-1">
-              <li>Check the exact URL (including trailing slashes)</li>
+              <li><T>Check the exact URL (including trailing slashes)</T></li>
               <li>
-                Verify it&apos;s added as a <strong>SPA</strong> redirect, not Web
+                <T>Verify it&apos;s added as a <strong>SPA</strong> redirect, not Web</T>
               </li>
             </ul>
           </div>
@@ -447,12 +448,12 @@ export default function AzureSetupPage() {
               AADSTS65001: User or admin has not consented
             </h3>
             <p className="text-sm text-text-secondary mb-2">
-              Admin consent hasn&apos;t been granted:
+              <T>Admin consent hasn&apos;t been granted:</T>
             </p>
             <ul className="list-disc list-inside text-sm text-text-secondary space-y-1">
-              <li>Direct the admin to the consent URL</li>
-              <li>Ensure they&apos;re using a Global Administrator account</li>
-              <li>Verify they click &quot;Accept&quot; on the consent screen</li>
+              <li><T>Direct the admin to the consent URL</T></li>
+              <li><T>Ensure they&apos;re using a Global Administrator account</T></li>
+              <li><T>Verify they click &quot;Accept&quot; on the consent screen</T></li>
             </ul>
           </div>
 
@@ -462,12 +463,12 @@ export default function AzureSetupPage() {
               Invalid client secret
             </h3>
             <p className="text-sm text-text-secondary mb-2">
-              The client secret is wrong or expired:
+              <T>The client secret is wrong or expired:</T>
             </p>
             <ul className="list-disc list-inside text-sm text-text-secondary space-y-1">
-              <li>Check AZURE_CLIENT_SECRET matches the secret in Azure</li>
-              <li>Verify the secret hasn&apos;t expired</li>
-              <li>Create a new secret if needed</li>
+              <li><T>Check AZURE_CLIENT_SECRET matches the secret in Azure</T></li>
+              <li><T>Verify the secret hasn&apos;t expired</T></li>
+              <li><T>Create a new secret if needed</T></li>
             </ul>
           </div>
         </div>
@@ -475,15 +476,15 @@ export default function AzureSetupPage() {
 
       {/* Next Steps */}
       <section className="rounded-lg border border-accent-cyan/20 bg-gradient-to-br from-accent-cyan/5 to-transparent p-6">
-        <h2 className="text-xl font-semibold text-text-primary mb-3">Next Steps</h2>
+        <h2 className="text-xl font-semibold text-text-primary mb-3"><T>Next Steps</T></h2>
         <p className="text-text-secondary mb-4">
-          Now that Entra ID is configured, continue with the database setup.
+          <T>Now that Entra ID is configured, continue with the database setup.</T>
         </p>
         <Link
           href="/docs/database-setup"
           className="inline-flex items-center gap-2 text-accent-cyan hover:underline"
         >
-          Continue to Database Setup
+          <T>Continue to Database Setup</T>
           <ArrowRight className="h-4 w-4" />
         </Link>
       </section>

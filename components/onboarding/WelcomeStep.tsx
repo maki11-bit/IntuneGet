@@ -1,6 +1,7 @@
 'use client';
 
 import { Rocket, Shield, Package, ArrowRight } from 'lucide-react';
+import { T, Var } from "gt-next";
 import { Button } from '@/components/ui/button';
 
 interface WelcomeStepProps {
@@ -22,17 +23,17 @@ export function WelcomeStep({ userName, onNext }: WelcomeStepProps) {
 
       {/* Heading */}
       <h1 className="text-2xl sm:text-3xl font-bold text-text-primary mb-4">
-        Welcome, {firstName}!
+        <T>Welcome, <Var>{firstName}</Var>!</T>
       </h1>
 
       <p className="text-lg text-text-muted mb-8">
-        Let's get your organization set up to deploy apps to Intune in minutes.
+        <T>Let's get your organization set up to deploy apps to Intune in minutes.</T>
       </p>
 
       {/* What IntuneGet does */}
       <div className="bg-bg-elevated border border-overlay/10 rounded-xl p-6 mb-8 text-left shadow-soft">
         <h2 className="text-lg font-semibold text-text-primary mb-4">
-          What IntuneGet does
+          <T>What IntuneGet does</T>
         </h2>
         <div className="space-y-4">
           <div className="flex items-start gap-4">
@@ -40,10 +41,10 @@ export function WelcomeStep({ userName, onNext }: WelcomeStepProps) {
               <Package className="w-5 h-5 text-accent-cyan" />
             </div>
             <div>
-              <h3 className="font-medium text-text-primary">Browse Apps</h3>
+              <h3 className="font-medium text-text-primary"><T>Browse Apps</T></h3>
               <p className="text-sm text-text-muted">
-                Search and browse thousands of applications from the Windows
-                Package Manager (winget) repository.
+                <T>Search and browse thousands of applications from the Windows
+                Package Manager (winget) repository.</T>
               </p>
             </div>
           </div>
@@ -52,10 +53,10 @@ export function WelcomeStep({ userName, onNext }: WelcomeStepProps) {
               <Shield className="w-5 h-5 text-accent-violet" />
             </div>
             <div>
-              <h3 className="font-medium text-text-primary">Deploy to Intune</h3>
+              <h3 className="font-medium text-text-primary"><T>Deploy to Intune</T></h3>
               <p className="text-sm text-text-muted">
-                One-click deployment directly to your Microsoft Intune tenant.
-                No manual packaging required.
+                <T>One-click deployment directly to your Microsoft Intune tenant.
+                No manual packaging required.</T>
               </p>
             </div>
           </div>
@@ -65,8 +66,8 @@ export function WelcomeStep({ userName, onNext }: WelcomeStepProps) {
       {/* Setup info */}
       <div className="bg-overlay/[0.04] border border-overlay/10 rounded-xl p-4 mb-8">
         <p className="text-sm text-text-secondary">
-          <strong className="text-text-primary">Quick setup:</strong> We need admin
-          consent to upload apps to your organization. This is a one-time step.
+          <T><Var><strong className="text-text-primary">Quick setup:</strong></Var> We need admin
+          consent to upload apps to your organization. This is a one-time step.</T>
         </p>
       </div>
 
@@ -76,7 +77,7 @@ export function WelcomeStep({ userName, onNext }: WelcomeStepProps) {
         size="lg"
         className="bg-accent-cyan hover:bg-accent-cyan-dim text-white px-8 shadow-glow-cyan"
       >
-        Get Started
+        <T>Get Started</T>
         <ArrowRight className="w-5 h-5 ml-2" />
       </Button>
     </div>

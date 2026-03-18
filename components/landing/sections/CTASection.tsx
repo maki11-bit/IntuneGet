@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Github, Star, BookOpen } from "lucide-react";
 import Link from "next/link";
+import { T } from "gt-next";
 import { FadeIn } from "../animations/FadeIn";
 import { GitHubStatsBar } from "../ui/GitHubStatsBar";
 import { springPresets } from "@/lib/animations/variants";
@@ -24,20 +25,19 @@ export function CTASection() {
         <div className="text-center space-y-8">
           <FadeIn>
             <span className="inline-block font-mono text-xs tracking-wider text-accent-cyan uppercase mb-4">
-              Get Started
+              <T id="cta.badge">Get Started</T>
             </span>
           </FadeIn>
 
           <FadeIn delay={0.1}>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-text-primary">
-              Ready to Deploy Winget Apps to Intune in Minutes?
+              <T id="cta.heading">Ready to Deploy Winget Apps to Intune in Minutes?</T>
             </h2>
           </FadeIn>
 
           <FadeIn delay={0.2}>
             <p className="text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed">
-              Set up in under 5 minutes and deploy as many apps as you need.
-              Completely free, no limits.
+              <T id="cta.subheading">Set up in under 5 minutes and deploy as many apps as you need. Completely free, no limits.</T>
             </p>
           </FadeIn>
 
@@ -51,7 +51,7 @@ export function CTASection() {
                 whileTap={shouldReduceMotion ? {} : { scale: 0.97 }}
                 transition={springPresets.snappy}
               >
-                Start Deploying — It's Free
+                <T id="cta.primary">Start Deploying — It's Free</T>
                 <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
               </MotionLink>
 
@@ -66,7 +66,7 @@ export function CTASection() {
                 transition={springPresets.snappy}
               >
                 <Github className="h-5 w-5" />
-                Star on GitHub
+                <T id="cta.github">Star on GitHub</T>
                 <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
               </motion.a>
             </div>
@@ -80,7 +80,7 @@ export function CTASection() {
                 className="inline-flex items-center gap-1.5 text-sm text-text-muted hover:text-text-secondary transition-colors"
               >
                 <BookOpen className="h-4 w-4" />
-                Read the Documentation
+                <T id="cta.docs">Read the Documentation</T>
               </Link>
             </div>
             <GitHubStatsBar className="pt-4" />

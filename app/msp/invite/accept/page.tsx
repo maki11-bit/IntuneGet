@@ -5,6 +5,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Loader2, CheckCircle, XCircle, Mail, Shield, User, LogOut } from 'lucide-react';
+import { T } from 'gt-next';
 import { Button } from '@/components/ui/button';
 import { useMicrosoftAuth } from '@/hooks/useMicrosoftAuth';
 import { getRoleDisplayName } from '@/lib/msp-permissions';
@@ -134,9 +135,9 @@ function AcceptInvitationContent() {
         <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-red-500/10 flex items-center justify-center">
           <XCircle className="w-8 h-8 text-red-500" />
         </div>
-        <h2 className="text-xl font-semibold text-text-primary mb-2">Invalid Invitation</h2>
+        <h2 className="text-xl font-semibold text-text-primary mb-2"><T>Invalid Invitation</T></h2>
         <p className="text-text-muted mb-6">{error}</p>
-        <Button onClick={() => router.push('/')}>Go to Home</Button>
+        <Button onClick={() => router.push('/')}><T>Go to Home</T></Button>
       </div>
     );
   }
@@ -147,15 +148,15 @@ function AcceptInvitationContent() {
         <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-green-500/10 flex items-center justify-center">
           <CheckCircle className="w-8 h-8 text-green-500" />
         </div>
-        <h2 className="text-xl font-semibold text-text-primary mb-2">Welcome to the Team!</h2>
+        <h2 className="text-xl font-semibold text-text-primary mb-2"><T>Welcome to the Team!</T></h2>
         <p className="text-text-muted mb-6">
-          You have successfully joined {invitationInfo?.organization_name}.
+          <T>You have successfully joined {invitationInfo?.organization_name}.</T>
         </p>
         <Button
           onClick={() => router.push('/dashboard/msp')}
           className="w-full bg-accent-cyan hover:bg-accent-cyan/90 text-white"
         >
-          Go to Dashboard
+          <T>Go to Dashboard</T>
         </Button>
       </div>
     );
@@ -169,10 +170,10 @@ function AcceptInvitationContent() {
           <Mail className="w-8 h-8 text-accent-cyan" />
         </div>
         <h2 className="text-xl font-semibold text-text-primary mb-2">
-          You&apos;ve Been Invited!
+          <T>You&apos;ve Been Invited!</T>
         </h2>
         <p className="text-text-muted">
-          Join <span className="font-medium text-text-primary">{invitationInfo?.organization_name}</span> on IntuneGet
+          <T>Join <span className="font-medium text-text-primary">{invitationInfo?.organization_name}</span> on IntuneGet</T>
         </p>
       </div>
 
@@ -182,7 +183,7 @@ function AcceptInvitationContent() {
           <div className="flex items-center gap-3">
             <User className="w-5 h-5 text-accent-cyan" />
             <div className="flex-1 min-w-0">
-              <p className="text-xs text-text-muted">Signed in as</p>
+              <p className="text-xs text-text-muted"><T>Signed in as</T></p>
               <p className="font-medium text-text-primary truncate">{user.email}</p>
             </div>
           </div>
@@ -194,14 +195,14 @@ function AcceptInvitationContent() {
         <div className="flex items-center gap-3">
           <Mail className="w-5 h-5 text-text-muted" />
           <div>
-            <p className="text-xs text-text-muted">Invited email</p>
+            <p className="text-xs text-text-muted"><T>Invited email</T></p>
             <p className="font-medium text-text-primary">{invitationInfo?.email}</p>
           </div>
         </div>
         <div className="flex items-center gap-3">
           <Shield className="w-5 h-5 text-text-muted" />
           <div>
-            <p className="text-xs text-text-muted">Your role</p>
+            <p className="text-xs text-text-muted"><T>Your role</T></p>
             <p className="font-medium text-text-primary">
               {invitationInfo?.role && getRoleDisplayName(invitationInfo.role)}
             </p>
@@ -219,7 +220,7 @@ function AcceptInvitationContent() {
               className="flex items-center gap-2 text-sm text-text-muted hover:text-text-primary transition-colors"
             >
               <LogOut className="w-4 h-4" />
-              Sign out and try another account
+              <T>Sign out and try another account</T>
             </button>
           )}
         </div>
@@ -235,16 +236,16 @@ function AcceptInvitationContent() {
           {isAccepting ? (
             <>
               <Loader2 className="w-4 h-4 animate-spin mr-2" />
-              Accepting...
+              <T>Accepting...</T>
             </>
           ) : (
-            'Accept Invitation'
+            <T>Accept Invitation</T>
           )}
         </Button>
       ) : (
         <div className="space-y-3">
           <p className="text-sm text-text-muted text-center">
-            Sign in with your Microsoft account to accept this invitation.
+            <T>Sign in with your Microsoft account to accept this invitation.</T>
           </p>
           <Button
             onClick={handleSignIn}
@@ -254,10 +255,10 @@ function AcceptInvitationContent() {
             {isSigningIn ? (
               <>
                 <Loader2 className="w-4 h-4 animate-spin mr-2" />
-                Signing in...
+                <T>Signing in...</T>
               </>
             ) : (
-              'Sign in with Microsoft'
+              <T>Sign in with Microsoft</T>
             )}
           </Button>
         </div>
@@ -265,7 +266,7 @@ function AcceptInvitationContent() {
 
       {/* Note about email matching */}
       <p className="text-xs text-text-muted text-center">
-        Sign in with the Microsoft account associated with <strong>{invitationInfo?.email}</strong> to accept this invitation.
+        <T>Sign in with the Microsoft account associated with <strong>{invitationInfo?.email}</strong> to accept this invitation.</T>
       </p>
     </div>
   );
@@ -308,7 +309,7 @@ export default function AcceptInvitationPage() {
         {/* Footer */}
         <p className="text-center text-sm text-text-muted mt-4">
           <Link href="/" className="hover:text-accent-cyan transition-colors">
-            Learn more about IntuneGet
+            <T>Learn more about IntuneGet</T>
           </Link>
         </p>
       </div>

@@ -7,6 +7,7 @@ import { BlogAuthorCard } from "@/components/blog/BlogAuthorCard";
 import { RelatedPosts } from "@/components/blog/RelatedPosts";
 import { blogPosts } from "@/lib/data/blog-data";
 import { ArrowRight } from "lucide-react";
+import { T } from "gt-next";
 
 const post = getBlogPost("deploy-winget-apps-to-intune")!;
 
@@ -232,16 +233,16 @@ export default function DeployWingetAppsToIntunePage() {
             <div className="prose prose-invert prose-stone max-w-none">
               {/* Introduction */}
               <p className="text-lg text-text-secondary leading-relaxed">
-                Deploying applications to Microsoft Intune remains one of the most
+                <T>Deploying applications to Microsoft Intune remains one of the most
                 time-consuming tasks for IT administrators. Between downloading
                 installers, creating IntuneWin packages, writing detection rules, and
                 configuring deployment settings, a single app can take hours to get
                 right. The Windows Package Manager (Winget) has changed how Windows
                 applications are discovered and installed -- but bridging the gap between
-                Winget and Intune has traditionally required significant manual effort.
+                Winget and Intune has traditionally required significant manual effort.</T>
               </p>
               <p className="text-text-secondary leading-relaxed">
-                This guide covers three methods to deploy Winget apps to Microsoft
+                <T>This guide covers three methods to deploy Winget apps to Microsoft
                 Intune: using{" "}
                 <Link href="/" className="text-accent-cyan hover:underline">
                   IntuneGet
@@ -250,7 +251,7 @@ export default function DeployWingetAppsToIntunePage() {
                 Content Prep Tool, and Microsoft&apos;s built-in Winget catalog in the
                 Intune portal. By the end, you will know exactly which approach fits
                 your organization and how to get your first app deployed in under 5
-                minutes.
+                minutes.</T>
               </p>
 
               {/* What is Winget to Intune Deployment */}
@@ -258,25 +259,25 @@ export default function DeployWingetAppsToIntunePage() {
                 id="what-is-winget-to-intune-deployment"
                 className="text-2xl md:text-3xl font-bold text-text-primary mt-12 mb-4"
               >
-                What Is Winget to Intune Deployment?
+                <T>What Is Winget to Intune Deployment?</T>
               </h2>
               <p className="text-text-secondary leading-relaxed">
-                Winget to Intune deployment is the process of taking applications from
+                <T>Winget to Intune deployment is the process of taking applications from
                 the Windows Package Manager (Winget) repository and packaging them for
                 distribution through Microsoft Intune. Winget maintains a repository
                 of over 10,000 application packages with verified installers, version
                 metadata, and hash validation. Intune, as Microsoft&apos;s cloud-based
                 endpoint management platform, requires applications in a specific
                 format -- the <code>.intunewin</code> package -- with detection rules
-                that verify successful installation.
+                that verify successful installation.</T>
               </p>
               <p className="text-text-secondary leading-relaxed">
-                The challenge lies in the translation layer between these two systems.
+                <T>The challenge lies in the translation layer between these two systems.
                 Winget applications use standard installer formats (MSI, EXE, MSIX)
                 while Intune needs those installers wrapped in the IntuneWin format
                 along with install commands, uninstall commands, detection rules, and
                 requirement rules. Automating this translation is where tools like
-                IntuneGet deliver the most value.
+                IntuneGet deliver the most value.</T>
               </p>
 
               {/* Why Winget Matters for Intune Admins */}
@@ -284,54 +285,54 @@ export default function DeployWingetAppsToIntunePage() {
                 id="why-winget-matters"
                 className="text-2xl md:text-3xl font-bold text-text-primary mt-12 mb-4"
               >
-                Why Winget Matters for Intune Admins
+                <T>Why Winget Matters for Intune Admins</T>
               </h2>
               <p className="text-text-secondary leading-relaxed">
-                Before Winget, IT admins sourcing applications for Intune had to
+                <T>Before Winget, IT admins sourcing applications for Intune had to
                 manually visit vendor websites, download installers, verify file
                 integrity, and hope the download link would remain stable for future
-                updates. Winget solves several critical problems:
+                updates. Winget solves several critical problems:</T>
               </p>
               <ul className="space-y-3 text-text-secondary">
                 <li className="flex items-start gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-accent-cyan mt-2.5 flex-shrink-0" />
                   <span>
-                    <strong className="text-text-primary">Centralized app repository:</strong>{" "}
+                    <T><strong className="text-text-primary">Centralized app repository:</strong>{" "}
                     Over 10,000 verified packages in a single searchable catalog, eliminating
-                    the need to hunt for installers across vendor websites.
+                    the need to hunt for installers across vendor websites.</T>
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-accent-cyan mt-2.5 flex-shrink-0" />
                   <span>
-                    <strong className="text-text-primary">Hash verification:</strong>{" "}
+                    <T><strong className="text-text-primary">Hash verification:</strong>{" "}
                     Every package includes SHA256 hashes ensuring installer integrity,
-                    reducing the risk of deploying tampered binaries through Intune.
+                    reducing the risk of deploying tampered binaries through Intune.</T>
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-accent-cyan mt-2.5 flex-shrink-0" />
                   <span>
-                    <strong className="text-text-primary">Version tracking:</strong>{" "}
+                    <T><strong className="text-text-primary">Version tracking:</strong>{" "}
                     Winget tracks every published version of an application, making it
                     straightforward to deploy specific versions or update existing
-                    Intune deployments when new releases appear.
+                    Intune deployments when new releases appear.</T>
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-accent-cyan mt-2.5 flex-shrink-0" />
                   <span>
-                    <strong className="text-text-primary">Standardized metadata:</strong>{" "}
+                    <T><strong className="text-text-primary">Standardized metadata:</strong>{" "}
                     Package manifests include publisher information, license details,
                     installer types, and silent install switches -- exactly the data
-                    needed for Intune Win32 app configuration.
+                    needed for Intune Win32 app configuration.</T>
                   </span>
                 </li>
               </ul>
               <p className="text-text-secondary leading-relaxed">
-                The combination of Winget&apos;s comprehensive catalog and Intune&apos;s
+                <T>The combination of Winget&apos;s comprehensive catalog and Intune&apos;s
                 device management capabilities creates a powerful deployment pipeline.
-                The question is how efficiently you connect them.
+                The question is how efficiently you connect them.</T>
               </p>
 
               {/* Method 1: IntuneGet */}
@@ -339,80 +340,80 @@ export default function DeployWingetAppsToIntunePage() {
                 id="method-1-intuneget"
                 className="text-2xl md:text-3xl font-bold text-text-primary mt-12 mb-4"
               >
-                Method 1: Using IntuneGet (Recommended)
+                <T>Method 1: Using IntuneGet (Recommended)</T>
               </h2>
               <p className="text-text-secondary leading-relaxed">
-                <Link href="/" className="text-accent-cyan hover:underline">
+                <T><Link href="/" className="text-accent-cyan hover:underline">
                   IntuneGet
                 </Link>{" "}
                 is a free, open-source tool that fully automates the Winget to Intune
                 deployment pipeline. It handles application discovery, IntuneWin
                 packaging, detection rule generation, and Intune upload in a single
                 workflow. Here is how to deploy your first Winget app to Intune using
-                IntuneGet:
+                IntuneGet:</T>
               </p>
 
               <h3 className="text-xl font-semibold text-text-primary mt-8 mb-3">
-                Step 1: Sign in with your Microsoft Entra ID
+                <T>Step 1: Sign in with your Microsoft Entra ID</T>
               </h3>
               <p className="text-text-secondary leading-relaxed">
-                Navigate to{" "}
+                <T>Navigate to{" "}
                 <Link href="/auth/signin" className="text-accent-cyan hover:underline">
                   intuneget.com
                 </Link>{" "}
                 and sign in with your Microsoft Entra ID account. IntuneGet uses
                 Microsoft authentication directly -- no separate account creation
                 needed. Your account needs Intune admin permissions
-                (DeviceManagementApps.ReadWrite.All) to create and upload app packages.
+                (DeviceManagementApps.ReadWrite.All) to create and upload app packages.</T>
               </p>
               <p className="text-text-secondary leading-relaxed">
-                Before any deployment, IntuneGet runs a pre-upload permission check
+                <T>Before any deployment, IntuneGet runs a pre-upload permission check
                 that tests your actual API access. This catches permission issues
                 before you invest time in packaging, avoiding the frustrating mid-process
-                failures common with manual deployment.
+                failures common with manual deployment.</T>
               </p>
 
               <h3 className="text-xl font-semibold text-text-primary mt-8 mb-3">
-                Step 2: Search and select applications from the Winget catalog
+                <T>Step 2: Search and select applications from the Winget catalog</T>
               </h3>
               <p className="text-text-secondary leading-relaxed">
-                Use the search bar to find applications from the full Winget repository
+                <T>Use the search bar to find applications from the full Winget repository
                 of 10,000+ packages. IntuneGet supports partial and fuzzy search -- type
                 &quot;chr&quot; to find Google Chrome, or &quot;code&quot; to find Visual Studio Code. For
                 applications that are difficult to find by name, IntuneGet includes
                 AI-powered app discovery that uses OpenAI to match your search query to
-                the correct Winget package ID.
+                the correct Winget package ID.</T>
               </p>
               <p className="text-text-secondary leading-relaxed">
-                Select one or multiple applications to deploy. You can review the
+                <T>Select one or multiple applications to deploy. You can review the
                 package details including version, publisher, installer type, and
-                silent install switches before proceeding.
+                silent install switches before proceeding.</T>
               </p>
 
               <h3 className="text-xl font-semibold text-text-primary mt-8 mb-3">
-                Step 3: Deploy to Microsoft Intune
+                <T>Step 3: Deploy to Microsoft Intune</T>
               </h3>
               <p className="text-text-secondary leading-relaxed">
-                Click the deploy button and IntuneGet handles the rest. Behind the
-                scenes, it performs the following steps automatically:
+                <T>Click the deploy button and IntuneGet handles the rest. Behind the
+                scenes, it performs the following steps automatically:</T>
               </p>
               <ol className="space-y-2 text-text-secondary list-decimal list-inside">
-                <li>Downloads the application installer from the Winget source</li>
-                <li>Creates the <code>.intunewin</code> package using the Microsoft Win32 Content Prep Tool</li>
-                <li>Generates detection rules based on the installer type (MSI product code, file path, or registry key)</li>
-                <li>Configures install and uninstall commands with silent switches</li>
-                <li>Uploads the package to your Microsoft Intune tenant via the Graph API</li>
-                <li>Sets up requirement rules (OS architecture, minimum OS version)</li>
+                <li><T>Downloads the application installer from the Winget source</T></li>
+                <li><T>Creates the <code>.intunewin</code> package using the Microsoft Win32 Content Prep Tool</T></li>
+                <li><T>Generates detection rules based on the installer type (MSI product code, file path, or registry key)</T></li>
+                <li><T>Configures install and uninstall commands with silent switches</T></li>
+                <li><T>Uploads the package to your Microsoft Intune tenant via the Graph API</T></li>
+                <li><T>Sets up requirement rules (OS architecture, minimum OS version)</T></li>
               </ol>
               <p className="text-text-secondary leading-relaxed mt-4">
-                The entire process takes approximately 5 minutes per application. Once
+                <T>The entire process takes approximately 5 minutes per application. Once
                 uploaded, the app appears in your Intune portal ready for assignment
                 to device groups or users. For a detailed walkthrough of the initial
                 setup, see the{" "}
                 <Link href="/docs/getting-started" className="text-accent-cyan hover:underline">
                   Getting Started guide
                 </Link>
-                .
+                .</T>
               </p>
 
               {/* Method 2: Manual */}
@@ -420,21 +421,21 @@ export default function DeployWingetAppsToIntunePage() {
                 id="method-2-manual"
                 className="text-2xl md:text-3xl font-bold text-text-primary mt-12 mb-4"
               >
-                Method 2: Manual Winget + IntuneWin Packaging
+                <T>Method 2: Manual Winget + IntuneWin Packaging</T>
               </h2>
               <p className="text-text-secondary leading-relaxed">
-                The manual approach gives you complete control over every aspect of
+                <T>The manual approach gives you complete control over every aspect of
                 packaging but requires significantly more time and scripting knowledge.
                 Here is the typical workflow for manually deploying a Winget app to
-                Intune:
+                Intune:</T>
               </p>
 
               <h3 className="text-xl font-semibold text-text-primary mt-8 mb-3">
-                Step 1: Download the installer using Winget
+                <T>Step 1: Download the installer using Winget</T>
               </h3>
               <p className="text-text-secondary leading-relaxed">
-                First, identify the Winget package ID for your target application and
-                download the installer. Open a PowerShell terminal and run:
+                <T>First, identify the Winget package ID for your target application and
+                download the installer. Open a PowerShell terminal and run:</T>
               </p>
               <div className="bg-bg-surface rounded-xl border border-overlay/10 p-4 my-4 overflow-x-auto">
                 <pre className="text-sm text-text-secondary font-mono">
@@ -450,10 +451,10 @@ Get-FileHash C:\\IntunePackaging\\Chrome\\*.msi -Algorithm SHA256`}</code>
               </div>
 
               <h3 className="text-xl font-semibold text-text-primary mt-8 mb-3">
-                Step 2: Package as IntuneWin
+                <T>Step 2: Package as IntuneWin</T>
               </h3>
               <p className="text-text-secondary leading-relaxed">
-                Download the{" "}
+                <T>Download the{" "}
                 <a
                   href="https://github.com/Microsoft/Microsoft-Win32-Content-Prep-Tool"
                   target="_blank"
@@ -462,7 +463,7 @@ Get-FileHash C:\\IntunePackaging\\Chrome\\*.msi -Algorithm SHA256`}</code>
                 >
                   Microsoft Win32 Content Prep Tool
                 </a>{" "}
-                and use it to create the <code>.intunewin</code> package:
+                and use it to create the <code>.intunewin</code> package:</T>
               </p>
               <div className="bg-bg-surface rounded-xl border border-overlay/10 p-4 my-4 overflow-x-auto">
                 <pre className="text-sm text-text-secondary font-mono">
@@ -472,10 +473,10 @@ IntuneWinAppUtil.exe -c C:\\IntunePackaging\\Chrome -s ChromeSetup.msi -o C:\\In
               </div>
 
               <h3 className="text-xl font-semibold text-text-primary mt-8 mb-3">
-                Step 3: Configure detection rules and upload to Intune
+                <T>Step 3: Configure detection rules and upload to Intune</T>
               </h3>
               <p className="text-text-secondary leading-relaxed">
-                Log in to the{" "}
+                <T>Log in to the{" "}
                 <a
                   href="https://intune.microsoft.com"
                   target="_blank"
@@ -485,38 +486,38 @@ IntuneWinAppUtil.exe -c C:\\IntunePackaging\\Chrome -s ChromeSetup.msi -o C:\\In
                   Microsoft Intune admin center
                 </a>
                 , navigate to Apps &gt; All apps &gt; Add, and select &quot;Windows app
-                (Win32)&quot;. Upload your <code>.intunewin</code> file and manually configure:
+                (Win32)&quot;. Upload your <code>.intunewin</code> file and manually configure:</T>
               </p>
               <ul className="space-y-2 text-text-secondary">
                 <li className="flex items-start gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-text-muted mt-2.5 flex-shrink-0" />
-                  <span>App information (name, description, publisher)</span>
+                  <span><T>App information (name, description, publisher)</T></span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-text-muted mt-2.5 flex-shrink-0" />
-                  <span>Install command (e.g., <code>msiexec /i ChromeSetup.msi /qn</code>)</span>
+                  <span><T>Install command (e.g., <code>msiexec /i ChromeSetup.msi /qn</code>)</T></span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-text-muted mt-2.5 flex-shrink-0" />
-                  <span>Uninstall command</span>
+                  <span><T>Uninstall command</T></span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-text-muted mt-2.5 flex-shrink-0" />
-                  <span>Detection rules (MSI product code, file existence, or registry key)</span>
+                  <span><T>Detection rules (MSI product code, file existence, or registry key)</T></span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-text-muted mt-2.5 flex-shrink-0" />
-                  <span>Requirement rules (architecture, minimum OS version)</span>
+                  <span><T>Requirement rules (architecture, minimum OS version)</T></span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-text-muted mt-2.5 flex-shrink-0" />
-                  <span>Return codes for success and failure conditions</span>
+                  <span><T>Return codes for success and failure conditions</T></span>
                 </li>
               </ul>
               <p className="text-text-secondary leading-relaxed mt-4">
-                This manual process typically takes 1-2 hours per application,
+                <T>This manual process typically takes 1-2 hours per application,
                 including testing. For organizations managing dozens or hundreds of
-                applications, the time investment compounds rapidly.
+                applications, the time investment compounds rapidly.</T>
               </p>
 
               {/* Method 3: Built-in Catalog */}
@@ -524,54 +525,54 @@ IntuneWinAppUtil.exe -c C:\\IntunePackaging\\Chrome -s ChromeSetup.msi -o C:\\In
                 id="method-3-built-in-catalog"
                 className="text-2xl md:text-3xl font-bold text-text-primary mt-12 mb-4"
               >
-                Method 3: Intune&apos;s Built-in Winget Catalog
+                <T>Method 3: Intune&apos;s Built-in Winget Catalog</T>
               </h2>
               <p className="text-text-secondary leading-relaxed">
-                Microsoft has been gradually integrating the Winget catalog directly
+                <T>Microsoft has been gradually integrating the Winget catalog directly
                 into the Intune admin portal. This approach requires the least technical
-                knowledge but comes with notable limitations.
+                knowledge but comes with notable limitations.</T>
               </p>
               <p className="text-text-secondary leading-relaxed">
-                In the Intune admin center, navigate to Apps &gt; All apps &gt; Add
+                <T>In the Intune admin center, navigate to Apps &gt; All apps &gt; Add
                 and select &quot;Windows package manager app (Winget)&quot;. You can search the
                 integrated catalog and add applications directly. Intune handles the
-                packaging and deployment automatically.
+                packaging and deployment automatically.</T>
               </p>
               <p className="text-text-secondary leading-relaxed">
-                However, the built-in catalog has several constraints that make it
-                unsuitable as a sole deployment strategy:
+                <T>However, the built-in catalog has several constraints that make it
+                unsuitable as a sole deployment strategy:</T>
               </p>
               <ul className="space-y-2 text-text-secondary">
                 <li className="flex items-start gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-text-muted mt-2.5 flex-shrink-0" />
                   <span>
-                    <strong className="text-text-primary">Limited catalog:</strong> Only a
+                    <T><strong className="text-text-primary">Limited catalog:</strong> Only a
                     subset of the full Winget repository is available. Many common enterprise
-                    applications are missing.
+                    applications are missing.</T>
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-text-muted mt-2.5 flex-shrink-0" />
                   <span>
-                    <strong className="text-text-primary">No custom detection rules:</strong>{" "}
+                    <T><strong className="text-text-primary">No custom detection rules:</strong>{" "}
                     You cannot customize detection logic, which can cause issues with
-                    applications that install to non-standard paths.
+                    applications that install to non-standard paths.</T>
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-text-muted mt-2.5 flex-shrink-0" />
                   <span>
-                    <strong className="text-text-primary">Limited update control:</strong>{" "}
+                    <T><strong className="text-text-primary">Limited update control:</strong>{" "}
                     Update policies are less granular than what you get with IntuneGet&apos;s
-                    auto-update, notify, ignore, or pin-version modes.
+                    auto-update, notify, ignore, or pin-version modes.</T>
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-text-muted mt-2.5 flex-shrink-0" />
                   <span>
-                    <strong className="text-text-primary">Requires Winget on endpoints:</strong>{" "}
+                    <T><strong className="text-text-primary">Requires Winget on endpoints:</strong>{" "}
                     Target devices need the Winget client installed, which adds a
-                    prerequisite to your deployment chain.
+                    prerequisite to your deployment chain.</T>
                   </span>
                 </li>
               </ul>
@@ -581,72 +582,72 @@ IntuneWinAppUtil.exe -c C:\\IntunePackaging\\Chrome -s ChromeSetup.msi -o C:\\In
                 id="comparison-table"
                 className="text-2xl md:text-3xl font-bold text-text-primary mt-12 mb-4"
               >
-                Comparison: IntuneGet vs Manual vs Built-in Catalog
+                <T>Comparison: IntuneGet vs Manual vs Built-in Catalog</T>
               </h2>
               <p className="text-text-secondary leading-relaxed mb-6">
-                The following table compares the three methods for deploying Winget
+                <T>The following table compares the three methods for deploying Winget
                 apps to Microsoft Intune across key criteria that matter most to IT
-                teams:
+                teams:</T>
               </p>
 
               <div className="overflow-x-auto -mx-4 px-4">
                 <table className="w-full text-sm border-collapse">
                   <thead>
                     <tr className="border-b border-overlay/10">
-                      <th className="text-left p-3 font-semibold text-text-primary">Feature</th>
-                      <th className="text-left p-3 font-semibold text-accent-cyan">IntuneGet</th>
-                      <th className="text-left p-3 font-semibold text-text-secondary">Manual Process</th>
-                      <th className="text-left p-3 font-semibold text-text-secondary">Built-in Catalog</th>
+                      <th className="text-left p-3 font-semibold text-text-primary"><T>Feature</T></th>
+                      <th className="text-left p-3 font-semibold text-accent-cyan"><T>IntuneGet</T></th>
+                      <th className="text-left p-3 font-semibold text-text-secondary"><T>Manual Process</T></th>
+                      <th className="text-left p-3 font-semibold text-text-secondary"><T>Built-in Catalog</T></th>
                     </tr>
                   </thead>
                   <tbody className="text-text-secondary">
                     <tr className="border-b border-overlay/[0.06]">
-                      <td className="p-3 font-medium text-text-primary">Cost</td>
-                      <td className="p-3">Free (MIT license)</td>
-                      <td className="p-3">Free (your time)</td>
-                      <td className="p-3">Included with Intune license</td>
+                      <td className="p-3 font-medium text-text-primary"><T>Cost</T></td>
+                      <td className="p-3"><T>Free (MIT license)</T></td>
+                      <td className="p-3"><T>Free (your time)</T></td>
+                      <td className="p-3"><T>Included with Intune license</T></td>
                     </tr>
                     <tr className="border-b border-overlay/[0.06]">
-                      <td className="p-3 font-medium text-text-primary">Available Apps</td>
-                      <td className="p-3">10,000+ (full Winget repo)</td>
-                      <td className="p-3">Unlimited</td>
-                      <td className="p-3">Subset of Winget</td>
+                      <td className="p-3 font-medium text-text-primary"><T>Available Apps</T></td>
+                      <td className="p-3"><T>10,000+ (full Winget repo)</T></td>
+                      <td className="p-3"><T>Unlimited</T></td>
+                      <td className="p-3"><T>Subset of Winget</T></td>
                     </tr>
                     <tr className="border-b border-overlay/[0.06]">
-                      <td className="p-3 font-medium text-text-primary">Time per App</td>
-                      <td className="p-3">~5 minutes</td>
-                      <td className="p-3">1-2 hours</td>
-                      <td className="p-3">~10 minutes</td>
+                      <td className="p-3 font-medium text-text-primary"><T>Time per App</T></td>
+                      <td className="p-3"><T>~5 minutes</T></td>
+                      <td className="p-3"><T>1-2 hours</T></td>
+                      <td className="p-3"><T>~10 minutes</T></td>
                     </tr>
                     <tr className="border-b border-overlay/[0.06]">
-                      <td className="p-3 font-medium text-text-primary">IntuneWin Packaging</td>
-                      <td className="p-3">Automatic</td>
-                      <td className="p-3">Manual</td>
-                      <td className="p-3">Not required</td>
+                      <td className="p-3 font-medium text-text-primary"><T>IntuneWin Packaging</T></td>
+                      <td className="p-3"><T>Automatic</T></td>
+                      <td className="p-3"><T>Manual</T></td>
+                      <td className="p-3"><T>Not required</T></td>
                     </tr>
                     <tr className="border-b border-overlay/[0.06]">
-                      <td className="p-3 font-medium text-text-primary">Detection Rules</td>
-                      <td className="p-3">Auto-generated</td>
-                      <td className="p-3">Manual configuration</td>
-                      <td className="p-3">Automatic (limited)</td>
+                      <td className="p-3 font-medium text-text-primary"><T>Detection Rules</T></td>
+                      <td className="p-3"><T>Auto-generated</T></td>
+                      <td className="p-3"><T>Manual configuration</T></td>
+                      <td className="p-3"><T>Automatic (limited)</T></td>
                     </tr>
                     <tr className="border-b border-overlay/[0.06]">
-                      <td className="p-3 font-medium text-text-primary">Automatic Updates</td>
-                      <td className="p-3">Yes (configurable policies)</td>
-                      <td className="p-3">No</td>
-                      <td className="p-3">Limited</td>
+                      <td className="p-3 font-medium text-text-primary"><T>Automatic Updates</T></td>
+                      <td className="p-3"><T>Yes (configurable policies)</T></td>
+                      <td className="p-3"><T>No</T></td>
+                      <td className="p-3"><T>Limited</T></td>
                     </tr>
                     <tr className="border-b border-overlay/[0.06]">
-                      <td className="p-3 font-medium text-text-primary">Scripting Required</td>
-                      <td className="p-3">None</td>
-                      <td className="p-3">PowerShell knowledge needed</td>
-                      <td className="p-3">None</td>
+                      <td className="p-3 font-medium text-text-primary"><T>Scripting Required</T></td>
+                      <td className="p-3"><T>None</T></td>
+                      <td className="p-3"><T>PowerShell knowledge needed</T></td>
+                      <td className="p-3"><T>None</T></td>
                     </tr>
                     <tr>
-                      <td className="p-3 font-medium text-text-primary">Self-hosting Option</td>
-                      <td className="p-3">Yes (Docker)</td>
-                      <td className="p-3">N/A</td>
-                      <td className="p-3">No</td>
+                      <td className="p-3 font-medium text-text-primary"><T>Self-hosting Option</T></td>
+                      <td className="p-3"><T>Yes (Docker)</T></td>
+                      <td className="p-3"><T>N/A</T></td>
+                      <td className="p-3"><T>No</T></td>
                     </tr>
                   </tbody>
                 </table>
@@ -657,58 +658,58 @@ IntuneWinAppUtil.exe -c C:\\IntunePackaging\\Chrome -s ChromeSetup.msi -o C:\\In
                 id="troubleshooting"
                 className="text-2xl md:text-3xl font-bold text-text-primary mt-12 mb-4"
               >
-                Troubleshooting Common Issues
+                <T>Troubleshooting Common Issues</T>
               </h2>
               <p className="text-text-secondary leading-relaxed">
-                Whether you use IntuneGet or the manual approach, certain issues can
+                <T>Whether you use IntuneGet or the manual approach, certain issues can
                 arise when deploying Winget apps to Intune. Here are the most common
-                problems and their solutions:
+                problems and their solutions:</T>
               </p>
 
               <h3 className="text-xl font-semibold text-text-primary mt-8 mb-3">
-                Detection rule failures
+                <T>Detection rule failures</T>
               </h3>
               <p className="text-text-secondary leading-relaxed">
-                The most common deployment issue is incorrect detection rules. If
+                <T>The most common deployment issue is incorrect detection rules. If
                 Intune cannot verify that an application installed successfully, it
                 will report the deployment as failed even though the app is present on
                 the device. For MSI-based installers, use the MSI product code for
                 detection. For EXE installers, use file existence checks (verify the
                 main executable path) or registry key detection. IntuneGet automatically
-                selects the most reliable detection method based on the installer type.
+                selects the most reliable detection method based on the installer type.</T>
               </p>
 
               <h3 className="text-xl font-semibold text-text-primary mt-8 mb-3">
-                System context vs user context installation
+                <T>System context vs user context installation</T>
               </h3>
               <p className="text-text-secondary leading-relaxed">
-                Intune Win32 apps install in system context by default. Some
+                <T>Intune Win32 apps install in system context by default. Some
                 applications, particularly those designed for per-user installation,
                 may fail or install to unexpected locations when run as SYSTEM. If you
                 encounter installation failures, check whether the application supports
                 machine-wide installation and adjust the install behavior in Intune
-                accordingly.
+                accordingly.</T>
               </p>
 
               <h3 className="text-xl font-semibold text-text-primary mt-8 mb-3">
-                Installer type mismatches
+                <T>Installer type mismatches</T>
               </h3>
               <p className="text-text-secondary leading-relaxed">
-                Winget packages can contain different installer types (MSI, EXE, MSIX,
+                <T>Winget packages can contain different installer types (MSI, EXE, MSIX,
                 Burn bundles). Each type requires different silent install switches and
                 detection strategies. A common mistake in manual deployment is using
                 MSI switches (<code>/qn</code>) for EXE-based installers that use
                 different silent flags (<code>/S</code>, <code>/silent</code>,{" "}
                 <code>--silent</code>). IntuneGet reads the Winget manifest to
                 determine the correct installer type and applies the appropriate
-                command-line switches automatically.
+                command-line switches automatically.</T>
               </p>
 
               <h3 className="text-xl font-semibold text-text-primary mt-8 mb-3">
-                Graph API permission errors
+                <T>Graph API permission errors</T>
               </h3>
               <p className="text-text-secondary leading-relaxed">
-                If you encounter 403 Forbidden errors during upload, verify your
+                <T>If you encounter 403 Forbidden errors during upload, verify your
                 Azure AD app registration has the{" "}
                 <code>DeviceManagementApps.ReadWrite.All</code> permission with admin
                 consent granted. IntuneGet&apos;s{" "}
@@ -717,7 +718,7 @@ IntuneWinAppUtil.exe -c C:\\IntunePackaging\\Chrome -s ChromeSetup.msi -o C:\\In
                 </Link>{" "}
                 walks through the exact configuration required. The built-in
                 permission checker will identify missing permissions before you start
-                any deployment.
+                any deployment.</T>
               </p>
 
               {/* FAQ */}
@@ -725,97 +726,97 @@ IntuneWinAppUtil.exe -c C:\\IntunePackaging\\Chrome -s ChromeSetup.msi -o C:\\In
                 id="faq"
                 className="text-2xl md:text-3xl font-bold text-text-primary mt-12 mb-4"
               >
-                Frequently Asked Questions
+                <T>Frequently Asked Questions</T>
               </h2>
 
               <div className="space-y-6 mt-6">
                 <div>
                   <h3 className="text-lg font-semibold text-text-primary mb-2">
-                    What is Winget to Intune deployment?
+                    <T>What is Winget to Intune deployment?</T>
                   </h3>
                   <p className="text-text-secondary leading-relaxed">
-                    Winget to Intune deployment is the process of taking applications
+                    <T>Winget to Intune deployment is the process of taking applications
                     from the Windows Package Manager (Winget) repository and packaging
                     them for distribution through Microsoft Intune. This involves
                     converting application installers into the .intunewin format,
                     configuring detection rules, and uploading them to your Intune
-                    tenant for assignment to devices.
+                    tenant for assignment to devices.</T>
                   </p>
                 </div>
 
                 <div>
                   <h3 className="text-lg font-semibold text-text-primary mb-2">
-                    Is IntuneGet free to use for Winget app deployment?
+                    <T>Is IntuneGet free to use for Winget app deployment?</T>
                   </h3>
                   <p className="text-text-secondary leading-relaxed">
-                    Yes. IntuneGet is completely free and open source under the MIT
+                    <T>Yes. IntuneGet is completely free and open source under the MIT
                     license. There are no seat limits, no hidden fees, and no premium
                     tiers. You can deploy as many Winget apps to Intune as you need at
-                    zero cost.
+                    zero cost.</T>
                   </p>
                 </div>
 
                 <div>
                   <h3 className="text-lg font-semibold text-text-primary mb-2">
-                    How long does it take to deploy a Winget app to Intune?
+                    <T>How long does it take to deploy a Winget app to Intune?</T>
                   </h3>
                   <p className="text-text-secondary leading-relaxed">
-                    Using IntuneGet, a typical Winget app can be deployed to Intune in
+                    <T>Using IntuneGet, a typical Winget app can be deployed to Intune in
                     about 5 minutes. This includes searching for the app, automatic
                     packaging into .intunewin format, detection rule generation, and
                     upload to your Intune tenant. Manual deployment of the same app
-                    typically takes 1-2 hours.
+                    typically takes 1-2 hours.</T>
                   </p>
                 </div>
 
                 <div>
                   <h3 className="text-lg font-semibold text-text-primary mb-2">
-                    Does IntuneGet support automatic updates for Winget apps?
+                    <T>Does IntuneGet support automatic updates for Winget apps?</T>
                   </h3>
                   <p className="text-text-secondary leading-relaxed">
-                    Yes. IntuneGet includes an automated update management system that
+                    <T>Yes. IntuneGet includes an automated update management system that
                     monitors Winget for new app versions and can automatically update
                     your Intune deployments. You can configure update policies including
-                    auto-update, notify-only, ignore, or pin to a specific version.
+                    auto-update, notify-only, ignore, or pin to a specific version.</T>
                   </p>
                 </div>
 
                 <div>
                   <h3 className="text-lg font-semibold text-text-primary mb-2">
-                    What is the difference between IntuneGet and Intune&apos;s built-in Winget catalog?
+                    <T>What is the difference between IntuneGet and Intune&apos;s built-in Winget catalog?</T>
                   </h3>
                   <p className="text-text-secondary leading-relaxed">
-                    Intune&apos;s built-in Winget catalog provides a subset of Winget apps
+                    <T>Intune&apos;s built-in Winget catalog provides a subset of Winget apps
                     through the Intune portal. IntuneGet offers access to the full
                     10,000+ Winget repository, provides automatic IntuneWin packaging,
                     generates detection rules, supports automated updates, and includes
                     AI-powered app discovery. IntuneGet gives IT admins more control
-                    over the packaging and deployment process.
+                    over the packaging and deployment process.</T>
                   </p>
                 </div>
 
                 <div>
                   <h3 className="text-lg font-semibold text-text-primary mb-2">
-                    Can I self-host IntuneGet for Winget app deployment?
+                    <T>Can I self-host IntuneGet for Winget app deployment?</T>
                   </h3>
                   <p className="text-text-secondary leading-relaxed">
-                    Yes. IntuneGet can be self-hosted using Docker, giving you complete
+                    <T>Yes. IntuneGet can be self-hosted using Docker, giving you complete
                     control over your deployment environment. Your data stays in your
                     infrastructure and you can customize the setup to meet your
                     organization&apos;s security and compliance requirements. See the{" "}
                     <Link href="/docs/docker" className="text-accent-cyan hover:underline">
                       Docker deployment guide
                     </Link>{" "}
-                    for setup instructions.
+                    for setup instructions.</T>
                   </p>
                 </div>
 
                 <div>
                   <h3 className="text-lg font-semibold text-text-primary mb-2">
-                    What permissions are needed to deploy Winget apps via IntuneGet?
+                    <T>What permissions are needed to deploy Winget apps via IntuneGet?</T>
                   </h3>
                   <p className="text-text-secondary leading-relaxed">
-                    IntuneGet requires Microsoft Graph API permissions for Intune
+                    <T>IntuneGet requires Microsoft Graph API permissions for Intune
                     device management. Specifically, you need
                     DeviceManagementApps.ReadWrite.All to create and manage app
                     deployments. IntuneGet includes a pre-upload permission checker
@@ -824,7 +825,7 @@ IntuneWinAppUtil.exe -c C:\\IntunePackaging\\Chrome -s ChromeSetup.msi -o C:\\In
                     <Link href="/docs/azure-setup" className="text-accent-cyan hover:underline">
                       Azure Setup guide
                     </Link>{" "}
-                    for detailed configuration steps.
+                    for detailed configuration steps.</T>
                   </p>
                 </div>
               </div>
@@ -834,18 +835,18 @@ IntuneWinAppUtil.exe -c C:\\IntunePackaging\\Chrome -s ChromeSetup.msi -o C:\\In
                 id="conclusion"
                 className="text-2xl md:text-3xl font-bold text-text-primary mt-12 mb-4"
               >
-                Conclusion
+                <T>Conclusion</T>
               </h2>
               <p className="text-text-secondary leading-relaxed">
-                Deploying Winget apps to Microsoft Intune does not have to be a
+                <T>Deploying Winget apps to Microsoft Intune does not have to be a
                 time-consuming, error-prone process. While the manual approach gives
                 you full control and the built-in catalog offers convenience for basic
                 needs, IntuneGet provides the best balance of automation, app coverage,
                 and flexibility for IT teams that manage application deployments at
-                scale.
+                scale.</T>
               </p>
               <p className="text-text-secondary leading-relaxed">
-                With automatic IntuneWin packaging, intelligent detection rule
+                <T>With automatic IntuneWin packaging, intelligent detection rule
                 generation, and configurable update policies, IntuneGet turns what was
                 traditionally an hours-long process into a 5-minute workflow. And
                 because it is free and open source, there is no financial barrier to
@@ -862,31 +863,31 @@ IntuneWinAppUtil.exe -c C:\\IntunePackaging\\Chrome -s ChromeSetup.msi -o C:\\In
                 <Link href="/blog/sccm-to-intune-migration-winget" className="text-accent-cyan hover:underline">
                   SCCM to Intune migration guide
                 </Link>
-                .
+                .</T>
               </p>
 
               {/* CTA */}
               <div className="mt-10 p-6 rounded-2xl bg-accent-cyan/5 border border-accent-cyan/20">
                 <h3 className="text-xl font-bold text-text-primary mb-3">
-                  Start deploying Winget apps to Intune today
+                  <T>Start deploying Winget apps to Intune today</T>
                 </h3>
                 <p className="text-text-secondary mb-4">
-                  Set up IntuneGet in under 5 minutes and deploy your first application
-                  for free. No credit card, no seat limits, no hidden fees.
+                  <T>Set up IntuneGet in under 5 minutes and deploy your first application
+                  for free. No credit card, no seat limits, no hidden fees.</T>
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <Link
                     href="/auth/signin"
                     className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-accent-cyan rounded-xl hover:bg-accent-cyan-dim transition-colors"
                   >
-                    Start Free Deployment
+                    <T>Start Free Deployment</T>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                   <Link
                     href="/docs/getting-started"
                     className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-text-secondary bg-bg-elevated border border-overlay/10 rounded-xl hover:bg-overlay/[0.04] transition-colors"
                   >
-                    Read the Getting Started Guide
+                    <T>Read the Getting Started Guide</T>
                   </Link>
                 </div>
               </div>

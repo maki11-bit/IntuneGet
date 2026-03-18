@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { T } from "gt-next";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ChevronDown, HelpCircle } from "lucide-react";
 import { FadeIn } from "../animations/FadeIn";
@@ -36,13 +37,12 @@ export function FAQSectionAnimated() {
           </StaggerItem>
           <StaggerItem>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-text-primary mb-4">
-              Everything You Need to Know
+              <T id="faq.heading">Everything You Need to Know</T>
             </h2>
           </StaggerItem>
           <StaggerItem>
             <p className="text-lg text-text-secondary max-w-2xl mx-auto">
-              Get answers to the most common questions about IntuneGet and how
-              it can transform your app deployment workflow.
+              <T id="faq.subheading">Get answers to the most common questions about IntuneGet and how it can transform your app deployment workflow.</T>
             </p>
           </StaggerItem>
         </StaggerContainer>
@@ -114,7 +114,7 @@ export function FAQSectionAnimated() {
         {/* Still have questions? */}
         <FadeIn delay={0.5}>
           <div className="mt-10 md:mt-12 text-center">
-            <p className="text-text-secondary mb-4">Still have questions?</p>
+            <p className="text-text-secondary mb-4"><T id="faq.still-questions">Still have questions?</T></p>
             <motion.a
               href="https://github.com/ugurkocde/IntuneGet/issues"
               target="_blank"
@@ -125,7 +125,7 @@ export function FAQSectionAnimated() {
               transition={springPresets.snappy}
             >
               <HelpCircle className="w-4 h-4 text-accent-cyan" />
-              Open a GitHub Issue
+              <T id="faq.open-issue">Open a GitHub Issue</T>
             </motion.a>
           </div>
         </FadeIn>

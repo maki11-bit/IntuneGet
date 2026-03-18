@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { T } from "gt-next";
 import { FadeIn } from "../animations/FadeIn";
 import { X, Check, Clock, Code, RefreshCw, AlertTriangle, Zap, Layers, Shield, TrendingUp } from "lucide-react";
 
@@ -28,13 +29,13 @@ export function ProblemOutcomeSection() {
         <FadeIn>
           <div className="text-center mb-12 md:mb-16 space-y-4">
             <span className="inline-block font-mono text-xs tracking-wider text-accent-cyan uppercase">
-              Before & After
+              <T id="problem.badge">Before & After</T>
             </span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-text-primary">
-              Transform Your Winget-to-Intune Workflow
+              <T id="problem.heading">Transform Your Winget-to-Intune Workflow</T>
             </h2>
             <p className="mx-auto max-w-2xl text-lg text-text-secondary">
-              See how IntuneGet eliminates the complexity from enterprise app deployment
+              <T id="problem.subheading">See how IntuneGet eliminates the complexity from enterprise app deployment</T>
             </p>
           </div>
         </FadeIn>
@@ -54,8 +55,8 @@ export function ProblemOutcomeSection() {
                   <X className="w-5 h-5 text-red-500" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-text-primary">The Old Way</h3>
-                  <p className="text-sm text-text-muted">Manual deployment process</p>
+                  <h3 className="text-lg font-semibold text-text-primary"><T id="problem.old.title">The Old Way</T></h3>
+                  <p className="text-sm text-text-muted"><T id="problem.old.subtitle">Manual deployment process</T></p>
                 </div>
               </div>
 
@@ -74,7 +75,7 @@ export function ProblemOutcomeSection() {
                     }}
                   >
                     <item.icon className="w-5 h-5 text-red-400 mt-0.5 shrink-0" />
-                    <span className="text-text-secondary">{item.text}</span>
+                    <span className="text-text-secondary"><T>{item.text}</T></span>
                   </motion.div>
                 ))}
               </div>
@@ -82,8 +83,8 @@ export function ProblemOutcomeSection() {
               {/* Time metric */}
               <div className="mt-6 pt-6 border-t border-overlay/10">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-text-muted">Average deployment time</span>
-                  <span className="text-2xl font-bold text-red-500">8+ hours</span>
+                  <span className="text-sm text-text-muted"><T id="problem.metric.label">Average deployment time</T></span>
+                  <span className="text-2xl font-bold text-red-500"><T id="problem.old.metric">8+ hours</T></span>
                 </div>
               </div>
             </motion.div>
@@ -99,7 +100,7 @@ export function ProblemOutcomeSection() {
               {/* Recommended badge */}
               <div className="absolute -top-3 right-6">
                 <span className="px-3 py-1 bg-accent-cyan text-white text-xs font-semibold rounded-full">
-                  Recommended
+                  <T id="problem.new.badge">Recommended</T>
                 </span>
               </div>
 
@@ -109,8 +110,8 @@ export function ProblemOutcomeSection() {
                   <Check className="w-5 h-5 text-accent-cyan" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-text-primary">The IntuneGet Way</h3>
-                  <p className="text-sm text-text-muted">Automated deployment</p>
+                  <h3 className="text-lg font-semibold text-text-primary"><T id="problem.new.title">The IntuneGet Way</T></h3>
+                  <p className="text-sm text-text-muted"><T id="problem.new.subtitle">Automated deployment</T></p>
                 </div>
               </div>
 
@@ -129,7 +130,7 @@ export function ProblemOutcomeSection() {
                     }}
                   >
                     <item.icon className="w-5 h-5 text-accent-cyan mt-0.5 shrink-0" />
-                    <span className="text-text-secondary">{item.text}</span>
+                    <span className="text-text-secondary"><T>{item.text}</T></span>
                   </motion.div>
                 ))}
               </div>
@@ -137,12 +138,12 @@ export function ProblemOutcomeSection() {
               {/* Time metric */}
               <div className="mt-6 pt-6 border-t border-accent-cyan/10">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-text-muted">Average deployment time</span>
+                  <span className="text-sm text-text-muted"><T id="problem.metric.label">Average deployment time</T></span>
                   <div className="flex items-center gap-2">
-                    <span className="text-2xl font-bold text-accent-cyan">12 min</span>
+                    <span className="text-2xl font-bold text-accent-cyan"><T id="problem.new.metric">12 min</T></span>
                     <span className="flex items-center text-xs text-emerald-600 font-medium">
                       <TrendingUp className="w-3 h-3 mr-1" />
-                      40x faster
+                      <T id="problem.new.faster">40x faster</T>
                     </span>
                   </div>
                 </div>

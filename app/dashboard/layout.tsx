@@ -9,6 +9,7 @@ import {
   RefreshCw,
   Loader2,
 } from 'lucide-react';
+import { T } from 'gt-next';
 import { Button } from '@/components/ui/button';
 import { Toaster } from 'sonner';
 import { useCartStore } from '@/stores/cart-store';
@@ -146,9 +147,9 @@ export default function DashboardLayout({
               onClick={handleOpenCommandPalette}
               className="hidden lg:flex items-center gap-2 px-3 py-1.5 text-sm text-text-muted hover:text-text-secondary bg-overlay/[0.03] hover:bg-overlay/5 rounded-lg border border-overlay/5 transition-colors"
             >
-              <span>Search...</span>
+              <span><T>Search...</T></span>
               <kbd className="inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-medium bg-overlay/10 rounded border border-overlay/5">
-                <span className="text-xs">Cmd</span>K
+                <span className="text-xs"><T>Cmd</T></span><T>K</T>
               </kbd>
             </button>
             <div className="flex-1 lg:hidden" />
@@ -181,12 +182,12 @@ export default function DashboardLayout({
                 <AlertTriangle className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5 sm:mt-0" />
                 <div className="min-w-0">
                   <p className="text-sm font-medium text-amber-200">
-                    Unable to verify organization setup
+                    <T>Unable to verify organization setup</T>
                   </p>
                   <p className="text-xs text-amber-200/70">
                     {errorType === 'missing_credentials'
-                      ? 'Server configuration issue. Contact your administrator.'
-                      : 'Please check your connection and try again.'}
+                      ? <T>Server configuration issue. Contact your administrator.</T>
+                      : <T>Please check your connection and try again.</T>}
                   </p>
                 </div>
               </div>
@@ -199,12 +200,12 @@ export default function DashboardLayout({
                 {isRetrying ? (
                   <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Retrying...
+                    <T>Retrying...</T>
                   </>
                 ) : (
                   <>
                     <RefreshCw className="w-4 h-4 mr-2" />
-                    Retry
+                    <T>Retry</T>
                   </>
                 )}
               </Button>

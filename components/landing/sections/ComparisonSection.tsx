@@ -1,5 +1,6 @@
 "use client";
 
+import { T } from "gt-next";
 import { Check, X } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { FadeIn } from "../animations/FadeIn";
@@ -14,54 +15,6 @@ interface ComparisonRow {
   manual: string | boolean;
 }
 
-const comparisonData: ComparisonRow[] = [
-  {
-    feature: "Price",
-    intuneGet: "Free",
-    manual: "Free (your time)",
-  },
-  {
-    feature: "Apps Supported",
-    intuneGet: "10,000+",
-    manual: "Unlimited",
-  },
-  {
-    feature: "Setup Time",
-    intuneGet: "5 minutes",
-    manual: "Varies",
-  },
-  {
-    feature: "Time per Deployment",
-    intuneGet: "~5 minutes",
-    manual: "8+ hours",
-  },
-  {
-    feature: "IntuneWin Packaging",
-    intuneGet: "Automatic",
-    manual: "Manual",
-  },
-  {
-    feature: "Detection Rules",
-    intuneGet: "Auto-generated",
-    manual: "Manual",
-  },
-  {
-    feature: "Automatic Updates",
-    intuneGet: true,
-    manual: false,
-  },
-  {
-    feature: "AI-Powered Discovery",
-    intuneGet: true,
-    manual: false,
-  },
-  {
-    feature: "PSADT v4 Support",
-    intuneGet: true,
-    manual: false,
-  },
-];
-
 function CellContent({ value }: { value: string | boolean }) {
   if (typeof value === "boolean") {
     return value ? (
@@ -70,7 +23,7 @@ function CellContent({ value }: { value: string | boolean }) {
       <X className="w-5 h-5 text-red-400 mx-auto" aria-label="Not included" />
     );
   }
-  return <span className="text-sm text-text-secondary">{value}</span>;
+  return <span className="text-sm text-text-secondary"><T>{value}</T></span>;
 }
 
 function MobileCellContent({ value }: { value: string | boolean }) {
@@ -81,8 +34,20 @@ function MobileCellContent({ value }: { value: string | boolean }) {
       <X className="w-4 h-4 text-red-400" aria-label="Not included" />
     );
   }
-  return <span className="text-sm text-text-secondary">{value}</span>;
+  return <span className="text-sm text-text-secondary"><T>{value}</T></span>;
 }
+
+const comparisonData: ComparisonRow[] = [
+  { feature: "Price", intuneGet: "Free", manual: "Free (your time)" },
+  { feature: "Apps Supported", intuneGet: "10,000+", manual: "Unlimited" },
+  { feature: "Setup Time", intuneGet: "5 minutes", manual: "Varies" },
+  { feature: "Time per Deployment", intuneGet: "~5 minutes", manual: "8+ hours" },
+  { feature: "IntuneWin Packaging", intuneGet: "Automatic", manual: "Manual" },
+  { feature: "Detection Rules", intuneGet: "Auto-generated", manual: "Manual" },
+  { feature: "Automatic Updates", intuneGet: true, manual: false },
+  { feature: "AI-Powered Discovery", intuneGet: true, manual: false },
+  { feature: "PSADT v4 Support", intuneGet: true, manual: false },
+];
 
 export function ComparisonSection() {
   const shouldReduceMotion = useReducedMotion();
@@ -100,17 +65,17 @@ export function ComparisonSection() {
             transition={shouldReduceMotion ? { duration: 0 } : undefined}
           >
             <span className="inline-block font-mono text-xs tracking-wider text-accent-cyan uppercase mb-4">
-              Comparison
+              <T id="comparison.badge">Comparison</T>
             </span>
           </motion.div>
           <SlideIn direction="up" distance={30} duration={0.5} delay={0.1}>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-text-primary">
-              IntuneGet vs Manual Winget Deployment
+              <T id="comparison.heading">IntuneGet vs Manual Winget Deployment</T>
             </h2>
           </SlideIn>
           <FadeIn delay={0.2}>
             <p className="mx-auto max-w-2xl text-lg text-text-secondary">
-              See how IntuneGet automates Winget app deployment compared to manual processes
+              <T id="comparison.subheading">See how IntuneGet automates Winget app deployment compared to manual processes</T>
             </p>
           </FadeIn>
         </div>
@@ -118,11 +83,11 @@ export function ComparisonSection() {
         {/* Mobile: stacked cards */}
         <div className="md:hidden">
           <StaggerContainer className="space-y-3" staggerDelay={0.05}>
-            {comparisonData.map((row) => (
+            {comparisonData.map((row, index) => (
               <StaggerItem key={row.feature} direction="none">
                 <div className="rounded-xl bg-bg-elevated border border-overlay/[0.06] shadow-card overflow-hidden">
                   <div className="px-4 py-3 border-b border-overlay/[0.06]">
-                    <span className="text-sm font-medium text-text-primary">{row.feature}</span>
+                    <span className="text-sm font-medium text-text-primary"><T>{row.feature}</T></span>
                   </div>
                   <div className="grid grid-cols-2 divide-x divide-overlay/[0.06]">
                     <div className="px-4 py-3 bg-accent-cyan/5">
@@ -135,7 +100,7 @@ export function ComparisonSection() {
                     </div>
                     <div className="px-4 py-3">
                       <div className="text-[10px] font-medium text-text-muted uppercase tracking-wider mb-1">
-                        Manual
+                        <T id="comparison.manual">Manual</T>
                       </div>
                       <div className="flex items-center">
                         <MobileCellContent value={row.manual} />
@@ -157,11 +122,11 @@ export function ComparisonSection() {
             </div>
             <div className="p-4 text-center bg-accent-cyan/10 rounded-t-2xl border-2 border-b-0 border-accent-cyan/30">
               <div className="font-bold text-text-primary">IntuneGet</div>
-              <div className="text-xs text-accent-cyan font-medium mt-1">Recommended</div>
+              <div className="text-xs text-accent-cyan font-medium mt-1"><T id="comparison.recommended">Recommended</T></div>
             </div>
             <div className="p-4 text-center bg-bg-elevated rounded-t-2xl border border-b-0 border-overlay/10">
-              <div className="font-semibold text-text-secondary">Manual Process</div>
-              <div className="text-xs text-text-muted mt-1">DIY Approach</div>
+              <div className="font-semibold text-text-secondary"><T id="comparison.manual-process">Manual Process</T></div>
+              <div className="text-xs text-text-muted mt-1"><T id="comparison.diy">DIY Approach</T></div>
             </div>
           </div>
 
@@ -179,7 +144,7 @@ export function ComparisonSection() {
                   )}
                 >
                   <div className="p-4 flex items-center">
-                    <span className="text-sm font-medium text-text-primary">{row.feature}</span>
+                    <span className="text-sm font-medium text-text-primary"><T>{row.feature}</T></span>
                   </div>
                   <div className="p-4 flex items-center justify-center bg-accent-cyan/5 border-x border-accent-cyan/10">
                     <CellContent value={row.intuneGet} />
@@ -203,8 +168,7 @@ export function ComparisonSection() {
         {/* Bottom note */}
         <FadeIn delay={0.4}>
           <p className="text-center text-sm text-text-muted mt-8">
-            IntuneGet has no surprise bills, no seat limits, and no hidden fees.
-            Your data stays yours - export anytime with no lock-in.
+            <T id="comparison.note">IntuneGet has no surprise bills, no seat limits, and no hidden fees. Your data stays yours - export anytime with no lock-in.</T>
           </p>
         </FadeIn>
       </div>

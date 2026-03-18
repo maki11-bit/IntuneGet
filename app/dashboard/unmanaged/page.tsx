@@ -2,6 +2,7 @@
 
 import { useMemo, useCallback } from 'react';
 import Link from 'next/link';
+import { T, Var } from 'gt-next';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import {
   Radar,
@@ -123,8 +124,8 @@ export default function UnmanagedAppsPage() {
     return (
       <div className="space-y-8">
         <PageHeader
-          title="Unmanaged Apps"
-          description="Unmanaged apps detected across your devices"
+          title={<T>Unmanaged Apps</T>}
+          description={<T>Unmanaged apps detected across your devices</T>}
           icon={Radar}
         />
 
@@ -137,35 +138,37 @@ export default function UnmanagedAppsPage() {
               <div className="absolute -inset-1 rounded-2xl bg-amber-500/20 blur-xl opacity-50" />
             </div>
 
-            <h2 className="text-2xl font-semibold text-text-primary mb-3">Additional Permission Required</h2>
+            <h2 className="text-2xl font-semibold text-text-primary mb-3"><T>Additional Permission Required</T></h2>
             <p className="text-text-secondary mb-8">
-              To access unmanaged apps, your Azure AD application needs the{' '}
-              <code className="text-accent-cyan bg-accent-cyan/10 px-2 py-1 rounded-md font-mono text-sm">
-                {permissionError}
-              </code>{' '}
-              permission.
+              <T>To access unmanaged apps, your Azure AD application needs the <Var>{permissionError}</Var> permission.</T>
             </p>
 
             <div className="w-full bg-bg-elevated/50 rounded-xl p-6 text-left mb-8 border border-overlay/5">
               <h3 className="text-sm font-semibold text-text-primary mb-4 flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-accent-cyan" />
-                Quick Setup Guide
+                <T>Quick Setup Guide</T>
               </h3>
               <ol className="space-y-3">
-                {[
-                  'Go to Azure Portal > App registrations > Your app',
-                  'Click "API permissions"',
-                  'Add permission > Microsoft Graph > Application permissions',
-                  `Search for "${permissionError}" and add it`,
-                  'Click "Grant admin consent" for your organization',
-                ].map((step, i) => (
-                  <li key={i} className="flex gap-3 text-sm text-text-secondary">
-                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-accent-cyan/10 text-accent-cyan flex items-center justify-center text-xs font-bold">
-                      {i + 1}
-                    </span>
-                    <span className="pt-0.5">{step}</span>
-                  </li>
-                ))}
+                <li className="flex gap-3 text-sm text-text-secondary">
+                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-accent-cyan/10 text-accent-cyan flex items-center justify-center text-xs font-bold">1</span>
+                  <span className="pt-0.5"><T>Go to Azure Portal &gt; App registrations &gt; Your app</T></span>
+                </li>
+                <li className="flex gap-3 text-sm text-text-secondary">
+                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-accent-cyan/10 text-accent-cyan flex items-center justify-center text-xs font-bold">2</span>
+                  <span className="pt-0.5"><T>Click &quot;API permissions&quot;</T></span>
+                </li>
+                <li className="flex gap-3 text-sm text-text-secondary">
+                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-accent-cyan/10 text-accent-cyan flex items-center justify-center text-xs font-bold">3</span>
+                  <span className="pt-0.5"><T>Add permission &gt; Microsoft Graph &gt; Application permissions</T></span>
+                </li>
+                <li className="flex gap-3 text-sm text-text-secondary">
+                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-accent-cyan/10 text-accent-cyan flex items-center justify-center text-xs font-bold">4</span>
+                  <span className="pt-0.5"><T>Search for &quot;<Var>{permissionError}</Var>&quot; and add it</T></span>
+                </li>
+                <li className="flex gap-3 text-sm text-text-secondary">
+                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-accent-cyan/10 text-accent-cyan flex items-center justify-center text-xs font-bold">5</span>
+                  <span className="pt-0.5"><T>Click &quot;Grant admin consent&quot; for your organization</T></span>
+                </li>
               </ol>
             </div>
 
@@ -176,7 +179,7 @@ export default function UnmanagedAppsPage() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-accent-cyan to-accent-cyan-bright text-black font-medium rounded-xl hover:opacity-90 transition-opacity"
               >
-                Open Azure Portal
+                <T>Open Azure Portal</T>
                 <ExternalLink className="w-4 h-4" />
               </a>
               <Button
@@ -188,7 +191,7 @@ export default function UnmanagedAppsPage() {
                 className="border-overlay/10 hover:bg-overlay/5"
               >
                 <RefreshCw className="w-4 h-4 mr-2" />
-                Retry
+                <T>Retry</T>
               </Button>
             </div>
           </div>
@@ -201,8 +204,8 @@ export default function UnmanagedAppsPage() {
     <div className="space-y-6">
       {/* Header */}
       <PageHeader
-        title="Unmanaged Apps"
-        description="Unmanaged apps detected across your devices. Claim them to enable managed deployment."
+        title={<T>Unmanaged Apps</T>}
+        description={<T>Unmanaged apps detected across your devices. Claim them to enable managed deployment.</T>}
         icon={Radar}
         badge={lastSynced ? {
           text: fromCache ? 'Cached' : 'Live',
@@ -222,7 +225,7 @@ export default function UnmanagedAppsPage() {
               className="border-overlay/10 hover:bg-overlay/5 hover:border-accent-cyan/30"
             >
               <RefreshCw className={cn('w-4 h-4 mr-2', isRefreshing && 'animate-spin')} />
-              Refresh
+              <T>Refresh</T>
             </Button>
           </div>
         }
@@ -240,7 +243,7 @@ export default function UnmanagedAppsPage() {
           >
             <AlertCircle className="w-5 h-5 text-status-error flex-shrink-0 mt-0.5" />
             <div className="flex-1">
-              <p className="text-status-error font-medium">Error</p>
+              <p className="text-status-error font-medium"><T>Error</T></p>
               <p className="text-status-error/70 text-sm mt-1">{error}</p>
             </div>
             <Button
@@ -250,7 +253,7 @@ export default function UnmanagedAppsPage() {
               disabled={isRefreshing}
               className="text-status-error hover:bg-status-error/10 text-xs"
             >
-              Retry
+              <T>Retry</T>
             </Button>
           </motion.div>
         )}
@@ -259,16 +262,16 @@ export default function UnmanagedAppsPage() {
       {/* Stat Cards (5) */}
       <StatCardGrid columns={4}>
         <AnimatedStatCard
-          title="Total Apps"
+          title={<T>Total Apps</T>}
           value={computedStats.total}
           icon={Package}
           color="cyan"
-          description={`across ${computedStats.totalDevices.toLocaleString()} devices`}
+          description={<T>across <Var>{computedStats.totalDevices.toLocaleString()}</Var> devices</T>}
           delay={0}
           loading={isLoading}
         />
         <AnimatedStatCard
-          title="Matched"
+          title={<T>Matched</T>}
           value={computedStats.matched}
           icon={CheckCircle2}
           color="success"
@@ -276,7 +279,7 @@ export default function UnmanagedAppsPage() {
           loading={isLoading}
         />
         <AnimatedStatCard
-          title="Partial Match"
+          title={<T>Partial Match</T>}
           value={computedStats.partial}
           icon={AlertCircle}
           color="warning"
@@ -284,7 +287,7 @@ export default function UnmanagedAppsPage() {
           loading={isLoading}
         />
         <AnimatedStatCard
-          title="Unmatched"
+          title={<T>Unmatched</T>}
           value={computedStats.unmatched}
           icon={HelpCircle}
           color="neutral"
@@ -297,11 +300,11 @@ export default function UnmanagedAppsPage() {
       {computedStats.claimed > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <AnimatedStatCard
-            title="Claimed"
+            title={<T>Claimed</T>}
             value={computedStats.claimed}
             icon={ShoppingCart}
             color="violet"
-            description={`${claimedPercentage}% of matched apps`}
+            description={<T><Var>{claimedPercentage}</Var>% of matched apps</T>}
             delay={0.4}
             loading={isLoading}
           />
@@ -314,13 +317,12 @@ export default function UnmanagedAppsPage() {
           <div className="flex items-center gap-3">
             <ShoppingCart className="w-5 h-5 text-accent-violet" />
             <p className="text-sm text-text-secondary">
-              <span className="font-medium text-text-primary">{computedStats.claimed} {computedStats.claimed === 1 ? 'app' : 'apps'}</span>{' '}
-              in your cart ready for deployment
+              <T><span className="font-medium text-text-primary"><Var>{computedStats.claimed}</Var> {computedStats.claimed === 1 ? 'app' : 'apps'}</span> in your cart ready for deployment</T>
             </p>
           </div>
           <Button asChild size="sm" className="bg-gradient-to-r from-accent-violet to-accent-violet-bright hover:opacity-90 text-white border-0 flex-shrink-0">
             <Link href="/dashboard/uploads">
-              Go to Deployments
+              <T>Go to Deployments</T>
               <ArrowRight className="w-4 h-4 ml-1.5" />
             </Link>
           </Button>

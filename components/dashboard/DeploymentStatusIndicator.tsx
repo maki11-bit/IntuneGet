@@ -1,5 +1,6 @@
 'use client';
 
+import { T } from 'gt-next';
 import Link from 'next/link';
 import { Rocket } from 'lucide-react';
 import { useDashboardStats } from '@/hooks/useAnalytics';

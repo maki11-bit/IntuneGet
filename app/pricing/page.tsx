@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Header } from "@/components/landing/Header";
 import { Footer } from "@/components/landing/sections/Footer";
 import { Check, X, Minus, ArrowRight, Github } from "lucide-react";
+import { T } from "gt-next";
 
 export const metadata: Metadata = {
   title: "Pricing | IntuneGet - Free Intune App Deployment Tool",
@@ -126,7 +127,7 @@ function CellValue({ value }: { value: string | boolean }) {
   if (value === "N/A") {
     return <Minus className="w-5 h-5 text-stone-300 mx-auto" />;
   }
-  return <span className="text-sm text-text-secondary">{value}</span>;
+  return <span className="text-sm text-text-secondary"><T>{value}</T></span>;
 }
 
 export default function PricingPage() {
@@ -146,14 +147,14 @@ export default function PricingPage() {
         {/* Hero */}
         <div className="text-center mb-16">
           <span className="inline-block font-mono text-xs tracking-wider text-accent-cyan uppercase mb-4">
-            Pricing
+            <T>Pricing</T>
           </span>
           <h1 className="text-4xl md:text-5xl font-bold text-text-primary mb-4">
-            Free. No Catch.
+            <T>Free. No Catch.</T>
           </h1>
           <p className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto">
-            IntuneGet is 100% free and open source. Deploy 10,000+ Winget apps
-            to Microsoft Intune without spending a cent.
+            <T>IntuneGet is 100% free and open source. Deploy 10,000+ Winget apps
+            to Microsoft Intune without spending a cent.</T>
           </p>
         </div>
 
@@ -161,14 +162,14 @@ export default function PricingPage() {
         <div className="max-w-md mx-auto mb-16">
           <div className="bg-bg-elevated rounded-2xl border-2 border-accent-cyan/30 shadow-soft-xl p-8 text-center">
             <div className="inline-block px-3 py-1 bg-accent-cyan/10 text-accent-cyan text-sm font-semibold rounded-full mb-4">
-              Open Source
+              <T>Open Source</T>
             </div>
             <div className="mb-2">
-              <span className="text-5xl font-bold text-text-primary">$0</span>
-              <span className="text-text-muted ml-2">/always</span>
+              <span className="text-5xl font-bold text-text-primary"><T>$0</T></span>
+              <span className="text-text-muted ml-2"><T>/always</T></span>
             </div>
             <p className="text-text-secondary mb-6">
-              All features included. No credit card required.
+              <T>All features included. No credit card required.</T>
             </p>
             <ul className="text-left space-y-3 mb-8">
               {[
@@ -184,7 +185,7 @@ export default function PricingPage() {
               ].map((feature) => (
                 <li key={feature} className="flex items-start gap-3">
                   <Check className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
-                  <span className="text-text-secondary text-sm">{feature}</span>
+                  <span className="text-text-secondary text-sm"><T>{feature}</T></span>
                 </li>
               ))}
             </ul>
@@ -193,7 +194,7 @@ export default function PricingPage() {
                 href="/auth/signin"
                 className="inline-flex items-center justify-center gap-2 w-full px-6 py-3 text-base font-semibold text-white bg-accent-cyan rounded-xl hover:bg-accent-cyan-dim transition-all"
               >
-                Start Deploying Free
+                <T>Start Deploying Free</T>
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <a
@@ -203,7 +204,7 @@ export default function PricingPage() {
                 className="inline-flex items-center justify-center gap-2 w-full px-6 py-3 text-base font-semibold text-text-secondary bg-bg-elevated border border-overlay/10 rounded-xl hover:bg-overlay/[0.04] transition-all"
               >
                 <Github className="w-4 h-4" />
-                View Source Code
+                <T>View Source Code</T>
               </a>
             </div>
           </div>
@@ -212,7 +213,7 @@ export default function PricingPage() {
         {/* Comparison table */}
         <div className="mb-16">
           <h2 className="text-2xl md:text-3xl font-bold text-text-primary text-center mb-8">
-            How IntuneGet Compares to Manual Deployment
+            <T>How IntuneGet Compares to Manual Deployment</T>
           </h2>
           <div className="overflow-x-auto">
             <div className="min-w-[640px]">
@@ -222,12 +223,12 @@ export default function PricingPage() {
                   <span className="sr-only">Feature</span>
                 </div>
                 <div className="p-3 text-center bg-accent-cyan/10 rounded-t-xl border-2 border-b-0 border-accent-cyan/30">
-                  <div className="font-bold text-text-primary">IntuneGet</div>
-                  <div className="text-xs text-accent-cyan font-medium">Free & Open Source</div>
+                  <div className="font-bold text-text-primary"><T>IntuneGet</T></div>
+                  <div className="text-xs text-accent-cyan font-medium"><T>Free & Open Source</T></div>
                 </div>
                 <div className="p-3 text-center bg-bg-elevated rounded-t-xl border border-b-0 border-overlay/10">
-                  <div className="font-semibold text-text-secondary">Manual Process</div>
-                  <div className="text-xs text-text-muted">DIY Scripting</div>
+                  <div className="font-semibold text-text-secondary"><T>Manual Process</T></div>
+                  <div className="text-xs text-text-muted"><T>DIY Scripting</T></div>
                 </div>
               </div>
 
@@ -242,7 +243,7 @@ export default function PricingPage() {
                   >
                     <div className="p-4 flex items-center">
                       <span className="text-sm font-medium text-text-primary">
-                        {row.feature}
+                        <T>{row.feature}</T>
                       </span>
                     </div>
                     <div className="p-4 flex items-center justify-center bg-accent-cyan/5 border-x border-accent-cyan/10">
@@ -261,18 +262,18 @@ export default function PricingPage() {
         {/* FAQ-style content */}
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-2xl font-bold text-text-primary mb-4">
-            Why Is IntuneGet Free?
+            <T>Why Is IntuneGet Free?</T>
           </h2>
           <p className="text-text-secondary leading-relaxed mb-6">
-            IntuneGet was built by an IT professional who experienced the pain of
+            <T>IntuneGet was built by an IT professional who experienced the pain of
             manual app packaging firsthand. The goal is simple: no IT team should
             have to waste hours on repetitive deployment tasks. By keeping IntuneGet
             free and open source, we ensure that every
             organization - from startups to enterprises - can deploy apps to Intune
-            efficiently without budget constraints.
+            efficiently without budget constraints.</T>
           </p>
           <p className="text-sm text-text-muted">
-            Have questions?{" "}
+            <T>Have questions?{" "}
             <a
               href="https://github.com/ugurkocde/IntuneGet/issues"
               target="_blank"
@@ -280,7 +281,7 @@ export default function PricingPage() {
               className="text-accent-cyan hover:text-accent-cyan-dim transition-colors"
             >
               Open a GitHub Issue
-            </a>
+            </a></T>
           </p>
         </div>
       </main>

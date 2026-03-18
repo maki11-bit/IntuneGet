@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { Header } from "@/components/landing/Header";
 import { Footer } from "@/components/landing/sections/Footer";
+import { T } from "gt-next";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | IntuneGet",
@@ -50,166 +51,208 @@ export default function PrivacyPage() {
         <div className="space-y-8">
           <div>
             <h1 className="text-3xl font-bold text-text-primary sm:text-4xl">
-              Privacy Policy
+              <T>Privacy Policy</T>
             </h1>
             <p className="mt-2 text-sm text-text-muted">
-              Effective: January 24, 2026
+              <T>Effective: January 24, 2026</T>
             </p>
           </div>
 
           <p className="text-text-secondary leading-relaxed">
-            This Privacy Policy explains how IntuneGet (&quot;we&quot;,
-            &quot;our&quot;, or &quot;the Service&quot;) handles information
-            when you use the app to package and deploy applications from Winget
-            to Microsoft Intune. We designed the Service to minimize data
-            collection and focus on privacy by default.
+            <T>
+              This Privacy Policy explains how IntuneGet (&quot;we&quot;,
+              &quot;our&quot;, or &quot;the Service&quot;) handles information
+              when you use the app to package and deploy applications from Winget
+              to Microsoft Intune. We designed the Service to minimize data
+              collection and focus on privacy by default.
+            </T>
           </p>
 
           <section className="space-y-4">
-            <h2 className="text-xl font-semibold text-text-primary">What We Access</h2>
+            <h2 className="text-xl font-semibold text-text-primary"><T>What We Access</T></h2>
             <ul className="list-disc list-inside space-y-2 text-text-secondary">
               <li>
                 <strong className="text-text-primary">
-                  Authentication via Microsoft OAuth 2.0 (Azure AD).
+                  <T>Authentication via Microsoft OAuth 2.0 (Azure AD).</T>
                 </strong>{" "}
-                We request Microsoft Graph permissions necessary to upload
-                applications to your Intune environment.
+                <T>
+                  We request Microsoft Graph permissions necessary to upload
+                  applications to your Intune environment.
+                </T>
               </li>
               <li>
                 <strong className="text-text-primary">
-                  Intune application data.
+                  <T>Intune application data.</T>
                 </strong>{" "}
-                We access the permissions required to upload Win32 applications
-                to your Intune tenant.
+                <T>
+                  We access the permissions required to upload Win32 applications
+                  to your Intune tenant.
+                </T>
               </li>
             </ul>
           </section>
 
           <section className="space-y-4">
             <h2 className="text-xl font-semibold text-text-primary">
-              How We Process Data
+              <T>How We Process Data</T>
             </h2>
             <ul className="list-disc list-inside space-y-2 text-text-secondary">
               <li>
-                We do not persist your Intune configuration data beyond what is
-                necessary for the application upload process.
+                <T>
+                  We do not persist your Intune configuration data beyond what is
+                  necessary for the application upload process.
+                </T>
               </li>
               <li>
-                Access tokens are managed by your browser session to call
-                Microsoft Graph; we do not persist them server-side.
+                <T>
+                  Access tokens are managed by your browser session to call
+                  Microsoft Graph; we do not persist them server-side.
+                </T>
               </li>
               <li>
-                Package metadata and upload history may be stored locally in
-                your self-hosted database.
+                <T>
+                  Package metadata and upload history may be stored locally in
+                  your self-hosted database.
+                </T>
               </li>
             </ul>
           </section>
 
           <section className="space-y-4">
             <h2 className="text-xl font-semibold text-text-primary">
-              Analytics & Cookies
+              <T>Analytics & Cookies</T>
             </h2>
             <ul className="list-disc list-inside space-y-2 text-text-secondary">
               <li>
-                We use privacy-friendly analytics (Plausible) to understand
-                aggregate usage without cookies or personal identifiers.
+                <T>
+                  We use privacy-friendly analytics (Plausible) to understand
+                  aggregate usage without cookies or personal identifiers.
+                </T>
               </li>
               <li>
-                Plausible Analytics is 100% cookieless and does not track
-                personal data or use browser fingerprinting.
+                <T>
+                  Plausible Analytics is 100% cookieless and does not track
+                  personal data or use browser fingerprinting.
+                </T>
               </li>
               <li>
-                We collect only aggregated, anonymous metrics such as page
-                views, referrers, and device types.
+                <T>
+                  We collect only aggregated, anonymous metrics such as page
+                  views, referrers, and device types.
+                </T>
               </li>
               <li>
-                Your consent choice is managed by the cookie banner and stored in
-                localStorage (not a cookie) and remains on your device only.
+                <T>
+                  Your consent choice is managed by the cookie banner and stored in
+                  localStorage (not a cookie) and remains on your device only.
+                </T>
               </li>
               <li>
-                You can revisit this page anytime to review what enabling or
-                disabling analytics changes.
-              </li>
-            </ul>
-          </section>
-
-          <section className="space-y-4">
-            <h2 className="text-xl font-semibold text-text-primary">Data Sharing</h2>
-            <p className="text-text-secondary leading-relaxed">
-              We do not sell or share your configuration data with third
-              parties. Data accessed from Microsoft Graph is used solely to
-              facilitate application deployment to your Intune environment.
-            </p>
-          </section>
-
-          <section className="space-y-4">
-            <h2 className="text-xl font-semibold text-text-primary">Security</h2>
-            <ul className="list-disc list-inside space-y-2 text-text-secondary">
-              <li>
-                Authentication is handled via Microsoft OAuth 2.0 (Azure AD).
-              </li>
-              <li>
-                Only the required Graph permissions are requested for Intune
-                operations.
-              </li>
-              <li>
-                For self-hosted deployments, you maintain full control over your
-                data and infrastructure.
+                <T>
+                  You can revisit this page anytime to review what enabling or
+                  disabling analytics changes.
+                </T>
               </li>
             </ul>
           </section>
 
           <section className="space-y-4">
-            <h2 className="text-xl font-semibold text-text-primary">Data Retention</h2>
+            <h2 className="text-xl font-semibold text-text-primary"><T>Data Sharing</T></h2>
             <p className="text-text-secondary leading-relaxed">
-              We do not retain your Intune configuration data beyond the active
-              session. Operational logs may exist temporarily within hosting
-              provider systems as part of standard logging.
+              <T>
+                We do not sell or share your configuration data with third
+                parties. Data accessed from Microsoft Graph is used solely to
+                facilitate application deployment to your Intune environment.
+              </T>
             </p>
           </section>
 
           <section className="space-y-4">
-            <h2 className="text-xl font-semibold text-text-primary">Your Choices</h2>
+            <h2 className="text-xl font-semibold text-text-primary"><T>Security</T></h2>
             <ul className="list-disc list-inside space-y-2 text-text-secondary">
               <li>
-                You can disconnect at any time by signing out of the app.
+                <T>
+                  Authentication is handled via Microsoft OAuth 2.0 (Azure AD).
+                </T>
               </li>
               <li>
-                You can revoke the app&apos;s permissions from your Microsoft
-                account/tenant to prevent future access.
+                <T>
+                  Only the required Graph permissions are requested for Intune
+                  operations.
+                </T>
+              </li>
+              <li>
+                <T>
+                  For self-hosted deployments, you maintain full control over your
+                  data and infrastructure.
+                </T>
+              </li>
+            </ul>
+          </section>
+
+          <section className="space-y-4">
+            <h2 className="text-xl font-semibold text-text-primary"><T>Data Retention</T></h2>
+            <p className="text-text-secondary leading-relaxed">
+              <T>
+                We do not retain your Intune configuration data beyond the active
+                session. Operational logs may exist temporarily within hosting
+                provider systems as part of standard logging.
+              </T>
+            </p>
+          </section>
+
+          <section className="space-y-4">
+            <h2 className="text-xl font-semibold text-text-primary"><T>Your Choices</T></h2>
+            <ul className="list-disc list-inside space-y-2 text-text-secondary">
+              <li>
+                <T>
+                  You can disconnect at any time by signing out of the app.
+                </T>
+              </li>
+              <li>
+                <T>
+                  You can revoke the app&apos;s permissions from your Microsoft
+                  account/tenant to prevent future access.
+                </T>
               </li>
             </ul>
           </section>
 
           <section className="space-y-4">
             <h2 className="text-xl font-semibold text-text-primary">
-              Children&apos;s Privacy
+              <T>Children&apos;s Privacy</T>
             </h2>
             <p className="text-text-secondary leading-relaxed">
-              The Service is intended for professional/enterprise use and is not
-              directed to children.
+              <T>
+                The Service is intended for professional/enterprise use and is not
+                directed to children.
+              </T>
             </p>
           </section>
 
           <section className="space-y-4">
-            <h2 className="text-xl font-semibold text-text-primary">Changes</h2>
+            <h2 className="text-xl font-semibold text-text-primary"><T>Changes</T></h2>
             <p className="text-text-secondary leading-relaxed">
-              We may update this policy to reflect improvements or operational
-              changes. If we make material changes, we will update the effective
-              date above.
+              <T>
+                We may update this policy to reflect improvements or operational
+                changes. If we make material changes, we will update the effective
+                date above.
+              </T>
             </p>
           </section>
 
           <section className="space-y-4">
-            <h2 className="text-xl font-semibold text-text-primary">Contact</h2>
+            <h2 className="text-xl font-semibold text-text-primary"><T>Contact</T></h2>
             <p className="text-text-secondary leading-relaxed">
-              Questions about this policy? Contact us at:{" "}
-              <a
-                href="mailto:support@ugurlabs.com"
-                className="text-accent-cyan hover:text-accent-cyan-bright transition-colors"
-              >
-                support@ugurlabs.com
-              </a>
+              <T>
+                Questions about this policy? Contact us at:{" "}
+                <a
+                  href="mailto:support@ugurlabs.com"
+                  className="text-accent-cyan hover:text-accent-cyan-bright transition-colors"
+                >
+                  support@ugurlabs.com
+                </a>
+              </T>
             </p>
           </section>
         </div>

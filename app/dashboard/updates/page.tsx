@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback, useRef, useEffect, useMemo } from 'react';
+import { T, Var } from "gt-next";
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
@@ -338,8 +339,8 @@ export default function UpdatesPage() {
     <div className="space-y-6">
       {/* Header */}
       <PageHeader
-        title="App Updates"
-        description="Manage app updates and auto-update policies"
+        title={<T>App Updates</T>}
+        description={<T>Manage app updates and auto-update policies</T>}
         gradient
         gradientColors="cyan"
         actions={
@@ -358,7 +359,7 @@ export default function UpdatesPage() {
                   (isFetchingUpdates || isRefreshing) && 'animate-spin'
                 )}
               />
-              Refresh
+              <T>Refresh</T>
             </Button>
             {eligibleForBulkUpdate.length > 0 && (
               <>
@@ -369,7 +370,7 @@ export default function UpdatesPage() {
                   }}
                   className="bg-accent-cyan hover:bg-accent-cyan-bright text-bg-deepest font-medium"
                 >
-                  Update All ({eligibleForBulkUpdate.length})
+                  <T>Update All</T> ({eligibleForBulkUpdate.length})
                 </Button>
                 <Dialog
                   open={bulkDialogOpen}
@@ -389,17 +390,17 @@ export default function UpdatesPage() {
                       <>
                         <DialogHeader>
                           <DialogTitle>
-                            Update {eligibleForBulkUpdate.length} app{eligibleForBulkUpdate.length !== 1 ? 's' : ''}?
+                            <T>Update <Var>{eligibleForBulkUpdate.length}</Var> app{eligibleForBulkUpdate.length !== 1 ? 's' : ''}?</T>
                           </DialogTitle>
                           <DialogDescription asChild>
                             <div>
                               <span className="block mb-2">
-                                This will trigger updates for the following apps:
+                                <T>This will trigger updates for the following apps:</T>
                               </span>
                               {eligibleForBulkUpdate.some(u => classifyUpdateType(u.current_version, u.latest_version) === 'major') && (
                                 <span className="flex items-center gap-2 px-3 py-2 mb-2 bg-status-warning/10 border border-status-warning/20 rounded-lg text-sm text-status-warning">
                                   <AlertTriangle className="w-4 h-4 flex-shrink-0" />
-                                  Includes major version updates -- review carefully
+                                  <T>Includes major version updates -- review carefully</T>
                                 </span>
                               )}
                               {(() => {
@@ -408,7 +409,7 @@ export default function UpdatesPage() {
                                 return (
                                   <span className="flex items-center gap-2 px-3 py-2 mb-2 bg-violet-500/10 border border-violet-500/20 rounded-lg text-sm text-violet-500">
                                     <Info className="w-4 h-4 flex-shrink-0" />
-                                    {newAppsCount} app{newAppsCount !== 1 ? 's' : ''} will have new app objects created in Intune (not previously deployed through IntuneGet)
+                                    <T><Var>{newAppsCount}</Var> app{newAppsCount !== 1 ? 's' : ''} will have new app objects created in Intune (not previously deployed through IntuneGet)</T>
                                   </span>
                                 );
                               })()}
@@ -444,13 +445,13 @@ export default function UpdatesPage() {
                             onClick={() => setBulkDialogOpen(false)}
                             className="border-overlay/10 text-text-secondary hover:bg-overlay/5"
                           >
-                            Cancel
+                            <T>Cancel</T>
                           </Button>
                           <Button
                             onClick={() => void handleBulkUpdate()}
                             className="bg-accent-cyan hover:bg-accent-cyan-bright text-bg-deepest font-medium"
                           >
-                            Update All
+                            <T>Update All</T>
                           </Button>
                         </DialogFooter>
                       </>
@@ -460,10 +461,10 @@ export default function UpdatesPage() {
                       <>
                         <DialogHeader>
                           <DialogTitle>
-                            Updating apps...
+                            <T>Updating apps...</T>
                           </DialogTitle>
                           <DialogDescription>
-                            Processing {bulkProgress.completed + bulkProgress.failed} of {bulkProgress.total} apps
+                            <T>Processing <Var>{bulkProgress.completed + bulkProgress.failed}</Var> of <Var>{bulkProgress.total}</Var> apps</T>
                           </DialogDescription>
                         </DialogHeader>
                         <div className="px-6 pb-6 space-y-4">
@@ -476,9 +477,9 @@ export default function UpdatesPage() {
                           <div className="flex items-center justify-center gap-2 text-sm text-text-secondary">
                             <Loader2 className="w-4 h-4 animate-spin text-accent-cyan" />
                             <span>
-                              {bulkProgress.completed} triggered
+                              {bulkProgress.completed} <T>triggered</T>
                               {bulkProgress.failed > 0 && (
-                                <span className="text-status-error">, {bulkProgress.failed} failed</span>
+                                <span className="text-status-error">, {bulkProgress.failed} <T>failed</T></span>
                               )}
                             </span>
                           </div>
@@ -490,10 +491,10 @@ export default function UpdatesPage() {
                       <>
                         <DialogHeader>
                           <DialogTitle>
-                            {bulkProgress.failed === 0 ? 'All updates triggered' : 'Updates completed with errors'}
+                            {bulkProgress.failed === 0 ? <T>All updates triggered</T> : <T>Updates completed with errors</T>}
                           </DialogTitle>
                           <DialogDescription>
-                            {bulkProgress.completed} of {bulkProgress.total} app{bulkProgress.total !== 1 ? 's' : ''} triggered successfully
+                            <T><Var>{bulkProgress.completed}</Var> of <Var>{bulkProgress.total}</Var> app{bulkProgress.total !== 1 ? 's' : ''} triggered successfully</T>
                           </DialogDescription>
                         </DialogHeader>
                         <div className="px-6 pb-2 space-y-3">
@@ -501,13 +502,13 @@ export default function UpdatesPage() {
                             {bulkProgress.completed > 0 && (
                               <span className="flex items-center gap-1.5 text-status-success">
                                 <CheckCircle2 className="w-4 h-4" />
-                                {bulkProgress.completed} triggered
+                                {bulkProgress.completed} <T>triggered</T>
                               </span>
                             )}
                             {bulkProgress.failed > 0 && (
                               <span className="flex items-center gap-1.5 text-status-error">
                                 <XCircle className="w-4 h-4" />
-                                {bulkProgress.failed} failed
+                                {bulkProgress.failed} <T>failed</T>
                               </span>
                             )}
                           </div>
@@ -528,7 +529,7 @@ export default function UpdatesPage() {
                             onClick={() => setBulkDialogOpen(false)}
                             className="text-text-secondary hover:bg-overlay/5"
                           >
-                            Close
+                            <T>Close</T>
                           </Button>
                           {bulkProgress.completed > 0 && (
                             <Button
@@ -538,7 +539,7 @@ export default function UpdatesPage() {
                               }}
                               className="bg-accent-cyan hover:bg-accent-cyan-bright text-bg-deepest font-medium"
                             >
-                              View Uploads
+                              <T>View Uploads</T>
                               <ArrowRight className="w-4 h-4 ml-1.5" />
                             </Button>
                           )}
@@ -559,39 +560,39 @@ export default function UpdatesPage() {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Info className="w-5 h-5 text-violet-500" />
-              Create new app in Intune
+              <T>Create new app in Intune</T>
             </DialogTitle>
             <DialogDescription asChild>
               <div className="space-y-3 pt-1">
                 <p>
-                  <span className="font-medium text-text-primary">{pendingNewAppUpdate?.display_name}</span> was not
-                  originally deployed through IntuneGet.
+                  <T><Var><span className="font-medium text-text-primary">{pendingNewAppUpdate?.display_name}</span></Var> was not
+                  originally deployed through IntuneGet.</T>
                 </p>
                 <ul className="space-y-1.5 text-sm">
                   <li className="flex items-start gap-2">
                     <span className="mt-1 w-1 h-1 rounded-full bg-violet-500 flex-shrink-0" />
-                    A new app object will be created in Intune
+                    <T>A new app object will be created in Intune</T>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="mt-1 w-1 h-1 rounded-full bg-violet-500 flex-shrink-0" />
-                    The existing app in Intune will not be modified
+                    <T>The existing app in Intune will not be modified</T>
                   </li>
                   {userSettings.carryOverAssignments ? (
                     <li className="flex items-start gap-2">
                       <span className="mt-1 w-1 h-1 rounded-full bg-violet-500 flex-shrink-0" />
-                      Assignments will be carried over from the existing app
+                      <T>Assignments will be carried over from the existing app</T>
                     </li>
                   ) : (
                     <>
                       <li className="flex items-start gap-2">
                         <span className="mt-1 w-1 h-1 rounded-full bg-violet-500 flex-shrink-0" />
-                        You will need to assign groups after deployment
+                        <T>You will need to assign groups after deployment</T>
                       </li>
                       <li className="flex items-start gap-2">
                         <span className="mt-1 w-1 h-1 rounded-full bg-violet-500 flex-shrink-0" />
-                        You can enable automatic assignment carryover in{' '}
+                        <T>You can enable automatic assignment carryover in</T>{' '}
                         <Link href="/dashboard/settings" className="text-accent-cyan hover:text-accent-cyan-bright transition-colors underline underline-offset-2">
-                          Settings
+                          <T>Settings</T>
                         </Link>
                       </li>
                     </>
@@ -609,13 +610,13 @@ export default function UpdatesPage() {
               }}
               className="border-overlay/10 text-text-secondary hover:bg-overlay/5"
             >
-              Cancel
+              <T>Cancel</T>
             </Button>
             <Button
               onClick={() => void handleConfirmNewApp()}
               className="bg-violet-600 hover:bg-violet-700 text-white font-medium"
             >
-              Create New App
+              <T>Create New App</T>
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -634,7 +635,7 @@ export default function UpdatesPage() {
             <div className="flex items-center gap-3">
               <AlertTriangle className="w-5 h-5 text-status-warning flex-shrink-0" />
               <p className="text-sm font-medium text-text-primary">
-                {criticalCount} critical update{criticalCount !== 1 ? 's' : ''} require{criticalCount === 1 ? 's' : ''} attention
+                <T><Var>{criticalCount}</Var> critical update{criticalCount !== 1 ? 's' : ''} require{criticalCount === 1 ? 's' : ''} attention</T>
                 {oldestCriticalAge && (
                   <span className="text-text-muted font-normal ml-2">
                     ({oldestCriticalAge})
@@ -649,7 +650,7 @@ export default function UpdatesPage() {
                 onClick={() => setShowCriticalOnly(true)}
                 className="text-status-warning hover:text-status-warning hover:bg-status-warning/10 text-xs font-medium flex-shrink-0"
               >
-                View Critical
+                <T>View Critical</T>
               </Button>
             )}
           </div>
@@ -659,7 +660,7 @@ export default function UpdatesPage() {
       {/* Stats Cards */}
       <StatCardGrid columns={4}>
         <AnimatedStatCard
-          title="Available Updates"
+          title={<T>Available Updates</T>}
           value={availableCount}
           icon={Package}
           color="cyan"
@@ -667,7 +668,7 @@ export default function UpdatesPage() {
           loading={isLoadingUpdates}
         />
         <AnimatedStatCard
-          title="Critical Updates"
+          title={<T>Critical Updates</T>}
           value={criticalCount}
           icon={AlertTriangle}
           color={criticalCount > 0 ? 'warning' : 'neutral'}
@@ -676,7 +677,7 @@ export default function UpdatesPage() {
           description={oldestCriticalAge || undefined}
         />
         <AnimatedStatCard
-          title="Auto-Update Enabled"
+          title={<T>Auto-Update Enabled</T>}
           value={autoUpdateCount}
           icon={RefreshCw}
           color="success"
@@ -685,7 +686,7 @@ export default function UpdatesPage() {
           description={availableCount > 0 ? `${autoUpdateCount} of ${availableCount}` : undefined}
         />
         <AnimatedStatCard
-          title="Updated (7 days)"
+          title={<T>Updated (7 days)</T>}
           value={recentAutoUpdates}
           icon={CheckCircle2}
           color="violet"
@@ -704,7 +705,7 @@ export default function UpdatesPage() {
           <TabsList className="glass-light border border-overlay/5">
             <TabsTrigger value="available" className="data-[state=active]:bg-overlay/10">
               <Package className="w-4 h-4 mr-2" />
-              Available
+              <T>Available</T>
               {!isLoadingUpdates && availableCount > 0 && (
                 <span className="ml-1.5 text-[11px] font-medium bg-overlay/[0.08] px-1.5 py-0.5 rounded-md tabular-nums">
                   {availableCount}
@@ -713,7 +714,7 @@ export default function UpdatesPage() {
             </TabsTrigger>
             <TabsTrigger value="history" className="data-[state=active]:bg-overlay/10">
               <History className="w-4 h-4 mr-2" />
-              History
+              <T>History</T>
               {!isLoadingHistory && history.length > 0 && (
                 <span className="ml-1.5 text-[11px] font-medium bg-overlay/[0.08] px-1.5 py-0.5 rounded-md tabular-nums">
                   {history.length}
@@ -753,7 +754,7 @@ export default function UpdatesPage() {
                   )}
                 >
                   <AlertTriangle className="w-3.5 h-3.5 mr-1.5" />
-                  Critical
+                  <T>Critical</T>
                   {criticalCount > 0 && (
                     <span className="ml-1 tabular-nums">{criticalCount}</span>
                   )}
@@ -773,38 +774,38 @@ export default function UpdatesPage() {
                       )}
                     >
                       <Filter className="w-3.5 h-3.5 mr-1.5" />
-                      {updateTypeFilter ? updateTypeFilter.charAt(0).toUpperCase() + updateTypeFilter.slice(1) : 'Type'}
+                      {updateTypeFilter ? <T>{updateTypeFilter.charAt(0).toUpperCase() + updateTypeFilter.slice(1)}</T> : <T>Type</T>}
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end" className="w-44 bg-bg-elevated border-overlay/10 shadow-soft-lg">
-                    <DropdownMenuLabel className="text-[11px] text-text-muted uppercase tracking-wide">Update Type</DropdownMenuLabel>
+                    <DropdownMenuLabel className="text-[11px] text-text-muted uppercase tracking-wide"><T>Update Type</T></DropdownMenuLabel>
                     <DropdownMenuSeparator className="bg-overlay/[0.06]" />
                     <DropdownMenuItem
                       onClick={() => setUpdateTypeFilter(null)}
                       className={cn('text-sm', !updateTypeFilter && 'text-accent-cyan')}
                     >
-                      All types
+                      <T>All types</T>
                       {!updateTypeFilter && <CheckCircle2 className="w-3.5 h-3.5 ml-auto text-accent-cyan" />}
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       onClick={() => setUpdateTypeFilter('major')}
                       className={cn('text-sm', updateTypeFilter === 'major' && 'text-status-warning')}
                     >
-                      Major
+                      <T>Major</T>
                       <span className="ml-auto text-[11px] text-text-muted tabular-nums">{updateTypeCounts.major}</span>
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       onClick={() => setUpdateTypeFilter('minor')}
                       className={cn('text-sm', updateTypeFilter === 'minor' && 'text-accent-cyan')}
                     >
-                      Minor
+                      <T>Minor</T>
                       <span className="ml-auto text-[11px] text-text-muted tabular-nums">{updateTypeCounts.minor}</span>
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       onClick={() => setUpdateTypeFilter('patch')}
                       className={cn('text-sm', updateTypeFilter === 'patch' && 'text-status-success')}
                     >
-                      Patch
+                      <T>Patch</T>
                       <span className="ml-auto text-[11px] text-text-muted tabular-nums">{updateTypeCounts.patch}</span>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
@@ -819,7 +820,7 @@ export default function UpdatesPage() {
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end" className="w-44 bg-bg-elevated border-overlay/10 shadow-soft-lg">
-                    <DropdownMenuLabel className="text-[11px] text-text-muted uppercase tracking-wide">Sort By</DropdownMenuLabel>
+                    <DropdownMenuLabel className="text-[11px] text-text-muted uppercase tracking-wide"><T>Sort By</T></DropdownMenuLabel>
                     <DropdownMenuSeparator className="bg-overlay/[0.06]" />
                     {(Object.keys(sortLabels) as SortOption[]).map((option) => (
                       <DropdownMenuItem
@@ -851,7 +852,7 @@ export default function UpdatesPage() {
                         className="h-6 px-1.5 text-[11px] text-text-muted hover:text-text-primary"
                       >
                         <XCircle className="w-3 h-3 mr-1" />
-                        Clear
+                        <T>Clear</T>
                       </Button>
                     )}
                   </div>
@@ -863,8 +864,8 @@ export default function UpdatesPage() {
           {mspTenantSelectionRequired ? (
             <AnimatedEmptyState
               icon={Package}
-              title="Select a tenant to view updates"
-              description="Use the tenant switcher in the header to pick which managed tenant you want to update."
+              title={<T>Select a tenant to view updates</T>}
+              description={<T>Use the tenant switcher in the header to pick which managed tenant you want to update.</T>}
               color="neutral"
               showOrbs={false}
             />
@@ -873,11 +874,11 @@ export default function UpdatesPage() {
           ) : updatesError ? (
             <AnimatedEmptyState
               icon={XCircle}
-              title="Failed to load updates"
+              title={<T>Failed to load updates</T>}
               description={updatesError.message}
               color="neutral"
               action={{
-                label: 'Try Again',
+                label: <T>Try Again</T>,
                 onClick: () => refetchUpdates(),
                 variant: 'secondary',
               }}
@@ -902,12 +903,12 @@ export default function UpdatesPage() {
           ) : updates.length > 0 ? (
             <AnimatedEmptyState
               icon={Search}
-              title="No updates match your filters"
-              description="Try adjusting your search or filter criteria"
+              title={<T>No updates match your filters</T>}
+              description={<T>Try adjusting your search or filter criteria</T>}
               color="neutral"
               showOrbs={false}
               action={{
-                label: 'Clear All Filters',
+                label: <T>Clear All Filters</T>,
                 onClick: clearAllFilters,
                 variant: 'secondary',
               }}
@@ -915,8 +916,8 @@ export default function UpdatesPage() {
           ) : (
             <AnimatedEmptyState
               icon={CheckCircle2}
-              title="All apps are up to date"
-              description="No updates are currently available for your deployed apps"
+              title={<T>All apps are up to date</T>}
+              description={<T>No updates are currently available for your deployed apps</T>}
               color="cyan"
             />
           )}
@@ -927,8 +928,8 @@ export default function UpdatesPage() {
           {mspTenantSelectionRequired ? (
             <AnimatedEmptyState
               icon={History}
-              title="Select a tenant to view update history"
-              description="Auto-update history is shown per tenant to avoid mixing deployment timelines."
+              title={<T>Select a tenant to view update history</T>}
+              description={<T>Auto-update history is shown per tenant to avoid mixing deployment timelines.</T>}
               color="neutral"
               showOrbs={false}
             />

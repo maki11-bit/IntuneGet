@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { T } from 'gt-next';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Download, Loader2, RefreshCw, TrendingUp, Package, AlertTriangle, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -59,8 +60,8 @@ export default function ReportsPage() {
     return (
       <div className="space-y-6">
         <PageHeader
-          title="Reports & Analytics"
-          description="Track your deployment performance and trends"
+          title={<T>Reports & Analytics</T>}
+          description={<T>Track your deployment performance and trends</T>}
         />
         <SkeletonGrid count={4} columns={4} variant="stat" />
         <div className="grid gap-6 lg:grid-cols-2">
@@ -75,8 +76,8 @@ export default function ReportsPage() {
     return (
       <div className="space-y-6">
         <PageHeader
-          title="Reports & Analytics"
-          description="Track your deployment performance and trends"
+          title={<T>Reports & Analytics</T>}
+          description={<T>Track your deployment performance and trends</T>}
         />
         <AnimatedEmptyState
           icon={AlertTriangle}
@@ -99,8 +100,8 @@ export default function ReportsPage() {
     <div className="space-y-6">
       {/* Header */}
       <PageHeader
-        title="Reports & Analytics"
-        description="Track your deployment performance and trends"
+        title={<T>Reports & Analytics</T>}
+        description={<T>Track your deployment performance and trends</T>}
         gradient
         gradientColors="mixed"
         actions={
@@ -113,7 +114,7 @@ export default function ReportsPage() {
               className="text-text-secondary hover:text-text-primary"
             >
               <RefreshCw className={`w-4 h-4 mr-2 ${isFetching ? 'animate-spin' : ''}`} />
-              Refresh
+              <T>Refresh</T>
             </Button>
             <Button
               onClick={handleExport}
@@ -125,7 +126,7 @@ export default function ReportsPage() {
               ) : (
                 <Download className="w-4 h-4 mr-2" />
               )}
-              Export CSV
+              <T>Export CSV</T>
             </Button>
           </div>
         }
@@ -152,28 +153,28 @@ export default function ReportsPage() {
       {/* Summary Stats */}
       <StatCardGrid columns={4}>
         <AnimatedStatCard
-          title="Total Deployments"
+          title={<T>Total Deployments</T>}
           value={summary?.totalJobs || 0}
           icon={Package}
           color="cyan"
           delay={0}
         />
         <AnimatedStatCard
-          title="Successful"
+          title={<T>Successful</T>}
           value={summary?.completedJobs || 0}
           icon={TrendingUp}
           color="success"
           delay={0.1}
         />
         <AnimatedStatCard
-          title="Failed"
+          title={<T>Failed</T>}
           value={summary?.failedJobs || 0}
           icon={AlertTriangle}
           color="error"
           delay={0.2}
         />
         <AnimatedStatCard
-          title="Pending"
+          title={<T>Pending</T>}
           value={summary?.pendingJobs || 0}
           icon={Clock}
           color="warning"
@@ -193,7 +194,7 @@ export default function ReportsPage() {
           variants={itemVariants}
           className="glass-light border border-overlay/5 rounded-xl p-6 hover:border-accent-cyan/20 transition-colors"
         >
-          <h2 className="text-lg font-semibold text-text-primary mb-4">Success Rate</h2>
+          <h2 className="text-lg font-semibold text-text-primary mb-4"><T>Success Rate</T></h2>
           <SuccessRateChart
             completed={summary?.completedJobs || 0}
             failed={summary?.failedJobs || 0}
@@ -207,7 +208,7 @@ export default function ReportsPage() {
           className="glass-light border border-overlay/5 rounded-xl p-6 hover:border-accent-cyan/20 transition-colors"
         >
           <h2 className="text-lg font-semibold text-text-primary mb-4">
-            Deployments Over Time
+            <T>Deployments Over Time</T>
           </h2>
           <DeploymentsLineChart data={data?.dailyDeployments || []} />
         </motion.div>
@@ -221,7 +222,7 @@ export default function ReportsPage() {
         className="glass-light border border-overlay/5 rounded-xl p-6 hover:border-accent-cyan/20 transition-colors"
       >
         <h2 className="text-lg font-semibold text-text-primary mb-4">
-          Most Deployed Applications
+          <T>Most Deployed Applications</T>
         </h2>
         <TopAppsChart data={data?.topApps || []} />
       </motion.div>
@@ -233,7 +234,7 @@ export default function ReportsPage() {
         animate="visible"
         className="glass-light border border-overlay/5 rounded-xl p-6 hover:border-accent-cyan/20 transition-colors"
       >
-        <h2 className="text-lg font-semibold text-text-primary mb-4">Recent Failures</h2>
+        <h2 className="text-lg font-semibold text-text-primary mb-4"><T>Recent Failures</T></h2>
         <RecentFailuresTable data={data?.recentFailures || []} />
       </motion.div>
     </div>

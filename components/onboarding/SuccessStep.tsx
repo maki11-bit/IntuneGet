@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { PartyPopper, Search, Package, Upload, ArrowRight } from 'lucide-react';
+import { T, Var } from "gt-next";
 import { Button } from '@/components/ui/button';
 import { markOnboardingComplete } from '@/lib/onboarding-utils';
 import { markConsentGranted } from '@/components/AdminConsentBanner';
@@ -56,17 +57,17 @@ export function SuccessStep({ userName }: SuccessStepProps) {
 
       {/* Heading */}
       <h1 className="text-2xl sm:text-3xl font-bold text-text-primary mb-4">
-        You're All Set, {firstName}!
+        <T>You're All Set, <Var>{firstName}</Var>!</T>
       </h1>
 
       <p className="text-lg text-text-muted mb-8">
-        Your organization is configured and ready to deploy apps to Intune.
+        <T>Your organization is configured and ready to deploy apps to Intune.</T>
       </p>
 
       {/* Tips */}
       <div className="bg-bg-elevated border border-overlay/10 rounded-xl p-6 mb-8 text-left shadow-soft">
         <h2 className="text-lg font-semibold text-text-primary mb-4">
-          Getting Started
+          <T>Getting Started</T>
         </h2>
         <div className="space-y-4">
           {tips.map((tip, index) => (
@@ -83,8 +84,8 @@ export function SuccessStep({ userName }: SuccessStepProps) {
                 }`} />
               </div>
               <div>
-                <h3 className="font-medium text-text-primary">{tip.title}</h3>
-                <p className="text-sm text-text-muted">{tip.description}</p>
+                <h3 className="font-medium text-text-primary"><T><Var>{tip.title}</Var></T></h3>
+                <p className="text-sm text-text-muted"><T><Var>{tip.description}</Var></T></p>
               </div>
             </div>
           ))}
@@ -97,14 +98,14 @@ export function SuccessStep({ userName }: SuccessStepProps) {
         size="lg"
         className="bg-accent-cyan hover:bg-accent-cyan-dim text-white px-8 shadow-glow-cyan"
       >
-        Go to Dashboard
+        <T>Go to Dashboard</T>
         <ArrowRight className="w-5 h-5 ml-2" />
       </Button>
 
       {/* Additional info */}
       <p className="text-xs text-text-muted mt-6">
-        Any user with Intune permissions in your organization can now use
-        IntuneGet.
+        <T>Any user with Intune permissions in your organization can now use
+        IntuneGet.</T>
       </p>
     </div>
   );

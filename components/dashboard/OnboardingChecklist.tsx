@@ -1,5 +1,6 @@
 'use client';
 
+import { T } from 'gt-next';
 import { useState } from 'react';
 import Link from 'next/link';
 import {
@@ -80,7 +81,7 @@ export function OnboardingChecklist() {
     <div className="glass-light rounded-xl p-5 border border-overlay/5">
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h3 className="text-sm font-semibold text-text-primary">Getting Started</h3>
+          <h3 className="text-sm font-semibold text-text-primary"><T>Getting Started</T></h3>
           <p className="text-xs text-text-muted mt-0.5">
             {completedCount} of {steps.length} complete
           </p>
@@ -124,9 +125,9 @@ export function OnboardingChecklist() {
                 'text-sm font-medium',
                 step.isComplete ? 'text-text-muted line-through' : 'text-text-primary group-hover:text-accent-cyan-bright'
               )}>
-                {step.title}
+                <T>{step.title}</T>
               </p>
-              <p className="text-xs text-text-muted">{step.description}</p>
+              <p className="text-xs text-text-muted"><T>{step.description}</T></p>
             </div>
           </Link>
         ))}
@@ -138,7 +139,7 @@ export function OnboardingChecklist() {
           className="w-full mt-4 bg-gradient-to-r from-accent-cyan to-accent-violet hover:opacity-90 text-bg-elevated border-0"
           size="sm"
         >
-          All done - dismiss
+          <T>All done - dismiss</T>
         </Button>
       )}
     </div>

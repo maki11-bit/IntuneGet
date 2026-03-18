@@ -10,6 +10,7 @@ import {
   ArrowRight,
   Settings,
 } from 'lucide-react';
+import { T } from 'gt-next';
 import { Button } from '@/components/ui/button';
 import { useMsp } from '@/contexts/MspContext';
 import { MspStatsOverview, CrossTenantJobsTable, TenantCard } from '@/components/msp';
@@ -92,14 +93,14 @@ export default function MspDashboardPage() {
       {/* Header */}
       <PageHeader
         title={organization.name}
-        description="MSP Dashboard"
+        description={<T>MSP Dashboard</T>}
         gradient
         gradientColors="mixed"
         actions={
           <Link href="/dashboard/msp/tenants/add">
             <Button className="bg-gradient-to-r from-accent-cyan to-accent-violet text-bg-elevated hover:opacity-90">
               <Plus className="w-4 h-4 mr-2" />
-              Add Customer
+              <T>Add Customer</T>
             </Button>
           </Link>
         }
@@ -115,12 +116,12 @@ export default function MspDashboardPage() {
         {/* Tenants Section */}
         <motion.div variants={itemVariants} className="lg:col-span-1 space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-medium text-text-primary">Managed Tenants</h2>
+            <h2 className="text-lg font-medium text-text-primary"><T>Managed Tenants</T></h2>
             <Link
               href="/dashboard/msp/tenants"
               className="text-sm text-accent-cyan hover:text-accent-cyan-bright transition-colors"
             >
-              View all
+              <T>View all</T>
               <ArrowRight className="w-4 h-4 inline-block ml-1" />
             </Link>
           </div>
@@ -137,11 +138,11 @@ export default function MspDashboardPage() {
             {!isLoadingTenants && activeTenants.length === 0 && pendingTenants.length === 0 && (
               <div className="p-6 rounded-xl glass-light border border-overlay/5 text-center">
                 <Building2 className="w-8 h-8 text-text-muted mx-auto mb-3" />
-                <p className="text-sm text-text-secondary mb-3">No customer tenants yet</p>
+                <p className="text-sm text-text-secondary mb-3"><T>No customer tenants yet</T></p>
                 <Link href="/dashboard/msp/tenants/add">
                   <Button size="sm" variant="outline" className="border-black/20 text-text-primary hover:bg-overlay/5">
                     <Plus className="w-4 h-4 mr-2" />
-                    Add first customer
+                    <T>Add first customer</T>
                   </Button>
                 </Link>
               </div>
@@ -166,7 +167,7 @@ export default function MspDashboardPage() {
             {pendingTenants.length > 0 && (
               <>
                 <div className="text-xs text-text-muted uppercase tracking-wider px-1 mt-4">
-                  Pending Consent ({pendingTenants.length})
+                  <T>Pending Consent ({pendingTenants.length})</T>
                 </div>
                 {pendingTenants.slice(0, 2).map((tenant, index) => (
                   <motion.div
@@ -186,7 +187,7 @@ export default function MspDashboardPage() {
                 href="/dashboard/msp/tenants"
                 className="block p-3 text-center text-sm text-text-secondary hover:text-text-primary rounded-lg bg-overlay/5 hover:bg-overlay/10 transition-colors border border-overlay/5"
               >
-                View all {managedTenants.length} tenants
+                <T>View all {managedTenants.length} tenants</T>
               </Link>
             )}
           </div>

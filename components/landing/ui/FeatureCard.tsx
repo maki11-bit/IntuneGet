@@ -7,9 +7,9 @@ import { springPresets } from "@/lib/animations/variants";
 
 interface FeatureCardProps {
   icon: ReactNode;
-  title: string;
-  description: string;
-  features?: string[];
+  title: ReactNode;
+  description: ReactNode;
+  features?: ReactNode[];
   className?: string;
 }
 

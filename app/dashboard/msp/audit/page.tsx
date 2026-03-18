@@ -6,6 +6,7 @@ import { AuditLogTable } from '@/components/msp/AuditLogTable';
 import { useMicrosoftAuth } from '@/hooks/useMicrosoftAuth';
 import { useMspOptional } from '@/hooks/useMspOptional';
 import { Loader2 } from 'lucide-react';
+import { T } from 'gt-next';
 
 export default function MspAuditPage() {
   const router = useRouter();
@@ -40,7 +41,7 @@ export default function MspAuditPage() {
     <div className="max-w-5xl mx-auto">
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-text-primary">{organization.name}</h1>
-        <p className="text-text-muted">View all activity logs for your organization</p>
+        <p className="text-text-muted"><T>View all activity logs for your organization</T></p>
       </div>
 
       <AuditLogTable />

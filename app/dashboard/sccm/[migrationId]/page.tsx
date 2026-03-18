@@ -22,6 +22,7 @@ import {
   Ban,
 } from 'lucide-react';
 import { toast } from 'sonner';
+import { T } from 'gt-next';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useMicrosoftAuth } from '@/hooks/useMicrosoftAuth';
@@ -407,9 +408,9 @@ export default function MigrationDetailPage({ params }: PageProps) {
     return (
       <div className="text-center py-12">
         <AlertCircle className="w-12 h-12 text-status-error mx-auto mb-4" />
-        <h2 className="text-xl font-semibold text-text-primary mb-2">Migration Not Found</h2>
+        <h2 className="text-xl font-semibold text-text-primary mb-2"><T>Migration Not Found</T></h2>
         <Link href="/dashboard/sccm">
-          <Button variant="outline">Back to Migrations</Button>
+          <Button variant="outline"><T>Back to Migrations</T></Button>
         </Link>
       </div>
     );
@@ -428,7 +429,7 @@ export default function MigrationDetailPage({ params }: PageProps) {
         <Link href="/dashboard/sccm">
           <Button variant="ghost" size="sm" className="text-text-secondary hover:text-text-primary">
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Back
+            <T>Back</T>
           </Button>
         </Link>
       </div>
@@ -437,7 +438,7 @@ export default function MigrationDetailPage({ params }: PageProps) {
 
       <PageHeader
         title={migration.name}
-        description={migration.description || `${migration.totalApps} applications from SCCM`}
+        description={migration.description || <T>{migration.totalApps} applications from SCCM</T>}
         gradient
         gradientColors="cyan"
         actions={
@@ -461,14 +462,14 @@ export default function MigrationDetailPage({ params }: PageProps) {
               ) : (
                 <Wand2 className="w-4 h-4 mr-2" />
               )}
-              Run Matching
+              <T>Run Matching</T>
             </Button>
             <Button
               onClick={handleMigrateSelected}
               disabled={selectedApps.size === 0}
               className="bg-gradient-to-r from-accent-cyan to-accent-violet hover:opacity-90"
             >
-              Migrate ({selectedApps.size})
+              <T>Migrate ({selectedApps.size})</T>
               <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </div>
@@ -488,7 +489,7 @@ export default function MigrationDetailPage({ params }: PageProps) {
               <div className="flex items-center gap-2">
                 <Loader2 className="w-4 h-4 text-accent-cyan animate-spin" />
                 <span className="text-accent-cyan text-sm font-medium">
-                  Matching in progress...
+                  <T>Matching in progress...</T>
                 </span>
               </div>
               <span className="text-text-secondary text-sm">
@@ -502,9 +503,9 @@ export default function MigrationDetailPage({ params }: PageProps) {
               />
             </div>
             <div className="flex items-center gap-4 mt-2 text-xs text-text-muted">
-              <span className="text-status-success">{matchProgress.matched} matched</span>
-              <span className="text-status-warning">{matchProgress.partial} partial</span>
-              <span>{matchProgress.unmatched} unmatched</span>
+              <span className="text-status-success"><T>{matchProgress.matched} matched</T></span>
+              <span className="text-status-warning"><T>{matchProgress.partial} partial</T></span>
+              <span><T>{matchProgress.unmatched} unmatched</T></span>
             </div>
           </motion.div>
         )}
@@ -529,7 +530,7 @@ export default function MigrationDetailPage({ params }: PageProps) {
               onClick={() => { setError(null); fetchApps(); }}
               className="text-status-error hover:bg-status-error/10 text-xs"
             >
-              Retry
+              <T>Retry</T>
             </Button>
           </motion.div>
         )}
@@ -537,10 +538,10 @@ export default function MigrationDetailPage({ params }: PageProps) {
 
       {/* Stats */}
       <StatCardGrid columns={4}>
-        <AnimatedStatCard title="Total" value={migration.totalApps} icon={Clock} color="cyan" delay={0} />
-        <AnimatedStatCard title="Matched" value={matchedApps.length} icon={CheckCircle2} color="success" delay={0.1} />
-        <AnimatedStatCard title="Partial" value={partialApps.length} icon={AlertTriangle} color="warning" delay={0.2} />
-        <AnimatedStatCard title="Pending" value={pendingMatch.length + unmatchedApps.length} icon={Clock} color="violet" delay={0.3} />
+        <AnimatedStatCard title={<T>Total</T>} value={migration.totalApps} icon={Clock} color="cyan" delay={0} />
+        <AnimatedStatCard title={<T>Matched</T>} value={matchedApps.length} icon={CheckCircle2} color="success" delay={0.1} />
+        <AnimatedStatCard title={<T>Partial</T>} value={partialApps.length} icon={AlertTriangle} color="warning" delay={0.2} />
+        <AnimatedStatCard title={<T>Pending</T>} value={pendingMatch.length + unmatchedApps.length} icon={Clock} color="violet" delay={0.3} />
       </StatCardGrid>
 
       {/* Filters */}
@@ -567,7 +568,7 @@ export default function MigrationDetailPage({ params }: PageProps) {
                   : 'bg-overlay/5 text-text-secondary hover:text-text-primary hover:bg-overlay/10'
               )}
             >
-              {status.charAt(0).toUpperCase() + status.slice(1)}
+              <T>{status.charAt(0).toUpperCase() + status.slice(1)}</T>
             </button>
           ))}
         </div>
@@ -576,7 +577,7 @@ export default function MigrationDetailPage({ params }: PageProps) {
       {/* Sort Controls */}
       <div className="flex items-center gap-2">
         <ArrowUpDown className="w-4 h-4 text-text-muted" />
-        <span className="text-xs text-text-muted mr-1">Sort by:</span>
+        <span className="text-xs text-text-muted mr-1"><T>Sort by:</T></span>
         {SORT_OPTIONS.map(opt => (
           <button
             key={opt.value}
@@ -588,7 +589,7 @@ export default function MigrationDetailPage({ params }: PageProps) {
                 : 'text-text-muted hover:text-text-secondary'
             )}
           >
-            {opt.label}
+            <T>{opt.label}</T>
             {sortBy === opt.value && (
               <span className="ml-0.5">{sortDir === 'asc' ? ' ^' : ' v'}</span>
             )}
@@ -606,13 +607,13 @@ export default function MigrationDetailPage({ params }: PageProps) {
         />
         <span className="text-sm text-text-secondary">
           {selectedApps.size > 0
-            ? `${selectedApps.size} selected`
+            ? <T>{selectedApps.size} selected</T>
             : isFiltered
-              ? `Select all ${apps.length} filtered`
-              : 'Select all'}
+              ? <T>Select all {apps.length} filtered</T>
+              : <T>Select all</T>}
         </span>
         <span className="ml-auto text-xs text-text-muted">
-          Showing {offset + 1}-{Math.min(offset + PAGE_SIZE, total)} of {total}
+          <T>Showing {offset + 1}-{Math.min(offset + PAGE_SIZE, total)} of {total}</T>
         </span>
       </div>
 
@@ -634,7 +635,7 @@ export default function MigrationDetailPage({ params }: PageProps) {
       {apps.length === 0 && (
         <div className="text-center py-12">
           <Search className="w-12 h-12 text-text-muted mx-auto mb-4" />
-          <p className="text-text-secondary">No apps found matching your criteria</p>
+          <p className="text-text-secondary"><T>No apps found matching your criteria</T></p>
           {isFiltered && (
             <Button
               variant="outline"
@@ -645,7 +646,7 @@ export default function MigrationDetailPage({ params }: PageProps) {
                 setMatchStatusFilter('all');
               }}
             >
-              Clear Filters
+              <T>Clear Filters</T>
             </Button>
           )}
         </div>
@@ -662,10 +663,10 @@ export default function MigrationDetailPage({ params }: PageProps) {
             className="border-overlay/10 text-text-secondary"
           >
             <ChevronLeft className="w-4 h-4 mr-1" />
-            Previous
+            <T>Previous</T>
           </Button>
           <span className="text-sm text-text-muted">
-            Page {currentPage} of {totalPages}
+            <T>Page {currentPage} of {totalPages}</T>
           </span>
           <Button
             variant="outline"
@@ -674,7 +675,7 @@ export default function MigrationDetailPage({ params }: PageProps) {
             onClick={() => setOffset(prev => prev + PAGE_SIZE)}
             className="border-overlay/10 text-text-secondary"
           >
-            Next
+            <T>Next</T>
             <ChevronRight className="w-4 h-4 ml-1" />
           </Button>
         </div>
@@ -691,7 +692,7 @@ export default function MigrationDetailPage({ params }: PageProps) {
           >
             <div className="max-w-5xl mx-auto flex items-center justify-between">
               <span className="text-sm text-text-secondary">
-                {selectedApps.size} app{selectedApps.size !== 1 ? 's' : ''} selected
+                <T>{selectedApps.size} app{selectedApps.size !== 1 ? 's' : ''} selected</T>
               </span>
               <div className="flex items-center gap-3">
                 <Button
@@ -700,7 +701,7 @@ export default function MigrationDetailPage({ params }: PageProps) {
                   onClick={() => setSelectedApps(new Set())}
                   className="text-text-muted"
                 >
-                  Clear
+                  <T>Clear</T>
                 </Button>
                 <Button
                   variant="outline"
@@ -709,14 +710,14 @@ export default function MigrationDetailPage({ params }: PageProps) {
                   className="border-overlay/10 text-text-secondary hover:text-status-error hover:border-status-error/30"
                 >
                   <Ban className="w-4 h-4 mr-2" />
-                  Exclude Selected
+                  <T>Exclude Selected</T>
                 </Button>
                 <Button
                   size="sm"
                   onClick={handleMigrateSelected}
                   className="bg-gradient-to-r from-accent-cyan to-accent-violet hover:opacity-90"
                 >
-                  Migrate ({selectedApps.size})
+                  <T>Migrate ({selectedApps.size})</T>
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </div>
@@ -788,7 +789,7 @@ function AppRow({
         <div className="flex items-center gap-3">
           <h4 className="text-text-primary font-medium truncate">{app.display_name}</h4>
           <span className={cn('px-2 py-0.5 rounded text-xs font-medium', config.bg, config.color)}>
-            {config.label}
+            <T>{config.label}</T>
           </span>
           {app.match_confidence !== null && app.match_status === 'matched' && (
             <span className={cn('text-xs font-medium', confidenceColor)}>
@@ -810,7 +811,7 @@ function AppRow({
           {app.technology && <span className="text-xs px-2 py-0.5 bg-overlay/5 rounded">{app.technology}</span>}
           {app.is_deployed && (
             <span className="text-accent-cyan text-xs">
-              {app.deployment_count} deployments
+              <T>{app.deployment_count} deployments</T>
             </span>
           )}
         </div>
@@ -826,7 +827,7 @@ function AppRow({
             className="text-text-muted hover:text-accent-cyan hover:bg-accent-cyan/10 text-xs"
           >
             <Link2 className="w-3.5 h-3.5 mr-1" />
-            Link
+            <T>Link</T>
           </Button>
         )}
         {app.match_status !== 'excluded' && (
@@ -837,7 +838,7 @@ function AppRow({
             className="text-text-muted hover:text-status-error hover:bg-status-error/10 text-xs"
           >
             <Ban className="w-3.5 h-3.5 mr-1" />
-            Exclude
+            <T>Exclude</T>
           </Button>
         )}
       </div>

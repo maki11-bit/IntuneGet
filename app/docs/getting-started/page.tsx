@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import { T } from "gt-next";
 import {
   CheckCircle,
   ExternalLink,
@@ -41,21 +42,21 @@ export default function GettingStartedPage() {
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold text-text-primary sm:text-4xl">
-          Getting Started
+          <T>Getting Started</T>
         </h1>
         <p className="mt-4 text-lg text-text-secondary leading-relaxed">
-          This guide will walk you through deploying your own IntuneGet instance
-          from scratch. Follow each step in order for the smoothest experience.
+          <T>This guide will walk you through deploying your own IntuneGet instance
+          from scratch. Follow each step in order for the smoothest experience.</T>
         </p>
       </div>
 
       {/* Prerequisites */}
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-4">
-          Prerequisites Checklist
+          <T>Prerequisites Checklist</T>
         </h2>
         <p className="text-text-secondary mb-6">
-          Before starting, make sure you have accounts for these services:
+          <T>Before starting, make sure you have accounts for these services:</T>
         </p>
 
         <div className="space-y-3">
@@ -91,13 +92,13 @@ export default function GettingStartedPage() {
                     rel="noopener noreferrer"
                     className="font-medium text-text-primary hover:text-accent-cyan transition-colors inline-flex items-center gap-1"
                   >
-                    {item.name}
+                    <T>{item.name}</T>
                     <ExternalLink className="h-3.5 w-3.5" />
                   </a>
                 ) : (
-                  <span className="font-medium text-text-primary">{item.name}</span>
+                  <span className="font-medium text-text-primary"><T>{item.name}</T></span>
                 )}
-                <span className="text-sm text-text-muted ml-2">{item.note}</span>
+                <span className="text-sm text-text-muted ml-2"><T>{item.note}</T></span>
               </div>
             </div>
           ))}
@@ -107,21 +108,21 @@ export default function GettingStartedPage() {
       {/* Secrets Reference Table */}
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-4">
-          Complete Secrets Reference
+          <T>Complete Secrets Reference</T>
         </h2>
         <p className="text-text-secondary mb-6">
-          You will need to configure these environment variables. Reference this
-          table as you work through the setup:
+          <T>You will need to configure these environment variables. Reference this
+          table as you work through the setup:</T>
         </p>
 
         <div className="overflow-x-auto">
           <Table>
             <TableHead>
               <TableRow>
-                <TableHeader>Variable</TableHeader>
-                <TableHeader>Where to Get It</TableHeader>
-                <TableHeader>Where to Use It</TableHeader>
-                <TableHeader>Example</TableHeader>
+                <TableHeader><T>Variable</T></TableHeader>
+                <TableHeader><T>Where to Get It</T></TableHeader>
+                <TableHeader><T>Where to Use It</T></TableHeader>
+                <TableHeader><T>Example</T></TableHeader>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -132,9 +133,9 @@ export default function GettingStartedPage() {
                   </code>
                 </TableCell>
                 <TableCell className="text-sm">
-                  Set to &quot;sqlite&quot;
+                  <T>Set to &quot;sqlite&quot;</T>
                 </TableCell>
-                <TableCell className="text-sm">.env.local, Docker</TableCell>
+                <TableCell className="text-sm"><T>.env.local, Docker</T></TableCell>
                 <TableCell>
                   <code className="text-xs text-text-muted">sqlite</code>
                 </TableCell>
@@ -146,9 +147,9 @@ export default function GettingStartedPage() {
                   </code>
                 </TableCell>
                 <TableCell className="text-sm">
-                  Path to SQLite file
+                  <T>Path to SQLite file</T>
                 </TableCell>
-                <TableCell className="text-sm">.env.local, Docker</TableCell>
+                <TableCell className="text-sm"><T>.env.local, Docker</T></TableCell>
                 <TableCell>
                   <code className="text-xs text-text-muted">/data/intuneget.db</code>
                 </TableCell>
@@ -160,9 +161,9 @@ export default function GettingStartedPage() {
                   </code>
                 </TableCell>
                 <TableCell className="text-sm">
-                  Set to &quot;local&quot;
+                  <T>Set to &quot;local&quot;</T>
                 </TableCell>
-                <TableCell className="text-sm">.env.local, Docker</TableCell>
+                <TableCell className="text-sm"><T>.env.local, Docker</T></TableCell>
                 <TableCell>
                   <code className="text-xs text-text-muted">local</code>
                 </TableCell>
@@ -174,9 +175,9 @@ export default function GettingStartedPage() {
                   </code>
                 </TableCell>
                 <TableCell className="text-sm">
-                  Generate random string
+                  <T>Generate random string</T>
                 </TableCell>
-                <TableCell className="text-sm">.env.local, Docker, Packager</TableCell>
+                <TableCell className="text-sm"><T>.env.local, Docker, Packager</T></TableCell>
                 <TableCell>
                   <code className="text-xs text-text-muted">random-32-char...</code>
                 </TableCell>
@@ -188,10 +189,10 @@ export default function GettingStartedPage() {
                   </code>
                 </TableCell>
                 <TableCell className="text-sm">
-                  Azure Portal &gt; App Registration &gt; Overview
+                  <T>Azure Portal &gt; App Registration &gt; Overview</T>
                 </TableCell>
                 <TableCell className="text-sm">
-                  .env.local, Docker, Packager
+                  <T>.env.local, Docker, Packager</T>
                 </TableCell>
                 <TableCell>
                   <code className="text-xs text-text-muted">12345678-1234-...</code>
@@ -204,10 +205,10 @@ export default function GettingStartedPage() {
                   </code>
                 </TableCell>
                 <TableCell className="text-sm">
-                  Azure Portal &gt; App Registration &gt; Certificates & secrets
+                  <T>Azure Portal &gt; App Registration &gt; Certificates & secrets</T>
                 </TableCell>
                 <TableCell className="text-sm">
-                  .env.local, Docker, Packager
+                  <T>.env.local, Docker, Packager</T>
                 </TableCell>
                 <TableCell>
                   <code className="text-xs text-text-muted">Abc123~...</code>
@@ -217,8 +218,8 @@ export default function GettingStartedPage() {
                 <TableCell>
                   <code className="text-accent-cyan text-xs">NEXT_PUBLIC_URL</code>
                 </TableCell>
-                <TableCell className="text-sm">Your deployment URL</TableCell>
-                <TableCell className="text-sm">.env.local, Docker</TableCell>
+                <TableCell className="text-sm"><T>Your deployment URL</T></TableCell>
+                <TableCell className="text-sm"><T>.env.local, Docker</T></TableCell>
                 <TableCell>
                   <code className="text-xs text-text-muted">
                     http://localhost:3000
@@ -231,7 +232,7 @@ export default function GettingStartedPage() {
 
         <Callout type="tip" title="Generate a Secure API Key">
           <p>
-            Run this command in your terminal to generate a secure random API key:
+            <T>Run this command in your terminal to generate a secure random API key:</T>
           </p>
           <CodeBlock language="bash">openssl rand -hex 32</CodeBlock>
         </Callout>
@@ -239,17 +240,17 @@ export default function GettingStartedPage() {
 
       {/* Setup Steps */}
       <section>
-        <h2 className="text-2xl font-semibold text-text-primary mb-6">Setup Steps</h2>
+        <h2 className="text-2xl font-semibold text-text-primary mb-6"><T>Setup Steps</T></h2>
 
         <Steps>
           <StepIndicator step={1} title="Set Up Entra ID App Registration">
             <p>
-              Create a multi-tenant app registration in Microsoft Entra ID to enable
-              authentication and Intune access.
+              <T>Create a multi-tenant app registration in Microsoft Entra ID to enable
+              authentication and Intune access.</T>
             </p>
             <ol className="list-decimal list-inside mt-4 space-y-2 text-text-secondary">
               <li>
-                Go to{" "}
+                <T>Go to{" "}
                 <a
                   href="https://portal.azure.com"
                   target="_blank"
@@ -258,22 +259,22 @@ export default function GettingStartedPage() {
                 >
                   Azure Portal
                 </a>{" "}
-                &gt; Microsoft Entra ID &gt; App registrations
+                &gt; Microsoft Entra ID &gt; App registrations</T>
               </li>
-              <li>Click &quot;New registration&quot;</li>
+              <li><T>Click &quot;New registration&quot;</T></li>
               <li>
-                Select &quot;Accounts in any organizational directory
-                (Multitenant)&quot;
+                <T>Select &quot;Accounts in any organizational directory
+                (Multitenant)&quot;</T>
               </li>
-              <li>Add a SPA redirect URI for your app</li>
-              <li>Configure API permissions and create a client secret</li>
+              <li><T>Add a SPA redirect URI for your app</T></li>
+              <li><T>Configure API permissions and create a client secret</T></li>
             </ol>
             <div className="mt-4">
               <Link
                 href="/docs/azure-setup"
                 className="inline-flex items-center gap-1 text-sm text-accent-cyan hover:underline"
               >
-                Detailed Entra ID setup guide
+                <T>Detailed Entra ID setup guide</T>
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
@@ -281,7 +282,7 @@ export default function GettingStartedPage() {
 
           <StepIndicator step={2} title="Deploy with Docker">
             <p>
-              Deploy your IntuneGet instance using Docker with the embedded SQLite database.
+              <T>Deploy your IntuneGet instance using Docker with the embedded SQLite database.</T>
             </p>
 
             <CodeBlock language="bash" filename="Terminal">
@@ -309,7 +310,7 @@ docker-compose up -d`}
                 href="/docs/docker"
                 className="inline-flex items-center gap-1 text-sm text-accent-cyan hover:underline"
               >
-                Detailed Docker deployment guide
+                <T>Detailed Docker deployment guide</T>
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
@@ -317,12 +318,12 @@ docker-compose up -d`}
 
           <StepIndicator step={3} title="Set Up the Local Packager">
             <p>
-              Install the packager service on a Windows machine to handle app packaging.
+              <T>Install the packager service on a Windows machine to handle app packaging.</T>
             </p>
             <ol className="list-decimal list-inside mt-4 space-y-2 text-text-secondary">
-              <li>On your Windows machine, install Node.js 18+</li>
-              <li>Install the packager globally: <code className="text-accent-cyan">npm install -g @ugurkocde/intuneget-packager</code></li>
-              <li>Set environment variables:</li>
+              <li><T>On your Windows machine, install Node.js 18+</T></li>
+              <li><T>Install the packager globally: <code className="text-accent-cyan">npm install -g @ugurkocde/intuneget-packager</code></T></li>
+              <li><T>Set environment variables:</T></li>
             </ol>
             <CodeBlock language="bash" filename="Environment Variables (Windows)">
 {`set INTUNEGET_API_URL=http://your-docker-host:3000
@@ -331,13 +332,13 @@ set AZURE_CLIENT_ID=<from-azure>
 set AZURE_CLIENT_SECRET=<from-azure>`}
             </CodeBlock>
             <p className="mt-4 text-text-secondary">
-              Start the packager: <code className="text-accent-cyan">intuneget-packager</code>
+              <T>Start the packager: <code className="text-accent-cyan">intuneget-packager</code></T>
             </p>
           </StepIndicator>
 
           <StepIndicator step={4} title="Verify Your Deployment" isLast>
             <p>
-              Test that everything is working correctly:
+              <T>Test that everything is working correctly:</T>
             </p>
             <div className="mt-4 space-y-3">
               {[
@@ -352,7 +353,7 @@ set AZURE_CLIENT_SECRET=<from-azure>`}
                   className="flex items-start gap-3 text-text-secondary"
                 >
                   <CheckCircle className="h-5 w-5 text-status-success flex-shrink-0 mt-0.5" />
-                  <span>{item}</span>
+                  <span><T>{item}</T></span>
                 </div>
               ))}
             </div>
@@ -361,7 +362,7 @@ set AZURE_CLIENT_SECRET=<from-azure>`}
                 href="/docs/troubleshooting"
                 className="inline-flex items-center gap-1 text-sm text-accent-cyan hover:underline"
               >
-                Something not working? Check troubleshooting
+                <T>Something not working? Check troubleshooting</T>
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
@@ -372,25 +373,25 @@ set AZURE_CLIENT_SECRET=<from-azure>`}
       {/* Update Redirect URIs */}
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-4">
-          Final Configuration
+          <T>Final Configuration</T>
         </h2>
         <p className="text-text-secondary mb-4">
-          After deployment, update your Entra ID app registration with your
-          production URL:
+          <T>After deployment, update your Entra ID app registration with your
+          production URL:</T>
         </p>
         <ol className="list-decimal list-inside space-y-2 text-text-secondary">
-          <li>Go to Azure Portal &gt; Your App Registration &gt; Authentication</li>
+          <li><T>Go to Azure Portal &gt; Your App Registration &gt; Authentication</T></li>
           <li>
-            Add your production URL as a SPA redirect URI (e.g.,
-            https://your-app.vercel.app)
+            <T>Add your production URL as a SPA redirect URI (e.g.,
+            https://your-app.vercel.app)</T>
           </li>
-          <li>Click Save</li>
+          <li><T>Click Save</T></li>
         </ol>
 
         <Callout type="warning" title="Important">
           <p>
-            Make sure NEXT_PUBLIC_URL in your environment matches your actual
-            deployment URL exactly, including https:// and no trailing slash.
+            <T>Make sure NEXT_PUBLIC_URL in your environment matches your actual
+            deployment URL exactly, including https:// and no trailing slash.</T>
           </p>
         </Callout>
       </section>
@@ -402,21 +403,21 @@ set AZURE_CLIENT_SECRET=<from-azure>`}
             <Server className="h-5 w-5 text-accent-cyan" />
           </div>
           <h2 className="text-2xl font-semibold text-text-primary">
-            Local Packager Details
+            <T>Local Packager Details</T>
           </h2>
         </div>
         <p className="text-text-secondary mb-6">
-          The local packager is a Windows service that polls the web app for packaging
+          <T>The local packager is a Windows service that polls the web app for packaging
           jobs, creates .intunewin packages using Microsoft&apos;s IntuneWinAppUtil, and
-          uploads them directly to Intune.
+          uploads them directly to Intune.</T>
         </p>
 
         <Callout type="info" title="Benefits of Local Packager">
           <ul className="space-y-1 text-sm">
-            <li>- Zero external dependencies (no GitHub Actions needed)</li>
-            <li>- Works in air-gapped or restricted network environments</li>
-            <li>- Full data sovereignty - nothing leaves your network</li>
-            <li>- Simple API key authentication</li>
+            <li><T>- Zero external dependencies (no GitHub Actions needed)</T></li>
+            <li><T>- Works in air-gapped or restricted network environments</T></li>
+            <li><T>- Full data sovereignty - nothing leaves your network</T></li>
+            <li><T>- Simple API key authentication</T></li>
           </ul>
         </Callout>
 
@@ -424,19 +425,19 @@ set AZURE_CLIENT_SECRET=<from-azure>`}
           <div>
             <h3 className="text-lg font-medium text-text-primary mb-3 flex items-center gap-2">
               <Terminal className="h-4 w-4 text-accent-cyan" />
-              Requirements
+              <T>Requirements</T>
             </h3>
             <ul className="list-disc list-inside space-y-2 text-text-secondary">
-              <li>Windows 10/11 or Windows Server 2016+</li>
-              <li>Node.js 18 or higher</li>
-              <li>Network access to the web app and Microsoft Graph API</li>
+              <li><T>Windows 10/11 or Windows Server 2016+</T></li>
+              <li><T>Node.js 18 or higher</T></li>
+              <li><T>Network access to the web app and Microsoft Graph API</T></li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-lg font-medium text-text-primary mb-3">Running as a Service</h3>
+            <h3 className="text-lg font-medium text-text-primary mb-3"><T>Running as a Service</T></h3>
             <p className="text-text-secondary mb-3">
-              For production use, consider running the packager as a Windows service:
+              <T>For production use, consider running the packager as a Windows service:</T>
             </p>
             <CodeBlock language="bash" filename="PowerShell (as Administrator)">
 {`# Install NSSM (Non-Sucking Service Manager)
@@ -461,7 +462,7 @@ nssm start IntuneGetPackager`}
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1 text-sm text-accent-cyan hover:underline"
           >
-            View package on npm
+            <T>View package on npm</T>
             <ExternalLink className="h-3.5 w-3.5" />
           </a>
         </div>
@@ -470,36 +471,36 @@ nssm start IntuneGetPackager`}
       {/* Next Steps */}
       <section className="rounded-lg border border-overlay/10 bg-bg-elevated p-6">
         <h2 className="text-xl font-semibold text-text-primary mb-4">
-          Congratulations!
+          <T>Congratulations!</T>
         </h2>
         <p className="text-text-secondary mb-4">
-          Your IntuneGet instance is now running. Here are some next steps:
+          <T>Your IntuneGet instance is now running. Here are some next steps:</T>
         </p>
         <ul className="space-y-2 text-text-secondary">
           <li className="flex items-start gap-2">
             <span className="text-accent-cyan">-</span>
-            Share the admin consent link with your Global Administrator
+            <T>Share the admin consent link with your Global Administrator</T>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-accent-cyan">-</span>
-            Deploy your first test application to verify the pipeline works
+            <T>Deploy your first test application to verify the pipeline works</T>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-accent-cyan">-</span>
-            Configure{" "}
+            <T>Configure{" "}
             <Link href="/docs/unmanaged-apps" className="text-accent-cyan hover:underline">
               assignment intents
             </Link>{" "}
             (Required, Available, Uninstall, or Update Only) when adding apps
-            to your cart
+            to your cart</T>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-accent-cyan">-</span>
-            Set up a git remote to pull updates from the upstream repository
+            <T>Set up a git remote to pull updates from the upstream repository</T>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-accent-cyan">-</span>
-            Consider setting up analytics (Plausible) for usage insights
+            <T>Consider setting up analytics (Plausible) for usage insights</T>
           </li>
         </ul>
       </section>

@@ -11,6 +11,7 @@ import {
   RefreshCw,
   CheckCircle2,
 } from 'lucide-react';
+import { T } from "gt-next";
 import { Button } from '@/components/ui/button';
 import { useMicrosoftAuth } from '@/hooks/useMicrosoftAuth';
 import { getShareableConsentUrl } from '@/lib/onboarding-utils';
@@ -152,10 +153,10 @@ export function ConsentStep({ onNext, onBack }: ConsentStepProps) {
           </div>
         </div>
         <h1 className="text-2xl font-bold text-text-primary mb-4">
-          Checking Organization Setup
+          <T>Checking Organization Setup</T>
         </h1>
         <p className="text-text-muted">
-          Verifying admin consent for your tenant...
+          <T>Verifying admin consent for your tenant...</T>
         </p>
       </div>
     );
@@ -171,10 +172,10 @@ export function ConsentStep({ onNext, onBack }: ConsentStepProps) {
           </div>
         </div>
         <h1 className="text-2xl font-bold text-text-primary mb-4">
-          Admin Consent Verified
+          <T>Admin Consent Verified</T>
         </h1>
         <p className="text-text-muted">
-          Your organization is set up. Continuing to next step...
+          <T>Your organization is set up. Continuing to next step...</T>
         </p>
       </div>
     );
@@ -190,15 +191,15 @@ export function ConsentStep({ onNext, onBack }: ConsentStepProps) {
           </div>
         </div>
         <h1 className="text-2xl font-bold text-text-primary mb-4">
-          Configuration Error
+          <T>Configuration Error</T>
         </h1>
         <p className="text-text-muted mb-6">
-          The server is not properly configured to verify admin consent.
-          Please contact your administrator.
+          <T>The server is not properly configured to verify admin consent.
+          Please contact your administrator.</T>
         </p>
         <div className="bg-bg-elevated border border-overlay/10 rounded-xl p-4 mb-6 shadow-soft">
           <p className="text-sm text-text-muted">
-            Technical details: AZURE_AD_CLIENT_SECRET environment variable is missing.
+            <T>Technical details: AZURE_AD_CLIENT_SECRET environment variable is missing.</T>
           </p>
         </div>
         <Button
@@ -207,7 +208,7 @@ export function ConsentStep({ onNext, onBack }: ConsentStepProps) {
           className="text-text-muted hover:text-text-secondary"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to welcome
+          <T>Back to welcome</T>
         </Button>
       </div>
     );
@@ -223,11 +224,11 @@ export function ConsentStep({ onNext, onBack }: ConsentStepProps) {
           </div>
         </div>
         <h1 className="text-2xl font-bold text-text-primary mb-4">
-          Connection Error
+          <T>Connection Error</T>
         </h1>
         <p className="text-text-muted mb-6">
-          Unable to verify organization setup. Please check your internet
-          connection and try again.
+          <T>Unable to verify organization setup. Please check your internet
+          connection and try again.</T>
         </p>
         <div className="flex items-center justify-center gap-4">
           <Button
@@ -236,7 +237,7 @@ export function ConsentStep({ onNext, onBack }: ConsentStepProps) {
             className="text-text-muted hover:text-text-secondary"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Back
+            <T>Back</T>
           </Button>
           <Button
             onClick={handleVerify}
@@ -246,12 +247,12 @@ export function ConsentStep({ onNext, onBack }: ConsentStepProps) {
             {isVerifying ? (
               <>
                 <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                Retrying...
+                <T>Retrying...</T>
               </>
             ) : (
               <>
                 <RefreshCw className="w-4 h-4 mr-2" />
-                Try Again
+                <T>Try Again</T>
               </>
             )}
           </Button>
@@ -270,25 +271,25 @@ export function ConsentStep({ onNext, onBack }: ConsentStepProps) {
           </div>
         </div>
         <h1 className="text-2xl font-bold text-text-primary mb-4">
-          Intune Permissions Missing
+          <T>Intune Permissions Missing</T>
         </h1>
         <p className="text-text-muted mb-6">
-          Admin consent was granted, but required Intune permissions are missing.
+          <T>Admin consent was granted, but required Intune permissions are missing.
           The app needs <code className="text-amber-600 bg-amber-500/10 px-1 rounded">DeviceManagementApps.ReadWrite.All</code> and
           <code className="text-amber-600 bg-amber-500/10 px-1 rounded ml-1">DeviceManagementManagedDevices.Read.All</code>.
-          This can happen if permissions were updated after initial consent.
+          This can happen if permissions were updated after initial consent.</T>
         </p>
         <div className="bg-bg-elevated border border-overlay/10 rounded-xl p-6 mb-6 shadow-soft">
           <p className="text-sm text-text-secondary mb-4">
-            A <strong className="text-amber-600">Global Administrator</strong> needs to re-grant admin consent
-            to include the updated permissions.
+            <T>A <strong className="text-amber-600">Global Administrator</strong> needs to re-grant admin consent
+            to include the updated permissions.</T>
           </p>
           <Button
             onClick={handleGrantConsent}
             className="bg-amber-500 hover:bg-amber-600 text-white"
           >
             <Shield className="w-4 h-4 mr-2" />
-            Re-grant Admin Consent
+            <T>Re-grant Admin Consent</T>
           </Button>
         </div>
         <Button
@@ -300,12 +301,12 @@ export function ConsentStep({ onNext, onBack }: ConsentStepProps) {
           {isVerifying ? (
             <>
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-              Verifying...
+              <T>Verifying...</T>
             </>
           ) : (
             <>
               <RefreshCw className="w-4 h-4 mr-2" />
-              Check Again
+              <T>Check Again</T>
             </>
           )}
         </Button>
@@ -316,7 +317,7 @@ export function ConsentStep({ onNext, onBack }: ConsentStepProps) {
             className="text-text-muted hover:text-text-secondary"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to welcome
+            <T>Back to welcome</T>
           </Button>
         </div>
       </div>
@@ -335,20 +336,20 @@ export function ConsentStep({ onNext, onBack }: ConsentStepProps) {
 
       {/* Heading */}
       <h1 className="text-2xl font-bold text-text-primary mb-4">
-        Admin Consent Required
+        <T>Admin Consent Required</T>
       </h1>
 
       <p className="text-text-muted mb-6">
-        To deploy apps to your Intune tenant, a{' '}
+        <T>To deploy apps to your Intune tenant, a{' '}
         <strong className="text-amber-600">Global Administrator</strong> or{' '}
         <strong className="text-amber-600">Privileged Role Administrator</strong>{' '}
-        must grant permission for IntuneGet to access your organization.
+        must grant permission for IntuneGet to access your organization.</T>
       </p>
 
       {/* Role selection question */}
       <div className="bg-bg-elevated border border-overlay/10 rounded-xl p-6 mb-6 shadow-soft">
         <p className="text-text-primary font-medium mb-4">
-          Are you a Global Administrator?
+          <T>Are you a Global Administrator?</T>
         </p>
 
         {!showShareOption ? (
@@ -359,7 +360,7 @@ export function ConsentStep({ onNext, onBack }: ConsentStepProps) {
               size="lg"
               className="w-full bg-accent-cyan hover:bg-accent-cyan-dim text-white font-medium"
             >
-              No, I need to request access from my admin
+              <T>No, I need to request access from my admin</T>
             </Button>
 
             {/* Secondary option - for actual admins */}
@@ -370,14 +371,14 @@ export function ConsentStep({ onNext, onBack }: ConsentStepProps) {
               className="w-full border-overlay/15 text-text-secondary hover:bg-overlay/[0.04]"
             >
               <Shield className="w-4 h-4 mr-2" />
-              Yes, I am a Global Administrator
+              <T>Yes, I am a Global Administrator</T>
             </Button>
 
             {/* Warning about admin requirement */}
             <div className="mt-4 p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg">
               <p className="text-xs text-amber-700">
-                Only Global Administrators or Privileged Role Administrators can grant consent.
-                Intune Administrators and other roles cannot grant organization-wide permissions.
+                <T>Only Global Administrators or Privileged Role Administrators can grant consent.
+                Intune Administrators and other roles cannot grant organization-wide permissions.</T>
               </p>
             </div>
           </div>
@@ -386,7 +387,7 @@ export function ConsentStep({ onNext, onBack }: ConsentStepProps) {
             {/* Share link option */}
             <div className="text-left">
               <p className="text-sm text-text-secondary mb-4">
-                Share this link with your Global Administrator. They need to click it and approve the permissions:
+                <T>Share this link with your Global Administrator. They need to click it and approve the permissions:</T>
               </p>
 
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 mb-4">
@@ -409,15 +410,15 @@ export function ConsentStep({ onNext, onBack }: ConsentStepProps) {
 
               <div className="bg-overlay/[0.06] rounded-lg p-3 mb-4">
                 <p className="text-xs text-text-secondary mb-2">
-                  <strong className="text-text-secondary">What to tell your admin:</strong>
+                  <strong className="text-text-secondary"><T>What to tell your admin:</T></strong>
                 </p>
                 <p className="text-xs text-text-muted">
-                  "I need you to approve IntuneGet for our organization. Please click this link and sign in with your Global Admin account to grant the required permissions."
+                  <T>"I need you to approve IntuneGet for our organization. Please click this link and sign in with your Global Admin account to grant the required permissions."</T>
                 </p>
               </div>
 
               <p className="text-xs text-text-muted">
-                After your admin grants consent, click the button below to verify.
+                <T>After your admin grants consent, click the button below to verify.</T>
               </p>
             </div>
 
@@ -429,7 +430,7 @@ export function ConsentStep({ onNext, onBack }: ConsentStepProps) {
                 className="text-text-muted hover:text-text-secondary"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                Back
+                <T>Back</T>
               </Button>
               <Button
                 onClick={handleVerify}
@@ -439,12 +440,12 @@ export function ConsentStep({ onNext, onBack }: ConsentStepProps) {
                 {isVerifying ? (
                   <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Verifying...
+                    <T>Verifying...</T>
                   </>
                 ) : (
                   <>
                     <CheckCircle2 className="w-4 h-4 mr-2" />
-                    My admin approved it - Verify
+                    <T>My admin approved it - Verify</T>
                   </>
                 )}
               </Button>
@@ -464,12 +465,12 @@ export function ConsentStep({ onNext, onBack }: ConsentStepProps) {
           {isVerifying ? (
             <>
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-              Verifying...
+              <T>Verifying...</T>
             </>
           ) : (
             <>
               <RefreshCw className="w-4 h-4 mr-2" />
-              Already granted? Click to verify
+              <T>Already granted? Click to verify</T>
             </>
           )}
         </Button>
@@ -483,7 +484,7 @@ export function ConsentStep({ onNext, onBack }: ConsentStepProps) {
           className="text-text-muted hover:text-text-secondary"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to welcome
+          <T>Back to welcome</T>
         </Button>
       </div>
     </div>

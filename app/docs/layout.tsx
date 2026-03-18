@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Menu } from "lucide-react";
+import { T } from "gt-next";
 import { Header } from "@/components/landing/Header";
 import { Footer } from "@/components/landing/sections/Footer";
 import { DocsSidebar, MobileDocsSidebar, DocsBreadcrumbJsonLd } from "@/components/docs";
@@ -46,7 +47,7 @@ export default function DocsLayout({
                   <Menu className="h-5 w-5" />
                 </button>
                 <span className="text-sm font-medium text-text-secondary">
-                  Documentation
+                  <T>Documentation</T>
                 </span>
               </div>
 

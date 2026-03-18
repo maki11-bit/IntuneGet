@@ -1,5 +1,6 @@
 'use client';
 
+import { T } from "gt-next";
 import { useState, useMemo } from 'react';
 import { motion, useReducedMotion, AnimatePresence } from 'framer-motion';
 import {
@@ -148,8 +149,8 @@ export function AutoUpdateHistory({
         <div className="w-12 h-12 rounded-xl bg-overlay/5 flex items-center justify-center mx-auto mb-3">
           <Clock className="w-6 h-6 text-text-muted" />
         </div>
-        <p className="text-sm font-medium text-text-secondary mb-1">No update history yet</p>
-        <p className="text-xs text-text-muted">Updates you trigger or auto-updates will appear here</p>
+        <p className="text-sm font-medium text-text-secondary mb-1"><T>No update history yet</T></p>
+        <p className="text-xs text-text-muted"><T>Updates you trigger or auto-updates will appear here</T></p>
       </div>
     );
   }
@@ -164,7 +165,7 @@ export function AutoUpdateHistory({
           <div className="flex items-center gap-3 mb-3 pl-1">
             <Calendar className="w-3.5 h-3.5 text-text-muted" />
             <h3 className="text-xs font-semibold uppercase tracking-wider text-text-muted">
-              {group}
+              <T>{group}</T>
             </h3>
             <span className="text-[10px] font-medium text-text-muted bg-overlay/[0.06] px-1.5 py-0.5 rounded-md tabular-nums">
               {items.length}
@@ -289,26 +290,26 @@ export function AutoUpdateHistory({
                             <div className="px-3.5 pb-3.5 pt-0 border-t border-black/[0.06]">
                               <div className="mt-3 bg-overlay/[0.02] rounded-lg p-3.5 grid grid-cols-2 gap-3">
                                 <div>
-                                  <span className="text-text-muted text-[11px] font-medium uppercase tracking-wide">Winget ID</span>
+                                  <span className="text-text-muted text-[11px] font-medium uppercase tracking-wide"><T>Winget ID</T></span>
                                   <p className="text-text-primary font-mono text-xs mt-0.5 truncate">
                                     {item.policy.winget_id}
                                   </p>
                                 </div>
                                 <div>
-                                  <span className="text-text-muted text-[11px] font-medium uppercase tracking-wide">Tenant</span>
+                                  <span className="text-text-muted text-[11px] font-medium uppercase tracking-wide"><T>Tenant</T></span>
                                   <p className="text-text-primary font-mono text-xs mt-0.5 truncate">
                                     {item.policy.tenant_id}
                                   </p>
                                 </div>
                                 <div>
-                                  <span className="text-text-muted text-[11px] font-medium uppercase tracking-wide">Triggered</span>
+                                  <span className="text-text-muted text-[11px] font-medium uppercase tracking-wide"><T>Triggered</T></span>
                                   <p className="text-text-primary text-xs mt-0.5">
                                     {new Date(item.triggered_at).toLocaleString()}
                                   </p>
                                 </div>
                                 {item.completed_at && (
                                   <div>
-                                    <span className="text-text-muted text-[11px] font-medium uppercase tracking-wide">Completed</span>
+                                    <span className="text-text-muted text-[11px] font-medium uppercase tracking-wide"><T>Completed</T></span>
                                     <p className="text-text-primary text-xs mt-0.5">
                                       {new Date(item.completed_at).toLocaleString()}
                                     </p>
@@ -337,7 +338,7 @@ export function AutoUpdateHistory({
                                       target="_blank"
                                       rel="noopener noreferrer"
                                     >
-                                      View Job Details
+                                      <T>View Job Details</T>
                                       <ExternalLink className="w-3 h-3 ml-1.5" />
                                     </a>
                                   </Button>
@@ -368,10 +369,10 @@ export function AutoUpdateHistory({
             {isLoading ? (
               <>
                 <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                Loading...
+                <T>Loading...</T>
               </>
             ) : (
-              'Load More'
+              <T>Load More</T>
             )}
           </Button>
         </div>

@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import { T } from "gt-next";
 import { ArrowRight, Database, CheckCircle, HardDrive, Shield } from "lucide-react";
 import {
   Callout,
@@ -32,72 +33,72 @@ export default function DatabaseSetupPage() {
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold text-text-primary sm:text-4xl">
-          Database Setup
+          <T>Database Setup</T>
         </h1>
         <p className="mt-4 text-lg text-text-secondary leading-relaxed">
-          IntuneGet uses SQLite for self-hosted deployments - a zero-configuration,
-          embedded database that requires no external services.
+          <T>IntuneGet uses SQLite for self-hosted deployments - a zero-configuration,
+          embedded database that requires no external services.</T>
         </p>
       </div>
 
       {/* Overview */}
       <section>
-        <h2 className="text-2xl font-semibold text-text-primary mb-4">Overview</h2>
+        <h2 className="text-2xl font-semibold text-text-primary mb-4"><T>Overview</T></h2>
         <p className="text-text-secondary mb-4">
-          The self-hosted version of IntuneGet uses SQLite, providing:
+          <T>The self-hosted version of IntuneGet uses SQLite, providing:</T>
         </p>
         <div className="grid gap-4 sm:grid-cols-3 mb-6">
           <div className="rounded-lg border border-overlay/10 bg-bg-elevated p-4">
             <div className="flex items-center gap-3 mb-3">
               <Database className="h-5 w-5 text-accent-cyan" />
-              <h3 className="font-semibold text-text-primary">Zero Configuration</h3>
+              <h3 className="font-semibold text-text-primary"><T>Zero Configuration</T></h3>
             </div>
             <p className="text-sm text-text-secondary">
-              Database is created automatically on first run. No setup required.
+              <T>Database is created automatically on first run. No setup required.</T>
             </p>
           </div>
           <div className="rounded-lg border border-overlay/10 bg-bg-elevated p-4">
             <div className="flex items-center gap-3 mb-3">
               <HardDrive className="h-5 w-5 text-accent-cyan" />
-              <h3 className="font-semibold text-text-primary">Simple Backups</h3>
+              <h3 className="font-semibold text-text-primary"><T>Simple Backups</T></h3>
             </div>
             <p className="text-sm text-text-secondary">
-              Just copy the SQLite file. No complex database dumps needed.
+              <T>Just copy the SQLite file. No complex database dumps needed.</T>
             </p>
           </div>
           <div className="rounded-lg border border-overlay/10 bg-bg-elevated p-4">
             <div className="flex items-center gap-3 mb-3">
               <Shield className="h-5 w-5 text-accent-cyan" />
-              <h3 className="font-semibold text-text-primary">Full Control</h3>
+              <h3 className="font-semibold text-text-primary"><T>Full Control</T></h3>
             </div>
             <p className="text-sm text-text-secondary">
-              All data stays on your infrastructure. No external dependencies.
+              <T>All data stays on your infrastructure. No external dependencies.</T>
             </p>
           </div>
         </div>
 
         <Callout type="info" title="No External Database Needed">
           <p>
-            Unlike the hosted version, self-hosted IntuneGet does not require any
+            <T>Unlike the hosted version, self-hosted IntuneGet does not require any
             external database service. Everything is stored in a single SQLite file
-            that is created and managed automatically.
+            that is created and managed automatically.</T>
           </p>
         </Callout>
       </section>
 
       {/* Configuration */}
       <section>
-        <h2 className="text-2xl font-semibold text-text-primary mb-4">Configuration</h2>
+        <h2 className="text-2xl font-semibold text-text-primary mb-4"><T>Configuration</T></h2>
         <p className="text-text-secondary mb-4">
-          Configure the database using environment variables:
+          <T>Configure the database using environment variables:</T>
         </p>
 
         <Table>
           <TableHead>
             <TableRow>
-              <TableHeader>Variable</TableHeader>
-              <TableHeader>Description</TableHeader>
-              <TableHeader>Default</TableHeader>
+              <TableHeader><T>Variable</T></TableHeader>
+              <TableHeader><T>Description</T></TableHeader>
+              <TableHeader><T>Default</T></TableHeader>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -106,7 +107,7 @@ export default function DatabaseSetupPage() {
                 <code className="text-accent-cyan text-xs">DATABASE_MODE</code>
               </TableCell>
               <TableCell className="text-sm">
-                Set to &quot;sqlite&quot; for self-hosted mode
+                <T>Set to &quot;sqlite&quot; for self-hosted mode</T>
               </TableCell>
               <TableCell>
                 <code className="text-xs text-text-muted">supabase</code>
@@ -117,7 +118,7 @@ export default function DatabaseSetupPage() {
                 <code className="text-accent-cyan text-xs">DATABASE_PATH</code>
               </TableCell>
               <TableCell className="text-sm">
-                Path to the SQLite database file
+                <T>Path to the SQLite database file</T>
               </TableCell>
               <TableCell>
                 <code className="text-xs text-text-muted">./data/intuneget.db</code>
@@ -138,10 +139,10 @@ DATABASE_PATH=/data/intuneget.db`}
       {/* Docker Volume */}
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-4">
-          Docker Volume Mount
+          <T>Docker Volume Mount</T>
         </h2>
         <p className="text-text-secondary mb-4">
-          When using Docker, mount a volume to persist the database:
+          <T>When using Docker, mount a volume to persist the database:</T>
         </p>
 
         <CodeBlock language="yaml" filename="docker-compose.yml" showLineNumbers>
@@ -167,17 +168,17 @@ volumes:
 
         <Callout type="warning" title="Persist Your Data">
           <p>
-            Always mount a volume for <code>/data</code> in Docker. Without a volume,
-            the database will be lost when the container is recreated.
+            <T>Always mount a volume for <code>/data</code> in Docker. Without a volume,
+            the database will be lost when the container is recreated.</T>
           </p>
         </Callout>
       </section>
 
       {/* Database Schema */}
       <section>
-        <h2 className="text-2xl font-semibold text-text-primary mb-4">Database Schema</h2>
+        <h2 className="text-2xl font-semibold text-text-primary mb-4"><T>Database Schema</T></h2>
         <p className="text-text-secondary mb-4">
-          The database schema is created automatically. It includes these tables:
+          <T>The database schema is created automatically. It includes these tables:</T>
         </p>
 
         <div className="space-y-4">
@@ -187,8 +188,8 @@ volumes:
               packaging_jobs
             </h3>
             <p className="text-sm text-text-secondary">
-              Tracks all packaging requests, their status, progress, and results.
-              Includes job claiming for the local packager.
+              <T>Tracks all packaging requests, their status, progress, and results.
+              Includes job claiming for the local packager.</T>
             </p>
           </div>
 
@@ -198,7 +199,7 @@ volumes:
               upload_history
             </h3>
             <p className="text-sm text-text-secondary">
-              Records successful deployments to Intune for reference and audit.
+              <T>Records successful deployments to Intune for reference and audit.</T>
             </p>
           </div>
         </div>
@@ -207,12 +208,12 @@ volumes:
       {/* Backup & Recovery */}
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-4">
-          Backup & Recovery
+          <T>Backup & Recovery</T>
         </h2>
 
-        <h3 className="font-semibold text-text-primary mb-3">Creating Backups</h3>
+        <h3 className="font-semibold text-text-primary mb-3"><T>Creating Backups</T></h3>
         <p className="text-text-secondary mb-4">
-          SQLite makes backups simple - just copy the database file:
+          <T>SQLite makes backups simple - just copy the database file:</T>
         </p>
 
         <CodeBlock language="bash">
@@ -223,7 +224,7 @@ docker cp intuneget-intuneget-1:/data/intuneget.db ./backup-$(date +%Y%m%d).db
 cp /path/to/data/intuneget.db ./backup-$(date +%Y%m%d).db`}
         </CodeBlock>
 
-        <h3 className="font-semibold text-text-primary mt-6 mb-3">Restoring from Backup</h3>
+        <h3 className="font-semibold text-text-primary mt-6 mb-3"><T>Restoring from Backup</T></h3>
         <CodeBlock language="bash">
 {`# Stop the container first
 docker-compose down
@@ -237,7 +238,7 @@ docker-compose up -d`}
 
         <Callout type="tip" title="Automated Backups">
           <p>
-            Set up a cron job or scheduled task to backup the database regularly:
+            <T>Set up a cron job or scheduled task to backup the database regularly:</T>
           </p>
           <CodeBlock language="bash">
 {`# Add to crontab (daily at 2am)
@@ -248,9 +249,9 @@ docker-compose up -d`}
 
       {/* Viewing Data */}
       <section>
-        <h2 className="text-2xl font-semibold text-text-primary mb-4">Viewing Data</h2>
+        <h2 className="text-2xl font-semibold text-text-primary mb-4"><T>Viewing Data</T></h2>
         <p className="text-text-secondary mb-4">
-          You can inspect the database using any SQLite client:
+          <T>You can inspect the database using any SQLite client:</T>
         </p>
 
         <CodeBlock language="bash">
@@ -264,7 +265,7 @@ SELECT * FROM packaging_jobs WHERE status = 'failed';  # View failed jobs`}
         </CodeBlock>
 
         <p className="text-text-secondary mt-4">
-          GUI tools like{" "}
+          <T>GUI tools like{" "}
           <a
             href="https://sqlitebrowser.org/"
             target="_blank"
@@ -282,19 +283,19 @@ SELECT * FROM packaging_jobs WHERE status = 'failed';  # View failed jobs`}
           >
             TablePlus
           </a>{" "}
-          also work well.
+          also work well.</T>
         </p>
       </section>
 
       {/* Migration from Supabase */}
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-4">
-          Migration from Hosted Version
+          <T>Migration from Hosted Version</T>
         </h2>
         <p className="text-text-secondary mb-4">
-          If you&apos;re migrating from the hosted version (intuneget.com), note that
+          <T>If you&apos;re migrating from the hosted version (intuneget.com), note that
           job history and deployment records are not transferred. The self-hosted
-          version starts fresh with an empty database.
+          version starts fresh with an empty database.</T>
         </p>
 
         <div className="space-y-3">
@@ -309,7 +310,7 @@ SELECT * FROM packaging_jobs WHERE status = 'failed';  # View failed jobs`}
               className="flex items-center gap-3 p-3 rounded-lg border border-overlay/10 bg-bg-elevated"
             >
               <CheckCircle className="h-5 w-5 text-status-success flex-shrink-0" />
-              <span className="text-text-secondary">{item}</span>
+              <span className="text-text-secondary"><T>{item}</T></span>
             </div>
           ))}
         </div>
@@ -317,16 +318,16 @@ SELECT * FROM packaging_jobs WHERE status = 'failed';  # View failed jobs`}
 
       {/* Next Steps */}
       <section className="rounded-lg border border-accent-cyan/20 bg-gradient-to-br from-accent-cyan/5 to-transparent p-6">
-        <h2 className="text-xl font-semibold text-text-primary mb-3">Next Steps</h2>
+        <h2 className="text-xl font-semibold text-text-primary mb-3"><T>Next Steps</T></h2>
         <p className="text-text-secondary mb-4">
-          The database is configured automatically. Continue with Docker deployment
-          to get your instance running.
+          <T>The database is configured automatically. Continue with Docker deployment
+          to get your instance running.</T>
         </p>
         <Link
           href="/docs/docker"
           className="inline-flex items-center gap-2 text-accent-cyan hover:underline"
         >
-          Continue to Docker Deployment
+          <T>Continue to Docker Deployment</T>
           <ArrowRight className="h-4 w-4" />
         </Link>
       </section>

@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { Header } from "@/components/landing/Header";
 import { Footer } from "@/components/landing/sections/Footer";
+import { T, Var } from "gt-next";
 
 export const metadata: Metadata = {
   title: "Changelog | IntuneGet - Release History & Updates",
@@ -211,7 +212,7 @@ function VersionBadge({ type }: { type: Release["type"] }) {
 
   return (
     <span className={`inline-block px-2 py-0.5 text-xs font-medium rounded-full ${styles[type]}`}>
-      {type}
+      <T>{type}</T>
     </span>
   );
 }
@@ -269,14 +270,16 @@ export default function ChangelogPage() {
         {/* Header */}
         <div className="mb-12">
           <span className="inline-block font-mono text-xs tracking-wider text-accent-cyan uppercase mb-4">
-            Changelog
+            <T>Changelog</T>
           </span>
           <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">
-            What&apos;s New in IntuneGet
+            <T>What&apos;s New in IntuneGet</T>
           </h1>
           <p className="text-lg text-text-secondary">
-            Track the latest updates, features, and improvements. IntuneGet is
-            actively maintained and regularly updated with new capabilities.
+            <T>
+              Track the latest updates, features, and improvements. IntuneGet is
+              actively maintained and regularly updated with new capabilities.
+            </T>
           </p>
         </div>
 
@@ -300,13 +303,13 @@ export default function ChangelogPage() {
               <div className="bg-bg-elevated rounded-xl border border-overlay/10 p-6 shadow-soft">
                 <div className="flex flex-wrap items-center gap-3 mb-3">
                   <span className="font-mono text-lg font-bold text-text-primary">
-                    v{release.version}
+                    v<Var>{release.version}</Var>
                   </span>
                   <VersionBadge type={release.type} />
-                  <span className="text-sm text-text-muted">{release.date}</span>
+                  <span className="text-sm text-text-muted"><Var>{release.date}</Var></span>
                 </div>
                 <h2 className="text-lg font-semibold text-text-primary mb-3">
-                  {release.title}
+                  <T>{release.title}</T>
                 </h2>
                 <ul className="space-y-2">
                   {release.highlights.map((highlight) => (
@@ -315,7 +318,7 @@ export default function ChangelogPage() {
                       className="flex items-start gap-2 text-sm text-text-secondary"
                     >
                       <span className="w-1.5 h-1.5 rounded-full bg-accent-cyan mt-1.5 flex-shrink-0" />
-                      {highlight}
+                      <T>{highlight}</T>
                     </li>
                   ))}
                 </ul>
@@ -327,15 +330,17 @@ export default function ChangelogPage() {
         {/* Footer CTA */}
         <div className="mt-12 text-center">
           <p className="text-text-muted text-sm">
-            View the full commit history on{" "}
-            <a
-              href="https://github.com/ugurkocde/IntuneGet/commits"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-accent-cyan hover:text-accent-cyan-dim transition-colors"
-            >
-              GitHub
-            </a>
+            <T>
+              View the full commit history on{" "}
+              <a
+                href="https://github.com/ugurkocde/IntuneGet/commits"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-accent-cyan hover:text-accent-cyan-dim transition-colors"
+              >
+                GitHub
+              </a>
+            </T>
           </p>
         </div>
       </main>

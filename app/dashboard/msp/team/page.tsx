@@ -6,6 +6,7 @@ import { TeamManagement } from '@/components/msp/TeamManagement';
 import { useMicrosoftAuth } from '@/hooks/useMicrosoftAuth';
 import { useMspOptional } from '@/hooks/useMspOptional';
 import { Loader2 } from 'lucide-react';
+import { T } from 'gt-next';
 
 export default function MspTeamPage() {
   const router = useRouter();
@@ -40,7 +41,7 @@ export default function MspTeamPage() {
     <div className="max-w-4xl mx-auto">
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-text-primary">{organization.name}</h1>
-        <p className="text-text-muted">Manage your team members and invitations</p>
+        <p className="text-text-muted"><T>Manage your team members and invitations</T></p>
       </div>
 
       <TeamManagement />

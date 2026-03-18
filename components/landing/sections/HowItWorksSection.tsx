@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { T } from "gt-next";
 import { Clock, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { FadeIn } from "../animations/FadeIn";
@@ -11,22 +12,19 @@ const steps = [
     number: "01",
     title: "Select Applications",
     timeEstimate: "30 seconds",
-    description:
-      "Choose the applications you want to deploy from Winget's extensive repository of 10,000+ packages.",
+    description: "Choose the applications you want to deploy from Winget's extensive repository of 10,000+ packages.",
   },
   {
     number: "02",
     title: "Package with Winget",
     timeEstimate: "2-3 minutes",
-    description:
-      "IntuneGet automatically packages your selected applications using Winget into the .intunewin format, handling all the complexity.",
+    description: "IntuneGet automatically packages your selected applications using Winget into the .intunewin format, handling all the complexity.",
   },
   {
     number: "03",
     title: "Upload to Intune",
     timeEstimate: "1-2 minutes",
-    description:
-      "Packaged applications are seamlessly uploaded to your Microsoft Intune environment, ready for deployment to your managed devices.",
+    description: "Packaged applications are seamlessly uploaded to your Microsoft Intune environment, ready for deployment to your managed devices.",
   },
 ];
 
@@ -49,17 +47,17 @@ export function HowItWorksSection() {
         <div className="text-center mb-16 md:mb-20 space-y-4">
           <FadeIn>
             <span className="inline-block font-mono text-xs tracking-wider text-accent-cyan uppercase mb-4">
-              Process
+              <T id="howitworks.badge">Process</T>
             </span>
           </FadeIn>
           <FadeIn delay={0.1}>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-text-primary">
-              How Winget-to-Intune Deployment Works
+              <T id="howitworks.heading">How Winget-to-Intune Deployment Works</T>
             </h2>
           </FadeIn>
           <FadeIn delay={0.2}>
             <p className="mx-auto max-w-2xl text-lg text-text-secondary">
-              Three simple steps to deploy your first app in under 5 minutes
+              <T id="howitworks.subheading">Three simple steps to deploy your first app in under 5 minutes</T>
             </p>
           </FadeIn>
         </div>
@@ -123,15 +121,15 @@ export function HowItWorksSection() {
                     >
                       <div className="flex items-center justify-between mb-3">
                         <h3 className="text-xl font-semibold text-text-primary">
-                          {step.title}
+                          <T>{step.title}</T>
                         </h3>
                         <span className="flex items-center gap-1.5 text-xs font-medium text-accent-cyan bg-accent-cyan/10 px-2.5 py-1 rounded-full">
                           <Clock className="w-3 h-3" />
-                          {step.timeEstimate}
+                          <T>{step.timeEstimate}</T>
                         </span>
                       </div>
                       <p className="text-text-secondary leading-relaxed">
-                        {step.description}
+                        <T>{step.description}</T>
                       </p>
                     </div>
                   </div>
@@ -147,7 +145,7 @@ export function HowItWorksSection() {
                 href="/blog/deploy-winget-apps-to-intune"
                 className="inline-flex items-center gap-2 text-accent-cyan hover:text-accent-cyan-dim font-medium transition-colors"
               >
-                Read our complete guide to deploying Winget apps to Intune
+                <T id="howitworks.guide-link">Read our complete guide to deploying Winget apps to Intune</T>
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>

@@ -1,5 +1,6 @@
 'use client';
 
+import { T } from 'gt-next';
 import { motion, useReducedMotion } from 'framer-motion';
 import { CheckCircle2, Loader2, XCircle, Ban, Clock } from 'lucide-react';
 import { RecentActivityItem } from '@/hooks/useAnalytics';
@@ -58,7 +59,7 @@ export function RecentActivityList({ activities, loading }: RecentActivityListPr
     return (
       <InlineEmptyState
         icon={Clock}
-        message="No recent activity. Your deployment history will appear here."
+        message={<T>No recent activity. Your deployment history will appear here.</T>}
       />
     );
   }

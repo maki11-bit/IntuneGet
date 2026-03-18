@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Shield, Loader2, Package, ChevronDown, Copy, Check, AlertTriangle, Users, Boxes, ArrowLeft } from 'lucide-react';
 import dynamic from 'next/dynamic';
+import { T, Var } from "gt-next";
 import { VerificationSceneFallback } from '@/components/auth/verification-scene/VerificationSceneFallback';
 import { Button } from '@/components/ui/button';
 import { useMicrosoftAuth } from '@/hooks/useMicrosoftAuth';
@@ -199,8 +200,8 @@ function SignInContent() {
                 </div>
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-text-primary">IntuneGet</h1>
-                <p className="text-text-muted text-sm">Winget for Intune</p>
+                <h1 className="text-2xl font-bold text-text-primary"><T>IntuneGet</T></h1>
+                <p className="text-text-muted text-sm"><T>Winget for Intune</T></p>
               </div>
             </div>
           </FadeIn>
@@ -212,15 +213,15 @@ function SignInContent() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.05, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
-            <span className="gradient-text-cyan">10,000 Apps.</span>
+            <span className="gradient-text-cyan"><T>10,000 Apps.</T></span>
             <br />
-            <span className="text-text-primary">One Click.</span>
+            <span className="text-text-primary"><T>One Click.</T></span>
           </motion.h2>
 
           <FadeIn animateOnMount delay={0.1}>
             <p className="text-lg text-text-secondary mb-6 max-w-md leading-relaxed">
-              Deploy Win32 applications to Microsoft Intune with ease.
-              Search Winget, configure, and upload in minutes.
+              <T>Deploy Win32 applications to Microsoft Intune with ease.
+              Search Winget, configure, and upload in minutes.</T>
             </p>
           </FadeIn>
 
@@ -229,7 +230,7 @@ function SignInContent() {
 
           {/* Trust stats */}
           <FadeIn animateOnMount delay={0.15}>
-            <p className="text-xs font-medium text-text-muted uppercase tracking-wider mb-3">Trusted by IT admins</p>
+            <p className="text-xs font-medium text-text-muted uppercase tracking-wider mb-3"><T>Trusted by IT admins</T></p>
             <div className="flex flex-wrap gap-4">
               <div className="flex items-center gap-3 p-3 rounded-xl bg-bg-elevated/60 border border-overlay/[0.04] shadow-soft">
                 <div className="w-10 h-10 rounded-lg bg-accent-cyan/10 flex items-center justify-center">
@@ -239,7 +240,7 @@ function SignInContent() {
                   <p className="text-2xl font-bold text-text-primary">
                     <CountUp end={signinClicks} suffix="+" duration={1.5} delay={0.3} />
                   </p>
-                  <p className="text-sm text-text-muted">Admins</p>
+                  <p className="text-sm text-text-muted"><T>Admins</T></p>
                 </div>
               </div>
               <div className="flex items-center gap-3 p-3 rounded-xl bg-bg-elevated/60 border border-overlay/[0.04] shadow-soft">
@@ -250,7 +251,7 @@ function SignInContent() {
                   <p className="text-2xl font-bold text-text-primary">
                     <CountUp end={appsSupported} suffix="+" duration={1.5} delay={0.4} />
                   </p>
-                  <p className="text-sm text-text-muted">Apps available</p>
+                  <p className="text-sm text-text-muted"><T>Apps available</T></p>
                 </div>
               </div>
             </div>
@@ -260,7 +261,7 @@ function SignInContent() {
           <FadeIn animateOnMount delay={0.2}>
             <div className="mt-5 flex items-center gap-2 text-sm text-text-muted">
               <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-              <span>Multi-tenant support - works with any Entra ID tenant</span>
+              <span><T>Multi-tenant support - works with any Entra ID tenant</T></span>
             </div>
           </FadeIn>
         </div>
@@ -300,18 +301,18 @@ function SignInContent() {
                 <Package className="w-8 h-8 text-white" />
               </div>
             </div>
-            <h1 className="text-2xl font-bold text-text-primary">IntuneGet</h1>
-            <p className="text-text-muted text-sm">Winget for Intune</p>
+            <h1 className="text-2xl font-bold text-text-primary"><T>IntuneGet</T></h1>
+            <p className="text-text-muted text-sm"><T>Winget for Intune</T></p>
             {/* Mobile trust strip */}
             <div className="flex items-center gap-4 text-xs text-text-muted mt-2">
               <span className="flex items-center gap-1.5">
                 <Users className="w-3 h-3 text-accent-cyan" />
-                {signinClicks.toLocaleString()}+ admins
+                <T><Var>{signinClicks.toLocaleString()}</Var>+ admins</T>
               </span>
               <span className="w-px h-3 bg-overlay/20" />
               <span className="flex items-center gap-1.5">
                 <Boxes className="w-3 h-3 text-accent-violet" />
-                {appsSupported.toLocaleString()}+ apps
+                <T><Var>{appsSupported.toLocaleString()}</Var>+ apps</T>
               </span>
             </div>
           </FadeIn>
@@ -329,9 +330,9 @@ function SignInContent() {
             {/* Card content with intentional spacing */}
             <div className="px-8 pt-10 pb-6 sm:px-10 sm:pt-12 sm:pb-8">
               <div className="text-center mb-10">
-                <h2 className="text-2xl font-bold tracking-tight text-text-primary">Start Deploying</h2>
+                <h2 className="text-2xl font-bold tracking-tight text-text-primary"><T>Start Deploying</T></h2>
                 <p className="text-text-muted mt-2">
-                  Sign in with your work account to get started
+                  <T>Sign in with your work account to get started</T>
                 </p>
               </div>
 
@@ -345,7 +346,7 @@ function SignInContent() {
                     transition={{ duration: 0.3 }}
                     className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl"
                   >
-                    <p className="text-red-600 text-sm text-center">{error}</p>
+                    <p className="text-red-600 text-sm text-center"><T><Var>{error}</Var></T></p>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -365,12 +366,12 @@ function SignInContent() {
                   {isSigningIn ? (
                     <>
                       <Loader2 className="h-[19px] w-[19px] animate-spin" />
-                      Signing in...
+                      <T>Signing in...</T>
                     </>
                   ) : (
                     <>
                       <MicrosoftLogo className="h-[19px] w-[19px]" />
-                      Sign in with Microsoft
+                      <T>Sign in with Microsoft</T>
                     </>
                   )}
                 </Button>
@@ -379,7 +380,7 @@ function SignInContent() {
               {/* Trust badge */}
               <div className="flex items-center justify-center gap-2 text-xs text-text-muted mt-6">
                 <Shield className="h-3.5 w-3.5 text-accent-cyan/70" />
-                <span>Protected by Microsoft Entra ID</span>
+                <span><T>Protected by Microsoft Entra ID</T></span>
               </div>
             </div>
 
@@ -389,7 +390,7 @@ function SignInContent() {
                 onClick={() => setIsConsentSectionOpen(!isConsentSectionOpen)}
                 className="w-full flex items-center justify-center gap-2 text-sm text-text-muted hover:text-text-secondary transition-colors"
               >
-                <span>Need admin consent?</span>
+                <span><T>Need admin consent?</T></span>
                 <motion.div animate={{ rotate: isConsentSectionOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
                   <ChevronDown className="h-4 w-4" />
                 </motion.div>
@@ -409,16 +410,16 @@ function SignInContent() {
                       <div className="flex items-start gap-3">
                         <AlertTriangle className="h-5 w-5 text-amber-600 flex-shrink-0 mt-0.5" />
                         <div className="text-sm">
-                          <p className="text-amber-600 font-medium">Global Admin Required</p>
+                          <p className="text-amber-600 font-medium"><T>Global Admin Required</T></p>
                           <p className="text-amber-600/80 mt-1">
-                            Only Global Administrators can grant the permissions IntuneGet needs.
+                            <T>Only Global Administrators can grant the permissions IntuneGet needs.</T>
                           </p>
                         </div>
                       </div>
 
                       <div className="space-y-2">
                         <label className="text-xs text-text-muted font-medium">
-                          Share this link with your Global Administrator:
+                          <T>Share this link with your Global Administrator:</T>
                         </label>
                         <div className="flex flex-col sm:flex-row gap-2">
                           <input
@@ -445,7 +446,7 @@ function SignInContent() {
                       </div>
 
                       <p className="text-xs text-text-muted">
-                        Once they grant consent, you can sign in normally.
+                        <T>Once they grant consent, you can sign in normally.</T>
                       </p>
                     </div>
                   </motion.div>
@@ -459,14 +460,14 @@ function SignInContent() {
             <div className="mt-6 flex items-center justify-center gap-4 text-sm text-text-muted">
               <Link href="/" className="inline-flex items-center gap-1.5 hover:text-text-secondary transition-colors">
                 <ArrowLeft className="w-3.5 h-3.5" />
-                Back to home
+                <T>Back to home</T>
               </Link>
               <span className="text-overlay/20">|</span>
               <Link
                 href="/docs/docker"
                 className="hover:text-text-secondary transition-colors"
               >
-                Self-host guide
+                <T>Self-host guide</T>
               </Link>
             </div>
           </FadeIn>

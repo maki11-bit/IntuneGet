@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import { T } from "gt-next";
 import { ArrowRight, Container, AlertCircle, Server, Shield } from "lucide-react";
 import {
   Callout,
@@ -35,20 +36,20 @@ export default function DockerPage() {
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold text-text-primary sm:text-4xl">
-          Docker Deployment
+          <T>Docker Deployment</T>
         </h1>
         <p className="mt-4 text-lg text-text-secondary leading-relaxed">
-          Deploy IntuneGet using Docker for portable, consistent deployments on any
-          infrastructure.
+          <T>Deploy IntuneGet using Docker for portable, consistent deployments on any
+          infrastructure.</T>
         </p>
       </div>
 
       {/* Prerequisites */}
       <section>
-        <h2 className="text-2xl font-semibold text-text-primary mb-4">Prerequisites</h2>
+        <h2 className="text-2xl font-semibold text-text-primary mb-4"><T>Prerequisites</T></h2>
         <ul className="list-disc list-inside space-y-2 text-text-secondary">
           <li>
-            Docker installed (
+            <T>Docker installed (
             <a
               href="https://docs.docker.com/get-docker/"
               target="_blank"
@@ -57,19 +58,19 @@ export default function DockerPage() {
             >
               Install Docker
             </a>
-            )
+            )</T>
           </li>
-          <li>Docker Compose (usually included with Docker Desktop)</li>
-          <li>Completed Entra ID setup</li>
-          <li>A Windows machine for running the local packager</li>
+          <li><T>Docker Compose (usually included with Docker Desktop)</T></li>
+          <li><T>Completed Entra ID setup</T></li>
+          <li><T>A Windows machine for running the local packager</T></li>
         </ul>
       </section>
 
       {/* Quick Start */}
       <section>
-        <h2 className="text-2xl font-semibold text-text-primary mb-4">Quick Start</h2>
+        <h2 className="text-2xl font-semibold text-text-primary mb-4"><T>Quick Start</T></h2>
         <p className="text-text-secondary mb-4">
-          The fastest way to deploy IntuneGet with Docker:
+          <T>The fastest way to deploy IntuneGet with Docker:</T>
         </p>
 
         <CodeBlock language="bash">
@@ -88,15 +89,15 @@ docker-compose up -d`}
         </CodeBlock>
 
         <p className="text-text-secondary mt-4">
-          The application will be available at{" "}
-          <code className="text-accent-cyan">http://localhost:3000</code>
+          <T>The application will be available at{" "}
+          <code className="text-accent-cyan">http://localhost:3000</code></T>
         </p>
       </section>
 
       {/* Step by Step */}
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-6">
-          Step-by-Step Setup
+          <T>Step-by-Step Setup</T>
         </h2>
 
         <Steps>
@@ -108,11 +109,11 @@ cd IntuneGet`}
           </StepIndicator>
 
           <StepIndicator step={2} title="Configure Environment Variables">
-            <p className="mb-4">Copy the example environment file:</p>
+            <p className="mb-4"><T>Copy the example environment file:</T></p>
             <CodeBlock language="bash">cp .env.example .env.local</CodeBlock>
 
             <p className="mt-4 mb-4">
-              Edit <code>.env.local</code> and fill in all required values:
+              <T>Edit <code>.env.local</code> and fill in all required values:</T>
             </p>
             <CodeBlock language="bash" filename=".env.local">
 {`# Database (SQLite mode for self-hosting)
@@ -146,7 +147,7 @@ docker-compose down`}
           </StepIndicator>
 
           <StepIndicator step={4} title="Verify Deployment" isLast>
-            <p className="mb-4">Check that everything is running:</p>
+            <p className="mb-4"><T>Check that everything is running:</T></p>
             <CodeBlock language="bash">
 {`# Check container status
 docker-compose ps
@@ -156,7 +157,7 @@ curl http://localhost:3000/api/health`}
             </CodeBlock>
 
             <p className="mt-4 text-text-secondary">
-              Expected health response:
+              <T>Expected health response:</T>
             </p>
             <CodeBlock language="json">
 {`{
@@ -176,11 +177,11 @@ curl http://localhost:3000/api/health`}
       {/* Docker Compose Configuration */}
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-4">
-          Docker Compose Configuration
+          <T>Docker Compose Configuration</T>
         </h2>
         <p className="text-text-secondary mb-4">
-          The included <code>docker-compose.yml</code> provides a production-ready
-          configuration with SQLite persistence:
+          <T>The included <code>docker-compose.yml</code> provides a production-ready
+          configuration with SQLite persistence:</T>
         </p>
 
         <CodeBlock language="yaml" filename="docker-compose.yml" showLineNumbers>
@@ -217,9 +218,9 @@ volumes:
 
         <Callout type="info" title="Data Persistence">
           <p>
-            The <code>intuneget-data</code> volume ensures your SQLite database
+            <T>The <code>intuneget-data</code> volume ensures your SQLite database
             persists across container restarts and updates. Never remove this volume
-            unless you want to start fresh.
+            unless you want to start fresh.</T>
           </p>
         </Callout>
       </section>
@@ -227,28 +228,28 @@ volumes:
       {/* Runtime Environment Injection */}
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-4">
-          How Environment Variables Work in Docker
+          <T>How Environment Variables Work in Docker</T>
         </h2>
         <p className="text-text-secondary mb-4">
-          Next.js normally inlines <code>NEXT_PUBLIC_*</code> variables into the
+          <T>Next.js normally inlines <code>NEXT_PUBLIC_*</code> variables into the
           client JavaScript at <strong>build time</strong>. Since the Docker image
           is built without your specific configuration, IntuneGet uses runtime
-          injection to ensure these values are available in the browser.
+          injection to ensure these values are available in the browser.</T>
         </p>
         <p className="text-text-secondary mb-4">
-          When a page is requested, the server reads{" "}
+          <T>When a page is requested, the server reads{" "}
           <code>NEXT_PUBLIC_AZURE_AD_CLIENT_ID</code> from the container&apos;s
           environment and injects it into the HTML. Client-side code (such as
           MSAL authentication) reads this injected value, so your sign-in and
-          consent URLs always contain the correct client ID.
+          consent URLs always contain the correct client ID.</T>
         </p>
 
         <Callout type="info" title="No Build Args Needed">
           <p>
-            You do not need to pass environment variables as Docker build arguments.
+            <T>You do not need to pass environment variables as Docker build arguments.
             Simply set them in the <code>environment</code> section of your{" "}
             <code>docker-compose.yml</code> (or via <code>.env.local</code>) and
-            they will be picked up at runtime.
+            they will be picked up at runtime.</T>
           </p>
         </Callout>
       </section>
@@ -256,11 +257,11 @@ volumes:
       {/* Reverse Proxy */}
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-4">
-          Reverse Proxy Configuration
+          <T>Reverse Proxy Configuration</T>
         </h2>
         <p className="text-text-secondary mb-4">
-          For production, place IntuneGet behind a reverse proxy for SSL
-          termination:
+          <T>For production, place IntuneGet behind a reverse proxy for SSL
+          termination:</T>
         </p>
 
         <Collapsible title="Nginx Configuration" defaultOpen>
@@ -291,8 +292,8 @@ volumes:
 }`}
           </CodeBlock>
           <p className="text-sm text-text-secondary mt-3">
-            Caddy automatically provisions and renews SSL certificates from
-            Let&apos;s Encrypt.
+            <T>Caddy automatically provisions and renews SSL certificates from
+            Let&apos;s Encrypt.</T>
           </p>
         </Collapsible>
 
@@ -318,8 +319,8 @@ services:
 
         <Callout type="warning" title="Always Use HTTPS in Production">
           <p>
-            IntuneGet handles authentication tokens and interacts with Microsoft
-            APIs. Always use HTTPS in production environments.
+            <T>IntuneGet handles authentication tokens and interacts with Microsoft
+            APIs. Always use HTTPS in production environments.</T>
           </p>
         </Callout>
 
@@ -327,30 +328,30 @@ services:
           <div className="rounded-lg border border-overlay/10 bg-bg-elevated p-4">
             <h3 className="font-semibold text-text-primary mb-2 flex items-center gap-2">
               <Shield className="h-4 w-4 text-accent-cyan" />
-              Caddy
+              <T>Caddy</T>
             </h3>
             <p className="text-sm text-text-secondary">
-              Automatic Let&apos;s Encrypt certificates
+              <T>Automatic Let&apos;s Encrypt certificates</T>
             </p>
           </div>
 
           <div className="rounded-lg border border-overlay/10 bg-bg-elevated p-4">
             <h3 className="font-semibold text-text-primary mb-2 flex items-center gap-2">
               <Shield className="h-4 w-4 text-accent-cyan" />
-              Nginx + Certbot
+              <T>Nginx + Certbot</T>
             </h3>
             <p className="text-sm text-text-secondary">
-              Run certbot for certificate management
+              <T>Run certbot for certificate management</T>
             </p>
           </div>
 
           <div className="rounded-lg border border-overlay/10 bg-bg-elevated p-4">
             <h3 className="font-semibold text-text-primary mb-2 flex items-center gap-2">
               <Shield className="h-4 w-4 text-accent-cyan" />
-              Cloud Load Balancer
+              <T>Cloud Load Balancer</T>
             </h3>
             <p className="text-sm text-text-secondary">
-              AWS ALB, GCP LB, or Azure App Gateway
+              <T>AWS ALB, GCP LB, or Azure App Gateway</T>
             </p>
           </div>
         </div>
@@ -359,10 +360,10 @@ services:
       {/* Updating */}
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-4">
-          Updating Your Deployment
+          <T>Updating Your Deployment</T>
         </h2>
         <p className="text-text-secondary mb-4">
-          To update to the latest version:
+          <T>To update to the latest version:</T>
         </p>
 
         <CodeBlock language="bash">
@@ -377,9 +378,9 @@ docker-compose up -d`}
 
         <Callout type="info" title="Database Migrations">
           <p>
-            SQLite database schema is managed automatically. After major updates,
+            <T>SQLite database schema is managed automatically. After major updates,
             the schema will be updated on application startup. Check the release
-            notes for any manual migration steps if needed.
+            notes for any manual migration steps if needed.</T>
           </p>
         </Callout>
       </section>
@@ -387,7 +388,7 @@ docker-compose up -d`}
       {/* Production Checklist */}
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-4">
-          Production Checklist
+          <T>Production Checklist</T>
         </h2>
 
         <div className="space-y-3">
@@ -409,7 +410,7 @@ docker-compose up -d`}
               <div className="h-5 w-5 rounded-full border-2 border-overlay/15 flex items-center justify-center flex-shrink-0">
                 <div className="h-2 w-2 rounded-full bg-stone-300" />
               </div>
-              <span className="text-text-secondary">{item}</span>
+              <span className="text-text-secondary"><T>{item}</T></span>
             </div>
           ))}
         </div>
@@ -418,35 +419,35 @@ docker-compose up -d`}
       {/* Troubleshooting */}
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-4">
-          Common Issues
+          <T>Common Issues</T>
         </h2>
 
         <div className="space-y-4">
           <div className="rounded-lg border border-overlay/10 bg-bg-elevated p-4">
             <h3 className="font-medium text-text-primary mb-2 flex items-center gap-2">
               <AlertCircle className="h-4 w-4 text-status-error" />
-              Container fails to start
+              <T>Container fails to start</T>
             </h3>
             <ul className="list-disc list-inside text-sm text-text-secondary space-y-1">
               <li>
-                Check logs: <code>docker-compose logs -f</code>
+                <T>Check logs: <code>docker-compose logs -f</code></T>
               </li>
-              <li>Verify .env.local exists and has correct values</li>
-              <li>Ensure port 3000 is not in use</li>
+              <li><T>Verify .env.local exists and has correct values</T></li>
+              <li><T>Ensure port 3000 is not in use</T></li>
             </ul>
           </div>
 
           <div className="rounded-lg border border-overlay/10 bg-bg-elevated p-4">
             <h3 className="font-medium text-text-primary mb-2 flex items-center gap-2">
               <AlertCircle className="h-4 w-4 text-status-error" />
-              Database errors
+              <T>Database errors</T>
             </h3>
             <ul className="list-disc list-inside text-sm text-text-secondary space-y-1">
-              <li>Verify DATABASE_MODE=sqlite is set</li>
-              <li>Check volume mount for /data directory</li>
+              <li><T>Verify DATABASE_MODE=sqlite is set</T></li>
+              <li><T>Check volume mount for /data directory</T></li>
               <li>
-                Verify write permissions:{" "}
-                <code>docker exec intuneget ls -la /data</code>
+                <T>Verify write permissions:{" "}
+                <code>docker exec intuneget ls -la /data</code></T>
               </li>
             </ul>
           </div>
@@ -454,15 +455,15 @@ docker-compose up -d`}
           <div className="rounded-lg border border-overlay/10 bg-bg-elevated p-4">
             <h3 className="font-medium text-text-primary mb-2 flex items-center gap-2">
               <AlertCircle className="h-4 w-4 text-status-error" />
-              Build fails
+              <T>Build fails</T>
             </h3>
             <ul className="list-disc list-inside text-sm text-text-secondary space-y-1">
-              <li>Ensure Docker has enough memory (at least 4GB)</li>
+              <li><T>Ensure Docker has enough memory (at least 4GB)</T></li>
               <li>
-                Try building with no cache:{" "}
-                <code>docker-compose build --no-cache</code>
+                <T>Try building with no cache:{" "}
+                <code>docker-compose build --no-cache</code></T>
               </li>
-              <li>Check for any TypeScript errors in the codebase</li>
+              <li><T>Check for any TypeScript errors in the codebase</T></li>
             </ul>
           </div>
 
@@ -495,16 +496,16 @@ docker-compose up -d`}
 
       {/* Next Steps */}
       <section className="rounded-lg border border-accent-cyan/20 bg-gradient-to-br from-accent-cyan/5 to-transparent p-6">
-        <h2 className="text-xl font-semibold text-text-primary mb-3">Next Steps</h2>
+        <h2 className="text-xl font-semibold text-text-primary mb-3"><T>Next Steps</T></h2>
         <p className="text-text-secondary mb-4">
-          Your Docker deployment is ready! Check the troubleshooting guide if you
-          run into any issues.
+          <T>Your Docker deployment is ready! Check the troubleshooting guide if you
+          run into any issues.</T>
         </p>
         <Link
           href="/docs/troubleshooting"
           className="inline-flex items-center gap-2 text-accent-cyan hover:underline"
         >
-          View Troubleshooting Guide
+          <T>View Troubleshooting Guide</T>
           <ArrowRight className="h-4 w-4" />
         </Link>
       </section>

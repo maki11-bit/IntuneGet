@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import { T } from "gt-next";
 import {
   ArrowRight,
   Building2,
@@ -41,46 +42,46 @@ export default function MspPage() {
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold text-text-primary sm:text-4xl">
-          MSP Features
+          <T>MSP Features</T>
         </h1>
         <p className="mt-4 text-lg text-text-secondary leading-relaxed">
-          Managed Service Provider capabilities for managing multiple client
+          <T>Managed Service Provider capabilities for managing multiple client
           tenants, batch deployments, team collaboration, and cross-tenant
-          reporting.
+          reporting.</T>
         </p>
       </div>
 
       {/* Overview */}
       <section>
-        <h2 className="text-2xl font-semibold text-text-primary mb-4">Overview</h2>
+        <h2 className="text-2xl font-semibold text-text-primary mb-4"><T>Overview</T></h2>
         <p className="text-text-secondary mb-4">
-          The MSP solution is designed for Managed Service Providers and IT
+          <T>The MSP solution is designed for Managed Service Providers and IT
           teams managing multiple Microsoft 365 tenants. It provides a
           centralized dashboard for deploying applications across tenants,
-          managing team access, tracking deployments, and generating reports.
+          managing team access, tracking deployments, and generating reports.</T>
         </p>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <div className="rounded-lg border border-overlay/10 bg-bg-elevated p-4">
             <Building2 className="h-6 w-6 text-accent-cyan mb-3" />
-            <h3 className="font-semibold text-text-primary mb-1">Multi-Tenant</h3>
+            <h3 className="font-semibold text-text-primary mb-1"><T>Multi-Tenant</T></h3>
             <p className="text-sm text-text-secondary">
-              Manage and deploy to multiple client tenants from a single
-              dashboard
+              <T>Manage and deploy to multiple client tenants from a single
+              dashboard</T>
             </p>
           </div>
           <div className="rounded-lg border border-overlay/10 bg-bg-elevated p-4">
             <Users className="h-6 w-6 text-accent-cyan mb-3" />
-            <h3 className="font-semibold text-text-primary mb-1">Team Management</h3>
+            <h3 className="font-semibold text-text-primary mb-1"><T>Team Management</T></h3>
             <p className="text-sm text-text-secondary">
-              Role-based access control for your team members
+              <T>Role-based access control for your team members</T>
             </p>
           </div>
           <div className="rounded-lg border border-overlay/10 bg-bg-elevated p-4">
             <BarChart3 className="h-6 w-6 text-accent-cyan mb-3" />
-            <h3 className="font-semibold text-text-primary mb-1">Reports</h3>
+            <h3 className="font-semibold text-text-primary mb-1"><T>Reports</T></h3>
             <p className="text-sm text-text-secondary">
-              Cross-tenant analytics with exportable reports
+              <T>Cross-tenant analytics with exportable reports</T>
             </p>
           </div>
         </div>
@@ -89,41 +90,39 @@ export default function MspPage() {
       {/* Batch Deployments */}
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-4">
-          Multi-Tenant Batch Deployments
+          <T>Multi-Tenant Batch Deployments</T>
         </h2>
         <p className="text-text-secondary mb-4">
-          Deploy applications to multiple client tenants simultaneously using
+          <T>Deploy applications to multiple client tenants simultaneously using
           the batch deployment wizard. Select an application, choose your target
-          tenants, and IntuneGet handles the rest.
+          tenants, and IntuneGet handles the rest.</T>
         </p>
 
         <h3 className="text-lg font-semibold text-text-primary mb-3">
-          Deployment Workflow
+          <T>Deployment Workflow</T>
         </h3>
         <ol className="list-decimal list-inside space-y-2 text-text-secondary mb-6">
-          <li>Select the application to deploy from your inventory or cart</li>
-          <li>Choose one or more target tenants from your registered clients</li>
-          <li>Review and confirm deployment settings per tenant</li>
-          <li>
-            Monitor progress in real-time with the batch progress tracker
-          </li>
+          <li><T>Select the application to deploy from your inventory or cart</T></li>
+          <li><T>Choose one or more target tenants from your registered clients</T></li>
+          <li><T>Review and confirm deployment settings per tenant</T></li>
+          <li><T>Monitor progress in real-time with the batch progress tracker</T></li>
         </ol>
 
         <h3 className="text-lg font-semibold text-text-primary mb-3">
-          Progress Tracking
+          <T>Progress Tracking</T>
         </h3>
         <p className="text-text-secondary mb-4">
-          The BatchProgressTracker component provides live status updates for
+          <T>The BatchProgressTracker component provides live status updates for
           each tenant in the batch, showing download progress, packaging status,
-          and upload completion. Failed deployments can be retried individually.
+          and upload completion. Failed deployments can be retried individually.</T>
         </p>
 
         <div className="rounded-lg border border-overlay/10 bg-bg-elevated p-4">
-          <h4 className="font-medium text-text-primary mb-2">Cross-Tenant Jobs Table</h4>
+          <h4 className="font-medium text-text-primary mb-2"><T>Cross-Tenant Jobs Table</T></h4>
           <p className="text-sm text-text-secondary">
-            View all deployment jobs across tenants in a unified table. Filter by
+            <T>View all deployment jobs across tenants in a unified table. Filter by
             tenant, status, or time range. Each job shows its current status,
-            duration, and any error messages.
+            duration, and any error messages.</T>
           </p>
         </div>
       </section>
@@ -131,35 +130,29 @@ export default function MspPage() {
       {/* Tenant Management */}
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-4">
-          Tenant Management
+          <T>Tenant Management</T>
         </h2>
         <p className="text-text-secondary mb-4">
-          Register and manage client tenants through the Add Tenant Flow. Each
+          <T>Register and manage client tenants through the Add Tenant Flow. Each
           tenant requires admin consent to allow IntuneGet to deploy
-          applications on their behalf.
+          applications on their behalf.</T>
         </p>
 
         <h3 className="text-lg font-semibold text-text-primary mb-3">
-          Adding a Tenant
+          <T>Adding a Tenant</T>
         </h3>
         <ol className="list-decimal list-inside space-y-2 text-text-secondary mb-6">
-          <li>
-            Generate a consent URL using the Consent URL Generator
-          </li>
-          <li>
-            Share the URL with the client&apos;s Global Administrator
-          </li>
-          <li>The admin grants consent through the Microsoft consent flow</li>
-          <li>
-            The callback registers the tenant in your MSP organization
-          </li>
+          <li><T>Generate a consent URL using the Consent URL Generator</T></li>
+          <li><T>Share the URL with the client&apos;s Global Administrator</T></li>
+          <li><T>The admin grants consent through the Microsoft consent flow</T></li>
+          <li><T>The callback registers the tenant in your MSP organization</T></li>
         </ol>
 
         <Callout type="info" title="Tenant Switching">
           <p>
-            Use the Tenant Switcher component to quickly switch between client
+            <T>Use the Tenant Switcher component to quickly switch between client
             tenants. The currently selected tenant determines which Intune
-            environment you are viewing and deploying to.
+            environment you are viewing and deploying to.</T>
           </p>
         </Callout>
       </section>
@@ -167,48 +160,48 @@ export default function MspPage() {
       {/* Team Management */}
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-4">
-          Team Management
+          <T>Team Management</T>
         </h2>
         <p className="text-text-secondary mb-4">
-          Invite team members to your MSP organization and assign roles that
+          <T>Invite team members to your MSP organization and assign roles that
           control their access level. Supports both individual and bulk
-          invitations.
+          invitations.</T>
         </p>
 
-        <h3 className="text-lg font-semibold text-text-primary mb-3">Roles</h3>
+        <h3 className="text-lg font-semibold text-text-primary mb-3"><T>Roles</T></h3>
         <Table>
           <TableHead>
             <TableRow>
-              <TableHeader>Role</TableHeader>
-              <TableHeader>Permissions</TableHeader>
+              <TableHeader><T>Role</T></TableHeader>
+              <TableHeader><T>Permissions</T></TableHeader>
             </TableRow>
           </TableHead>
           <TableBody>
             <TableRow>
-              <TableCell className="font-medium text-text-primary">Owner</TableCell>
+              <TableCell className="font-medium text-text-primary"><T>Owner</T></TableCell>
               <TableCell className="text-sm text-text-secondary">
-                Full access including organization settings, billing, team
-                management, and all tenant operations
+                <T>Full access including organization settings, billing, team
+                management, and all tenant operations</T>
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell className="font-medium text-text-primary">Admin</TableCell>
+              <TableCell className="font-medium text-text-primary"><T>Admin</T></TableCell>
               <TableCell className="text-sm text-text-secondary">
-                Manage tenants, deploy applications, configure webhooks, view
-                reports, and invite team members
+                <T>Manage tenants, deploy applications, configure webhooks, view
+                reports, and invite team members</T>
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell className="font-medium text-text-primary">Operator</TableCell>
+              <TableCell className="font-medium text-text-primary"><T>Operator</T></TableCell>
               <TableCell className="text-sm text-text-secondary">
-                Deploy applications to assigned tenants and view deployment
-                status and reports
+                <T>Deploy applications to assigned tenants and view deployment
+                status and reports</T>
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell className="font-medium text-text-primary">Viewer</TableCell>
+              <TableCell className="font-medium text-text-primary"><T>Viewer</T></TableCell>
               <TableCell className="text-sm text-text-secondary">
-                Read-only access to view tenants, deployments, and reports
+                <T>Read-only access to view tenants, deployments, and reports</T>
               </TableCell>
             </TableRow>
           </TableBody>
@@ -217,106 +210,106 @@ export default function MspPage() {
 
       {/* Webhooks */}
       <section>
-        <h2 className="text-2xl font-semibold text-text-primary mb-4">Webhooks</h2>
+        <h2 className="text-2xl font-semibold text-text-primary mb-4"><T>Webhooks</T></h2>
         <p className="text-text-secondary mb-4">
-          Configure webhooks at the MSP organization level to receive
+          <T>Configure webhooks at the MSP organization level to receive
           notifications about deployment events across all tenants. Webhooks
-          support HMAC signature verification for security.
+          support HMAC signature verification for security.</T>
         </p>
 
         <h3 className="text-lg font-semibold text-text-primary mb-3">
-          Event Types
+          <T>Event Types</T>
         </h3>
         <p className="text-text-secondary mb-4">
-          Select which events trigger webhook deliveries using the Event Type
-          Selector:
+          <T>Select which events trigger webhook deliveries using the Event Type
+          Selector:</T>
         </p>
         <ul className="list-disc list-inside space-y-1 text-text-secondary mb-6">
-          <li>Deployment started / completed / failed</li>
-          <li>Tenant added / removed</li>
-          <li>Team member invited / role changed</li>
-          <li>Batch deployment progress updates</li>
+          <li><T>Deployment started / completed / failed</T></li>
+          <li><T>Tenant added / removed</T></li>
+          <li><T>Team member invited / role changed</T></li>
+          <li><T>Batch deployment progress updates</T></li>
         </ul>
 
-        <h3 className="text-lg font-semibold text-text-primary mb-3">Security</h3>
+        <h3 className="text-lg font-semibold text-text-primary mb-3"><T>Security</T></h3>
         <p className="text-text-secondary mb-4">
-          Each webhook endpoint is signed with an HMAC secret. The receiving
+          <T>Each webhook endpoint is signed with an HMAC secret. The receiving
           service can verify the signature to ensure the request originated from
-          IntuneGet. Failed deliveries are retried automatically.
+          IntuneGet. Failed deliveries are retried automatically.</T>
         </p>
 
-        <h3 className="text-lg font-semibold text-text-primary mb-3">Delivery Logs</h3>
+        <h3 className="text-lg font-semibold text-text-primary mb-3"><T>Delivery Logs</T></h3>
         <p className="text-text-secondary">
-          View the delivery history for each webhook, including response status
+          <T>View the delivery history for each webhook, including response status
           codes, delivery times, and any error messages. Use the Webhook
-          Delivery Log to debug integration issues.
+          Delivery Log to debug integration issues.</T>
         </p>
       </section>
 
       {/* Audit Logs */}
       <section>
-        <h2 className="text-2xl font-semibold text-text-primary mb-4">Audit Logs</h2>
+        <h2 className="text-2xl font-semibold text-text-primary mb-4"><T>Audit Logs</T></h2>
         <p className="text-text-secondary mb-4">
-          All MSP operations are recorded in an audit log for compliance and
-          troubleshooting. Each entry includes:
+          <T>All MSP operations are recorded in an audit log for compliance and
+          troubleshooting. Each entry includes:</T>
         </p>
         <ul className="list-disc list-inside space-y-1 text-text-secondary mb-4">
-          <li>Action performed and target resource</li>
-          <li>User who performed the action</li>
-          <li>Timestamp</li>
-          <li>IP address and user agent</li>
-          <li>Affected tenant (if applicable)</li>
+          <li><T>Action performed and target resource</T></li>
+          <li><T>User who performed the action</T></li>
+          <li><T>Timestamp</T></li>
+          <li><T>IP address and user agent</T></li>
+          <li><T>Affected tenant (if applicable)</T></li>
         </ul>
         <p className="text-text-secondary">
-          The Audit Log Table supports filtering by action type, user, tenant,
-          and date range.
+          <T>The Audit Log Table supports filtering by action type, user, tenant,
+          and date range.</T>
         </p>
       </section>
 
       {/* Reports */}
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-4">
-          Reports & Analytics
+          <T>Reports & Analytics</T>
         </h2>
         <p className="text-text-secondary mb-4">
-          The MSP Reports Dashboard provides cross-tenant analytics and
+          <T>The MSP Reports Dashboard provides cross-tenant analytics and
           visualizations to help you understand deployment patterns and identify
-          trends.
+          trends.</T>
         </p>
 
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="rounded-lg border border-overlay/10 bg-bg-elevated p-4">
             <BarChart3 className="h-5 w-5 text-accent-cyan mb-2" />
             <h4 className="font-medium text-text-primary mb-1">
-              Cross-Tenant Trends
+              <T>Cross-Tenant Trends</T>
             </h4>
             <p className="text-sm text-text-secondary">
-              Visualize deployment activity over time across all tenants
+              <T>Visualize deployment activity over time across all tenants</T>
             </p>
           </div>
           <div className="rounded-lg border border-overlay/10 bg-bg-elevated p-4">
             <Building2 className="h-5 w-5 text-accent-cyan mb-2" />
             <h4 className="font-medium text-text-primary mb-1">
-              Deployments by Tenant
+              <T>Deployments by Tenant</T>
             </h4>
             <p className="text-sm text-text-secondary">
-              Compare deployment volume and frequency per tenant
+              <T>Compare deployment volume and frequency per tenant</T>
             </p>
           </div>
           <div className="rounded-lg border border-overlay/10 bg-bg-elevated p-4">
             <Shield className="h-5 w-5 text-accent-cyan mb-2" />
             <h4 className="font-medium text-text-primary mb-1">
-              Tenant Success Rate
+              <T>Tenant Success Rate</T>
             </h4>
             <p className="text-sm text-text-secondary">
-              Track success/failure rates per tenant to identify issues
+              <T>Track success/failure rates per tenant to identify issues</T>
             </p>
           </div>
           <div className="rounded-lg border border-overlay/10 bg-bg-elevated p-4">
             <FileDown className="h-5 w-5 text-accent-cyan mb-2" />
-            <h4 className="font-medium text-text-primary mb-1">Export Options</h4>
+            <h4 className="font-medium text-text-primary mb-1"><T>Export Options</T></h4>
             <p className="text-sm text-text-secondary">
-              Export reports in CSV, JSON, or PDF format
+              <T>Export reports in CSV, JSON, or PDF format</T>
             </p>
           </div>
         </div>
@@ -324,24 +317,24 @@ export default function MspPage() {
 
       {/* Next Steps */}
       <section className="rounded-lg border border-accent-cyan/20 bg-gradient-to-br from-accent-cyan/5 to-transparent p-6">
-        <h2 className="text-xl font-semibold text-text-primary mb-3">Next Steps</h2>
+        <h2 className="text-xl font-semibold text-text-primary mb-3"><T>Next Steps</T></h2>
         <p className="text-text-secondary mb-4">
-          Configure notifications and webhooks for your deployments, or review
-          the troubleshooting guide for common MSP issues.
+          <T>Configure notifications and webhooks for your deployments, or review
+          the troubleshooting guide for common MSP issues.</T>
         </p>
         <div className="flex flex-wrap gap-4">
           <Link
             href="/docs/settings"
             className="inline-flex items-center gap-2 text-accent-cyan hover:underline"
           >
-            Settings & Webhooks
+            <T>Settings & Webhooks</T>
             <ArrowRight className="h-4 w-4" />
           </Link>
           <Link
             href="/docs/troubleshooting"
             className="inline-flex items-center gap-2 text-text-secondary hover:text-text-primary"
           >
-            Troubleshooting
+            <T>Troubleshooting</T>
             <ArrowRight className="h-4 w-4" />
           </Link>
         </div>

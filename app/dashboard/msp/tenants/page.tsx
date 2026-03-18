@@ -12,6 +12,7 @@ import {
   AlertCircle,
   RefreshCw,
 } from 'lucide-react';
+import { T } from 'gt-next';
 import { Button } from '@/components/ui/button';
 import { useMsp } from '@/contexts/MspContext';
 import { TenantCard, ConsentUrlDialog } from '@/components/msp';
@@ -195,15 +196,15 @@ export default function MspTenantsPage() {
         className="inline-flex items-center gap-2 text-sm text-text-muted hover:text-text-primary transition-colors"
       >
         <ArrowLeft className="w-4 h-4" />
-        Back to MSP Dashboard
+        <T>Back to MSP Dashboard</T>
       </Link>
 
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-text-primary">Managed Tenants</h1>
+          <h1 className="text-2xl font-bold text-text-primary"><T>Managed Tenants</T></h1>
           <p className="text-text-muted mt-1">
-            {managedTenants.length} tenant{managedTenants.length !== 1 ? 's' : ''} total
+            <T>{managedTenants.length} tenant{managedTenants.length !== 1 ? 's' : ''} total</T>
           </p>
         </div>
         <div className="flex items-center gap-3">
@@ -214,12 +215,12 @@ export default function MspTenantsPage() {
             className="text-text-secondary hover:text-text-primary"
           >
             <RefreshCw className={cn('w-4 h-4 mr-2', isLoadingTenants && 'animate-spin')} />
-            Refresh
+            <T>Refresh</T>
           </Button>
           <Link href="/dashboard/msp/tenants/add">
             <Button className="bg-gradient-to-r from-accent-cyan to-accent-violet text-white">
               <Plus className="w-4 h-4 mr-2" />
-              Add Customer
+              <T>Add Customer</T>
             </Button>
           </Link>
         </div>
@@ -253,14 +254,14 @@ export default function MspTenantsPage() {
       {!isLoadingTenants && managedTenants.length === 0 && (
         <div className="p-12 rounded-xl bg-overlay/5 border border-overlay/10 text-center">
           <Building2 className="w-12 h-12 text-text-muted mx-auto mb-4" />
-          <h2 className="text-lg font-medium text-text-primary mb-2">No customer tenants yet</h2>
+          <h2 className="text-lg font-medium text-text-primary mb-2"><T>No customer tenants yet</T></h2>
           <p className="text-text-muted mb-6 max-w-md mx-auto">
-            Start managing your customers' Intune tenants by adding them and having their admin grant consent.
+            <T>Start managing your customers' Intune tenants by adding them and having their admin grant consent.</T>
           </p>
           <Link href="/dashboard/msp/tenants/add">
             <Button className="bg-gradient-to-r from-accent-cyan to-accent-violet text-white">
               <Plus className="w-4 h-4 mr-2" />
-              Add Your First Customer
+              <T>Add Your First Customer</T>
             </Button>
           </Link>
         </div>
@@ -270,7 +271,7 @@ export default function MspTenantsPage() {
       {activeTenants.length > 0 && (
         <div>
           <h2 className="text-sm font-medium text-text-secondary uppercase tracking-wider mb-4">
-            Active Tenants ({activeTenants.length})
+            <T>Active Tenants ({activeTenants.length})</T>
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {activeTenants.map((tenant) => (
@@ -291,7 +292,7 @@ export default function MspTenantsPage() {
         <div>
           <h2 className="text-sm font-medium text-text-secondary uppercase tracking-wider mb-4 flex items-center gap-2">
             <AlertCircle className="w-4 h-4 text-orange-500" />
-            Incomplete Permissions ({incompleteTenants.length})
+            <T>Incomplete Permissions ({incompleteTenants.length})</T>
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {incompleteTenants.map((tenant) => (
@@ -304,7 +305,7 @@ export default function MspTenantsPage() {
             ))}
           </div>
           <p className="mt-4 text-sm text-orange-400/80">
-            These tenants granted consent but are missing Intune permissions (DeviceManagementApps.ReadWrite.All). The customer admin needs to re-grant consent with the correct permissions to enable app deployments. Use the &quot;Get Consent URL&quot; option to get a new consent link.
+            <T>These tenants granted consent but are missing Intune permissions (DeviceManagementApps.ReadWrite.All). The customer admin needs to re-grant consent with the correct permissions to enable app deployments. Use the "Get Consent URL" option to get a new consent link.</T>
           </p>
         </div>
       )}
@@ -314,7 +315,7 @@ export default function MspTenantsPage() {
         <div>
           <h2 className="text-sm font-medium text-text-secondary uppercase tracking-wider mb-4 flex items-center gap-2">
             <AlertCircle className="w-4 h-4 text-yellow-500" />
-            Pending Consent ({pendingTenants.length})
+            <T>Pending Consent ({pendingTenants.length})</T>
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {pendingTenants.map((tenant) => (
@@ -327,7 +328,7 @@ export default function MspTenantsPage() {
             ))}
           </div>
           <p className="mt-4 text-sm text-text-muted">
-            These tenants are waiting for their administrator to grant consent. Use the menu on each card to get the consent URL to share with them.
+            <T>These tenants are waiting for their administrator to grant consent. Use the menu on each card to get the consent URL to share with them.</T>
           </p>
         </div>
       )}

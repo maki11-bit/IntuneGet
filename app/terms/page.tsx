@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { Header } from "@/components/landing/Header";
 import { Footer } from "@/components/landing/sections/Footer";
+import { T } from "gt-next";
 
 export const metadata: Metadata = {
   title: "Terms of Use | IntuneGet",
@@ -50,112 +51,134 @@ export default function TermsPage() {
         <div className="space-y-8">
           <div>
             <h1 className="text-3xl font-bold text-text-primary sm:text-4xl">
-              Terms of Use
+              <T>Terms of Use</T>
             </h1>
             <p className="mt-2 text-sm text-text-muted">
-              Effective: January 24, 2026
+              <T>Effective: January 24, 2026</T>
             </p>
           </div>
 
           <p className="text-text-secondary leading-relaxed">
-            These Terms of Use (&quot;Terms&quot;) govern your access to and use
-            of IntuneGet (the &quot;Service&quot;). By using the Service, you
-            agree to these Terms.
+            <T>
+              These Terms of Use (&quot;Terms&quot;) govern your access to and use
+              of IntuneGet (the &quot;Service&quot;). By using the Service, you
+              agree to these Terms.
+            </T>
           </p>
 
           <section className="space-y-4">
             <h2 className="text-xl font-semibold text-text-primary">
-              Access and Eligibility
+              <T>Access and Eligibility</T>
             </h2>
             <ul className="list-disc list-inside space-y-2 text-text-secondary">
               <li>
-                You must have authority to access your Microsoft tenant and
-                Intune data.
+                <T>
+                  You must have authority to access your Microsoft tenant and
+                  Intune data.
+                </T>
               </li>
               <li>
-                You are responsible for complying with your organization&apos;s
-                policies and applicable laws.
+                <T>
+                  You are responsible for complying with your organization&apos;s
+                  policies and applicable laws.
+                </T>
               </li>
             </ul>
           </section>
 
           <section className="space-y-4">
             <h2 className="text-xl font-semibold text-text-primary">
-              Use of the Service
+              <T>Use of the Service</T>
             </h2>
             <ul className="list-disc list-inside space-y-2 text-text-secondary">
               <li>
-                The Service requests Microsoft Graph permissions to retrieve
-                Winget package information and upload applications to your
-                Intune environment.
+                <T>
+                  The Service requests Microsoft Graph permissions to retrieve
+                  Winget package information and upload applications to your
+                  Intune environment.
+                </T>
               </li>
               <li>
-                Applications are packaged and deployed based on your
-                configuration choices.
+                <T>
+                  Applications are packaged and deployed based on your
+                  configuration choices.
+                </T>
               </li>
               <li>
-                Do not misuse the Service (e.g., attempt to bypass security,
-                reverse engineer, or overload it).
+                <T>
+                  Do not misuse the Service (e.g., attempt to bypass security,
+                  reverse engineer, or overload it).
+                </T>
               </li>
             </ul>
           </section>
 
           <section className="space-y-4">
-            <h2 className="text-xl font-semibold text-text-primary">Privacy</h2>
+            <h2 className="text-xl font-semibold text-text-primary"><T>Privacy</T></h2>
             <p className="text-text-secondary leading-relaxed">
-              Your use of the Service is also governed by our{" "}
-              <Link
-                href="/privacy"
-                className="text-accent-cyan hover:text-accent-cyan-bright transition-colors"
-              >
-                Privacy Policy
-              </Link>
-              , which explains what we access and how we handle data.
+              <T>
+                Your use of the Service is also governed by our{" "}
+                <Link
+                  href="/privacy"
+                  className="text-accent-cyan hover:text-accent-cyan-bright transition-colors"
+                >
+                  Privacy Policy
+                </Link>
+                , which explains what we access and how we handle data.
+              </T>
             </p>
           </section>
 
           <section className="space-y-4">
-            <h2 className="text-xl font-semibold text-text-primary">Disclaimer</h2>
+            <h2 className="text-xl font-semibold text-text-primary"><T>Disclaimer</T></h2>
             <p className="text-text-secondary leading-relaxed">
-              The Service is provided on an &quot;as is&quot; and &quot;as
-              available&quot; basis without warranties of any kind. We do not
-              warrant that the Service is error-free, complete, or suitable for
-              any particular purpose. Validate outputs and deployments against
-              your tenant as needed.
+              <T>
+                The Service is provided on an &quot;as is&quot; and &quot;as
+                available&quot; basis without warranties of any kind. We do not
+                warrant that the Service is error-free, complete, or suitable for
+                any particular purpose. Validate outputs and deployments against
+                your tenant as needed.
+              </T>
             </p>
           </section>
 
           <section className="space-y-4">
             <h2 className="text-xl font-semibold text-text-primary">
-              Limitation of Liability
+              <T>Limitation of Liability</T>
             </h2>
             <p className="text-text-secondary leading-relaxed">
-              To the maximum extent permitted by law, we shall not be liable for
-              any indirect, incidental, special, consequential, or punitive
-              damages, or any loss of data, profits, or revenues resulting from
-              your use of the Service.
+              <T>
+                To the maximum extent permitted by law, we shall not be liable for
+                any indirect, incidental, special, consequential, or punitive
+                damages, or any loss of data, profits, or revenues resulting from
+                your use of the Service.
+              </T>
             </p>
           </section>
 
           <section className="space-y-4">
-            <h2 className="text-xl font-semibold text-text-primary">Changes</h2>
+            <h2 className="text-xl font-semibold text-text-primary"><T>Changes</T></h2>
             <p className="text-text-secondary leading-relaxed">
-              We may modify these Terms to reflect improvements or changes to
-              the Service. Continued use constitutes acceptance of the updated
-              Terms.
+              <T>
+                We may modify these Terms to reflect improvements or changes to
+                the Service. Continued use constitutes acceptance of the updated
+                Terms.
+              </T>
             </p>
           </section>
 
           <section className="space-y-4">
-            <h2 className="text-xl font-semibold text-text-primary">Contact</h2>
+            <h2 className="text-xl font-semibold text-text-primary"><T>Contact</T></h2>
             <p className="text-text-secondary leading-relaxed">
-              Questions about these Terms? Contact us at:{" "}
-              <a
-                href="mailto:support@ugurlabs.com"
-                className="text-accent-cyan hover:text-accent-cyan-bright transition-colors"
-              >
-                support@ugurlabs.com
-              </a>
+              <T>
+                Questions about these Terms? Contact us at:{" "}
+                <a
+                  href="mailto:support@ugurlabs.com"
+                  className="text-accent-cyan hover:text-accent-cyan-bright transition-colors"
+                >
+                  support@ugurlabs.com
+                </a>
+              </T>
             </p>
           </section>
         </div>

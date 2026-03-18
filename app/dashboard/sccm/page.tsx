@@ -20,6 +20,7 @@ import {
   Play,
 } from 'lucide-react';
 import { toast } from 'sonner';
+import { T } from 'gt-next';
 import { Button } from '@/components/ui/button';
 import {
   AlertDialog,
@@ -122,8 +123,8 @@ export default function SccmMigrationsPage() {
     return (
       <div className="space-y-6">
         <PageHeader
-          title="SCCM Migration"
-          description="Migrate applications from SCCM to Intune"
+          title={<T>SCCM Migration</T>}
+          description={<T>Migrate applications from SCCM to Intune</T>}
         />
         <SkeletonGrid count={4} columns={4} variant="stat" />
         <div className="space-y-4">
@@ -138,8 +139,8 @@ export default function SccmMigrationsPage() {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="SCCM Migration"
-        description="Migrate applications from SCCM to Intune"
+        title={<T>SCCM Migration</T>}
+        description={<T>Migrate applications from SCCM to Intune</T>}
         gradient
         gradientColors="mixed"
         actions={
@@ -155,12 +156,12 @@ export default function SccmMigrationsPage() {
               ) : (
                 <RefreshCw className="w-4 h-4 mr-2" />
               )}
-              Refresh
+              <T>Refresh</T>
             </Button>
             <Link href="/dashboard/sccm/new">
               <Button className="bg-gradient-to-r from-accent-cyan to-accent-violet hover:opacity-90">
                 <Plus className="w-4 h-4 mr-2" />
-                New Migration
+                <T>New Migration</T>
               </Button>
             </Link>
           </div>
@@ -177,7 +178,7 @@ export default function SccmMigrationsPage() {
           >
             <AlertCircle className="w-5 h-5 text-status-error flex-shrink-0 mt-0.5" />
             <div className="flex-1">
-              <p className="text-status-error font-medium">Error</p>
+              <p className="text-status-error font-medium"><T>Error</T></p>
               <p className="text-status-error/70 text-sm mt-1">{error}</p>
             </div>
             <Button
@@ -186,7 +187,7 @@ export default function SccmMigrationsPage() {
               onClick={() => { setError(null); fetchMigrations(); }}
               className="text-status-error hover:bg-status-error/10 text-xs"
             >
-              Retry
+              <T>Retry</T>
             </Button>
           </motion.div>
         )}
@@ -194,22 +195,22 @@ export default function SccmMigrationsPage() {
 
       {stats && (
         <StatCardGrid columns={4}>
-          <AnimatedStatCard title="Migrations" value={stats.totalMigrations} icon={FolderKanban} color="cyan" delay={0} />
-          <AnimatedStatCard title="Total Apps" value={stats.totalApps} icon={Package} color="violet" delay={0.1} />
-          <AnimatedStatCard title="Migrated" value={stats.migratedApps} icon={CheckCircle2} color="success" delay={0.2} />
-          <AnimatedStatCard title="Pending" value={stats.pendingMigration} icon={Clock} color="warning" delay={0.3} />
+          <AnimatedStatCard title={<T>Migrations</T>} value={stats.totalMigrations} icon={FolderKanban} color="cyan" delay={0} />
+          <AnimatedStatCard title={<T>Total Apps</T>} value={stats.totalApps} icon={Package} color="violet" delay={0.1} />
+          <AnimatedStatCard title={<T>Migrated</T>} value={stats.migratedApps} icon={CheckCircle2} color="success" delay={0.2} />
+          <AnimatedStatCard title={<T>Pending</T>} value={stats.pendingMigration} icon={Clock} color="warning" delay={0.3} />
         </StatCardGrid>
       )}
 
       {migrations.length === 0 ? (
         <AnimatedEmptyState
           icon={FolderKanban}
-          title="No migrations yet"
-          description="Create a new migration to import your SCCM applications and start migrating to Intune"
+          title={<T>No migrations yet</T>}
+          description={<T>Create a new migration to import your SCCM applications and start migrating to Intune</T>}
           color="cyan"
           showOrbs
           action={{
-            label: 'Create Migration',
+            label: <T>Create Migration</T>,
             onClick: () => (window.location.href = '/dashboard/sccm/new'),
           }}
         >
@@ -225,7 +226,7 @@ export default function SccmMigrationsPage() {
                   <div className="w-8 h-8 rounded-full bg-overlay/5 flex items-center justify-center">
                     <step.icon className="w-4 h-4 text-text-muted" />
                   </div>
-                  <span className="text-xs text-text-muted mt-1">{step.label}</span>
+                  <span className="text-xs text-text-muted mt-1"><T>{step.label}</T></span>
                 </div>
                 {i < 3 && <div className="w-6 h-px bg-overlay/10 mt-[-12px]" />}
               </div>
@@ -303,24 +304,24 @@ function MigrationCard({
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4 pt-4 border-t border-overlay/5">
             <div>
-              <p className="text-text-muted text-xs">Total Apps</p>
+              <p className="text-text-muted text-xs"><T>Total Apps</T></p>
               <p className="text-text-primary font-medium">{migration.totalApps}</p>
             </div>
             <div>
-              <p className="text-text-muted text-xs">Matched</p>
+              <p className="text-text-muted text-xs"><T>Matched</T></p>
               <p className="text-accent-cyan font-medium">
                 {migration.matchedApps}
                 {migration.partialMatchApps > 0 && (
-                  <span className="text-status-warning ml-1">(+{migration.partialMatchApps} partial)</span>
+                  <span className="text-status-warning ml-1"><T>(+{migration.partialMatchApps} partial)</T></span>
                 )}
               </p>
             </div>
             <div>
-              <p className="text-text-muted text-xs">Migrated</p>
+              <p className="text-text-muted text-xs"><T>Migrated</T></p>
               <p className="text-status-success font-medium">{migration.migratedApps}</p>
             </div>
             <div>
-              <p className="text-text-muted text-xs">Failed</p>
+              <p className="text-text-muted text-xs"><T>Failed</T></p>
               <p className="text-status-error font-medium">{migration.failedApps}</p>
             </div>
           </div>
@@ -328,7 +329,7 @@ function MigrationCard({
           {migration.totalApps > 0 && (
             <div className="mt-4">
               <div className="flex items-center justify-between text-xs mb-1">
-                <span className="text-text-muted">Migration Progress</span>
+                <span className="text-text-muted"><T>Migration Progress</T></span>
                 <span className="text-text-secondary">{migrationRate}%</span>
               </div>
               <div className="h-2 bg-overlay/5 rounded-full overflow-hidden">
@@ -341,16 +342,16 @@ function MigrationCard({
           )}
 
           <div className="flex items-center gap-4 mt-4 text-xs text-text-muted">
-            <span>Created: {new Date(migration.createdAt).toLocaleDateString()}</span>
+            <span><T>Created: {new Date(migration.createdAt).toLocaleDateString()}</T></span>
             {migration.lastMigrationAt && (
-              <span>Last migration: {new Date(migration.lastMigrationAt).toLocaleDateString()}</span>
+              <span><T>Last migration: {new Date(migration.lastMigrationAt).toLocaleDateString()}</T></span>
             )}
           </div>
         </div>
 
         <div className="flex flex-col items-end gap-3">
           <span className={cn('px-2.5 py-1 rounded-full text-xs font-semibold', config.bg, config.color)}>
-            {config.label}
+            <T>{config.label}</T>
           </span>
 
           <div className="flex items-center gap-2">
@@ -371,16 +372,15 @@ function MigrationCard({
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
-                  <AlertDialogTitle>Delete Migration?</AlertDialogTitle>
+                  <AlertDialogTitle><T>Delete Migration?</T></AlertDialogTitle>
                   <AlertDialogDescription>
-                    This will permanently delete &quot;{migration.name}&quot; and all associated app data.
-                    This action cannot be undone.
+                    <T>This will permanently delete &quot;{migration.name}&quot; and all associated app data. This action cannot be undone.</T>
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogCancel><T>Cancel</T></AlertDialogCancel>
                   <AlertDialogAction onClick={() => onDelete(migration.id)}>
-                    Delete
+                    <T>Delete</T>
                   </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
@@ -397,7 +397,7 @@ function MigrationCard({
                 )}
               >
                 {config.actionDisabled && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
-                {config.actionLabel}
+                <T>{config.actionLabel}</T>
                 {!config.actionDisabled && <ArrowRight className="w-4 h-4 ml-2" />}
               </Button>
             </Link>

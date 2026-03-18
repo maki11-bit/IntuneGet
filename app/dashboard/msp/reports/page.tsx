@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { BarChart3 } from 'lucide-react';
+import { T } from 'gt-next';
 import { useMsp } from '@/contexts/MspContext';
 import { PageHeader, SkeletonGrid } from '@/components/dashboard';
 import { MspReportsDashboard } from '@/components/msp/reports';
@@ -42,8 +43,8 @@ export default function MspReportsPage() {
       className="space-y-8"
     >
       <PageHeader
-        title="Reports & Analytics"
-        description="Deployment insights across all managed tenants"
+        title={<T>Reports & Analytics</T>}
+        description={<T>Deployment insights across all managed tenants</T>}
         icon={BarChart3}
       />
 

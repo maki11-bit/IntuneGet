@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { T, Var } from "gt-next";
 import Link from 'next/link';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
@@ -324,8 +325,8 @@ export default function UploadsPage() {
     return (
       <div className="space-y-6">
         <PageHeader
-          title="Uploads"
-          description="Monitor your package deployments to Intune"
+          title={<T>Uploads</T>}
+          description={<T>Monitor your package deployments to Intune</T>}
         />
         <SkeletonGrid count={4} columns={4} variant="stat" />
         <div className="space-y-4">
@@ -345,7 +346,7 @@ export default function UploadsPage() {
         description="Monitor your package deployments to Intune"
         gradient
         gradientColors="mixed"
-        badge={stats.active > 0 ? { text: 'Live', variant: 'success' as const } : undefined}
+        badge={stats.active > 0 ? { text: <T>Live</T>, variant: 'success' as const } : undefined}
         actions={
           <div className="flex items-center gap-2">
             {(stats.completed + stats.failed) > 0 && (
@@ -361,20 +362,20 @@ export default function UploadsPage() {
                     ) : (
                       <Trash2 className="w-4 h-4 mr-2" />
                     )}
-                    Clear History
+                    <T>Clear History</T>
                   </Button>
                 </AlertDialogTrigger>
                 <AlertDialogContent>
                   <AlertDialogHeader>
-                    <AlertDialogTitle>Clear Upload History?</AlertDialogTitle>
+                    <AlertDialogTitle><T>Clear Upload History?</T></AlertDialogTitle>
                     <AlertDialogDescription>
-                      This will permanently remove all completed, failed, cancelled, and deployed jobs from your history. Active jobs (queued, packaging, uploading) will not be affected.
+                      <T>This will permanently remove all completed, failed, cancelled, and deployed jobs from your history. Active jobs (queued, packaging, uploading) will not be affected.</T>
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
-                    <AlertDialogCancel>Keep History</AlertDialogCancel>
+                    <AlertDialogCancel><T>Keep History</T></AlertDialogCancel>
                     <AlertDialogAction onClick={handleClearHistory}>
-                      Clear All
+                      <T>Clear All</T>
                     </AlertDialogAction>
                   </AlertDialogFooter>
                 </AlertDialogContent>
@@ -391,7 +392,7 @@ export default function UploadsPage() {
               ) : (
                 <RefreshCw className="w-4 h-4 mr-2" />
               )}
-              Refresh
+              <T>Refresh</T>
             </Button>
           </div>
         }
@@ -408,7 +409,7 @@ export default function UploadsPage() {
           >
             <AlertCircle className="w-5 h-5 text-status-error flex-shrink-0 mt-0.5" />
             <div>
-              <p className="text-status-error font-medium">Error loading jobs</p>
+              <p className="text-status-error font-medium"><T>Error loading jobs</T></p>
               <p className="text-status-error/70 text-sm mt-1">{error}</p>
             </div>
           </motion.div>
@@ -418,7 +419,7 @@ export default function UploadsPage() {
       {/* Stats */}
       <StatCardGrid columns={4}>
         <AnimatedStatCard
-          title="Total"
+          title={<T>Total</T>}
           value={stats.total}
           icon={Package}
           color="cyan"
@@ -427,7 +428,7 @@ export default function UploadsPage() {
           isActive={filter === 'all'}
         />
         <AnimatedStatCard
-          title="Active"
+          title={<T>Active</T>}
           value={stats.active}
           icon={Clock}
           color="violet"
@@ -436,7 +437,7 @@ export default function UploadsPage() {
           isActive={filter === 'active'}
         />
         <AnimatedStatCard
-          title="Completed"
+          title={<T>Completed</T>}
           value={stats.completed}
           icon={CheckCircle2}
           color="success"
@@ -445,7 +446,7 @@ export default function UploadsPage() {
           isActive={filter === 'completed'}
         />
         <AnimatedStatCard
-          title="Failed"
+          title={<T>Failed</T>}
           value={stats.failed}
           icon={XCircle}
           color="error"
@@ -478,7 +479,7 @@ export default function UploadsPage() {
                 : 'bg-overlay/5 text-text-secondary hover:text-text-primary hover:bg-overlay/10 border border-overlay/5'
             )}
           >
-            {f.charAt(0).toUpperCase() + f.slice(1)}
+            <T>{f.charAt(0).toUpperCase() + f.slice(1)}</T>
           </button>
         ))}
       </motion.div>
@@ -487,18 +488,18 @@ export default function UploadsPage() {
       {filteredJobs.length === 0 ? (
         <AnimatedEmptyState
           icon={Upload}
-          title={filter === 'all' ? 'No uploads yet' : `No ${filter} uploads`}
+          title={filter === 'all' ? <T>No uploads yet</T> : <T>No {filter} uploads</T>}
           description={
             filter === 'all'
-              ? 'Add packages from the App Catalog to get started'
-              : `You have no ${filter} uploads to display`
+              ? <T>Add packages from the App Catalog to get started</T>
+              : <T>You have no {filter} uploads to display</T>
           }
           color="cyan"
           showOrbs={filter === 'all'}
           action={
             filter === 'all'
               ? {
-                  label: 'Browse App Catalog',
+                  label: <T>Browse App Catalog</T>,
                   onClick: () => router.push('/dashboard/apps'),
                 }
               : undefined
@@ -709,9 +710,9 @@ function UploadJobCard({
                       {assignment.type === 'allUsers' && <Users className="w-3 h-3" />}
                       {assignment.type === 'allDevices' && <Monitor className="w-3 h-3" />}
                       {assignment.type === 'group' && <UserCircle className="w-3 h-3" />}
-                      {assignment.type === 'allUsers' && 'All Users'}
-                      {assignment.type === 'allDevices' && 'All Devices'}
-                      {assignment.type === 'group' && (assignment.groupName || 'Group')}
+                      {assignment.type === 'allUsers' && <T>All Users</T>}
+                      {assignment.type === 'allDevices' && <T>All Devices</T>}
+                      {assignment.type === 'group' && (assignment.groupName || <T>Group</T>)}
                       <span className="text-text-muted">({assignment.intent})</span>
                     </span>
                   ))}
@@ -739,27 +740,27 @@ function UploadJobCard({
                       ) : (
                         <Ban className="w-4 h-4 mr-2" />
                       )}
-                      {isDismissable ? 'Dismiss' : 'Cancel'}
+                      {isDismissable ? <T>Dismiss</T> : <T>Cancel</T>}
                     </Button>
                   </AlertDialogTrigger>
                   <AlertDialogContent>
                     <AlertDialogHeader>
                       <AlertDialogTitle>
-                        {isDismissable ? 'Dismiss Job?' : 'Cancel Upload?'}
+                        {isDismissable ? <T>Dismiss Job?</T> : <T>Cancel Upload?</T>}
                       </AlertDialogTitle>
                       <AlertDialogDescription>
                         {isDismissable
-                          ? `Are you sure you want to dismiss ${job.display_name} from your list? This will permanently remove it.`
-                          : `Are you sure you want to cancel the upload for ${job.display_name}? This action cannot be undone.`
+                          ? <T>Are you sure you want to dismiss <Var>{job.display_name}</Var> from your list? This will permanently remove it.</T>
+                          : <T>Are you sure you want to cancel the upload for <Var>{job.display_name}</Var>? This action cannot be undone.</T>
                         }
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                       <AlertDialogCancel>
-                        {isDismissable ? 'Keep' : 'Keep Running'}
+                        {isDismissable ? <T>Keep</T> : <T>Keep Running</T>}
                       </AlertDialogCancel>
                       <AlertDialogAction onClick={() => onCancel(job.id, isDismissable)}>
-                        {isDismissable ? 'Dismiss' : 'Cancel Upload'}
+                        {isDismissable ? <T>Dismiss</T> : <T>Cancel Upload</T>}
                       </AlertDialogAction>
                     </AlertDialogFooter>
                   </AlertDialogContent>
@@ -793,7 +794,7 @@ function UploadJobCard({
                   className="px-2 py-1 rounded-full text-xs font-medium bg-status-warning/10 text-status-warning cursor-help"
                   title="This job has been inactive for over 30 minutes. The pipeline may have stalled. Consider cancelling and retrying."
                 >
-                  Stale
+                  <T>Stale</T>
                 </span>
               )}
             </div>
@@ -833,7 +834,7 @@ function UploadJobCard({
                 disabled={isRedeploying}
               >
                 {isRedeploying ? <Loader2 className="w-3 h-3 animate-spin mr-1.5" /> : <RefreshCw className="w-3 h-3 mr-1.5" />}
-                Retry Deployment
+                <T>Retry Deployment</T>
               </Button>
             </div>
           )}
@@ -845,12 +846,12 @@ function UploadJobCard({
                 <Ban className="w-4 h-4 text-status-warning flex-shrink-0 mt-0.5" />
                 <div className="text-sm">
                   <p className="text-status-warning">
-                    This job was cancelled
-                    {job.cancelled_by && ` by ${job.cancelled_by}`}
+                    <T>This job was cancelled</T>
+                    {job.cancelled_by && <> <T>by <Var>{job.cancelled_by}</Var></T></>}
                   </p>
                   {job.cancelled_at && (
                     <p className="text-status-warning/70 text-xs mt-1">
-                      Cancelled at: {new Date(job.cancelled_at).toLocaleString()}
+                      <T>Cancelled at:</T> {new Date(job.cancelled_at).toLocaleString()}
                     </p>
                   )}
                 </div>
@@ -868,12 +869,12 @@ function UploadJobCard({
                 <AlertCircle className="w-4 h-4 text-status-warning flex-shrink-0 mt-0.5" />
                 <div className="flex-1">
                   <p className="text-status-warning font-medium text-sm">
-                    Duplicate app already exists in Intune
+                    <T>Duplicate app already exists in Intune</T>
                   </p>
                   <p className="text-status-warning/70 text-xs mt-1">
-                    An app with the same name and Winget ID was found in your tenant.
+                    <T>An app with the same name and Winget ID was found in your tenant.</T>
                     {existingVersion && (
-                      <span> Existing version: {existingVersion}</span>
+                      <span> <T>Existing version: <Var>{existingVersion}</Var></T></span>
                     )}
                   </p>
                   <div className="flex items-center gap-3 mt-3">
@@ -885,7 +886,7 @@ function UploadJobCard({
                         className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-status-warning/20 text-status-warning hover:bg-status-warning/30 transition-colors"
                       >
                         <ExternalLink className="w-3 h-3" />
-                        View existing app
+                        <T>View existing app</T>
                       </a>
                     )}
                     <Button
@@ -900,7 +901,7 @@ function UploadJobCard({
                       ) : (
                         <Play className="w-3 h-3 mr-1.5" />
                       )}
-                      Deploy as new app anyway
+                      <T>Deploy as new app anyway</T>
                     </Button>
                   </div>
                 </div>
@@ -936,7 +937,7 @@ function UploadJobCard({
                 className="inline-flex items-center gap-2 text-accent-cyan hover:text-accent-cyan-bright text-sm font-medium transition-colors"
               >
                 <ExternalLink className="w-4 h-4" />
-                View in Intune Portal
+                <T>View in Intune Portal</T>
                 <ChevronRight className="w-4 h-4" />
               </a>
               {job.intune_app_id && job.status === 'deployed' && (
@@ -948,11 +949,11 @@ function UploadJobCard({
           {/* Timestamps */}
           <div className="mt-5 pt-4 border-t border-overlay/[0.05] flex items-center gap-4 text-xs text-text-muted">
             <span title={new Date(job.created_at).toLocaleString()}>
-              Created: {formatRelativeTime(job.created_at)}
+              <T>Created:</T> {formatRelativeTime(job.created_at)}
             </span>
             {job.completed_at && (
               <span title={new Date(job.completed_at).toLocaleString()}>
-                Completed: {formatRelativeTime(job.completed_at)}
+                <T>Completed:</T> {formatRelativeTime(job.completed_at)}
               </span>
             )}
           </div>

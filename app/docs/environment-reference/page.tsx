@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { T } from "gt-next";
 import {
   Table,
   TableBody,
@@ -28,51 +29,51 @@ export default function EnvironmentReferencePage() {
     <div className="space-y-12">
       <div>
         <h1 className="text-3xl font-bold text-text-primary sm:text-4xl">
-          Environment Reference
+          <T>Environment Reference</T>
         </h1>
         <p className="mt-4 text-lg text-text-secondary leading-relaxed">
-          Consolidated variable reference for deployment modes, packaging modes,
-          and optional integrations.
+          <T>Consolidated variable reference for deployment modes, packaging modes,
+          and optional integrations.</T>
         </p>
       </div>
 
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-4">
-          Core Web App Variables
+          <T>Core Web App Variables</T>
         </h2>
         <Table>
           <TableHead>
             <TableRow>
-              <TableHeader>Variable</TableHeader>
-              <TableHeader>Required</TableHeader>
-              <TableHeader>Notes</TableHeader>
+              <TableHeader><T>Variable</T></TableHeader>
+              <TableHeader><T>Required</T></TableHeader>
+              <TableHeader><T>Notes</T></TableHeader>
             </TableRow>
           </TableHead>
           <TableBody>
             <TableRow>
               <TableCell><code>DATABASE_MODE</code></TableCell>
-              <TableCell>Yes</TableCell>
+              <TableCell><T>Yes</T></TableCell>
               <TableCell className="text-sm text-text-secondary"><code>supabase</code> or <code>sqlite</code></TableCell>
             </TableRow>
             <TableRow>
               <TableCell><code>PACKAGER_MODE</code></TableCell>
-              <TableCell>Yes</TableCell>
+              <TableCell><T>Yes</T></TableCell>
               <TableCell className="text-sm text-text-secondary"><code>github</code> or <code>local</code></TableCell>
             </TableRow>
             <TableRow>
               <TableCell><code>NEXT_PUBLIC_AZURE_AD_CLIENT_ID</code></TableCell>
-              <TableCell>Yes</TableCell>
-              <TableCell className="text-sm text-text-secondary">Entra app client ID. In Docker deployments, this is injected at runtime -- no build args needed.</TableCell>
+              <TableCell><T>Yes</T></TableCell>
+              <TableCell className="text-sm text-text-secondary"><T>Entra app client ID. In Docker deployments, this is injected at runtime -- no build args needed.</T></TableCell>
             </TableRow>
             <TableRow>
               <TableCell><code>AZURE_AD_CLIENT_SECRET</code></TableCell>
-              <TableCell>Yes*</TableCell>
-              <TableCell className="text-sm text-text-secondary"><code>AZURE_CLIENT_SECRET</code> is also supported</TableCell>
+              <TableCell><T>Yes*</T></TableCell>
+              <TableCell className="text-sm text-text-secondary"><T><code>AZURE_CLIENT_SECRET</code> is also supported</T></TableCell>
             </TableRow>
             <TableRow>
               <TableCell><code>NEXT_PUBLIC_URL</code></TableCell>
-              <TableCell>Yes</TableCell>
-              <TableCell className="text-sm text-text-secondary">Public app URL</TableCell>
+              <TableCell><T>Yes</T></TableCell>
+              <TableCell className="text-sm text-text-secondary"><T>Public app URL</T></TableCell>
             </TableRow>
           </TableBody>
         </Table>
@@ -80,18 +81,18 @@ export default function EnvironmentReferencePage() {
 
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-4">
-          Mode-Specific Variables
+          <T>Mode-Specific Variables</T>
         </h2>
         <Table>
           <TableHead>
             <TableRow>
-              <TableHeader>Mode</TableHeader>
-              <TableHeader>Required Variables</TableHeader>
+              <TableHeader><T>Mode</T></TableHeader>
+              <TableHeader><T>Required Variables</T></TableHeader>
             </TableRow>
           </TableHead>
           <TableBody>
             <TableRow>
-              <TableCell className="font-medium text-text-primary">Supabase DB</TableCell>
+              <TableCell className="font-medium text-text-primary"><T>Supabase DB</T></TableCell>
               <TableCell>
                 <code>NEXT_PUBLIC_SUPABASE_URL</code>,{" "}
                 <code>NEXT_PUBLIC_SUPABASE_ANON_KEY</code>,{" "}
@@ -99,26 +100,26 @@ export default function EnvironmentReferencePage() {
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell className="font-medium text-text-primary">SQLite DB</TableCell>
+              <TableCell className="font-medium text-text-primary"><T>SQLite DB</T></TableCell>
               <TableCell>
-                <code>PACKAGER_API_KEY</code> (with local packager), optional{" "}
-                <code>DATABASE_PATH</code>
+                <T><code>PACKAGER_API_KEY</code> (with local packager), optional{" "}
+                <code>DATABASE_PATH</code></T>
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell className="font-medium text-text-primary">GitHub Packager</TableCell>
+              <TableCell className="font-medium text-text-primary"><T>GitHub Packager</T></TableCell>
               <TableCell>
-                <code>GITHUB_PAT</code>, <code>GITHUB_OWNER</code>,{" "}
+                <T><code>GITHUB_PAT</code>, <code>GITHUB_OWNER</code>,{" "}
                 <code>GITHUB_WORKFLOWS_REPO</code>, optional{" "}
                 <code>GITHUB_REPO</code>, <code>GITHUB_REF</code>,{" "}
-                <code>GITHUB_WORKFLOW_FILE</code>, <code>CALLBACK_SECRET</code>
+                <code>GITHUB_WORKFLOW_FILE</code>, <code>CALLBACK_SECRET</code></T>
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell className="font-medium text-text-primary">Local Packager</TableCell>
+              <TableCell className="font-medium text-text-primary"><T>Local Packager</T></TableCell>
               <TableCell>
-                <code>PACKAGER_MODE=local</code> plus shared{" "}
-                <code>PACKAGER_API_KEY</code> strategy
+                <T><code>PACKAGER_MODE=local</code> plus shared{" "}
+                <code>PACKAGER_API_KEY</code> strategy</T>
               </TableCell>
             </TableRow>
           </TableBody>
@@ -127,31 +128,31 @@ export default function EnvironmentReferencePage() {
 
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-4">
-          Packager Service Variables
+          <T>Packager Service Variables</T>
         </h2>
         <Table>
           <TableHead>
             <TableRow>
-              <TableHeader>Variable</TableHeader>
-              <TableHeader>Use</TableHeader>
+              <TableHeader><T>Variable</T></TableHeader>
+              <TableHeader><T>Use</T></TableHeader>
             </TableRow>
           </TableHead>
           <TableBody>
             <TableRow>
               <TableCell><code>AZURE_CLIENT_ID</code> / <code>AZURE_CLIENT_SECRET</code></TableCell>
-              <TableCell className="text-sm text-text-secondary">Required for Graph and Intune operations</TableCell>
+              <TableCell className="text-sm text-text-secondary"><T>Required for Graph and Intune operations</T></TableCell>
             </TableRow>
             <TableRow>
               <TableCell><code>INTUNEGET_API_URL</code> + <code>PACKAGER_API_KEY</code></TableCell>
-              <TableCell className="text-sm text-text-secondary">API mode (recommended for sqlite web mode)</TableCell>
+              <TableCell className="text-sm text-text-secondary"><T>API mode (recommended for sqlite web mode)</T></TableCell>
             </TableRow>
             <TableRow>
               <TableCell><code>SUPABASE_URL</code> + <code>SUPABASE_SERVICE_ROLE_KEY</code></TableCell>
-              <TableCell className="text-sm text-text-secondary">Supabase mode</TableCell>
+              <TableCell className="text-sm text-text-secondary"><T>Supabase mode</T></TableCell>
             </TableRow>
             <TableRow>
               <TableCell><code>POLL_INTERVAL</code>, <code>STALE_JOB_TIMEOUT</code></TableCell>
-              <TableCell className="text-sm text-text-secondary">Polling and stale-claim behavior</TableCell>
+              <TableCell className="text-sm text-text-secondary"><T>Polling and stale-claim behavior</T></TableCell>
             </TableRow>
           </TableBody>
         </Table>
@@ -160,9 +161,9 @@ export default function EnvironmentReferencePage() {
       <section>
         <Callout type="tip" title="Validation Order">
           <p>
-            Confirm database mode first, then packager mode. Most setup issues
+            <T>Confirm database mode first, then packager mode. Most setup issues
             come from mixing sqlite/supabase variables or missing packager auth
-            key alignment.
+            key alignment.</T>
           </p>
         </Callout>
       </section>

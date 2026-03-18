@@ -23,12 +23,13 @@ import { useDashboardStats } from '@/hooks/useAnalytics';
 import { useOnboardingStatus } from '@/hooks/useOnboardingStatus';
 import { RecentActivityList, PageHeader } from '@/components/dashboard';
 import { useUserSettings } from '@/components/providers/UserSettingsProvider';
+import { T, Var } from 'gt-next';
 
-function getTimeBasedGreeting(): string {
+function getTimeBasedGreeting(): React.ReactNode {
   const hour = new Date().getHours();
-  if (hour < 12) return 'Good morning';
-  if (hour < 17) return 'Good afternoon';
-  return 'Good evening';
+  if (hour < 12) return <T>Good morning</T>;
+  if (hour < 17) return <T>Good afternoon</T>;
+  return <T>Good evening</T>;
 }
 
 export default function DashboardPage() {
@@ -37,7 +38,7 @@ export default function DashboardPage() {
   const { errorType } = useOnboardingStatus();
   const { settings, setQuickStartDismissed } = useUserSettings();
   const [mounted, setMounted] = useState(false);
-  const [greeting, setGreeting] = useState('Welcome back');
+  const [greeting, setGreeting] = useState<React.ReactNode>(<T>Welcome back</T>);
 
   useEffect(() => {
     setMounted(true);
@@ -53,10 +54,10 @@ export default function DashboardPage() {
     const items: Array<{
       id: string;
       icon: React.ElementType;
-      title: string;
-      description: string;
+      title: React.ReactNode;
+      description: React.ReactNode;
       href: string;
-      actionLabel: string;
+      actionLabel: React.ReactNode;
       color: 'error' | 'warning' | 'cyan';
     }> = [];
 
@@ -64,10 +65,12 @@ export default function DashboardPage() {
       items.push({
         id: 'failed-deployments',
         icon: AlertCircle,
-        title: `${stats.failed} failed deployment${stats.failed !== 1 ? 's' : ''}`,
-        description: 'Review failed deployments and take action',
+        title: stats.failed !== 1
+          ? <T><Var>{stats.failed}</Var> failed deployments</T>
+          : <T><Var>{stats.failed}</Var> failed deployment</T>,
+        description: <T>Review failed deployments and take action</T>,
         href: '/dashboard/uploads?status=failed',
-        actionLabel: 'View Details',
+        actionLabel: <T>View Details</T>,
         color: 'error',
       });
     }
@@ -76,12 +79,12 @@ export default function DashboardPage() {
       items.push({
         id: 'token-warning',
         icon: KeyRound,
-        title: 'Connection issue detected',
+        title: <T>Connection issue detected</T>,
         description: errorType === 'missing_credentials'
-          ? 'Server configuration issue. Contact your administrator.'
-          : 'Unable to verify organization setup. Check your connection.',
+          ? <T>Server configuration issue. Contact your administrator.</T>
+          : <T>Unable to verify organization setup. Check your connection.</T>,
         href: '/dashboard/settings',
-        actionLabel: 'Settings',
+        actionLabel: <T>Settings</T>,
         color: 'warning',
       });
     }
@@ -93,8 +96,8 @@ export default function DashboardPage() {
     <div className="space-y-8">
       {/* Welcome header using PageHeader */}
       <PageHeader
-        title={`${greeting}, ${user?.name?.split(' ')[0] || 'User'}`}
-        description="Deploy Windows applications to Intune with precision and ease"
+        title={<T><Var>{greeting}</Var>, <Var>{user?.name?.split(' ')[0] || 'User'}</Var></T>}
+        description={<T>Deploy Windows applications to Intune with precision and ease</T>}
         gradient
         gradientColors="cyan"
       />
@@ -155,7 +158,7 @@ export default function DashboardPage() {
       {/* Stat cards */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <StatCard
-          title="Total Deployed"
+          title={<T>Total Deployed</T>}
           value={stats?.totalDeployed ?? 0}
           icon={Package}
           color="cyan"
@@ -164,7 +167,7 @@ export default function DashboardPage() {
           delay={1}
         />
         <StatCard
-          title="This Month"
+          title={<T>This Month</T>}
           value={stats?.thisMonth ?? 0}
           icon={Upload}
           color="success"
@@ -173,7 +176,7 @@ export default function DashboardPage() {
           delay={2}
         />
         <StatCard
-          title="Pending"
+          title={<T>Pending</T>}
           value={stats?.pending ?? 0}
           icon={Clock}
           color="warning"
@@ -183,7 +186,7 @@ export default function DashboardPage() {
           href="/dashboard/uploads?status=pending"
         />
         <StatCard
-          title="Failed"
+          title={<T>Failed</T>}
           value={stats?.failed ?? 0}
           icon={AlertCircle}
           color="error"
@@ -202,7 +205,7 @@ export default function DashboardPage() {
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-2">
                 <Zap className="w-5 h-5 text-accent-cyan" />
-                <h2 className="text-lg font-semibold text-text-primary">Quick Start</h2>
+                <h2 className="text-lg font-semibold text-text-primary"><T>Quick Start</T></h2>
               </div>
               <button
                 onClick={handleDismissQuickStart}
@@ -219,19 +222,19 @@ export default function DashboardPage() {
               <div className="space-y-4">
                 <QuickStartStep
                   number={1}
-                  title="Browse the App Catalog"
-                  description="Search from 10,000+ Winget packages"
+                  title={<T>Browse the App Catalog</T>}
+                  description={<T>Search from 10,000+ Winget packages</T>}
                   href="/dashboard/apps"
                 />
                 <QuickStartStep
                   number={2}
-                  title="Configure & Add to Cart"
-                  description="Select architecture, scope, and detection rules"
+                  title={<T>Configure & Add to Cart</T>}
+                  description={<T>Select architecture, scope, and detection rules</T>}
                 />
                 <QuickStartStep
                   number={3}
-                  title="Deploy to Intune"
-                  description="One-click deployment to your tenant"
+                  title={<T>Deploy to Intune</T>}
+                  description={<T>One-click deployment to your tenant</T>}
                 />
               </div>
             </div>
@@ -239,7 +242,7 @@ export default function DashboardPage() {
             <Link href="/dashboard/apps">
               <Button className="w-full mt-6 bg-gradient-to-r from-accent-cyan to-accent-violet hover:opacity-90 text-bg-elevated border-0 shadow-glow-cyan">
                 <Package className="w-4 h-4 mr-2" />
-                Browse App Catalog
+                <T>Browse App Catalog</T>
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
@@ -251,7 +254,7 @@ export default function DashboardPage() {
           <div className={`glass-light rounded-xl p-6 ${mounted ? 'animate-fade-up stagger-5' : 'opacity-0'}`}>
             <div className="flex items-center gap-2 mb-6">
               <Rocket className="w-5 h-5 text-accent-cyan" />
-              <h2 className="text-lg font-semibold text-text-primary">Frequently Deployed</h2>
+              <h2 className="text-lg font-semibold text-text-primary"><T>Frequently Deployed</T></h2>
             </div>
 
             <div className="space-y-3">
@@ -269,12 +272,12 @@ export default function DashboardPage() {
                       <p className="text-sm font-medium text-text-primary truncate group-hover:text-accent-cyan-bright transition-colors">
                         {app.display_name}
                       </p>
-                      <p className="text-xs text-text-muted">{app.deploy_count} deployments</p>
+                      <p className="text-xs text-text-muted"><T><Var>{app.deploy_count}</Var> deployments</T></p>
                     </div>
                   </div>
                   <Button size="sm" variant="ghost" className="text-text-muted hover:text-accent-cyan flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
                     <RotateCcw className="w-3.5 h-3.5 mr-1.5" />
-                    Redeploy
+                    <T>Redeploy</T>
                   </Button>
                 </Link>
               ))}
@@ -282,7 +285,7 @@ export default function DashboardPage() {
 
             <Link href="/dashboard/apps">
               <Button variant="ghost" className="w-full mt-4 text-text-secondary hover:text-text-primary">
-                Browse All Apps
+                <T>Browse All Apps</T>
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
@@ -293,12 +296,12 @@ export default function DashboardPage() {
         {settings.quickStartDismissed && (!stats?.frequentlyDeployed || stats.frequentlyDeployed.length === 0) && (
           <div className={`glass-light rounded-xl p-6 flex flex-col items-center justify-center text-center ${mounted ? 'animate-fade-up stagger-5' : 'opacity-0'}`}>
             <Package className="w-10 h-10 text-accent-cyan/40 mb-3" />
-            <h3 className="text-text-primary font-medium mb-1">Start deploying</h3>
-            <p className="text-text-muted text-sm mb-4">Browse the App Catalog to deploy your first packages</p>
+            <h3 className="text-text-primary font-medium mb-1"><T>Start deploying</T></h3>
+            <p className="text-text-muted text-sm mb-4"><T>Browse the App Catalog to deploy your first packages</T></p>
             <Link href="/dashboard/apps">
               <Button className="bg-gradient-to-r from-accent-cyan to-accent-violet hover:opacity-90 text-bg-elevated border-0">
                 <Package className="w-4 h-4 mr-2" />
-                Browse App Catalog
+                <T>Browse App Catalog</T>
               </Button>
             </Link>
           </div>
@@ -309,13 +312,13 @@ export default function DashboardPage() {
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-2">
               <Clock className="w-5 h-5 text-accent-violet" />
-              <h2 className="text-lg font-semibold text-text-primary">Recent Activity</h2>
+              <h2 className="text-lg font-semibold text-text-primary"><T>Recent Activity</T></h2>
             </div>
             <Link
               href="/dashboard/uploads"
               className="text-sm text-accent-cyan hover:text-accent-cyan-bright transition-colors"
             >
-              View all
+              <T>View all</T>
             </Link>
           </div>
 
@@ -331,14 +334,14 @@ export default function DashboardPage() {
         <div className="flex items-center gap-3">
           <CheckCircle2 className="w-5 h-5 text-status-success flex-shrink-0" />
           <div className="flex-1 min-w-0">
-            <span className="text-text-primary text-sm font-medium">Connected to Microsoft Intune</span>
+            <span className="text-text-primary text-sm font-medium"><T>Connected to Microsoft Intune</T></span>
             <span className="text-text-muted text-sm ml-2">
               {user?.email}
             </span>
           </div>
           <Link href="/dashboard/settings">
             <Button variant="ghost" size="sm" className="text-text-muted hover:text-text-primary text-xs">
-              Settings
+              <T>Settings</T>
             </Button>
           </Link>
         </div>
@@ -357,7 +360,7 @@ function StatCard({
   delay,
   href,
 }: {
-  title: string;
+  title: React.ReactNode;
   value: number;
   icon: React.ElementType;
   color: 'cyan' | 'success' | 'warning' | 'error';
@@ -429,8 +432,8 @@ function QuickStartStep({
   href,
 }: {
   number: number;
-  title: string;
-  description: string;
+  title: React.ReactNode;
+  description: React.ReactNode;
   href?: string;
 }) {
   const content = (

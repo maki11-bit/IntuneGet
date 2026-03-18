@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { blogPosts } from "@/lib/data/blog-data";
 import { ArrowRight, Calendar, Clock, Tag } from "lucide-react";
+import { T } from "gt-next";
 
 export const metadata: Metadata = {
   title: "Blog | IntuneGet - Winget to Intune Guides & Tutorials",
@@ -77,14 +78,14 @@ export default function BlogPage() {
         {/* Page header */}
         <div className="mb-12 md:mb-16 space-y-4">
           <span className="inline-block font-mono text-xs tracking-wider text-accent-cyan uppercase">
-            Blog
+            <T>Blog</T>
           </span>
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-text-primary tracking-tight">
-            Winget to Intune Deployment Guides
+            <T>Winget to Intune Deployment Guides</T>
           </h1>
           <p className="max-w-2xl text-lg text-text-secondary">
-            Practical tutorials and best practices for IT teams deploying
-            applications to Microsoft Intune using Winget.
+            <T>Practical tutorials and best practices for IT teams deploying
+            applications to Microsoft Intune using Winget.</T>
           </p>
         </div>
 
@@ -107,7 +108,7 @@ export default function BlogPage() {
                   <div className="flex flex-wrap gap-2">
                     {post.isPillar && (
                       <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-accent-cyan text-white">
-                        Featured Guide
+                        <T>Featured Guide</T>
                       </span>
                     )}
                     {post.tags.map((tag) => (
@@ -123,10 +124,10 @@ export default function BlogPage() {
 
                   {/* Title and description */}
                   <h2 className="text-xl md:text-2xl font-bold text-text-primary group-hover:text-accent-cyan transition-colors">
-                    {post.title}
+                    <T>{post.title}</T>
                   </h2>
                   <p className="text-text-secondary leading-relaxed">
-                    {post.description}
+                    <T>{post.description}</T>
                   </p>
 
                   {/* Meta and CTA */}
@@ -143,7 +144,7 @@ export default function BlogPage() {
                       </span>
                     </div>
                     <span className="inline-flex items-center gap-1.5 text-sm font-medium text-accent-cyan group-hover:gap-2.5 transition-all">
-                      Read more
+                      <T>Read more</T>
                       <ArrowRight className="w-4 h-4" />
                     </span>
                   </div>

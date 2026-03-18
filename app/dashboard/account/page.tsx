@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, type ReactNode } from 'react';
 import { motion, useReducedMotion, AnimatePresence } from 'framer-motion';
+import { T, Var } from 'gt-next';
 import {
   Building2,
   LogOut,
@@ -196,15 +197,15 @@ export default function AccountPage() {
   return (
     <div className="max-w-4xl">
       <PageHeader
-        title="Account"
-        description="Your profile, usage statistics, and session details"
+        title={<T>Account</T>}
+        description={<T>Your profile, usage statistics, and session details</T>}
         gradient
         gradientColors="mixed"
         actions={
           <Link href="/dashboard/settings">
             <Button variant="outline" size="sm" className="gap-2">
               <Settings className="w-4 h-4" />
-              Settings
+              <T>Settings</T>
             </Button>
           </Link>
         }
@@ -321,7 +322,7 @@ export default function AccountPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6">
               <IdentityField
                 icon={Fingerprint}
-                label="Account ID"
+                label={<T>Account ID</T>}
                 value={user?.id || 'Not available'}
                 mono
                 truncate
@@ -331,7 +332,7 @@ export default function AccountPage() {
               />
               <IdentityField
                 icon={Globe}
-                label="Auth Provider"
+                label={<T>Auth Provider</T>}
                 value="Microsoft Entra ID"
               />
             </div>
@@ -340,43 +341,43 @@ export default function AccountPage() {
 
         {/* Usage Statistics */}
         <motion.section variants={itemVariants}>
-          <SectionLabel icon={BarChart3} iconColor="text-accent-violet" bgColor="bg-accent-violet/10" label="Usage Statistics" />
+          <SectionLabel icon={BarChart3} iconColor="text-accent-violet" bgColor="bg-accent-violet/10" label={<T>Usage Statistics</T>} />
           <StatCardGrid columns={4}>
             <AnimatedStatCard
-              title="Total Deployed"
+              title={<T>Total Deployed</T>}
               value={stats?.totalDeployed ?? 0}
               icon={Zap}
               color="cyan"
               loading={statsLoading}
-              description="All-time"
+              description={<T>All-time</T>}
               delay={0}
             />
             <AnimatedStatCard
-              title="This Month"
+              title={<T>This Month</T>}
               value={stats?.thisMonth ?? 0}
               icon={Calendar}
               color="violet"
               loading={statsLoading}
-              description="Current month"
+              description={<T>Current month</T>}
               delay={0.05}
             />
             <AnimatedStatCard
-              title="Success Rate"
+              title={<T>Success Rate</T>}
               value={successRate}
               valueType="percentage"
               icon={TrendingUp}
               color="success"
               loading={statsLoading}
-              description="Deployments"
+              description={<T>Deployments</T>}
               delay={0.1}
             />
             <AnimatedStatCard
-              title="Pending"
+              title={<T>Pending</T>}
               value={stats?.pending ?? 0}
               icon={Activity}
               color={stats?.pending && stats.pending > 0 ? 'warning' : 'neutral'}
               loading={statsLoading}
-              description="In progress"
+              description={<T>In progress</T>}
               delay={0.15}
             />
           </StatCardGrid>
@@ -389,14 +390,14 @@ export default function AccountPage() {
             variants={itemVariants}
             className="glass-light rounded-xl p-6 border border-overlay/5 hover:border-accent-violet/20 transition-colors flex flex-col"
           >
-            <SectionLabel icon={Building2} iconColor="text-accent-violet" bgColor="bg-accent-violet/10" label="Tenant" inline />
+            <SectionLabel icon={Building2} iconColor="text-accent-violet" bgColor="bg-accent-violet/10" label={<T>Tenant</T>} inline />
 
             <div className="space-y-4 mt-5 flex-1">
               <div className="flex items-center justify-between">
-                <span className="text-sm text-text-secondary">Status</span>
+                <span className="text-sm text-text-secondary"><T>Status</T></span>
                 <div className="flex items-center gap-1.5">
                   <CheckCircle2 className="w-3.5 h-3.5 text-status-success" />
-                  <span className="text-sm font-medium text-status-success">Connected</span>
+                  <span className="text-sm font-medium text-status-success"><T>Connected</T></span>
                 </div>
               </div>
 
@@ -404,7 +405,7 @@ export default function AccountPage() {
 
               <div>
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-sm text-text-secondary">Tenant ID</span>
+                  <span className="text-sm text-text-secondary"><T>Tenant ID</T></span>
                   {user?.tenantId && user.tenantId !== 'Not available' && (
                     <button
                       onClick={() => copyToClipboard(user.tenantId, 'tenantId')}
@@ -438,9 +439,9 @@ export default function AccountPage() {
                 rel="noopener noreferrer"
                 className="flex items-center justify-between group py-1"
               >
-                <span className="text-sm text-text-secondary group-hover:text-accent-cyan transition-colors">Intune Portal</span>
+                <span className="text-sm text-text-secondary group-hover:text-accent-cyan transition-colors"><T>Intune Portal</T></span>
                 <span className="flex items-center gap-1.5 text-sm text-accent-cyan group-hover:text-accent-cyan-bright transition-colors">
-                  Open
+                  <T>Open</T>
                   <ExternalLink className="w-3.5 h-3.5" />
                 </span>
               </a>
@@ -452,11 +453,11 @@ export default function AccountPage() {
             variants={itemVariants}
             className="glass-light rounded-xl p-6 border border-overlay/5 hover:border-accent-cyan/20 transition-colors flex flex-col"
           >
-            <SectionLabel icon={Shield} iconColor="text-accent-cyan" bgColor="bg-accent-cyan/10" label="Session" inline />
+            <SectionLabel icon={Shield} iconColor="text-accent-cyan" bgColor="bg-accent-cyan/10" label={<T>Session</T>} inline />
 
             <div className="space-y-4 mt-5 flex-1 flex flex-col">
               <div>
-                <span className="text-sm text-text-secondary">Token Status</span>
+                <span className="text-sm text-text-secondary"><T>Token Status</T></span>
                 <div className="flex items-center gap-2.5 mt-2">
                   <span className={cn(
                     'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium',
@@ -468,7 +469,7 @@ export default function AccountPage() {
                   </span>
                   {tokenExpiry !== null && (
                     <span className="text-text-muted text-sm">
-                      {tokenExpiry > 0 ? `${tokenExpiry} min remaining` : 'Expired'}
+                      {tokenExpiry > 0 ? <T><Var>{tokenExpiry}</Var> min remaining</T> : <T>Expired</T>}
                     </span>
                   )}
                 </div>
@@ -477,14 +478,14 @@ export default function AccountPage() {
               <div className="h-px bg-overlay/5" />
 
               <div className="flex items-center justify-between">
-                <span className="text-sm text-text-secondary">Provider</span>
+                <span className="text-sm text-text-secondary"><T>Provider</T></span>
                 <span className="text-sm font-medium text-text-primary">Microsoft Entra ID</span>
               </div>
 
               <div className="h-px bg-overlay/5" />
 
               <div className="flex items-center justify-between">
-                <span className="text-sm text-text-secondary">Scopes</span>
+                <span className="text-sm text-text-secondary"><T>Scopes</T></span>
                 <span className="text-xs font-mono text-text-muted">DeviceManagement*</span>
               </div>
 
@@ -502,7 +503,7 @@ export default function AccountPage() {
                       className="overflow-hidden"
                     >
                       <p className="text-xs text-text-secondary mb-3">
-                        This will disconnect your Microsoft account. You will need to sign in again to deploy.
+                        <T>This will disconnect your Microsoft account. You will need to sign in again to deploy.</T>
                       </p>
                       <div className="flex items-center gap-2">
                         <Button
@@ -511,7 +512,7 @@ export default function AccountPage() {
                           className="bg-status-error hover:bg-status-error/90 text-white border-0 gap-1.5"
                         >
                           <LogOut className="w-3.5 h-3.5" />
-                          Confirm Sign Out
+                          <T>Confirm Sign Out</T>
                         </Button>
                         <Button
                           onClick={() => setShowSignOutConfirm(false)}
@@ -519,7 +520,7 @@ export default function AccountPage() {
                           size="sm"
                           className="text-text-secondary"
                         >
-                          Cancel
+                          <T>Cancel</T>
                         </Button>
                       </div>
                     </motion.div>
@@ -530,7 +531,7 @@ export default function AccountPage() {
                         className="flex items-center gap-2 text-sm text-text-muted hover:text-status-error transition-colors group"
                       >
                         <LogOut className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-                        Sign out of IntuneGet
+                        <T>Sign out of IntuneGet</T>
                       </button>
                     </motion.div>
                   )}
@@ -548,7 +549,7 @@ function SectionLabel({ icon: Icon, iconColor, bgColor, label, inline }: {
   icon: React.ComponentType<{ className?: string }>;
   iconColor: string;
   bgColor: string;
-  label: string;
+  label: ReactNode;
   inline?: boolean;
 }) {
   return (
@@ -572,7 +573,7 @@ function IdentityField({
   copied,
 }: {
   icon: React.ComponentType<{ className?: string }>;
-  label: string;
+  label: ReactNode;
   value: string;
   mono?: boolean;
   truncate?: boolean;

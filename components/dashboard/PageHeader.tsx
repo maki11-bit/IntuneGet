@@ -7,9 +7,9 @@ import { cn } from '@/lib/utils';
 
 interface PageHeaderProps {
   /** Page title */
-  title: string;
+  title: ReactNode;
   /** Page description */
-  description?: string;
+  description?: ReactNode;
   /** Icon to display next to title */
   icon?: LucideIcon;
   /** Enable gradient text for title */
@@ -20,7 +20,7 @@ interface PageHeaderProps {
   actions?: ReactNode;
   /** Badge/tag to show next to title */
   badge?: {
-    text: string;
+    text: ReactNode;
     variant?: 'default' | 'success' | 'warning' | 'error';
   };
   /** Breadcrumbs */

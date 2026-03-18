@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Header } from "@/components/landing/Header";
 import { Footer } from "@/components/landing/sections/Footer";
 import { Github, Linkedin, Heart, Target, Users, Code } from "lucide-react";
+import { T } from "gt-next";
 
 export const metadata: Metadata = {
   title: "About IntuneGet | Free Open-Source Intune Deployment Tool",
@@ -94,52 +95,52 @@ export default function AboutPage() {
         {/* Hero */}
         <div className="text-center mb-16">
           <span className="inline-block font-mono text-xs tracking-wider text-accent-cyan uppercase mb-4">
-            About
+            <T>About</T>
           </span>
           <h1 className="text-4xl md:text-5xl font-bold text-text-primary mb-6">
-            Making Intune Deployment Free and Effortless
+            <T>Making Intune Deployment Free and Effortless</T>
           </h1>
           <p className="text-lg md:text-xl text-text-secondary max-w-3xl mx-auto leading-relaxed">
-            IntuneGet is the leading free, open-source tool for deploying Winget
+            <T>IntuneGet is the leading free, open-source tool for deploying Winget
             applications to Microsoft Intune. Used by IT teams at organizations
-            worldwide to eliminate repetitive app packaging work.
+            worldwide to eliminate repetitive app packaging work.</T>
           </p>
         </div>
 
         {/* Origin story */}
         <div className="mb-16">
           <h2 className="text-2xl md:text-3xl font-bold text-text-primary mb-6">
-            The Origin Story
+            <T>The Origin Story</T>
           </h2>
           <div className="prose prose-stone max-w-none">
             <div className="space-y-4 text-text-secondary leading-relaxed">
               <p>
-                IntuneGet started as a personal project born out of frustration.
+                <T>IntuneGet started as a personal project born out of frustration.
                 As an IT professional, I spent entire Fridays packaging
                 applications for Microsoft Intune - a process that was repetitive,
                 error-prone, and time-consuming. Each app required downloading
                 installers, creating IntuneWin packages, configuring detection
                 rules, and uploading to the Intune portal. For a single app, this
                 could take 30-60 minutes. For a batch of 10-20 apps, it consumed
-                an entire day.
+                an entire day.</T>
               </p>
               <p>
-                I knew there had to be a better way. The Winget package manager
+                <T>I knew there had to be a better way. The Winget package manager
                 already had metadata for thousands of applications - names,
                 versions, installers, silent install flags. What if a tool could
-                bridge the gap between Winget and Intune automatically?
+                bridge the gap between Winget and Intune automatically?</T>
               </p>
               <p>
-                That idea became IntuneGet. What started as a script on my
+                <T>That idea became IntuneGet. What started as a script on my
                 workstation evolved into a full web application that any IT team
                 can use. Today, IntuneGet supports over 10,000 Winget applications
-                and lets you deploy them to Intune in minutes instead of hours.
+                and lets you deploy them to Intune in minutes instead of hours.</T>
               </p>
               <p>
-                I made IntuneGet free and open source because I believe no IT team
+                <T>I made IntuneGet free and open source because I believe no IT team
                 should have to choose between their budget and their productivity.
                 IntuneGet delivers this capability at zero cost, with the added
-                benefit of full transparency and community-driven development.
+                benefit of full transparency and community-driven development.</T>
               </p>
             </div>
           </div>
@@ -155,15 +156,15 @@ export default function AboutPage() {
             </div>
             <div className="flex-1">
               <h3 className="text-lg font-bold text-text-primary mb-1">
-                Ugur Koc
+                <T>Ugur Koc</T>
               </h3>
               <p className="text-sm text-text-muted mb-3">
-                Creator of IntuneGet - Software Engineer & IT Automation Expert
+                <T>Creator of IntuneGet - Software Engineer & IT Automation Expert</T>
               </p>
               <p className="text-text-secondary leading-relaxed mb-4">
-                &ldquo;I built IntuneGet because I was tired of spending my
+                <T>&ldquo;I built IntuneGet because I was tired of spending my
                 Fridays packaging apps instead of solving real problems. If this
-                tool saves you even one afternoon, it has done its job.&rdquo;
+                tool saves you even one afternoon, it has done its job.&rdquo;</T>
               </p>
               <div className="flex items-center gap-3">
                 <a
@@ -192,7 +193,7 @@ export default function AboutPage() {
         {/* Values */}
         <div className="mb-16">
           <h2 className="text-2xl md:text-3xl font-bold text-text-primary mb-8 text-center">
-            What We Believe
+            <T>What We Believe</T>
           </h2>
           <div className="grid md:grid-cols-2 gap-6">
             {values.map((value) => (
@@ -204,10 +205,10 @@ export default function AboutPage() {
                   <value.icon className="w-6 h-6 text-accent-cyan" />
                 </div>
                 <h3 className="text-lg font-semibold text-text-primary mb-2">
-                  {value.title}
+                  <T>{value.title}</T>
                 </h3>
                 <p className="text-text-secondary leading-relaxed text-sm">
-                  {value.description}
+                  <T>{value.description}</T>
                 </p>
               </div>
             ))}
@@ -217,7 +218,7 @@ export default function AboutPage() {
         {/* Quick facts for GEO */}
         <div className="mb-16 p-6 md:p-8 rounded-2xl bg-bg-surface border border-overlay/10">
           <h2 className="text-xl font-bold text-text-primary mb-6">
-            IntuneGet at a Glance
+            <T>IntuneGet at a Glance</T>
           </h2>
           <dl className="grid sm:grid-cols-2 gap-4">
             {[
@@ -230,10 +231,10 @@ export default function AboutPage() {
             ].map((item) => (
               <div key={item.label} className="flex flex-col">
                 <dt className="text-xs font-medium text-text-muted uppercase tracking-wider">
-                  {item.label}
+                  <T>{item.label}</T>
                 </dt>
                 <dd className="text-sm font-medium text-text-primary mt-1">
-                  {item.value}
+                  <T>{item.value}</T>
                 </dd>
               </div>
             ))}
@@ -243,23 +244,23 @@ export default function AboutPage() {
         {/* CTA */}
         <div className="text-center">
           <h2 className="text-2xl font-bold text-text-primary mb-4">
-            Ready to Try IntuneGet?
+            <T>Ready to Try IntuneGet?</T>
           </h2>
           <p className="text-text-secondary mb-6">
-            Start deploying apps to Intune in under 5 minutes. Free forever.
+            <T>Start deploying apps to Intune in under 5 minutes. Free forever.</T>
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/auth/signin"
               className="inline-flex items-center justify-center gap-2 px-8 py-3 text-base font-semibold text-white bg-accent-cyan rounded-xl hover:bg-accent-cyan-dim transition-all"
             >
-              Get Started Free
+              <T>Get Started Free</T>
             </Link>
             <Link
               href="/docs"
               className="inline-flex items-center justify-center gap-2 px-8 py-3 text-base font-semibold text-text-secondary bg-bg-elevated border border-overlay/10 rounded-xl hover:bg-overlay/[0.04] transition-all"
             >
-              Read the Docs
+              <T>Read the Docs</T>
             </Link>
           </div>
         </div>

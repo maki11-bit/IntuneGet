@@ -9,6 +9,7 @@ import { UserSettingsProvider } from "@/components/providers/UserSettingsProvide
 import { MspProvider } from "@/contexts/MspContext";
 import { CookieConsentBanner } from '@/components/consent/CookieConsentBanner';
 import { PlausibleLoader } from '@/components/analytics/PlausibleLoader';
+import { GTProvider } from "gt-next";
 
 // Analytics configuration
 const PLAUSIBLE_DOMAIN = process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN;
@@ -179,20 +180,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const content = (
-    <QueryProvider>
-      <MicrosoftAuthProvider>
-        <UserSettingsProvider>
-              <ThemeProvider>
-                <MspProvider>
-                  {children}
-                  <PlausibleLoader domain={PLAUSIBLE_DOMAIN} />
-                  <CookieConsentBanner plausibleDomain={PLAUSIBLE_DOMAIN} />
-                  <Toaster />
-                </MspProvider>
-              </ThemeProvider>
-            </UserSettingsProvider>
-          </MicrosoftAuthProvider>
-        </QueryProvider>
+    <GTProvider>
+      <QueryProvider>
+        <MicrosoftAuthProvider>
+          <UserSettingsProvider>
+            <ThemeProvider>
+              <MspProvider>
+                {children}
+                <PlausibleLoader domain={PLAUSIBLE_DOMAIN} />
+                <CookieConsentBanner plausibleDomain={PLAUSIBLE_DOMAIN} />
+                <Toaster />
+              </MspProvider>
+            </ThemeProvider>
+          </UserSettingsProvider>
+        </MicrosoftAuthProvider>
+      </QueryProvider>
+    </GTProvider>
   );
 
   return (

@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, type ReactNode } from 'react';
 import { motion, useReducedMotion, AnimatePresence } from 'framer-motion';
+import { T } from 'gt-next';
 import {
   User,
   Building2,
@@ -45,15 +46,15 @@ interface PermissionStatusState {
 
 const SETTINGS_TABS: Array<{
   id: SettingsTab;
-  label: string;
+  label: ReactNode;
   icon: typeof Settings;
-  description: string;
+  description: ReactNode;
 }> = [
-  { id: 'general', label: 'General', icon: User, description: 'Account and connection' },
-  { id: 'permissions', label: 'Permissions', icon: Shield, description: 'API access control' },
-  { id: 'notifications', label: 'Notifications', icon: Bell, description: 'Email and webhooks' },
-  { id: 'exports', label: 'Export', icon: FileDown, description: 'Export preferences' },
-  { id: 'data', label: 'Data', icon: Database, description: 'Data management' },
+  { id: 'general', label: <T>General</T>, icon: User, description: <T>Account and connection</T> },
+  { id: 'permissions', label: <T>Permissions</T>, icon: Shield, description: <T>API access control</T> },
+  { id: 'notifications', label: <T>Notifications</T>, icon: Bell, description: <T>Email and webhooks</T> },
+  { id: 'exports', label: <T>Export</T>, icon: FileDown, description: <T>Export preferences</T> },
+  { id: 'data', label: <T>Data</T>, icon: Database, description: <T>Data management</T> },
 ];
 
 export default function SettingsPage() {
@@ -222,8 +223,8 @@ export default function SettingsPage() {
   return (
     <div className="max-w-6xl">
       <PageHeader
-        title="Settings"
-        description="Manage your account, permissions, and preferences"
+        title={<T>Settings</T>}
+        description={<T>Manage your account, permissions, and preferences</T>}
         icon={Settings}
         gradient
         gradientColors="mixed"
@@ -311,16 +312,16 @@ export default function SettingsPage() {
                         <User className="w-5 h-5 text-accent-cyan" />
                       </div>
                       <div>
-                        <h2 className="text-lg font-semibold text-text-primary">Account</h2>
-                        <p className="text-sm text-text-muted">Your profile information</p>
+                        <h2 className="text-lg font-semibold text-text-primary"><T>Account</T></h2>
+                        <p className="text-sm text-text-muted"><T>Your profile information</T></p>
                       </div>
                     </div>
 
                     <div className="space-y-1">
-                      <SettingRow label="Name" value={user?.name || 'Not provided'} />
-                      <SettingRow label="Email" value={user?.email || 'Not provided'} />
+                      <SettingRow label={<T>Name</T>} value={user?.name || 'Not provided'} />
+                      <SettingRow label={<T>Email</T>} value={user?.email || 'Not provided'} />
                       <SettingRow
-                        label="Authentication Provider"
+                        label={<T>Authentication Provider</T>}
                         value="Microsoft Entra ID"
                         noBorder
                       />
@@ -334,9 +335,9 @@ export default function SettingsPage() {
                   >
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-text-primary font-medium">Theme</p>
+                        <p className="text-text-primary font-medium"><T>Theme</T></p>
                         <p className="text-sm text-text-muted">
-                          Choose dark mode for visual comfort
+                          <T>Choose dark mode for visual comfort</T>
                         </p>
                       </div>
                       <div className="flex flex-col items-end gap-1">
@@ -346,10 +347,10 @@ export default function SettingsPage() {
                           disabled={isSaving && activePreferenceSave !== 'theme'}
                         />
                         {isSaving && activePreferenceSave === 'theme' && (
-                          <span className="text-xs text-text-muted">Saving...</span>
+                          <span className="text-xs text-text-muted"><T>Saving...</T></span>
                         )}
                         {!isSaving && syncError && lastUpdatedPreference === 'theme' && (
-                          <span className="text-xs text-status-warning">Saved locally</span>
+                          <span className="text-xs text-status-warning"><T>Saved locally</T></span>
                         )}
                       </div>
                     </div>
@@ -365,25 +366,25 @@ export default function SettingsPage() {
                         <Building2 className="w-5 h-5 text-accent-violet" />
                       </div>
                       <div>
-                        <h2 className="text-lg font-semibold text-text-primary">Intune Connection</h2>
-                        <p className="text-sm text-text-muted">Tenant configuration and status</p>
+                        <h2 className="text-lg font-semibold text-text-primary"><T>Intune Connection</T></h2>
+                        <p className="text-sm text-text-muted"><T>Tenant configuration and status</T></p>
                       </div>
                     </div>
 
                     <div className="space-y-1">
                       <div className="flex items-center justify-between py-3 border-b border-overlay/5">
                         <div>
-                          <p className="text-text-secondary text-sm">Status</p>
+                          <p className="text-text-secondary text-sm"><T>Status</T></p>
                           <div className="flex items-center gap-2 mt-1">
                             <div className="w-2 h-2 rounded-full bg-status-success animate-pulse" />
-                            <p className="text-status-success font-medium text-sm">Connected</p>
+                            <p className="text-status-success font-medium text-sm"><T>Connected</T></p>
                           </div>
                         </div>
                       </div>
 
                       <div className="flex items-center justify-between py-3 border-b border-overlay/5">
                         <div>
-                          <p className="text-text-secondary text-sm">Tenant ID</p>
+                          <p className="text-text-secondary text-sm"><T>Tenant ID</T></p>
                           <p className="text-text-primary mt-0.5 font-mono text-sm">
                             {user?.tenantId || 'Not available'}
                           </p>
@@ -405,14 +406,14 @@ export default function SettingsPage() {
 
                       <div className="flex items-center justify-between py-3">
                         <div>
-                          <p className="text-text-secondary text-sm">Intune Portal</p>
+                          <p className="text-text-secondary text-sm"><T>Intune Portal</T></p>
                           <a
                             href="https://intune.microsoft.com"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center gap-2 text-accent-cyan hover:text-accent-cyan-bright transition-colors mt-1 text-sm"
                           >
-                            Open Intune Portal
+                            <T>Open Intune Portal</T>
                             <ExternalLink className="w-3.5 h-3.5" />
                           </a>
                         </div>
@@ -427,9 +428,9 @@ export default function SettingsPage() {
                   >
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-text-primary font-medium">Cart behavior</p>
+                        <p className="text-text-primary font-medium"><T>Cart behavior</T></p>
                         <p className="text-sm text-text-muted">
-                          Control whether the cart opens automatically when adding apps
+                          <T>Control whether the cart opens automatically when adding apps</T>
                         </p>
                       </div>
                       <div className="flex min-w-28 flex-col items-end gap-1">
@@ -439,10 +440,10 @@ export default function SettingsPage() {
                           disabled={isSaving && activePreferenceSave !== 'cart'}
                         />
                         {isSaving && activePreferenceSave === 'cart' && (
-                          <span className="text-xs text-text-muted">Saving...</span>
+                          <span className="text-xs text-text-muted"><T>Saving...</T></span>
                         )}
                         {!isSaving && syncError && lastUpdatedPreference === 'cart' && (
-                          <span className="text-xs text-status-warning">Saved locally</span>
+                          <span className="text-xs text-status-warning"><T>Saved locally</T></span>
                         )}
                       </div>
                     </div>
@@ -455,9 +456,9 @@ export default function SettingsPage() {
                   >
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-text-primary font-medium">Carry over assignments on app updates</p>
+                        <p className="text-text-primary font-medium"><T>Carry over assignments on app updates</T></p>
                         <p className="text-sm text-text-muted">
-                          When enabled, assignments from the previous app version are copied to the new version and removed from the old app. When disabled, new app versions are created without assignments.
+                          <T>When enabled, assignments from the previous app version are copied to the new version and removed from the old app. When disabled, new app versions are created without assignments.</T>
                         </p>
                       </div>
                       <div className="flex min-w-28 flex-col items-end gap-1">
@@ -467,10 +468,10 @@ export default function SettingsPage() {
                           disabled={isSaving && activePreferenceSave !== 'assignments'}
                         />
                         {isSaving && activePreferenceSave === 'assignments' && (
-                          <span className="text-xs text-text-muted">Saving...</span>
+                          <span className="text-xs text-text-muted"><T>Saving...</T></span>
                         )}
                         {!isSaving && syncError && lastUpdatedPreference === 'assignments' && (
-                          <span className="text-xs text-status-warning">Saved locally</span>
+                          <span className="text-xs text-status-warning"><T>Saved locally</T></span>
                         )}
                       </div>
                     </div>
@@ -503,8 +504,8 @@ export default function SettingsPage() {
                           <Shield className="w-5 h-5 text-accent-cyan" />
                         </div>
                         <div>
-                          <h2 className="text-lg font-semibold text-text-primary">API Permissions</h2>
-                          <p className="text-sm text-text-muted">Required Microsoft Graph permissions</p>
+                          <h2 className="text-lg font-semibold text-text-primary"><T>API Permissions</T></h2>
+                          <p className="text-sm text-text-muted"><T>Required Microsoft Graph permissions</T></p>
                         </div>
                       </div>
                       <Button
@@ -519,36 +520,36 @@ export default function SettingsPage() {
                         ) : (
                           <Shield className="w-4 h-4 mr-2" />
                         )}
-                        {isChecking ? 'Checking...' : 'Check Permissions'}
+                        {isChecking ? <T>Checking...</T> : <T>Check Permissions</T>}
                       </Button>
                     </div>
 
                     <p className="text-text-secondary text-sm mb-4">
-                      IntuneGet requires the following permissions to deploy applications:
+                      <T>IntuneGet requires the following permissions to deploy applications:</T>
                     </p>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       <PermissionItem
                         name="DeviceManagementApps.ReadWrite.All"
-                        description="Read and write Intune applications"
+                        description={<T>Read and write Intune applications</T>}
                         granted={permissionStatus?.permissions.deviceManagementApps ?? null}
                         checking={isChecking}
                       />
                       <PermissionItem
                         name="DeviceManagementManagedDevices.Read.All"
-                        description="Read discovered apps from managed devices"
+                        description={<T>Read discovered apps from managed devices</T>}
                         granted={permissionStatus?.permissions.deviceManagementManagedDevices ?? null}
                         checking={isChecking}
                       />
                       <PermissionItem
                         name="User.Read"
-                        description="Read your profile information"
+                        description={<T>Read your profile information</T>}
                         granted={permissionStatus?.permissions.userRead ?? null}
                         checking={isChecking}
                       />
                       <PermissionItem
                         name="GroupMember.Read.All"
-                        description="Read group information for app assignment"
+                        description={<T>Read group information for app assignment</T>}
                         granted={permissionStatus?.permissions.groupRead ?? null}
                         checking={isChecking}
                       />
@@ -556,21 +557,21 @@ export default function SettingsPage() {
 
                     {permissionStatus?.lastChecked && (
                       <p className="text-xs text-text-muted mt-3">
-                        Last checked: {permissionStatus.lastChecked.toLocaleString()}
+                        <T>Last checked: {permissionStatus.lastChecked.toLocaleString()}</T>
                       </p>
                     )}
 
                     {permissionStatus?.permissions.deviceManagementApps === false && (
                       <div className="mt-4 p-3 bg-status-warning/10 border border-status-warning/20 rounded-lg">
                         <p className="text-sm text-status-warning mb-2">
-                          Intune permission is missing. A Global Administrator needs to re-grant consent.
+                          <T>Intune permission is missing. A Global Administrator needs to re-grant consent.</T>
                         </p>
                         <Button
                           onClick={handleGrantConsent}
                           size="sm"
                           className="bg-status-warning hover:bg-status-warning/90 text-white"
                         >
-                          Re-grant Admin Consent
+                          <T>Re-grant Admin Consent</T>
                         </Button>
                       </div>
                     )}
@@ -578,30 +579,26 @@ export default function SettingsPage() {
                     {permissionStatus?.permissions.deviceManagementManagedDevices === false && (
                       <div className="mt-4 p-3 bg-status-warning/10 border border-status-warning/20 rounded-lg">
                         <p className="text-sm text-status-warning mb-2">
-                          Discovered Apps permission is missing. The Discovered Apps feature requires this permission. A Global Administrator needs to re-grant consent.
+                          <T>Discovered Apps permission is missing. The Discovered Apps feature requires this permission. A Global Administrator needs to re-grant consent.</T>
                         </p>
                         <Button
                           onClick={handleGrantConsent}
                           size="sm"
                           className="bg-status-warning hover:bg-status-warning/90 text-white"
                         >
-                          Re-grant Admin Consent
+                          <T>Re-grant Admin Consent</T>
                         </Button>
                       </div>
                     )}
 
                     <div className="mt-6 p-4 bg-bg-surface rounded-lg border border-overlay/5">
                       <p className="text-text-secondary text-sm">
-                        To modify permissions, visit your{' '}
-                        <a
+                        <T>To modify permissions, visit your <a
                           href="https://portal.azure.com/#view/Microsoft_AAD_IAM/StartboardApplicationsMenuBlade/~/AppAppsPreview"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-accent-cyan hover:text-accent-cyan-bright transition-colors font-medium"
-                        >
-                          Entra ID Enterprise Applications
-                        </a>{' '}
-                        page.
+                        >Entra ID Enterprise Applications</a> page.</T>
                       </p>
                     </div>
                   </motion.section>
@@ -656,8 +653,8 @@ export default function SettingsPage() {
                         <FileDown className="w-5 h-5 text-accent-cyan" />
                       </div>
                       <div>
-                        <h2 className="text-lg font-semibold text-text-primary">Export Preferences</h2>
-                        <p className="text-sm text-text-muted">Configure default export settings</p>
+                        <h2 className="text-lg font-semibold text-text-primary"><T>Export Preferences</T></h2>
+                        <p className="text-sm text-text-muted"><T>Configure default export settings</T></p>
                       </div>
                     </div>
 
@@ -690,8 +687,8 @@ export default function SettingsPage() {
                         <Database className="w-5 h-5 text-accent-violet" />
                       </div>
                       <div>
-                        <h2 className="text-lg font-semibold text-text-primary">Data Management</h2>
-                        <p className="text-sm text-text-muted">Cache, sync, and storage settings</p>
+                        <h2 className="text-lg font-semibold text-text-primary"><T>Data Management</T></h2>
+                        <p className="text-sm text-text-muted"><T>Cache, sync, and storage settings</T></p>
                       </div>
                     </div>
 
@@ -715,7 +712,7 @@ function SettingRow({
   mono,
   noBorder,
 }: {
-  label: string;
+  label: ReactNode;
   value: string;
   mono?: boolean;
   noBorder?: boolean;
@@ -744,7 +741,7 @@ function PermissionItem({
   checking,
 }: {
   name: string;
-  description: string;
+  description: ReactNode;
   granted: boolean | null;
   checking?: boolean;
 }) {
@@ -763,15 +760,15 @@ function PermissionItem({
 
   const renderStatus = () => {
     if (checking) {
-      return <span className="text-text-secondary text-xs ml-2">Checking...</span>;
+      return <span className="text-text-secondary text-xs ml-2"><T>Checking...</T></span>;
     }
     if (granted === true) {
-      return <span className="text-status-success text-xs ml-2">Granted</span>;
+      return <span className="text-status-success text-xs ml-2"><T>Granted</T></span>;
     }
     if (granted === false) {
-      return <span className="text-status-error text-xs ml-2">Missing</span>;
+      return <span className="text-status-error text-xs ml-2"><T>Missing</T></span>;
     }
-    return <span className="text-text-muted text-xs ml-2">Not checked</span>;
+    return <span className="text-text-muted text-xs ml-2"><T>Not checked</T></span>;
   };
 
   return (
@@ -808,7 +805,7 @@ function ExportPreferencesSection() {
     <div className="space-y-6">
       {/* Format selection */}
       <div>
-        <p className="text-text-primary font-medium mb-2">Default Export Format</p>
+        <p className="text-text-primary font-medium mb-2"><T>Default Export Format</T></p>
         <div className="flex gap-2">
           {(['csv', 'json', 'xlsx'] as const).map((format) => (
             <button
@@ -826,17 +823,17 @@ function ExportPreferencesSection() {
           ))}
         </div>
         <p className="text-xs text-text-muted mt-2">
-          {exportFormat === 'csv' && 'Comma-separated values, compatible with Excel and Google Sheets'}
-          {exportFormat === 'json' && 'Structured JSON format, ideal for programmatic processing'}
-          {exportFormat === 'xlsx' && 'Native Excel format with formatting and multiple sheets'}
+          {exportFormat === 'csv' && <T>Comma-separated values, compatible with Excel and Google Sheets</T>}
+          {exportFormat === 'json' && <T>Structured JSON format, ideal for programmatic processing</T>}
+          {exportFormat === 'xlsx' && <T>Native Excel format with formatting and multiple sheets</T>}
         </p>
       </div>
 
       {/* Include icons toggle */}
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-text-primary font-medium">Include Application Icons</p>
-          <p className="text-sm text-text-secondary">Embed base64-encoded icons in export files</p>
+          <p className="text-text-primary font-medium"><T>Include Application Icons</T></p>
+          <p className="text-sm text-text-secondary"><T>Embed base64-encoded icons in export files</T></p>
         </div>
         <ToggleSwitch
           checked={includeIcons}
@@ -847,8 +844,8 @@ function ExportPreferencesSection() {
       {/* Include metadata toggle */}
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-text-primary font-medium">Include Metadata</p>
-          <p className="text-sm text-text-secondary">Add deployment dates, version history, and assignment info</p>
+          <p className="text-text-primary font-medium"><T>Include Metadata</T></p>
+          <p className="text-sm text-text-secondary"><T>Add deployment dates, version history, and assignment info</T></p>
         </div>
         <ToggleSwitch
           checked={includeMetadata}
@@ -864,10 +861,10 @@ function ExportPreferencesSection() {
           {saved ? (
             <>
               <CheckCircle2 className="w-4 h-4 mr-2" />
-              Saved
+              <T>Saved</T>
             </>
           ) : (
-            'Save Preferences'
+            <T>Save Preferences</T>
           )}
         </Button>
       </div>
@@ -901,9 +898,9 @@ function DataManagementSection() {
       <div className="p-4 bg-bg-elevated rounded-lg border border-overlay/5">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-text-primary font-medium">Application Cache</p>
+            <p className="text-text-primary font-medium"><T>Application Cache</T></p>
             <p className="text-sm text-text-secondary">
-              Cached application data speeds up loading times
+              <T>Cached application data speeds up loading times</T>
             </p>
           </div>
           <Button
@@ -916,10 +913,10 @@ function DataManagementSection() {
             {isClearing ? (
               <>
                 <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                Clearing...
+                <T>Clearing...</T>
               </>
             ) : (
-              'Clear Cache'
+              <T>Clear Cache</T>
             )}
           </Button>
         </div>
@@ -929,12 +926,12 @@ function DataManagementSection() {
       <div className="p-4 bg-bg-elevated rounded-lg border border-overlay/5">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-text-primary font-medium">Force Sync</p>
+            <p className="text-text-primary font-medium"><T>Force Sync</T></p>
             <p className="text-sm text-text-secondary">
-              Re-fetch all application data from Intune
+              <T>Re-fetch all application data from Intune</T>
             </p>
             {lastSync && (
-              <p className="text-xs text-text-muted mt-1">Last synced: {lastSync}</p>
+              <p className="text-xs text-text-muted mt-1"><T>Last synced: {lastSync}</T></p>
             )}
           </div>
           <Button
@@ -947,10 +944,10 @@ function DataManagementSection() {
             {isSyncing ? (
               <>
                 <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                Syncing...
+                <T>Syncing...</T>
               </>
             ) : (
-              'Sync Now'
+              <T>Sync Now</T>
             )}
           </Button>
         </div>
@@ -958,9 +955,9 @@ function DataManagementSection() {
 
       {/* Auto-refresh interval */}
       <div>
-        <p className="text-text-primary font-medium mb-2">Auto-Refresh Interval</p>
+        <p className="text-text-primary font-medium mb-2"><T>Auto-Refresh Interval</T></p>
         <p className="text-sm text-text-secondary mb-3">
-          How often IntuneGet checks for new application data
+          <T>How often IntuneGet checks for new application data</T>
         </p>
         <AutoRefreshSelector />
       </div>
@@ -968,9 +965,7 @@ function DataManagementSection() {
       {/* Storage info */}
       <div className="p-4 bg-bg-surface rounded-lg border border-overlay/5">
         <p className="text-text-secondary text-sm">
-          All application data is stored locally in your browser. No data is sent to
-          third-party servers. To delete all stored data, clear your browser cache or
-          use the Clear Cache option above.
+          <T>All application data is stored locally in your browser. No data is sent to third-party servers. To delete all stored data, clear your browser cache or use the Clear Cache option above.</T>
         </p>
       </div>
     </div>
@@ -981,10 +976,10 @@ function AutoRefreshSelector() {
   const [refreshInterval, setRefreshInterval] = useState<'5' | '15' | '30' | '60'>('15');
 
   const options = [
-    { value: '5' as const, label: '5 min' },
-    { value: '15' as const, label: '15 min' },
-    { value: '30' as const, label: '30 min' },
-    { value: '60' as const, label: '1 hour' },
+    { value: '5' as const, label: <T>5 min</T> },
+    { value: '15' as const, label: <T>15 min</T> },
+    { value: '30' as const, label: <T>30 min</T> },
+    { value: '60' as const, label: <T>1 hour</T> },
   ];
 
   return (

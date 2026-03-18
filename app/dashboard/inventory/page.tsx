@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { T } from 'gt-next';
 import { motion, useReducedMotion } from 'framer-motion';
 import { AlertCircle, RefreshCw, Package, Server, Building2, Clock, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -174,8 +175,8 @@ export default function InventoryPage() {
     return (
       <div className="space-y-6">
         <PageHeader
-          title="Inventory"
-          description="Win32 applications deployed in your Intune tenant"
+          title={<T>Inventory</T>}
+          description={<T>Win32 applications deployed in your Intune tenant</T>}
         />
         <SkeletonGrid count={4} columns={4} variant="stat" />
         <SkeletonGrid count={6} columns={3} variant="content" />
@@ -187,12 +188,12 @@ export default function InventoryPage() {
     return (
       <div className="space-y-6">
         <PageHeader
-          title="Inventory"
-          description="Win32 applications deployed in your Intune tenant"
+          title={<T>Inventory</T>}
+          description={<T>Win32 applications deployed in your Intune tenant</T>}
         />
         <AnimatedEmptyState
           icon={AlertCircle}
-          title="Failed to load inventory"
+          title={<T>Failed to load inventory</T>}
           description={error.message}
           color="neutral"
           action={{
@@ -209,8 +210,8 @@ export default function InventoryPage() {
     <div className="space-y-6">
       {/* Header */}
       <PageHeader
-        title="Inventory"
-        description="Win32 applications deployed in your Intune tenant"
+        title={<T>Inventory</T>}
+        description={<T>Win32 applications deployed in your Intune tenant</T>}
         gradient
         gradientColors="mixed"
         actions={
@@ -221,7 +222,7 @@ export default function InventoryPage() {
             className="text-text-secondary hover:text-text-primary"
           >
             <RefreshCw className={`w-4 h-4 mr-2 ${isFetching ? 'animate-spin' : ''}`} />
-            Refresh
+            <T>Refresh</T>
           </Button>
         }
       />
@@ -230,29 +231,29 @@ export default function InventoryPage() {
       {apps.length > 0 && (
         <StatCardGrid columns={4}>
           <AnimatedStatCard
-            title="Total Apps"
+            title={<T>Total Apps</T>}
             value={stats.total}
             icon={Server}
             color="cyan"
             delay={0}
           />
           <AnimatedStatCard
-            title="Publishers"
+            title={<T>Publishers</T>}
             value={stats.publishers}
             icon={Building2}
             color="neutral"
             delay={0.1}
           />
           <AnimatedStatCard
-            title="Recently Modified"
+            title={<T>Recently Modified</T>}
             value={stats.recentlyModified}
             icon={Clock}
             color="violet"
             delay={0.2}
-            description="Last 30 days"
+            description={<T>Last 30 days</T>}
           />
           <AnimatedStatCard
-            title="System Install"
+            title={<T>System Install</T>}
             value={stats.systemInstall}
             icon={Shield}
             color="neutral"
@@ -342,8 +343,8 @@ export default function InventoryPage() {
       ) : apps.length > 0 ? (
         <AnimatedEmptyState
           icon={Package}
-          title="No apps match your search"
-          description="Try adjusting your search criteria"
+          title={<T>No apps match your search</T>}
+          description={<T>Try adjusting your search criteria</T>}
           color="neutral"
           showOrbs={false}
           action={{
@@ -358,8 +359,8 @@ export default function InventoryPage() {
       ) : (
         <AnimatedEmptyState
           icon={Package}
-          title="No Win32 apps found"
-          description="Deploy your first app from the App Catalog"
+          title={<T>No Win32 apps found</T>}
+          description={<T>Deploy your first app from the App Catalog</T>}
           color="cyan"
           action={{
             label: 'Browse App Catalog',

@@ -3,6 +3,7 @@
 import { Component, type ReactNode } from 'react';
 import { AlertCircle, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { T } from "gt-next";
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -34,10 +35,10 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
         <div className="glass-light rounded-xl p-6 flex flex-col items-center justify-center text-center min-h-[120px]">
           <AlertCircle className="w-8 h-8 text-status-error/60 mb-3" />
           <p className="text-sm font-medium text-text-primary mb-1">
-            {this.props.fallbackTitle || 'This section failed to load'}
+            {this.props.fallbackTitle || <T>This section failed to load</T>}
           </p>
           <p className="text-xs text-text-muted mb-3">
-            An unexpected error occurred
+            <T>An unexpected error occurred</T>
           </p>
           <Button
             variant="ghost"
@@ -46,7 +47,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
             className="text-text-secondary hover:text-text-primary"
           >
             <RefreshCw className="w-3.5 h-3.5 mr-1.5" />
-            Retry
+            <T>Retry</T>
           </Button>
         </div>
       );

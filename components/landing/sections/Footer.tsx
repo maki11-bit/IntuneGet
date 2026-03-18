@@ -3,9 +3,15 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Github, Linkedin, ExternalLink, Apple, ShieldCheck, LucideIcon } from "lucide-react";
+import { T, Var } from "gt-next";
 import { FadeIn } from "../animations/FadeIn";
 import { StaggerContainer, StaggerItem } from "../animations/StaggerContainer";
 import { GradientOrb } from "../ui/GradientOrb";
+
+const socialLinks = [
+  { icon: Linkedin, href: "https://www.linkedin.com/in/ugurkocde/", label: "LinkedIn" },
+  { icon: Github, href: "https://github.com/ugurkocde/IntuneGet", label: "GitHub" },
+];
 
 const footerLinks = {
   product: [
@@ -33,11 +39,6 @@ const footerLinks = {
     { label: "TenuVault", description: "Intune Backup & Restore", href: "https://www.tenuvault.com/", external: true, icon: ShieldCheck as LucideIcon },
   ],
 };
-
-const socialLinks = [
-  { icon: Linkedin, href: "https://www.linkedin.com/in/ugurkocde/", label: "LinkedIn" },
-  { icon: Github, href: "https://github.com/ugurkocde/IntuneGet", label: "GitHub" },
-];
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -75,7 +76,7 @@ export function Footer() {
                 <span className="text-xl font-semibold text-text-primary">IntuneGet</span>
               </Link>
               <p className="text-sm text-text-muted mb-6 max-w-xs">
-                Deploy any app from Winget to Intune in minutes. Free, open source, and trusted by IT teams worldwide.
+                <T id="footer.brand-description">Deploy any app from Winget to Intune in minutes. Free, open source, and trusted by IT teams worldwide.</T>
               </p>
 
               {/* Social links */}
@@ -97,7 +98,7 @@ export function Footer() {
 
             {/* Product links */}
             <StaggerItem>
-              <h4 className="text-sm font-semibold text-text-primary mb-4">Product</h4>
+              <h4 className="text-sm font-semibold text-text-primary mb-4"><T id="footer.heading.product">Product</T></h4>
               <ul className="space-y-3">
                 {footerLinks.product.map((link) => (
                   <li key={link.label}>
@@ -105,7 +106,7 @@ export function Footer() {
                       href={link.href}
                       className="relative text-sm text-text-muted hover:text-text-primary transition-colors group"
                     >
-                      {link.label}
+                      <T>{link.label}</T>
                       <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-accent-cyan transition-all duration-300 group-hover:w-full" />
                     </Link>
                   </li>
@@ -115,7 +116,7 @@ export function Footer() {
 
             {/* Resources links */}
             <StaggerItem>
-              <h4 className="text-sm font-semibold text-text-primary mb-4">Resources</h4>
+              <h4 className="text-sm font-semibold text-text-primary mb-4"><T id="footer.heading.resources">Resources</T></h4>
               <ul className="space-y-3">
                 {footerLinks.resources.map((link) => (
                   <li key={link.label}>
@@ -123,7 +124,7 @@ export function Footer() {
                       href={link.href}
                       className="relative text-sm text-text-muted hover:text-text-primary transition-colors group"
                     >
-                      {link.label}
+                      <T>{link.label}</T>
                       <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-accent-cyan transition-all duration-300 group-hover:w-full" />
                     </Link>
                   </li>
@@ -133,7 +134,7 @@ export function Footer() {
 
             {/* Company links */}
             <StaggerItem>
-              <h4 className="text-sm font-semibold text-text-primary mb-4">Company</h4>
+              <h4 className="text-sm font-semibold text-text-primary mb-4"><T id="footer.heading.company">Company</T></h4>
               <ul className="space-y-3">
                 {footerLinks.company.map((link) => (
                   <li key={link.label}>
@@ -142,7 +143,7 @@ export function Footer() {
                         href={link.href}
                         className="relative text-sm text-text-muted hover:text-text-primary transition-colors inline-flex items-center gap-1 group"
                       >
-                        {link.label}
+                        <T>{link.label}</T>
                         <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-accent-cyan transition-all duration-300 group-hover:w-full" />
                       </a>
                     ) : (
@@ -150,7 +151,7 @@ export function Footer() {
                         href={link.href}
                         className="relative text-sm text-text-muted hover:text-text-primary transition-colors inline-flex items-center gap-1 group"
                       >
-                        {link.label}
+                        <T>{link.label}</T>
                         <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-accent-cyan transition-all duration-300 group-hover:w-full" />
                       </Link>
                     )}
@@ -161,7 +162,7 @@ export function Footer() {
 
             {/* Legal links */}
             <StaggerItem>
-              <h4 className="text-sm font-semibold text-text-primary mb-4">Legal</h4>
+              <h4 className="text-sm font-semibold text-text-primary mb-4"><T id="footer.heading.legal">Legal</T></h4>
               <ul className="space-y-3">
                 {footerLinks.legal.map((link) => (
                   <li key={link.label}>
@@ -169,7 +170,7 @@ export function Footer() {
                       href={link.href}
                       className="relative text-sm text-text-muted hover:text-text-primary transition-colors group"
                     >
-                      {link.label}
+                      <T>{link.label}</T>
                       <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-accent-cyan transition-all duration-300 group-hover:w-full" />
                     </Link>
                   </li>
@@ -179,7 +180,7 @@ export function Footer() {
 
             {/* Ecosystem links */}
             <StaggerItem>
-              <h4 className="text-sm font-semibold text-text-primary mb-4">Ecosystem</h4>
+              <h4 className="text-sm font-semibold text-text-primary mb-4"><T id="footer.heading.ecosystem">Ecosystem</T></h4>
               <ul className="space-y-3">
                 {footerLinks.ecosystem.map((link) => (
                   <li key={link.label}>
@@ -195,7 +196,7 @@ export function Footer() {
                         {link.external && <ExternalLink className="w-3 h-3" />}
                       </span>
                       <span className="block text-xs text-text-muted mt-0.5 ml-[22px]">
-                        {link.description}
+                        <T>{link.description}</T>
                       </span>
                     </a>
                   </li>
@@ -212,38 +213,42 @@ export function Footer() {
           <FadeIn delay={0.4}>
             <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-text-muted">
               <p>
-                &copy; {currentYear}{" "}
-                <a
-                  href="https://ugurlabs.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="relative text-accent-cyan hover:text-accent-cyan-dim transition-colors group"
-                >
-                  UgurLabs
-                  <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-accent-cyan transition-all duration-300 group-hover:w-full" />
-                </a>
-                . Made with care by{" "}
-                <a
-                  href="https://www.linkedin.com/in/ugurkocde/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="relative text-accent-cyan hover:text-accent-cyan-dim transition-colors group"
-                >
-                  Ugur Koc
-                  <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-accent-cyan transition-all duration-300 group-hover:w-full" />
-                </a>
+                <T id="footer.copyright">
+                  &copy; <Var>{currentYear}</Var>{" "}
+                  <a
+                    href="https://ugurlabs.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative text-accent-cyan hover:text-accent-cyan-dim transition-colors group"
+                  >
+                    UgurLabs
+                    <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-accent-cyan transition-all duration-300 group-hover:w-full" />
+                  </a>
+                  . Made with care by{" "}
+                  <a
+                    href="https://www.linkedin.com/in/ugurkocde/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative text-accent-cyan hover:text-accent-cyan-dim transition-colors group"
+                  >
+                    Ugur Koc
+                    <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-accent-cyan transition-all duration-300 group-hover:w-full" />
+                  </a>
+                </T>
               </p>
               <p className="text-center md:text-right">
-                Open source. Star us on{" "}
-                <a
-                  href="https://github.com/ugurkocde/IntuneGet"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="relative text-accent-cyan hover:text-accent-cyan-dim transition-colors group"
-                >
-                  GitHub
-                  <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-accent-cyan transition-all duration-300 group-hover:w-full" />
-                </a>
+                <T id="footer.opensource">
+                  Open source. Star us on{" "}
+                  <a
+                    href="https://github.com/ugurkocde/IntuneGet"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative text-accent-cyan hover:text-accent-cyan-dim transition-colors group"
+                  >
+                    GitHub
+                    <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-accent-cyan transition-all duration-300 group-hover:w-full" />
+                  </a>
+                </T>
               </p>
             </div>
           </FadeIn>

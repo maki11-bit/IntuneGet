@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
+import { T } from 'gt-next';
 import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { AppSuggestionForm } from './AppSuggestionForm';
@@ -29,7 +30,7 @@ export function SuggestionsClient() {
             className="bg-accent-cyan hover:bg-accent-cyan/90 text-white"
           >
             <Plus className="w-4 h-4" />
-            Suggest an App
+            <T>Suggest an App</T>
           </Button>
         </div>
       )}

@@ -1,5 +1,6 @@
 'use client';
 
+import { T, Var } from "gt-next";
 import { motion, useReducedMotion, AnimatePresence } from 'framer-motion';
 import {
   ArrowRight,
@@ -155,7 +156,7 @@ export function UpdateCard({
               {update.is_critical && (
                 <span className="flex items-center gap-1 px-1.5 py-0.5 text-[11px] font-semibold text-status-warning bg-status-warning/10 border border-status-warning/20 rounded-md flex-shrink-0 uppercase tracking-wide">
                   <AlertTriangle className="w-2.5 h-2.5" />
-                  Critical
+                  <T>Critical</T>
                 </span>
               )}
             </div>
@@ -212,31 +213,31 @@ export function UpdateCard({
           {!update.has_prior_deployment && (
             <span className="flex items-center gap-1 text-[11px] font-medium text-violet-500">
               <Plus className="w-3 h-3" />
-              New to IntuneGet
+              <T>New to IntuneGet</T>
             </span>
           )}
           {isAutoUpdateEnabled && (
             <span className="flex items-center gap-1 text-[11px] font-medium text-status-success">
               <Zap className="w-3 h-3" />
-              Auto-update
+              <T>Auto-update</T>
             </span>
           )}
           {hasFailures && (
             <span className="flex items-center gap-1 text-[11px] font-medium text-status-error">
               <XCircle className="w-3 h-3" />
-              {policyStatus?.consecutive_failures} failed
+              {policyStatus?.consecutive_failures} <T>failed</T>
             </span>
           )}
           {policyStatus?.last_auto_update_at && (
             <span className="flex items-center gap-1 text-[11px] text-text-muted">
               <Clock className="w-3 h-3" />
-              Last: {new Date(policyStatus.last_auto_update_at).toLocaleDateString()}
+              <T>Last:</T> {new Date(policyStatus.last_auto_update_at).toLocaleDateString()}
             </span>
           )}
           {detectedDaysAgo > 0 && !policyStatus?.last_auto_update_at && !hasFailures && !isAutoUpdateEnabled && (
             <span className="flex items-center gap-1 text-[11px] text-text-muted">
               <Clock className="w-3 h-3" />
-              Detected {detectedDaysAgo === 1 ? '1 day' : `${detectedDaysAgo} days`} ago
+              <T>Detected <Var>{detectedDaysAgo === 1 ? '1 day' : `${detectedDaysAgo} days`}</Var> ago</T>
             </span>
           )}
         </div>
@@ -271,7 +272,7 @@ export function UpdateCard({
                   className="flex items-center gap-1.5"
                 >
                   <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                  Updating...
+                  <T>Updating...</T>
                 </motion.span>
               ) : (
                 <motion.span
@@ -281,7 +282,7 @@ export function UpdateCard({
                   exit={{ opacity: 0, scale: 0.9 }}
                   className="flex items-center gap-1.5"
                 >
-                  Update
+                  <T>Update</T>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </motion.span>
               )}

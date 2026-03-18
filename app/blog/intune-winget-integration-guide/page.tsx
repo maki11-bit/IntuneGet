@@ -7,6 +7,7 @@ import { BlogAuthorCard } from "@/components/blog/BlogAuthorCard";
 import { RelatedPosts } from "@/components/blog/RelatedPosts";
 import { blogPosts } from "@/lib/data/blog-data";
 import { ArrowRight } from "lucide-react";
+import { T } from "gt-next";
 
 const post = getBlogPost("intune-winget-integration-guide")!;
 
@@ -181,7 +182,7 @@ export default function IntuneWingetIntegrationGuidePage() {
             <div className="prose prose-invert prose-stone max-w-none">
               {/* Introduction */}
               <p className="text-lg text-text-secondary leading-relaxed">
-                The integration between Microsoft Intune and the Windows Package
+                <T>The integration between Microsoft Intune and the Windows Package
                 Manager (Winget) represents one of the most significant shifts in
                 how IT administrators manage application deployments across
                 enterprise endpoints. For years, getting applications into Intune
@@ -192,10 +193,10 @@ export default function IntuneWingetIntegrationGuidePage() {
                 repository of over 10,000 applications -- but understanding exactly
                 how this integration works, where it falls short, and how to get
                 the most out of it requires a deeper look at the architecture and
-                tooling involved.
+                tooling involved.</T>
               </p>
               <p className="text-text-secondary leading-relaxed">
-                This guide covers the complete picture of the Intune Winget
+                <T>This guide covers the complete picture of the Intune Winget
                 integration: how the Windows Package Manager works under the hood,
                 the different ways Winget connects to Intune, what Microsoft&apos;s
                 native support looks like in practice, and how tools like{" "}
@@ -206,7 +207,7 @@ export default function IntuneWingetIntegrationGuidePage() {
                 automated packaging and deployment. Whether you are evaluating
                 Winget for the first time or looking to optimize an existing
                 Intune app management workflow, this guide will give you the
-                technical grounding to make informed decisions.
+                technical grounding to make informed decisions.</T>
               </p>
 
               {/* Understanding the Winget Package Manager */}
@@ -214,10 +215,10 @@ export default function IntuneWingetIntegrationGuidePage() {
                 id="understanding-winget"
                 className="text-2xl md:text-3xl font-bold text-text-primary mt-12 mb-4"
               >
-                Understanding the Winget Package Manager
+                <T>Understanding the Winget Package Manager</T>
               </h2>
               <p className="text-text-secondary leading-relaxed">
-                The Windows Package Manager, known as Winget, is Microsoft&apos;s
+                <T>The Windows Package Manager, known as Winget, is Microsoft&apos;s
                 official command-line tool for discovering, installing, upgrading,
                 and removing applications on Windows 10 and Windows 11 devices.
                 It shipped as part of the App Installer package from the
@@ -225,14 +226,14 @@ export default function IntuneWingetIntegrationGuidePage() {
                 since launch. Winget brings the same package management paradigm
                 that Linux administrators have relied on for decades --
                 centralized repositories, dependency resolution, and scriptable
-                installation -- to the Windows ecosystem.
+                installation -- to the Windows ecosystem.</T>
               </p>
 
               <h3 className="text-xl font-semibold text-text-primary mt-8 mb-3">
-                The Winget repository
+                <T>The Winget repository</T>
               </h3>
               <p className="text-text-secondary leading-relaxed">
-                At the core of Winget is the{" "}
+                <T>At the core of Winget is the{" "}
                 <a
                   href="https://github.com/microsoft/winget-pkgs"
                   target="_blank"
@@ -248,25 +249,25 @@ export default function IntuneWingetIntegrationGuidePage() {
                 architectures. As of early 2026, the repository contains over
                 10,000 unique application packages spanning productivity tools,
                 developer utilities, security software, and enterprise
-                applications.
+                applications.</T>
               </p>
               <p className="text-text-secondary leading-relaxed">
-                Every submission to the Winget repository goes through automated
+                <T>Every submission to the Winget repository goes through automated
                 validation that checks installer integrity, manifest schema
                 compliance, and hash verification. This validation layer is
                 critical for IT administrators because it means the installer
                 metadata in the repository has been verified before it reaches
-                your deployment pipeline.
+                your deployment pipeline.</T>
               </p>
 
               <h3 className="text-xl font-semibold text-text-primary mt-8 mb-3">
-                How Winget works on endpoints
+                <T>How Winget works on endpoints</T>
               </h3>
               <p className="text-text-secondary leading-relaxed">
-                On a local Windows device, Winget operates as a CLI tool that
+                <T>On a local Windows device, Winget operates as a CLI tool that
                 queries the repository index, resolves package metadata, downloads
                 the appropriate installer, and executes it with the correct silent
-                switches. A typical installation looks like this:
+                switches. A typical installation looks like this:</T>
               </p>
               <div className="bg-bg-surface rounded-xl border border-overlay/10 p-4 my-4 overflow-x-auto">
                 <pre className="text-sm text-text-secondary font-mono">
@@ -281,12 +282,12 @@ winget upgrade --all --silent`}</code>
                 </pre>
               </div>
               <p className="text-text-secondary leading-relaxed">
-                Winget handles the complexity of determining installer type (MSI,
+                <T>Winget handles the complexity of determining installer type (MSI,
                 EXE, MSIX, or Burn bundle), selecting the correct architecture
                 (x64, x86, ARM64), and applying the appropriate silent install
                 flags. This metadata is exactly what Intune needs to deploy
                 applications -- the challenge is bridging the two systems
-                effectively.
+                effectively.</T>
               </p>
 
               {/* How Winget and Intune Connect */}
@@ -294,75 +295,75 @@ winget upgrade --all --silent`}</code>
                 id="how-winget-intune-connect"
                 className="text-2xl md:text-3xl font-bold text-text-primary mt-12 mb-4"
               >
-                How Winget and Intune Connect
+                <T>How Winget and Intune Connect</T>
               </h2>
               <p className="text-text-secondary leading-relaxed">
-                The Intune Winget integration is not a single feature -- it is a
+                <T>The Intune Winget integration is not a single feature -- it is a
                 collection of connection points between the Winget ecosystem and
                 the Intune management platform. Understanding these connection
-                points helps you choose the right approach for your environment.
+                points helps you choose the right approach for your environment.</T>
               </p>
 
               <h3 className="text-xl font-semibold text-text-primary mt-8 mb-3">
-                The Microsoft Graph API layer
+                <T>The Microsoft Graph API layer</T>
               </h3>
               <p className="text-text-secondary leading-relaxed">
-                All Intune operations, including app management, flow through the
+                <T>All Intune operations, including app management, flow through the
                 Microsoft Graph API. When you create a Win32 app in the Intune
                 portal, the portal is making Graph API calls to endpoints under{" "}
                 <code>deviceAppManagement/mobileApps</code>. These same API
                 endpoints are available programmatically, which is how tools like
                 IntuneGet automate the deployment process. The key Graph API
-                permissions for app management are:
+                permissions for app management are:</T>
               </p>
               <ul className="space-y-3 text-text-secondary">
                 <li className="flex items-start gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-accent-cyan mt-2.5 flex-shrink-0" />
                   <span>
-                    <strong className="text-text-primary">DeviceManagementApps.ReadWrite.All:</strong>{" "}
+                    <T><strong className="text-text-primary">DeviceManagementApps.ReadWrite.All:</strong>{" "}
                     Required to create, update, and delete application packages in
                     Intune. This is the primary permission needed for any automated
-                    deployment workflow.
+                    deployment workflow.</T>
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-accent-cyan mt-2.5 flex-shrink-0" />
                   <span>
-                    <strong className="text-text-primary">DeviceManagementApps.Read.All:</strong>{" "}
+                    <T><strong className="text-text-primary">DeviceManagementApps.Read.All:</strong>{" "}
                     Read-only access to view existing app deployments and their
-                    status. Useful for monitoring and reporting.
+                    status. Useful for monitoring and reporting.</T>
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-accent-cyan mt-2.5 flex-shrink-0" />
                   <span>
-                    <strong className="text-text-primary">DeviceManagementConfiguration.ReadWrite.All:</strong>{" "}
+                    <T><strong className="text-text-primary">DeviceManagementConfiguration.ReadWrite.All:</strong>{" "}
                     Needed if you want to assign apps to configuration profiles or
-                    use app protection policies alongside your deployments.
+                    use app protection policies alongside your deployments.</T>
                   </span>
                 </li>
               </ul>
 
               <h3 className="text-xl font-semibold text-text-primary mt-8 mb-3">
-                Two integration paths
+                <T>Two integration paths</T>
               </h3>
               <p className="text-text-secondary leading-relaxed">
-                There are fundamentally two ways to bring Winget applications into
+                <T>There are fundamentally two ways to bring Winget applications into
                 Intune. The first is Microsoft&apos;s native Winget app type, where
                 Intune sends a Winget command to the endpoint and the local Winget
                 client handles installation. The second is the Win32 app approach,
                 where the application installer is sourced from Winget but
                 packaged as an <code>.intunewin</code> file and managed entirely
-                through the Intune management extension on the device.
+                through the Intune management extension on the device.</T>
               </p>
               <p className="text-text-secondary leading-relaxed">
-                Each path has distinct implications for detection rules, update
+                <T>Each path has distinct implications for detection rules, update
                 management, offline installation support, and endpoint
                 prerequisites. The native Winget path is simpler to set up but
                 gives you less control. The Win32 path requires more packaging
                 effort upfront but provides the full Intune management feature
                 set. IntuneGet automates the Win32 path, giving you the control
-                benefits without the manual packaging overhead.
+                benefits without the manual packaging overhead.</T>
               </p>
 
               {/* Native Intune Winget Support */}
@@ -370,21 +371,21 @@ winget upgrade --all --silent`}</code>
                 id="native-intune-winget"
                 className="text-2xl md:text-3xl font-bold text-text-primary mt-12 mb-4"
               >
-                Native Intune Winget Support
+                <T>Native Intune Winget Support</T>
               </h2>
               <p className="text-text-secondary leading-relaxed">
-                Microsoft introduced the &quot;Windows package manager app&quot; type in the
+                <T>Microsoft introduced the &quot;Windows package manager app&quot; type in the
                 Intune admin center as a way to directly leverage Winget for app
                 deployment. This native integration allows administrators to
                 browse a curated catalog of Winget packages and add them to Intune
-                without any manual packaging steps.
+                without any manual packaging steps.</T>
               </p>
 
               <h3 className="text-xl font-semibold text-text-primary mt-8 mb-3">
-                Adding apps from the built-in catalog
+                <T>Adding apps from the built-in catalog</T>
               </h3>
               <p className="text-text-secondary leading-relaxed">
-                To add a Winget app natively in Intune, navigate to Apps &gt; All
+                <T>To add a Winget app natively in Intune, navigate to Apps &gt; All
                 apps &gt; Add in the{" "}
                 <a
                   href="https://intune.microsoft.com"
@@ -398,72 +399,72 @@ winget upgrade --all --silent`}</code>
                 You can then search the integrated catalog by application name.
                 Once you select an app, Intune pre-fills the app information
                 including name, publisher, and description from the Winget
-                manifest.
+                manifest.</T>
               </p>
               <p className="text-text-secondary leading-relaxed">
-                The deployment workflow assigns the app to user or device groups
+                <T>The deployment workflow assigns the app to user or device groups
                 just like any other Intune app. When the policy reaches the
                 endpoint, the Intune management extension invokes the local Winget
                 client to install the application. Detection is handled
-                automatically based on the Winget package metadata.
+                automatically based on the Winget package metadata.</T>
               </p>
 
               <h3 className="text-xl font-semibold text-text-primary mt-8 mb-3">
-                Limitations of the native approach
+                <T>Limitations of the native approach</T>
               </h3>
               <p className="text-text-secondary leading-relaxed">
-                While the native Winget app type simplifies the initial setup, it
+                <T>While the native Winget app type simplifies the initial setup, it
                 introduces several constraints that IT administrators need to
-                account for:
+                account for:</T>
               </p>
               <ul className="space-y-3 text-text-secondary">
                 <li className="flex items-start gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-accent-cyan mt-2.5 flex-shrink-0" />
                   <span>
-                    <strong className="text-text-primary">Partial catalog coverage:</strong>{" "}
+                    <T><strong className="text-text-primary">Partial catalog coverage:</strong>{" "}
                     The built-in catalog exposes only a curated subset of the full
                     Winget repository. Many enterprise-relevant applications are
                     not available through this interface, forcing you to use Win32
-                    packaging for those apps anyway.
+                    packaging for those apps anyway.</T>
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-accent-cyan mt-2.5 flex-shrink-0" />
                   <span>
-                    <strong className="text-text-primary">Endpoint dependency on Winget client:</strong>{" "}
+                    <T><strong className="text-text-primary">Endpoint dependency on Winget client:</strong>{" "}
                     Target devices must have the Winget client (App Installer)
                     installed and up to date. If the App Installer package is
                     outdated or missing, the deployment will fail. This creates an
-                    additional prerequisite in your device readiness chain.
+                    additional prerequisite in your device readiness chain.</T>
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-accent-cyan mt-2.5 flex-shrink-0" />
                   <span>
-                    <strong className="text-text-primary">Limited detection rule customization:</strong>{" "}
+                    <T><strong className="text-text-primary">Limited detection rule customization:</strong>{" "}
                     You cannot define custom detection rules for Winget app types.
                     The detection logic is managed by Winget itself, which can be
                     problematic for applications that install to non-standard
-                    directories or use atypical registry patterns.
+                    directories or use atypical registry patterns.</T>
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-accent-cyan mt-2.5 flex-shrink-0" />
                   <span>
-                    <strong className="text-text-primary">No offline installation:</strong>{" "}
+                    <T><strong className="text-text-primary">No offline installation:</strong>{" "}
                     Because the Winget client downloads the installer at
                     deployment time, endpoints need internet access to the Winget
                     source URLs. This can be an issue for devices on restricted
-                    networks or during the initial provisioning phase.
+                    networks or during the initial provisioning phase.</T>
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-accent-cyan mt-2.5 flex-shrink-0" />
                   <span>
-                    <strong className="text-text-primary">Coarser update control:</strong>{" "}
+                    <T><strong className="text-text-primary">Coarser update control:</strong>{" "}
                     Update management for native Winget apps is tied to the
                     Winget client&apos;s behavior rather than Intune&apos;s supersedence and
-                    versioning features that Win32 apps support.
+                    versioning features that Win32 apps support.</T>
                   </span>
                 </li>
               </ul>
@@ -473,10 +474,10 @@ winget upgrade --all --silent`}</code>
                 id="using-intuneget"
                 className="text-2xl md:text-3xl font-bold text-text-primary mt-12 mb-4"
               >
-                Using IntuneGet for Full Winget Integration
+                <T>Using IntuneGet for Full Winget Integration</T>
               </h2>
               <p className="text-text-secondary leading-relaxed">
-                <Link href="/" className="text-accent-cyan hover:underline">
+                <T><Link href="/" className="text-accent-cyan hover:underline">
                   IntuneGet
                 </Link>{" "}
                 takes a different approach to the Intune Winget integration. Rather
@@ -485,93 +486,93 @@ winget upgrade --all --silent`}</code>
                 repository as the application source and packages everything as
                 Win32 apps for Intune. This gives you access to the entire 10,000+
                 Winget catalog while retaining all of Intune&apos;s Win32 management
-                features.
+                features.</T>
               </p>
 
               <h3 className="text-xl font-semibold text-text-primary mt-8 mb-3">
-                Complete Winget repository access
+                <T>Complete Winget repository access</T>
               </h3>
               <p className="text-text-secondary leading-relaxed">
-                IntuneGet indexes the full Winget repository, not just the curated
+                <T>IntuneGet indexes the full Winget repository, not just the curated
                 subset available in the Intune portal. Search any application by
                 name, publisher, or Winget package ID. For applications that are
                 difficult to locate by name, IntuneGet includes AI-powered app
                 discovery that matches natural language queries to the correct
                 package -- type &quot;remote desktop tool&quot; and it will surface the
-                relevant Winget packages.
+                relevant Winget packages.</T>
               </p>
 
               <h3 className="text-xl font-semibold text-text-primary mt-8 mb-3">
-                Automated IntuneWin packaging
+                <T>Automated IntuneWin packaging</T>
               </h3>
               <p className="text-text-secondary leading-relaxed">
-                When you select an application for deployment, IntuneGet
+                <T>When you select an application for deployment, IntuneGet
                 automatically downloads the installer from the Winget source,
                 wraps it in the <code>.intunewin</code> format using the
                 Microsoft Win32 Content Prep Tool, and configures the install and
                 uninstall commands with the correct silent switches from the
                 Winget manifest. There is no need to run the Content Prep Tool
-                locally or write PowerShell scripts.
+                locally or write PowerShell scripts.</T>
               </p>
 
               <h3 className="text-xl font-semibold text-text-primary mt-8 mb-3">
-                Intelligent detection rules
+                <T>Intelligent detection rules</T>
               </h3>
               <p className="text-text-secondary leading-relaxed">
-                One of the most error-prone parts of manual Intune app deployment
+                <T>One of the most error-prone parts of manual Intune app deployment
                 is configuring detection rules. IntuneGet generates detection
                 rules automatically based on the installer type. MSI packages get
                 product code detection, EXE installers get file existence checks
                 based on known install paths, and registry-based detection is used
                 when the Winget manifest provides registry key information. This
                 eliminates the guesswork that leads to false &quot;installation failed&quot;
-                reports in Intune.
+                reports in Intune.</T>
               </p>
 
               <h3 className="text-xl font-semibold text-text-primary mt-8 mb-3">
-                Automated update management
+                <T>Automated update management</T>
               </h3>
               <p className="text-text-secondary leading-relaxed">
-                IntuneGet monitors the Winget repository for new application
+                <T>IntuneGet monitors the Winget repository for new application
                 versions and gives you configurable update policies for each
-                deployed app:
+                deployed app:</T>
               </p>
               <ul className="space-y-3 text-text-secondary">
                 <li className="flex items-start gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-accent-cyan mt-2.5 flex-shrink-0" />
                   <span>
-                    <strong className="text-text-primary">Auto-update:</strong>{" "}
+                    <T><strong className="text-text-primary">Auto-update:</strong>{" "}
                     Automatically re-package and update the Intune deployment when
-                    a new version appears in Winget.
+                    a new version appears in Winget.</T>
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-accent-cyan mt-2.5 flex-shrink-0" />
                   <span>
-                    <strong className="text-text-primary">Notify only:</strong>{" "}
+                    <T><strong className="text-text-primary">Notify only:</strong>{" "}
                     Receive a notification when a new version is available so you
-                    can review and approve the update manually.
+                    can review and approve the update manually.</T>
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-accent-cyan mt-2.5 flex-shrink-0" />
                   <span>
-                    <strong className="text-text-primary">Pin version:</strong>{" "}
+                    <T><strong className="text-text-primary">Pin version:</strong>{" "}
                     Lock the deployment to a specific version, ignoring new
                     releases. Useful for applications that require compatibility
-                    testing before updates.
+                    testing before updates.</T>
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-accent-cyan mt-2.5 flex-shrink-0" />
                   <span>
-                    <strong className="text-text-primary">Ignore:</strong>{" "}
-                    Stop tracking updates for a particular application entirely.
+                    <T><strong className="text-text-primary">Ignore:</strong>{" "}
+                    Stop tracking updates for a particular application entirely.</T>
                   </span>
                 </li>
               </ul>
               <p className="text-text-secondary leading-relaxed mt-4">
-                To get started with IntuneGet, see the{" "}
+                <T>To get started with IntuneGet, see the{" "}
                 <Link
                   href="/docs/getting-started"
                   className="text-accent-cyan hover:underline"
@@ -586,7 +587,7 @@ winget upgrade --all --silent`}</code>
                   sign in with your Microsoft Entra ID
                 </Link>{" "}
                 to start deploying immediately. IntuneGet is free, open source
-                under the MIT license, and has no seat limits or premium tiers.
+                under the MIT license, and has no seat limits or premium tiers.</T>
               </p>
 
               {/* Best Practices */}
@@ -594,80 +595,80 @@ winget upgrade --all --silent`}</code>
                 id="best-practices"
                 className="text-2xl md:text-3xl font-bold text-text-primary mt-12 mb-4"
               >
-                Best Practices for Winget to Intune Deployment
+                <T>Best Practices for Winget to Intune Deployment</T>
               </h2>
               <p className="text-text-secondary leading-relaxed">
-                Regardless of which integration method you choose, following
+                <T>Regardless of which integration method you choose, following
                 these best practices will reduce deployment failures and improve
-                the reliability of your Intune Winget workflow.
+                the reliability of your Intune Winget workflow.</T>
               </p>
 
               <h3 className="text-xl font-semibold text-text-primary mt-8 mb-3">
-                Test in pilot groups before broad rollout
+                <T>Test in pilot groups before broad rollout</T>
               </h3>
               <p className="text-text-secondary leading-relaxed">
-                Never deploy a new application or application update directly to
+                <T>Never deploy a new application or application update directly to
                 your entire device fleet. Create a pilot group containing a
                 representative sample of hardware configurations and user
                 profiles. Assign the app to this group first and monitor the
                 installation status in the Intune portal for at least 24-48 hours
                 before expanding the assignment. This catches issues with silent
                 install failures, detection rule problems, and architecture
-                mismatches before they affect production users.
+                mismatches before they affect production users.</T>
               </p>
 
               <h3 className="text-xl font-semibold text-text-primary mt-8 mb-3">
-                Pin versions for critical applications
+                <T>Pin versions for critical applications</T>
               </h3>
               <p className="text-text-secondary leading-relaxed">
-                For applications that are business-critical or that have known
+                <T>For applications that are business-critical or that have known
                 compatibility requirements with other software in your
                 environment, pin the deployment to a specific version rather than
                 allowing automatic updates. This is especially important for
                 applications like browsers, VPN clients, and collaboration tools
                 where a broken update can disrupt user productivity. Test new
                 versions in your pilot group before updating the production
-                deployment.
+                deployment.</T>
               </p>
 
               <h3 className="text-xl font-semibold text-text-primary mt-8 mb-3">
-                Establish an update review cadence
+                <T>Establish an update review cadence</T>
               </h3>
               <p className="text-text-secondary leading-relaxed">
-                Set a regular schedule -- weekly or biweekly -- to review pending
+                <T>Set a regular schedule -- weekly or biweekly -- to review pending
                 application updates from the Winget repository. IntuneGet&apos;s
                 notify-only update policy is ideal for this workflow: you receive
                 alerts when new versions are available and can batch-approve
                 updates during your review window. This balances the need for
                 current software with the operational stability your users depend
-                on.
+                on.</T>
               </p>
 
               <h3 className="text-xl font-semibold text-text-primary mt-8 mb-3">
-                Monitor deployment status actively
+                <T>Monitor deployment status actively</T>
               </h3>
               <p className="text-text-secondary leading-relaxed">
-                Intune provides detailed installation status reporting for each
+                <T>Intune provides detailed installation status reporting for each
                 app deployment. Check for patterns in failure reports -- if a
                 specific hardware model or Windows build consistently fails, it
                 often points to an architecture mismatch or a missing
                 prerequisite. For Win32 apps deployed through IntuneGet, the
                 Intune management extension logs on the endpoint
                 (located in <code>C:\ProgramData\Microsoft\IntuneManagementExtension\Logs</code>)
-                contain detailed installation output that helps diagnose failures.
+                contain detailed installation output that helps diagnose failures.</T>
               </p>
 
               <h3 className="text-xl font-semibold text-text-primary mt-8 mb-3">
-                Document your app catalog
+                <T>Document your app catalog</T>
               </h3>
               <p className="text-text-secondary leading-relaxed">
-                Maintain a record of which Winget packages map to which Intune
+                <T>Maintain a record of which Winget packages map to which Intune
                 deployments, including the version deployed, the update policy in
                 effect, and any custom configuration applied. This documentation
                 is invaluable during incident response, audits, and when
                 onboarding new team members. IntuneGet tracks this mapping
                 automatically in its dashboard, but maintaining an external record
-                as a backup is a sound operational practice.
+                as a backup is a sound operational practice.</T>
               </p>
 
               {/* Limitations */}
@@ -675,45 +676,45 @@ winget upgrade --all --silent`}</code>
                 id="limitations"
                 className="text-2xl md:text-3xl font-bold text-text-primary mt-12 mb-4"
               >
-                Winget Intune Integration Limitations to Know
+                <T>Winget Intune Integration Limitations to Know</T>
               </h2>
               <p className="text-text-secondary leading-relaxed">
-                While the Intune Winget integration covers a large portion of
+                <T>While the Intune Winget integration covers a large portion of
                 enterprise application needs, there are scenarios where it does
                 not apply. Understanding these boundaries helps you plan a
-                complete app management strategy.
+                complete app management strategy.</T>
               </p>
 
               <h3 className="text-xl font-semibold text-text-primary mt-8 mb-3">
-                Applications not in the Winget repository
+                <T>Applications not in the Winget repository</T>
               </h3>
               <p className="text-text-secondary leading-relaxed">
-                Winget contains over 10,000 packages, but it does not cover every
+                <T>Winget contains over 10,000 packages, but it does not cover every
                 application. Proprietary enterprise software, niche vertical
                 applications, and internally developed tools will not be found in
                 the Winget catalog. For these applications, you will still need to
                 use the traditional Win32 app packaging workflow in Intune --
                 download the installer from the vendor, package it with the
-                Content Prep Tool, and configure detection rules manually.
+                Content Prep Tool, and configure detection rules manually.</T>
               </p>
 
               <h3 className="text-xl font-semibold text-text-primary mt-8 mb-3">
-                Custom line-of-business applications
+                <T>Custom line-of-business applications</T>
               </h3>
               <p className="text-text-secondary leading-relaxed">
-                LOB applications developed in-house are outside the scope of any
+                <T>LOB applications developed in-house are outside the scope of any
                 Winget integration. These apps typically use MSI or MSIX formats
                 and are uploaded directly to Intune as LOB app types or packaged
                 as Win32 apps. If your organization develops internal tools, plan
                 for a separate packaging and deployment pipeline alongside your
-                Winget-based workflow.
+                Winget-based workflow.</T>
               </p>
 
               <h3 className="text-xl font-semibold text-text-primary mt-8 mb-3">
-                Network and firewall considerations
+                <T>Network and firewall considerations</T>
               </h3>
               <p className="text-text-secondary leading-relaxed">
-                Both the native Winget app type and IntuneGet-based Win32
+                <T>Both the native Winget app type and IntuneGet-based Win32
                 deployments require network access to download installers. For the
                 native approach, endpoints need access to the Winget source URLs
                 (primarily GitHub and CDN endpoints) at installation time. For the
@@ -731,21 +732,21 @@ winget upgrade --all --silent`}</code>
                 >
                   network requirements documentation
                 </a>
-                .
+                .</T>
               </p>
 
               <h3 className="text-xl font-semibold text-text-primary mt-8 mb-3">
-                Winget manifest quality varies
+                <T>Winget manifest quality varies</T>
               </h3>
               <p className="text-text-secondary leading-relaxed">
-                Because the Winget repository is community-maintained, manifest
+                <T>Because the Winget repository is community-maintained, manifest
                 quality is not uniform across all packages. Some manifests have
                 incomplete silent install switches, outdated installer URLs, or
                 missing architecture specifications. When deploying lesser-known
                 applications, verify the Winget manifest data and test the
                 deployment in a pilot group before rolling out broadly. IntuneGet
                 mitigates this by validating manifest data during the packaging
-                process and alerting you to potential issues.
+                process and alerting you to potential issues.</T>
               </p>
 
               {/* FAQ */}
@@ -753,82 +754,82 @@ winget upgrade --all --silent`}</code>
                 id="faq"
                 className="text-2xl md:text-3xl font-bold text-text-primary mt-12 mb-4"
               >
-                Frequently Asked Questions
+                <T>Frequently Asked Questions</T>
               </h2>
 
               <div className="space-y-6 mt-6">
                 <div>
                   <h3 className="text-lg font-semibold text-text-primary mb-2">
-                    Does Intune natively support Winget?
+                    <T>Does Intune natively support Winget?</T>
                   </h3>
                   <p className="text-text-secondary leading-relaxed">
-                    Yes, Microsoft has added native Winget support to Intune
+                    <T>Yes, Microsoft has added native Winget support to Intune
                     through the &quot;Windows package manager app&quot; type. However, the
                     built-in catalog only exposes a subset of the full Winget
                     repository and offers limited control over packaging, detection
                     rules, and update policies compared to the Win32 app approach
-                    used by tools like IntuneGet.
+                    used by tools like IntuneGet.</T>
                   </p>
                 </div>
 
                 <div>
                   <h3 className="text-lg font-semibold text-text-primary mb-2">
-                    What is the difference between Winget apps and Win32 apps in Intune?
+                    <T>What is the difference between Winget apps and Win32 apps in Intune?</T>
                   </h3>
                   <p className="text-text-secondary leading-relaxed">
-                    Winget apps in Intune are deployed using the Windows Package
+                    <T>Winget apps in Intune are deployed using the Windows Package
                     Manager client on the endpoint device. Win32 apps use the
                     .intunewin format and are managed entirely through the Intune
                     management extension. Win32 apps give you more control over
                     detection rules, requirement rules, and dependencies. IntuneGet
                     bridges both approaches by sourcing apps from Winget and
                     packaging them as Win32 apps for full Intune management
-                    capabilities.
+                    capabilities.</T>
                   </p>
                 </div>
 
                 <div>
                   <h3 className="text-lg font-semibold text-text-primary mb-2">
-                    Can I use Winget to update apps already deployed through Intune?
+                    <T>Can I use Winget to update apps already deployed through Intune?</T>
                   </h3>
                   <p className="text-text-secondary leading-relaxed">
-                    If the apps were deployed as Winget app types, Intune can
+                    <T>If the apps were deployed as Winget app types, Intune can
                     leverage Winget for updates. For Win32 apps, you need to create
                     a new app version in Intune with the updated installer.
                     IntuneGet automates this process by monitoring the Winget
                     repository for version changes and offering configurable update
                     policies including auto-update, notify-only, and version
-                    pinning.
+                    pinning.</T>
                   </p>
                 </div>
 
                 <div>
                   <h3 className="text-lg font-semibold text-text-primary mb-2">
-                    Do endpoints need Winget installed for Intune Winget integration?
+                    <T>Do endpoints need Winget installed for Intune Winget integration?</T>
                   </h3>
                   <p className="text-text-secondary leading-relaxed">
-                    It depends on the deployment method. If you use Intune&apos;s
+                    <T>It depends on the deployment method. If you use Intune&apos;s
                     native Winget app type, endpoints must have the Winget client
                     (App Installer) present. If you use IntuneGet to package Winget
                     apps as Win32 <code>.intunewin</code> files, endpoints do not
                     need Winget installed because the installer is bundled in the
-                    package.
+                    package.</T>
                   </p>
                 </div>
 
                 <div>
                   <h3 className="text-lg font-semibold text-text-primary mb-2">
-                    How many apps are available in the Intune Winget catalog vs the full Winget repository?
+                    <T>How many apps are available in the Intune Winget catalog vs the full Winget repository?</T>
                   </h3>
                   <p className="text-text-secondary leading-relaxed">
-                    The full Winget repository contains over 10,000 application
+                    <T>The full Winget repository contains over 10,000 application
                     packages. Intune&apos;s built-in Winget catalog exposes a curated
                     subset of these packages. The exact number in the built-in
                     catalog varies as Microsoft continues to expand it, but it
                     remains significantly smaller than the full repository.
                     IntuneGet provides access to the entire Winget repository,
                     allowing IT admins to deploy any available package to Intune as
-                    a fully managed Win32 application.
+                    a fully managed Win32 application.</T>
                   </p>
                 </div>
               </div>
@@ -838,29 +839,29 @@ winget upgrade --all --silent`}</code>
                 id="conclusion"
                 className="text-2xl md:text-3xl font-bold text-text-primary mt-12 mb-4"
               >
-                Conclusion
+                <T>Conclusion</T>
               </h2>
               <p className="text-text-secondary leading-relaxed">
-                The Intune Winget integration gives IT administrators a
+                <T>The Intune Winget integration gives IT administrators a
                 fundamentally better way to manage application deployments
                 compared to the manual download-package-upload cycle of the past.
                 Microsoft&apos;s native Winget app type in the Intune portal is a
                 solid starting point for organizations that need a quick, low-effort
                 way to deploy common applications. However, the limited catalog,
                 endpoint dependencies, and restricted customization options mean
-                it cannot serve as a complete app management strategy on its own.
+                it cannot serve as a complete app management strategy on its own.</T>
               </p>
               <p className="text-text-secondary leading-relaxed">
-                For IT teams that need access to the full Winget repository with
+                <T>For IT teams that need access to the full Winget repository with
                 the reliability and control of Win32 app packaging, IntuneGet
                 provides the automation layer that connects these two worlds.
                 Automatic IntuneWin packaging, intelligent detection rule
                 generation, and configurable update policies eliminate the manual
                 effort while preserving the management features that enterprise
-                Intune deployments require.
+                Intune deployments require.</T>
               </p>
               <p className="text-text-secondary leading-relaxed">
-                The key is choosing the right approach -- or combination of
+                <T>The key is choosing the right approach -- or combination of
                 approaches -- for your environment. Use the native Winget app type
                 for simple, widely available applications where minimal
                 customization is needed. Use IntuneGet for the broader catalog,
@@ -875,32 +876,32 @@ winget upgrade --all --silent`}</code>
                 <Link href="/blog/winget-vs-manual-intune-deployment" className="text-accent-cyan hover:underline">
                   Winget vs manual Intune deployment
                 </Link>
-                .
+                .</T>
               </p>
 
               {/* CTA */}
               <div className="mt-10 p-6 rounded-2xl bg-accent-cyan/5 border border-accent-cyan/20">
                 <h3 className="text-xl font-bold text-text-primary mb-3">
-                  Get the full Intune Winget integration with IntuneGet
+                  <T>Get the full Intune Winget integration with IntuneGet</T>
                 </h3>
                 <p className="text-text-secondary mb-4">
-                  Access the complete Winget repository, automate IntuneWin
+                  <T>Access the complete Winget repository, automate IntuneWin
                   packaging, and deploy applications to Intune in minutes. Free,
-                  open source, and no seat limits.
+                  open source, and no seat limits.</T>
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <Link
                     href="/auth/signin"
                     className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-accent-cyan rounded-xl hover:bg-accent-cyan-dim transition-colors"
                   >
-                    Start Free Deployment
+                    <T>Start Free Deployment</T>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                   <Link
                     href="/docs/getting-started"
                     className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-text-secondary bg-bg-elevated border border-overlay/10 rounded-xl hover:bg-overlay/[0.04] transition-colors"
                   >
-                    Read the Getting Started Guide
+                    <T>Read the Getting Started Guide</T>
                   </Link>
                 </div>
               </div>

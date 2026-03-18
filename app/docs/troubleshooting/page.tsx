@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import { T } from "gt-next";
 import {
   AlertCircle,
   CheckCircle,
@@ -98,27 +99,27 @@ export default function TroubleshootingPage() {
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold text-text-primary sm:text-4xl">
-          Troubleshooting
+          <T>Troubleshooting</T>
         </h1>
         <p className="mt-4 text-lg text-text-secondary leading-relaxed">
-          Solutions to common issues and frequently asked questions about
-          self-hosting IntuneGet.
+          <T>Solutions to common issues and frequently asked questions about
+          self-hosting IntuneGet.</T>
         </p>
       </div>
 
       {/* Quick Diagnosis */}
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-4">
-          Quick Diagnosis
+          <T>Quick Diagnosis</T>
         </h2>
         <p className="text-text-secondary mb-4">
-          Start by checking the health endpoint to identify which components are
-          working:
+          <T>Start by checking the health endpoint to identify which components are
+          working:</T>
         </p>
 
         <CodeBlock language="bash">curl https://your-app.vercel.app/api/health</CodeBlock>
 
-        <p className="text-text-secondary mt-4 mb-2">Expected response:</p>
+        <p className="text-text-secondary mt-4 mb-2"><T>Expected response:</T></p>
         <CodeBlock language="json">
 {`{
   "status": "healthy",
@@ -132,20 +133,20 @@ export default function TroubleshootingPage() {
         </CodeBlock>
 
         <p className="text-text-secondary mt-4">
-          If any service shows <code>false</code>, focus troubleshooting on that
-          component.
+          <T>If any service shows <code>false</code>, focus troubleshooting on that
+          component.</T>
         </p>
       </section>
 
       {/* Common Errors */}
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-6">
-          Common Error Messages
+          <T>Common Error Messages</T>
         </h2>
 
         {/* Authentication Errors */}
         <h3 className="text-lg font-semibold text-text-primary mb-4 mt-8">
-          Authentication Errors
+          <T>Authentication Errors</T>
         </h3>
 
         <div className="space-y-4">
@@ -250,7 +251,7 @@ export default function TroubleshootingPage() {
 
         {/* Database & Packager Errors */}
         <h3 className="text-lg font-semibold text-text-primary mb-4 mt-8">
-          Database & Packager Errors
+          <T>Database & Packager Errors</T>
         </h3>
 
         <div className="space-y-4">
@@ -295,7 +296,7 @@ export default function TroubleshootingPage() {
 
         {/* Unmanaged Apps Errors */}
         <h3 className="text-lg font-semibold text-text-primary mb-4 mt-8">
-          Unmanaged Apps Errors
+          <T>Unmanaged Apps Errors</T>
         </h3>
 
         <div className="space-y-4">
@@ -339,7 +340,7 @@ export default function TroubleshootingPage() {
 
         {/* Assignment Errors */}
         <h3 className="text-lg font-semibold text-text-primary mb-4 mt-8">
-          Assignment Errors
+          <T>Assignment Errors</T>
         </h3>
 
         <div className="space-y-4">
@@ -403,7 +404,7 @@ export default function TroubleshootingPage() {
 
         {/* Pipeline Errors */}
         <h3 className="text-lg font-semibold text-text-primary mb-4 mt-8">
-          Pipeline Errors
+          <T>Pipeline Errors</T>
         </h3>
 
         <div className="space-y-4">
@@ -470,41 +471,41 @@ export default function TroubleshootingPage() {
       {/* Debugging Tips */}
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-4">
-          Debugging Tips
+          <T>Debugging Tips</T>
         </h2>
 
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="rounded-lg border border-overlay/10 bg-bg-elevated p-4">
-            <h3 className="font-semibold text-text-primary mb-2">Check Logs</h3>
+            <h3 className="font-semibold text-text-primary mb-2"><T>Check Logs</T></h3>
             <p className="text-sm text-text-secondary mb-3">
-              Vercel: Dashboard &gt; Your Project &gt; Logs
+              <T>Vercel: Dashboard &gt; Your Project &gt; Logs</T>
             </p>
             <p className="text-sm text-text-secondary">
-              Docker: <code>docker-compose logs -f</code>
-            </p>
-          </div>
-
-          <div className="rounded-lg border border-overlay/10 bg-bg-elevated p-4">
-            <h3 className="font-semibold text-text-primary mb-2">Browser Console</h3>
-            <p className="text-sm text-text-secondary">
-              Press F12 and check the Console and Network tabs for errors and
-              failed requests.
+              <T>Docker: <code>docker-compose logs -f</code></T>
             </p>
           </div>
 
           <div className="rounded-lg border border-overlay/10 bg-bg-elevated p-4">
-            <h3 className="font-semibold text-text-primary mb-2">GitHub Actions</h3>
+            <h3 className="font-semibold text-text-primary mb-2"><T>Browser Console</T></h3>
             <p className="text-sm text-text-secondary">
-              Check your fork&apos;s Actions tab for workflow run details and
-              error messages.
+              <T>Press F12 and check the Console and Network tabs for errors and
+              failed requests.</T>
             </p>
           </div>
 
           <div className="rounded-lg border border-overlay/10 bg-bg-elevated p-4">
-            <h3 className="font-semibold text-text-primary mb-2">Environment Check</h3>
+            <h3 className="font-semibold text-text-primary mb-2"><T>GitHub Actions</T></h3>
             <p className="text-sm text-text-secondary">
-              Verify all environment variables are set. Missing or incorrect
-              values cause most issues.
+              <T>Check your fork&apos;s Actions tab for workflow run details and
+              error messages.</T>
+            </p>
+          </div>
+
+          <div className="rounded-lg border border-overlay/10 bg-bg-elevated p-4">
+            <h3 className="font-semibold text-text-primary mb-2"><T>Environment Check</T></h3>
+            <p className="text-sm text-text-secondary">
+              <T>Verify all environment variables are set. Missing or incorrect
+              values cause most issues.</T>
             </p>
           </div>
         </div>
@@ -513,17 +514,17 @@ export default function TroubleshootingPage() {
       {/* Environment Variable Checklist */}
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-4">
-          Environment Variable Checklist
+          <T>Environment Variable Checklist</T>
         </h2>
         <p className="text-text-secondary mb-4">
-          Verify each variable is set correctly:
+          <T>Verify each variable is set correctly:</T>
         </p>
 
         <Table>
           <TableHead>
             <TableRow>
-              <TableHeader>Variable</TableHeader>
-              <TableHeader>Check</TableHeader>
+              <TableHeader><T>Variable</T></TableHeader>
+              <TableHeader><T>Check</T></TableHeader>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -534,7 +535,7 @@ export default function TroubleshootingPage() {
                 </code>
               </TableCell>
               <TableCell className="text-sm text-text-secondary">
-                Set to &quot;sqlite&quot; for self-hosted deployments
+                <T>Set to &quot;sqlite&quot; for self-hosted deployments</T>
               </TableCell>
             </TableRow>
             <TableRow>
@@ -544,7 +545,7 @@ export default function TroubleshootingPage() {
                 </code>
               </TableCell>
               <TableCell className="text-sm text-text-secondary">
-                Path to SQLite file (default: ./data/intuneget.db)
+                <T>Path to SQLite file (default: ./data/intuneget.db)</T>
               </TableCell>
             </TableRow>
             <TableRow>
@@ -554,7 +555,7 @@ export default function TroubleshootingPage() {
                 </code>
               </TableCell>
               <TableCell className="text-sm text-text-secondary">
-                Set to &quot;local&quot; for the local packager service
+                <T>Set to &quot;local&quot; for the local packager service</T>
               </TableCell>
             </TableRow>
             <TableRow>
@@ -564,7 +565,7 @@ export default function TroubleshootingPage() {
                 </code>
               </TableCell>
               <TableCell className="text-sm text-text-secondary">
-                Shared secret between web app and packager service
+                <T>Shared secret between web app and packager service</T>
               </TableCell>
             </TableRow>
             <TableRow>
@@ -574,7 +575,7 @@ export default function TroubleshootingPage() {
                 </code>
               </TableCell>
               <TableCell className="text-sm text-text-secondary">
-                UUID format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+                <T>UUID format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</T>
               </TableCell>
             </TableRow>
             <TableRow>
@@ -584,7 +585,7 @@ export default function TroubleshootingPage() {
                 </code>
               </TableCell>
               <TableCell className="text-sm text-text-secondary">
-                Should not be expired, contains ~
+                <T>Should not be expired, contains ~</T>
               </TableCell>
             </TableRow>
             <TableRow>
@@ -592,7 +593,7 @@ export default function TroubleshootingPage() {
                 <code className="text-xs text-accent-cyan">NEXT_PUBLIC_URL</code>
               </TableCell>
               <TableCell className="text-sm text-text-secondary">
-                Full URL with https://, no trailing slash
+                <T>Full URL with https://, no trailing slash</T>
               </TableCell>
             </TableRow>
           </TableBody>
@@ -602,13 +603,13 @@ export default function TroubleshootingPage() {
       {/* FAQ */}
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-6">
-          Frequently Asked Questions
+          <T>Frequently Asked Questions</T>
         </h2>
 
         <div className="space-y-3">
           {faqs.map((faq, index) => (
             <Collapsible key={index} title={faq.question}>
-              <p className="text-text-secondary leading-relaxed">{faq.answer}</p>
+              <p className="text-text-secondary leading-relaxed"><T>{faq.answer}</T></p>
             </Collapsible>
           ))}
         </div>
@@ -616,7 +617,7 @@ export default function TroubleshootingPage() {
 
       {/* Getting Help */}
       <section>
-        <h2 className="text-2xl font-semibold text-text-primary mb-4">Getting Help</h2>
+        <h2 className="text-2xl font-semibold text-text-primary mb-4"><T>Getting Help</T></h2>
 
         <div className="grid gap-4 sm:grid-cols-2">
           <a
@@ -627,11 +628,11 @@ export default function TroubleshootingPage() {
           >
             <div className="flex items-center gap-3 mb-3">
               <Github className="h-6 w-6 text-accent-cyan" />
-              <h3 className="font-semibold text-text-primary">GitHub Issues</h3>
+              <h3 className="font-semibold text-text-primary"><T>GitHub Issues</T></h3>
             </div>
             <p className="text-sm text-text-secondary">
-              Report bugs or request features. Search existing issues first to see
-              if your problem has been solved.
+              <T>Report bugs or request features. Search existing issues first to see
+              if your problem has been solved.</T>
             </p>
           </a>
 
@@ -639,10 +640,10 @@ export default function TroubleshootingPage() {
 
         <Callout type="info" title="Before Opening an Issue">
           <ul className="list-disc list-inside space-y-1">
-            <li>Search existing issues for similar problems</li>
-            <li>Include your deployment method (Vercel, Docker, etc.)</li>
-            <li>Share relevant error messages (redact sensitive info)</li>
-            <li>Describe what you expected vs. what happened</li>
+            <li><T>Search existing issues for similar problems</T></li>
+            <li><T>Include your deployment method (Vercel, Docker, etc.)</T></li>
+            <li><T>Share relevant error messages (redact sensitive info)</T></li>
+            <li><T>Describe what you expected vs. what happened</T></li>
           </ul>
         </Callout>
       </section>
@@ -650,38 +651,38 @@ export default function TroubleshootingPage() {
       {/* Back to Docs */}
       <section className="rounded-lg border border-overlay/10 bg-bg-elevated p-6">
         <h2 className="text-xl font-semibold text-text-primary mb-3">
-          Still Need Help?
+          <T>Still Need Help?</T>
         </h2>
         <p className="text-text-secondary mb-4">
-          Review the detailed setup guides for each component:
+          <T>Review the detailed setup guides for each component:</T>
         </p>
         <div className="flex flex-wrap gap-3">
           <Link
             href="/docs/azure-setup"
             className="text-sm text-accent-cyan hover:underline"
           >
-            Entra ID Setup
+            <T>Entra ID Setup</T>
           </Link>
           <span className="text-text-muted">|</span>
           <Link
             href="/docs/database-setup"
             className="text-sm text-accent-cyan hover:underline"
           >
-            Database Setup
+            <T>Database Setup</T>
           </Link>
           <span className="text-text-muted">|</span>
           <Link
             href="/docs/github-setup"
             className="text-sm text-accent-cyan hover:underline"
           >
-            GitHub Setup
+            <T>GitHub Setup</T>
           </Link>
           <span className="text-text-muted">|</span>
           <Link
             href="/docs/docker"
             className="text-sm text-accent-cyan hover:underline"
           >
-            Docker Deployment
+            <T>Docker Deployment</T>
           </Link>
         </div>
       </section>

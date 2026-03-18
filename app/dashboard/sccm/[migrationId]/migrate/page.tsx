@@ -20,6 +20,7 @@ import {
   Info,
 } from 'lucide-react';
 import { toast } from 'sonner';
+import { T } from 'gt-next';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useMicrosoftAuth } from '@/hooks/useMicrosoftAuth';
@@ -192,7 +193,7 @@ export default function MigratePage({ params }: PageProps) {
         <SccmMigrationStepper currentStep={3} migrationId={resolvedParams.migrationId} />
         <div className="flex flex-col items-center justify-center min-h-[400px]">
           <Loader2 className="w-10 h-10 text-accent-cyan animate-spin mb-4" />
-          <p className="text-text-secondary">Generating migration preview...</p>
+          <p className="text-text-secondary"><T>Generating migration preview...</T></p>
         </div>
       </div>
     );
@@ -204,8 +205,8 @@ export default function MigratePage({ params }: PageProps) {
         <SccmMigrationStepper currentStep={4} migrationId={resolvedParams.migrationId} />
 
         <PageHeader
-          title="Migration Complete"
-          description={`Successfully migrated ${result.successful} of ${result.totalAttempted} applications`}
+          title={<T>Migration Complete</T>}
+          description={<T>Successfully migrated {result.successful} of {result.totalAttempted} applications</T>}
           gradient
           gradientColors="cyan"
         />
@@ -218,31 +219,31 @@ export default function MigratePage({ params }: PageProps) {
           <div className="grid grid-cols-3 gap-6 max-w-md mx-auto mb-8">
             <div>
               <p className="text-2xl font-bold text-status-success">{result.successful}</p>
-              <p className="text-sm text-text-muted">Migrated</p>
+              <p className="text-sm text-text-muted"><T>Migrated</T></p>
             </div>
             <div>
               <p className="text-2xl font-bold text-status-error">{result.failed}</p>
-              <p className="text-sm text-text-muted">Failed</p>
+              <p className="text-sm text-text-muted"><T>Failed</T></p>
             </div>
             <div>
               <p className="text-2xl font-bold text-text-secondary">{result.skipped}</p>
-              <p className="text-sm text-text-muted">Skipped</p>
+              <p className="text-sm text-text-muted"><T>Skipped</T></p>
             </div>
           </div>
 
           <p className="text-text-secondary mb-6">
-            Applications have been added to your cart for deployment to Intune.
+            <T>Applications have been added to your cart for deployment to Intune.</T>
           </p>
 
           <div className="flex items-center justify-center gap-4">
             <Link href={`/dashboard/sccm/${resolvedParams.migrationId}`}>
               <Button variant="outline" className="border-overlay/10 text-text-secondary">
-                Back to Migration
+                <T>Back to Migration</T>
               </Button>
             </Link>
             <Link href="/dashboard/uploads">
               <Button className="bg-gradient-to-r from-accent-cyan to-accent-violet">
-                View Cart
+                <T>View Cart</T>
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
@@ -261,14 +262,14 @@ export default function MigratePage({ params }: PageProps) {
         <Link href={`/dashboard/sccm/${resolvedParams.migrationId}`}>
           <Button variant="ghost" size="sm" className="text-text-secondary hover:text-text-primary">
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Back
+            <T>Back</T>
           </Button>
         </Link>
       </div>
 
       <PageHeader
-        title="Migration Preview"
-        description={`Review ${preview?.totalApps || 0} apps before migrating to Intune`}
+        title={<T>Migration Preview</T>}
+        description={<T>Review {preview?.totalApps || 0} apps before migrating to Intune</T>}
         gradient
         gradientColors="violet"
       />
@@ -292,7 +293,7 @@ export default function MigratePage({ params }: PageProps) {
               onClick={() => { setError(null); fetchPreview(); }}
               className="text-status-error hover:bg-status-error/10 text-xs"
             >
-              Retry
+              <T>Retry</T>
             </Button>
           </motion.div>
         )}
@@ -302,11 +303,11 @@ export default function MigratePage({ params }: PageProps) {
       <div className="glass-light rounded-xl p-6 border border-overlay/5">
         <h3 className="text-text-primary font-medium mb-2 flex items-center gap-2">
           <Settings className="w-5 h-5 text-text-secondary" />
-          Migration Options
+          <T>Migration Options</T>
         </h3>
 
         <p className="text-text-muted text-sm mb-4">
-          Configure how SCCM settings are converted. Detection rules take precedence over WinGet defaults when both are enabled.
+          <T>Configure how SCCM settings are converted. Detection rules take precedence over WinGet defaults when both are enabled.</T>
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -318,8 +319,8 @@ export default function MigratePage({ params }: PageProps) {
               className="rounded border-black/20"
             />
             <div>
-              <p className="text-text-primary text-sm font-medium">Preserve Detection Rules</p>
-              <p className="text-text-muted text-xs">Use SCCM detection rules when possible</p>
+              <p className="text-text-primary text-sm font-medium"><T>Preserve Detection Rules</T></p>
+              <p className="text-text-muted text-xs"><T>Use SCCM detection rules when possible</T></p>
             </div>
           </label>
 
@@ -331,8 +332,8 @@ export default function MigratePage({ params }: PageProps) {
               className="rounded border-black/20"
             />
             <div>
-              <p className="text-text-primary text-sm font-medium">Preserve Commands</p>
-              <p className="text-text-muted text-xs">Use SCCM install/uninstall commands</p>
+              <p className="text-text-primary text-sm font-medium"><T>Preserve Commands</T></p>
+              <p className="text-text-muted text-xs"><T>Use SCCM install/uninstall commands</T></p>
             </div>
           </label>
 
@@ -344,8 +345,8 @@ export default function MigratePage({ params }: PageProps) {
               className="rounded border-black/20"
             />
             <div>
-              <p className="text-text-primary text-sm font-medium">WinGet Defaults</p>
-              <p className="text-text-muted text-xs">Fall back to WinGet package defaults</p>
+              <p className="text-text-primary text-sm font-medium"><T>WinGet Defaults</T></p>
+              <p className="text-text-muted text-xs"><T>Fall back to WinGet package defaults</T></p>
             </div>
           </label>
         </div>
@@ -355,19 +356,19 @@ export default function MigratePage({ params }: PageProps) {
       {preview && (
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           <div className="glass-light rounded-lg p-4 border border-overlay/5">
-            <p className="text-text-muted text-sm">Total</p>
+            <p className="text-text-muted text-sm"><T>Total</T></p>
             <p className="text-2xl font-bold text-text-primary">{preview.totalApps}</p>
           </div>
           <div className="glass-light rounded-lg p-4 border border-status-success/20">
-            <p className="text-text-muted text-sm">Ready to Migrate</p>
+            <p className="text-text-muted text-sm"><T>Ready to Migrate</T></p>
             <p className="text-2xl font-bold text-status-success">{preview.migratable}</p>
           </div>
           <div className="glass-light rounded-lg p-4 border border-status-error/20">
-            <p className="text-text-muted text-sm">Blocked</p>
+            <p className="text-text-muted text-sm"><T>Blocked</T></p>
             <p className="text-2xl font-bold text-status-error">{preview.blocked}</p>
           </div>
           <div className="glass-light rounded-lg p-4 border border-status-warning/20">
-            <p className="text-text-muted text-sm">Warnings</p>
+            <p className="text-text-muted text-sm"><T>Warnings</T></p>
             <p className="text-2xl font-bold text-status-warning">{preview.warnings.length}</p>
           </div>
         </div>
@@ -378,8 +379,7 @@ export default function MigratePage({ params }: PageProps) {
         <div className="flex items-start gap-3 p-4 bg-status-warning/5 border border-status-warning/20 rounded-lg">
           <Info className="w-5 h-5 text-status-warning flex-shrink-0 mt-0.5" />
           <p className="text-text-secondary text-sm">
-            {preview.blocked} app{preview.blocked !== 1 ? 's are' : ' is'} blocked from migration.
-            Go back to the matching page to link them to a WinGet package or exclude them.
+            <T>{preview.blocked} app{preview.blocked !== 1 ? 's are' : ' is'} blocked from migration. Go back to the matching page to link them to a WinGet package or exclude them.</T>
           </p>
         </div>
       )}
@@ -394,7 +394,7 @@ export default function MigratePage({ params }: PageProps) {
             className="text-text-muted text-xs"
           >
             <ChevronsDown className="w-3.5 h-3.5 mr-1" />
-            Expand All
+            <T>Expand All</T>
           </Button>
           <Button
             variant="ghost"
@@ -403,7 +403,7 @@ export default function MigratePage({ params }: PageProps) {
             className="text-text-muted text-xs"
           >
             <ChevronsUp className="w-3.5 h-3.5 mr-1" />
-            Collapse All
+            <T>Collapse All</T>
           </Button>
         </div>
       )}
@@ -426,7 +426,7 @@ export default function MigratePage({ params }: PageProps) {
       <div className="flex items-center justify-between pt-4 border-t border-overlay/5">
         <Link href={`/dashboard/sccm/${resolvedParams.migrationId}`}>
           <Button variant="outline" className="border-overlay/10 text-text-secondary">
-            Cancel
+            <T>Cancel</T>
           </Button>
         </Link>
 
@@ -438,12 +438,12 @@ export default function MigratePage({ params }: PageProps) {
           {isMigrating ? (
             <>
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-              Migrating...
+              <T>Migrating...</T>
             </>
           ) : (
             <>
               <Play className="w-4 h-4 mr-2" />
-              Migrate {preview?.migratable || 0} Apps
+              <T>Migrate {preview?.migratable || 0} Apps</T>
             </>
           )}
         </Button>
@@ -491,7 +491,7 @@ function PreviewItem({
             {item.warnings.length > 0 && (
               <span className="flex items-center gap-1 text-xs text-status-warning">
                 <AlertTriangle className="w-3 h-3" />
-                {item.warnings.length} warning{item.warnings.length > 1 ? 's' : ''}
+                <T>{item.warnings.length} warning{item.warnings.length > 1 ? 's' : ''}</T>
               </span>
             )}
           </div>
@@ -523,7 +523,7 @@ function PreviewItem({
             <div className="px-4 pb-4 pt-2 border-t border-overlay/5 space-y-3">
               {item.warnings.length > 0 && (
                 <div className="p-3 bg-status-warning/10 border border-status-warning/20 rounded-lg">
-                  <p className="text-status-warning text-sm font-medium mb-1">Warnings:</p>
+                  <p className="text-status-warning text-sm font-medium mb-1"><T>Warnings:</T></p>
                   <ul className="text-status-warning/70 text-sm list-disc list-inside">
                     {item.warnings.map((w, i) => (
                       <li key={i}>{w}</li>
@@ -535,13 +535,13 @@ function PreviewItem({
               {item.canMigrate && (
                 <>
                   <div>
-                    <p className="text-text-muted text-xs mb-1">Install Command</p>
+                    <p className="text-text-muted text-xs mb-1"><T>Install Command</T></p>
                     <code className="text-xs text-text-secondary bg-overlay/5 px-2 py-1 rounded block truncate">
-                      {item.installCommand || 'Default WinGet command'}
+                      {item.installCommand || <T>Default WinGet command</T>}
                     </code>
                   </div>
                   <div>
-                    <p className="text-text-muted text-xs mb-1">Detection Rules ({item.detectionRules.length})</p>
+                    <p className="text-text-muted text-xs mb-1"><T>Detection Rules ({item.detectionRules.length})</T></p>
                     {item.detectionRules.slice(0, 2).map((rule, i) => (
                       <code key={i} className="text-xs text-text-secondary bg-overlay/5 px-2 py-1 rounded block truncate mb-1">
                         {rule.type}: {JSON.stringify(rule).slice(0, 100)}...

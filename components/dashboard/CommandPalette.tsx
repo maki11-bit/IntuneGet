@@ -1,5 +1,6 @@
 'use client';
 
+import { T } from 'gt-next';
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { Command } from 'cmdk';
@@ -97,12 +98,12 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
 
           <Command.List className="max-h-[300px] overflow-y-auto p-2">
             <Command.Empty className="py-6 text-center text-sm text-text-muted">
-              No results found
+              <T>No results found</T>
             </Command.Empty>
 
             {/* Navigation group */}
             <Command.Group
-              heading="Navigation"
+              heading={<T>Navigation</T>}
               className="[&_[cmdk-group-heading]]:text-[10px] [&_[cmdk-group-heading]]:font-semibold [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-[0.1em] [&_[cmdk-group-heading]]:text-text-muted [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5"
             >
               {NAVIGATION_ITEMS.map((item) => (
@@ -113,7 +114,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                   className="flex items-center gap-3 px-2 py-2 text-sm text-text-secondary rounded-lg cursor-pointer data-[selected=true]:bg-overlay/5 data-[selected=true]:text-text-primary transition-colors"
                 >
                   <item.icon className="w-4 h-4 flex-shrink-0" />
-                  <span>{item.name}</span>
+                  <span><T>{item.name}</T></span>
                 </Command.Item>
               ))}
             </Command.Group>
@@ -121,7 +122,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
             {/* Keyboard shortcuts group */}
             {!search && (
               <Command.Group
-                heading="Keyboard Shortcuts"
+                heading={<T>Keyboard Shortcuts</T>}
                 className="[&_[cmdk-group-heading]]:text-[10px] [&_[cmdk-group-heading]]:font-semibold [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-[0.1em] [&_[cmdk-group-heading]]:text-text-muted [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:mt-2"
               >
                 {SHORTCUT_HINTS.map((hint) => (
@@ -133,7 +134,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                   >
                     <div className="flex items-center gap-3">
                       <Keyboard className="w-4 h-4 flex-shrink-0" />
-                      <span>{hint.description}</span>
+                      <span><T>{hint.description}</T></span>
                     </div>
                     <div className="flex items-center gap-1">
                       {hint.keys.map((key) => (

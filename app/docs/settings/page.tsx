@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import { T } from "gt-next";
 import {
   ArrowRight,
   Settings,
@@ -41,57 +42,57 @@ export default function SettingsPage() {
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold text-text-primary sm:text-4xl">
-          Settings & Webhooks
+          <T>Settings & Webhooks</T>
         </h1>
         <p className="mt-4 text-lg text-text-secondary leading-relaxed">
-          Configure your IntuneGet instance with account settings, permission
+          <T>Configure your IntuneGet instance with account settings, permission
           management, notification preferences, export options, and data
-          management.
+          management.</T>
         </p>
       </div>
 
       {/* Overview */}
       <section>
-        <h2 className="text-2xl font-semibold text-text-primary mb-4">Overview</h2>
+        <h2 className="text-2xl font-semibold text-text-primary mb-4"><T>Overview</T></h2>
         <p className="text-text-secondary mb-6">
-          The Settings page is organized into five tabs, each covering a
-          different aspect of your IntuneGet configuration:
+          <T>The Settings page is organized into five tabs, each covering a
+          different aspect of your IntuneGet configuration:</T>
         </p>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <div className="rounded-lg border border-overlay/10 bg-bg-elevated p-4">
             <User className="h-5 w-5 text-accent-cyan mb-2" />
-            <h3 className="font-semibold text-text-primary mb-1">General</h3>
+            <h3 className="font-semibold text-text-primary mb-1"><T>General</T></h3>
             <p className="text-sm text-text-secondary">
-              Account information and Intune connection status
+              <T>Account information and Intune connection status</T>
             </p>
           </div>
           <div className="rounded-lg border border-overlay/10 bg-bg-elevated p-4">
             <Shield className="h-5 w-5 text-accent-cyan mb-2" />
-            <h3 className="font-semibold text-text-primary mb-1">Permissions</h3>
+            <h3 className="font-semibold text-text-primary mb-1"><T>Permissions</T></h3>
             <p className="text-sm text-text-secondary">
-              Verify and manage Microsoft Graph API permissions
+              <T>Verify and manage Microsoft Graph API permissions</T>
             </p>
           </div>
           <div className="rounded-lg border border-overlay/10 bg-bg-elevated p-4">
             <Bell className="h-5 w-5 text-accent-cyan mb-2" />
-            <h3 className="font-semibold text-text-primary mb-1">Notifications</h3>
+            <h3 className="font-semibold text-text-primary mb-1"><T>Notifications</T></h3>
             <p className="text-sm text-text-secondary">
-              Email notifications and webhook configuration
+              <T>Email notifications and webhook configuration</T>
             </p>
           </div>
           <div className="rounded-lg border border-overlay/10 bg-bg-elevated p-4">
             <FileDown className="h-5 w-5 text-accent-cyan mb-2" />
-            <h3 className="font-semibold text-text-primary mb-1">Export</h3>
+            <h3 className="font-semibold text-text-primary mb-1"><T>Export</T></h3>
             <p className="text-sm text-text-secondary">
-              Default format, icons, and metadata preferences
+              <T>Default format, icons, and metadata preferences</T>
             </p>
           </div>
           <div className="rounded-lg border border-overlay/10 bg-bg-elevated p-4">
             <Database className="h-5 w-5 text-accent-cyan mb-2" />
-            <h3 className="font-semibold text-text-primary mb-1">Data</h3>
+            <h3 className="font-semibold text-text-primary mb-1"><T>Data</T></h3>
             <p className="text-sm text-text-secondary">
-              Cache management, sync settings, and auto-refresh
+              <T>Cache management, sync settings, and auto-refresh</T>
             </p>
           </div>
         </div>
@@ -100,28 +101,28 @@ export default function SettingsPage() {
       {/* General Tab */}
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-4">
-          General Tab
+          <T>General Tab</T>
         </h2>
         <p className="text-text-secondary mb-4">
-          Displays your account information (name, email, authentication
-          provider) and Intune connection details:
+          <T>Displays your account information (name, email, authentication
+          provider) and Intune connection details:</T>
         </p>
         <ul className="list-disc list-inside space-y-2 text-text-secondary">
           <li>
-            <strong>Account</strong> - Your Microsoft Entra ID profile
-            information
+            <T><strong>Account</strong> - Your Microsoft Entra ID profile
+            information</T>
           </li>
           <li>
-            <strong>Connection Status</strong> - Live indicator showing
-            whether IntuneGet can reach your Intune tenant
+            <T><strong>Connection Status</strong> - Live indicator showing
+            whether IntuneGet can reach your Intune tenant</T>
           </li>
           <li>
-            <strong>Tenant ID</strong> - Your Microsoft 365 tenant identifier
-            (with copy button)
+            <T><strong>Tenant ID</strong> - Your Microsoft 365 tenant identifier
+            (with copy button)</T>
           </li>
           <li>
-            <strong>Intune Portal</strong> - Quick link to the Microsoft Intune
-            admin center
+            <T><strong>Intune Portal</strong> - Quick link to the Microsoft Intune
+            admin center</T>
           </li>
         </ul>
       </section>
@@ -129,20 +130,20 @@ export default function SettingsPage() {
       {/* Permissions Tab */}
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-4">
-          Permissions Tab
+          <T>Permissions Tab</T>
         </h2>
         <p className="text-text-secondary mb-4">
-          Verify which Microsoft Graph API permissions are granted to your
+          <T>Verify which Microsoft Graph API permissions are granted to your
           IntuneGet app registration. Click &quot;Check Permissions&quot; to
-          test each permission in real-time.
+          test each permission in real-time.</T>
         </p>
 
         <Table>
           <TableHead>
             <TableRow>
-              <TableHeader>Permission</TableHeader>
-              <TableHeader>Purpose</TableHeader>
-              <TableHeader>Required</TableHeader>
+              <TableHeader><T>Permission</T></TableHeader>
+              <TableHeader><T>Purpose</T></TableHeader>
+              <TableHeader><T>Required</T></TableHeader>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -153,9 +154,9 @@ export default function SettingsPage() {
                 </code>
               </TableCell>
               <TableCell className="text-sm text-text-secondary">
-                Read and write Intune applications (deploy packages)
+                <T>Read and write Intune applications (deploy packages)</T>
               </TableCell>
-              <TableCell className="text-sm text-text-secondary">Yes</TableCell>
+              <TableCell className="text-sm text-text-secondary"><T>Yes</T></TableCell>
             </TableRow>
             <TableRow>
               <TableCell>
@@ -164,11 +165,11 @@ export default function SettingsPage() {
                 </code>
               </TableCell>
               <TableCell className="text-sm text-text-secondary">
-                Read discovered apps from managed devices (Unmanaged Apps
-                feature)
+                <T>Read discovered apps from managed devices (Unmanaged Apps
+                feature)</T>
               </TableCell>
               <TableCell className="text-sm text-text-secondary">
-                For Unmanaged Apps
+                <T>For Unmanaged Apps</T>
               </TableCell>
             </TableRow>
             <TableRow>
@@ -176,9 +177,9 @@ export default function SettingsPage() {
                 <code className="text-accent-cyan text-xs">User.Read</code>
               </TableCell>
               <TableCell className="text-sm text-text-secondary">
-                Read your profile information
+                <T>Read your profile information</T>
               </TableCell>
-              <TableCell className="text-sm text-text-secondary">Yes</TableCell>
+              <TableCell className="text-sm text-text-secondary"><T>Yes</T></TableCell>
             </TableRow>
             <TableRow>
               <TableCell>
@@ -187,10 +188,10 @@ export default function SettingsPage() {
                 </code>
               </TableCell>
               <TableCell className="text-sm text-text-secondary">
-                Read group information for app assignment
+                <T>Read group information for app assignment</T>
               </TableCell>
               <TableCell className="text-sm text-text-secondary">
-                For group targeting
+                <T>For group targeting</T>
               </TableCell>
             </TableRow>
           </TableBody>
@@ -198,10 +199,10 @@ export default function SettingsPage() {
 
         <Callout type="warning" title="Missing Permissions">
           <p>
-            If a required permission is missing, a Global Administrator must
+            <T>If a required permission is missing, a Global Administrator must
             re-grant admin consent. The Settings page provides a direct
             &quot;Re-grant Admin Consent&quot; button when missing permissions
-            are detected.
+            are detected.</T>
           </p>
         </Callout>
       </section>
@@ -209,77 +210,77 @@ export default function SettingsPage() {
       {/* Notifications Tab */}
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-4">
-          Notifications Tab
+          <T>Notifications Tab</T>
         </h2>
         <p className="text-text-secondary mb-4">
-          Configure how and when you receive notifications about deployment
-          events.
+          <T>Configure how and when you receive notifications about deployment
+          events.</T>
         </p>
 
         <h3 className="text-lg font-semibold text-text-primary mb-3">
-          Email Notifications
+          <T>Email Notifications</T>
         </h3>
         <p className="text-text-secondary mb-4">
-          Set your preferred email notification frequency:
+          <T>Set your preferred email notification frequency:</T>
         </p>
         <ul className="list-disc list-inside space-y-1 text-text-secondary mb-6">
           <li>
-            <strong>Real-time</strong> - Receive an email for every deployment
-            event
+            <T><strong>Real-time</strong> - Receive an email for every deployment
+            event</T>
           </li>
           <li>
-            <strong>Daily digest</strong> - A summary email sent once per day
+            <T><strong>Daily digest</strong> - A summary email sent once per day</T>
           </li>
           <li>
-            <strong>Critical only</strong> - Only receive emails for failures
-            and errors
+            <T><strong>Critical only</strong> - Only receive emails for failures
+            and errors</T>
           </li>
           <li>
-            <strong>Disabled</strong> - No email notifications
+            <T><strong>Disabled</strong> - No email notifications</T>
           </li>
         </ul>
 
         <h3 className="text-lg font-semibold text-text-primary mb-3">
-          Webhook Configuration
+          <T>Webhook Configuration</T>
         </h3>
         <p className="text-text-secondary mb-4">
-          Set up webhooks to receive deployment notifications in your preferred
+          <T>Set up webhooks to receive deployment notifications in your preferred
           tools. IntuneGet supports pre-configured templates for popular
-          platforms:
+          platforms:</T>
         </p>
 
         <Table>
           <TableHead>
             <TableRow>
-              <TableHeader>Platform</TableHeader>
-              <TableHeader>Description</TableHeader>
+              <TableHeader><T>Platform</T></TableHeader>
+              <TableHeader><T>Description</T></TableHeader>
             </TableRow>
           </TableHead>
           <TableBody>
             <TableRow>
-              <TableCell className="font-medium text-text-primary">Slack</TableCell>
+              <TableCell className="font-medium text-text-primary"><T>Slack</T></TableCell>
               <TableCell className="text-sm text-text-secondary">
-                Send notifications to a Slack channel via incoming webhook
+                <T>Send notifications to a Slack channel via incoming webhook</T>
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell className="font-medium text-text-primary">
-                Microsoft Teams
+                <T>Microsoft Teams</T>
               </TableCell>
               <TableCell className="text-sm text-text-secondary">
-                Post deployment updates to a Teams channel
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell className="font-medium text-text-primary">Discord</TableCell>
-              <TableCell className="text-sm text-text-secondary">
-                Send messages to a Discord channel via webhook
+                <T>Post deployment updates to a Teams channel</T>
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell className="font-medium text-text-primary">Custom</TableCell>
+              <TableCell className="font-medium text-text-primary"><T>Discord</T></TableCell>
               <TableCell className="text-sm text-text-secondary">
-                Any HTTP endpoint that accepts POST requests with JSON payloads
+                <T>Send messages to a Discord channel via webhook</T>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium text-text-primary"><T>Custom</T></TableCell>
+              <TableCell className="text-sm text-text-secondary">
+                <T>Any HTTP endpoint that accepts POST requests with JSON payloads</T>
               </TableCell>
             </TableRow>
           </TableBody>
@@ -287,9 +288,9 @@ export default function SettingsPage() {
 
         <Callout type="info" title="Webhook Security">
           <p>
-            Each webhook is signed with an HMAC secret that you configure during
+            <T>Each webhook is signed with an HMAC secret that you configure during
             setup. Use this to verify that incoming requests genuinely originate
-            from your IntuneGet instance.
+            from your IntuneGet instance.</T>
           </p>
         </Callout>
       </section>
@@ -297,42 +298,42 @@ export default function SettingsPage() {
       {/* Export Tab */}
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-4">
-          Export Tab
+          <T>Export Tab</T>
         </h2>
         <p className="text-text-secondary mb-4">
-          Configure default export preferences used when downloading deployment
-          data and reports:
+          <T>Configure default export preferences used when downloading deployment
+          data and reports:</T>
         </p>
 
         <h3 className="text-lg font-semibold text-text-primary mb-3">
-          Export Formats
+          <T>Export Formats</T>
         </h3>
         <ul className="list-disc list-inside space-y-2 text-text-secondary mb-6">
           <li>
-            <strong>CSV</strong> - Comma-separated values, compatible with Excel
-            and Google Sheets
+            <T><strong>CSV</strong> - Comma-separated values, compatible with Excel
+            and Google Sheets</T>
           </li>
           <li>
-            <strong>JSON</strong> - Structured format ideal for programmatic
-            processing
+            <T><strong>JSON</strong> - Structured format ideal for programmatic
+            processing</T>
           </li>
           <li>
-            <strong>XLSX</strong> - Native Excel format with formatting and
-            multiple sheets
+            <T><strong>XLSX</strong> - Native Excel format with formatting and
+            multiple sheets</T>
           </li>
         </ul>
 
         <h3 className="text-lg font-semibold text-text-primary mb-3">
-          Additional Options
+          <T>Additional Options</T>
         </h3>
         <ul className="list-disc list-inside space-y-2 text-text-secondary">
           <li>
-            <strong>Include Application Icons</strong> - Embed base64-encoded
-            icons in export files
+            <T><strong>Include Application Icons</strong> - Embed base64-encoded
+            icons in export files</T>
           </li>
           <li>
-            <strong>Include Metadata</strong> - Add deployment dates, version
-            history, and assignment information
+            <T><strong>Include Metadata</strong> - Add deployment dates, version
+            history, and assignment information</T>
           </li>
         </ul>
       </section>
@@ -340,67 +341,67 @@ export default function SettingsPage() {
       {/* Data Tab */}
       <section>
         <h2 className="text-2xl font-semibold text-text-primary mb-4">
-          Data Tab
+          <T>Data Tab</T>
         </h2>
         <p className="text-text-secondary mb-4">
-          Manage cached data, synchronization, and auto-refresh settings:
+          <T>Manage cached data, synchronization, and auto-refresh settings:</T>
         </p>
 
         <div className="space-y-4">
           <div className="rounded-lg border border-overlay/10 bg-bg-elevated p-4">
-            <h4 className="font-medium text-text-primary mb-1">Application Cache</h4>
+            <h4 className="font-medium text-text-primary mb-1"><T>Application Cache</T></h4>
             <p className="text-sm text-text-secondary">
-              Cached application data speeds up loading times. Click
-              &quot;Clear Cache&quot; to force fresh data on next load.
+              <T>Cached application data speeds up loading times. Click
+              &quot;Clear Cache&quot; to force fresh data on next load.</T>
             </p>
           </div>
           <div className="rounded-lg border border-overlay/10 bg-bg-elevated p-4">
-            <h4 className="font-medium text-text-primary mb-1">Force Sync</h4>
+            <h4 className="font-medium text-text-primary mb-1"><T>Force Sync</T></h4>
             <p className="text-sm text-text-secondary">
-              Re-fetch all application data from Intune immediately. Useful
-              after making changes directly in the Intune portal.
+              <T>Re-fetch all application data from Intune immediately. Useful
+              after making changes directly in the Intune portal.</T>
             </p>
           </div>
           <div className="rounded-lg border border-overlay/10 bg-bg-elevated p-4">
             <h4 className="font-medium text-text-primary mb-1">
-              Auto-Refresh Interval
+              <T>Auto-Refresh Interval</T>
             </h4>
             <p className="text-sm text-text-secondary">
-              Configure how often IntuneGet checks for new application data.
-              Options: 5 minutes, 15 minutes (default), 30 minutes, or 1 hour.
+              <T>Configure how often IntuneGet checks for new application data.
+              Options: 5 minutes, 15 minutes (default), 30 minutes, or 1 hour.</T>
             </p>
           </div>
         </div>
 
         <Callout type="info" title="Local Storage">
           <p>
-            All cached application data is stored locally in your browser. No
+            <T>All cached application data is stored locally in your browser. No
             data is sent to third-party servers. Clearing your browser cache
-            will also clear IntuneGet&apos;s cached data.
+            will also clear IntuneGet&apos;s cached data.</T>
           </p>
         </Callout>
       </section>
 
       {/* Next Steps */}
       <section className="rounded-lg border border-accent-cyan/20 bg-gradient-to-br from-accent-cyan/5 to-transparent p-6">
-        <h2 className="text-xl font-semibold text-text-primary mb-3">Next Steps</h2>
+        <h2 className="text-xl font-semibold text-text-primary mb-3"><T>Next Steps</T></h2>
         <p className="text-text-secondary mb-4">
-          Review the troubleshooting guide for common configuration issues, or
-          learn about the Unmanaged Apps feature.
+          <T>Review the troubleshooting guide for common configuration issues, or
+          learn about the Unmanaged Apps feature.</T>
         </p>
         <div className="flex flex-wrap gap-4">
           <Link
             href="/docs/troubleshooting"
             className="inline-flex items-center gap-2 text-accent-cyan hover:underline"
           >
-            Troubleshooting
+            <T>Troubleshooting</T>
             <ArrowRight className="h-4 w-4" />
           </Link>
           <Link
             href="/docs/unmanaged-apps"
             className="inline-flex items-center gap-2 text-text-secondary hover:text-text-primary"
           >
-            Unmanaged Apps
+            <T>Unmanaged Apps</T>
             <ArrowRight className="h-4 w-4" />
           </Link>
         </div>

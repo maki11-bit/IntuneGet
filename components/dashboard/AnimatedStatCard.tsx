@@ -11,7 +11,7 @@ type ValueType = 'number' | 'percentage' | 'custom';
 
 interface AnimatedStatCardProps {
   /** Card title */
-  title: string;
+  title: ReactNode;
   /** The stat value */
   value: number | string;
   /** Type of value for proper formatting */
@@ -25,7 +25,7 @@ interface AnimatedStatCardProps {
     positive?: boolean;
   };
   /** Description or subtitle */
-  description?: string;
+  description?: ReactNode;
   /** Icon to display */
   icon?: LucideIcon;
   /** Color theme */

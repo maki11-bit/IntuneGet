@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import { T, Var } from "gt-next";
 import { useSearchParams } from 'next/navigation';
 import {
   Package,
@@ -448,14 +449,14 @@ export default function AppCatalogPage() {
       <div className="flex items-center justify-between">
         <div className="inline-flex items-center gap-2">
           <SlidersHorizontal className="w-4 h-4 text-accent-cyan" />
-          <h3 className="text-sm font-semibold tracking-wide text-text-primary uppercase">Filters</h3>
+          <h3 className="text-sm font-semibold tracking-wide text-text-primary uppercase"><T>Filters</T></h3>
         </div>
         {(selectedCategory !== null || sortBy !== 'popular') && (
           <button
             onClick={resetFilters}
             className="text-xs font-medium text-text-secondary hover:text-text-primary transition-colors"
           >
-            Reset
+            <T>Reset</T>
           </button>
         )}
       </div>
@@ -465,7 +466,7 @@ export default function AppCatalogPage() {
           onClick={() => setIsSortSectionOpen((prev) => !prev)}
           className="w-full flex items-center justify-between text-sm font-medium text-text-primary"
         >
-          <span>Sort</span>
+          <span><T>Sort</T></span>
           {isSortSectionOpen ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
         </button>
         {isSortSectionOpen && (
@@ -484,7 +485,7 @@ export default function AppCatalogPage() {
                   <Icon className="w-4 h-4" />
                   {label}
                 </span>
-                {sortBy === key && <span className="text-[11px] font-semibold uppercase tracking-wide">Active</span>}
+                {sortBy === key && <span className="text-[11px] font-semibold uppercase tracking-wide"><T>Active</T></span>}
               </button>
             ))}
           </div>
@@ -496,7 +497,7 @@ export default function AppCatalogPage() {
           onClick={() => setIsCategoriesSectionOpen((prev) => !prev)}
           className="w-full flex items-center justify-between text-sm font-medium text-text-primary"
         >
-          <span>Categories</span>
+          <span><T>Categories</T></span>
           {isCategoriesSectionOpen ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
         </button>
         {isCategoriesSectionOpen && (
@@ -509,7 +510,7 @@ export default function AppCatalogPage() {
                   : 'text-text-secondary hover:text-text-primary hover:bg-bg-surface border border-transparent'
               }`}
             >
-              <span>All</span>
+              <span><T>All</T></span>
               <span className="text-xs">{categoriesData?.totalApps ?? 0}</span>
             </button>
 
@@ -587,16 +588,16 @@ export default function AppCatalogPage() {
           <div className="absolute right-0 top-0 h-28 w-28 md:h-40 md:w-40 bg-gradient-to-bl from-accent-violet/10 via-accent-cyan/5 to-transparent blur-2xl" />
 
           <div className="relative">
-            <h1 className="text-display-sm text-text-primary">App Catalog</h1>
+            <h1 className="text-display-sm text-text-primary"><T>App Catalog</T></h1>
             <p className="text-text-secondary mt-2 max-w-2xl">
-              Curated Winget packages optimized for quick Intune deployment and predictable packaging workflows.
+              <T>Curated Winget packages optimized for quick Intune deployment and predictable packaging workflows.</T>
             </p>
 
             <div className="mt-5 flex flex-wrap items-center gap-2">
               <span className="inline-flex items-center gap-2 rounded-full border border-overlay/10 bg-bg-surface px-3 py-1.5 text-sm text-text-secondary">
                 <Package className="w-4 h-4 text-accent-cyan" />
                 <span className="font-medium text-text-primary">{categoriesData?.totalApps?.toLocaleString() || '...'}</span>
-                packages
+                <T>packages</T>
               </span>
               {activeCategoryLabel && !hasSearched && (
                 <span className="inline-flex items-center gap-2 rounded-full border border-overlay/10 bg-bg-surface px-3 py-1.5 text-sm text-text-secondary">
@@ -624,7 +625,7 @@ export default function AppCatalogPage() {
                   className="lg:hidden inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-overlay/10 bg-bg-surface text-sm text-text-secondary hover:text-text-primary hover:bg-overlay/5 transition-colors"
                 >
                   <SlidersHorizontal className="w-4 h-4" />
-                  Filters
+                  <T>Filters</T>
                 </button>
 
                 {/* Bulk select toggle */}
@@ -639,7 +640,7 @@ export default function AppCatalogPage() {
                   }`}
                 >
                   <ListChecks className="w-4 h-4" />
-                  <span className="hidden sm:inline">{isBulkSelectMode ? 'Cancel' : 'Select'}</span>
+                  <span className="hidden sm:inline">{isBulkSelectMode ? <T>Cancel</T> : <T>Select</T>}</span>
                 </button>
 
                 <div className="inline-flex items-center rounded-lg border border-overlay/10 bg-bg-surface p-0.5" role="group" aria-label="View mode">
@@ -683,17 +684,17 @@ export default function AppCatalogPage() {
                 {showSearchResults ? (
                   <>
                     <span className="font-medium text-text-primary">{searchPackages.length}</span>
-                    result{searchPackages.length !== 1 ? 's' : ''} for &ldquo;{searchQuery}&rdquo;
+                    <T>result{searchPackages.length !== 1 ? 's' : ''} for</T> &ldquo;{searchQuery}&rdquo;
                   </>
                 ) : showCategoryResults ? (
                   <>
-                    Category:
+                    <T>Category:</T>
                     <span className="font-medium text-text-primary">{activeCategoryLabel}</span>
                   </>
                 ) : (
                   <>
-                    Sorting <span className="font-medium text-text-primary">{activeSortLabel}</span>
-                    across all packages
+                    <T>Sorting</T> <span className="font-medium text-text-primary">{activeSortLabel}</span>
+                    <T>across all packages</T>
                   </>
                 )}
               </span>
@@ -701,14 +702,14 @@ export default function AppCatalogPage() {
               {!showSearchResults && (
                 <span className="hidden lg:inline-flex items-center gap-2 rounded-lg border border-overlay/10 bg-bg-surface px-3 py-1.5 text-sm text-text-secondary">
                   <ArrowUpDown className="w-4 h-4 text-accent-cyan" />
-                  Sort <span className="font-medium text-text-primary">{activeSortLabel}</span>
+                  <T>Sort</T> <span className="font-medium text-text-primary">{activeSortLabel}</span>
                 </span>
               )}
 
               {!showSearchResults && (
                 <span className="inline-flex items-center gap-2 rounded-lg border border-overlay/10 bg-bg-surface px-3 py-1.5 text-sm text-text-secondary">
                   <Package className="w-4 h-4 text-accent-cyan" />
-                  Showing <span className="font-medium text-text-primary">{loadedCount}</span> of{' '}
+                  <T>Showing</T> <span className="font-medium text-text-primary">{loadedCount}</span> <T>of</T>{' '}
                   <span className="font-medium text-text-primary">{totalAvailableCount}</span>
                 </span>
               )}
@@ -721,7 +722,7 @@ export default function AppCatalogPage() {
         <div className="flex items-center justify-center py-20">
           <div className="text-center">
             <Loader2 className="w-10 h-10 text-accent-cyan animate-spin mx-auto mb-4" />
-            <p className="text-text-secondary">Searching packages...</p>
+            <p className="text-text-secondary"><T>Searching packages...</T></p>
           </div>
         </div>
       ) : showEmptyState ? (
@@ -731,23 +732,23 @@ export default function AppCatalogPage() {
               <Search className="w-10 h-10 text-text-muted" />
             </div>
             <h3 className="text-text-primary font-semibold text-lg mb-2">
-              No packages matching &ldquo;{searchQuery}&rdquo;
+              <T>No packages matching</T> &ldquo;{searchQuery}&rdquo;
             </h3>
             <p className="text-text-secondary text-sm mb-6">
-              Check your spelling or try a broader term. You can also browse categories to discover apps.
+              <T>Check your spelling or try a broader term. You can also browse categories to discover apps.</T>
             </p>
             <div className="flex items-center justify-center gap-3">
               <button
                 onClick={() => setSearchQuery('')}
                 className="px-4 py-2 text-sm font-medium text-text-primary bg-bg-elevated hover:bg-overlay/5 rounded-lg border border-overlay/10 transition-colors"
               >
-                Clear Search
+                <T>Clear Search</T>
               </button>
               <button
                 onClick={() => { setSearchQuery(''); setSelectedCategory(null); }}
                 className="px-4 py-2 text-sm font-medium text-white bg-accent-cyan hover:bg-accent-cyan-dim rounded-lg border-0 transition-colors"
               >
-                Browse All
+                <T>Browse All</T>
               </button>
             </div>
           </div>
@@ -768,7 +769,7 @@ export default function AppCatalogPage() {
                       onClick={() => setSelectedCategory(null)}
                       className="text-text-secondary hover:text-accent-cyan transition-colors"
                     >
-                      App Catalog
+                      <T>App Catalog</T>
                     </button>
                     <ChevronRight className="w-3.5 h-3.5 text-text-muted" />
                     <span className="text-text-primary font-medium">{activeCategoryLabel}</span>
@@ -787,15 +788,15 @@ export default function AppCatalogPage() {
 
                     <h2 className="text-xl font-bold tracking-tight text-text-primary">
                       {showSearchResults
-                        ? 'Search Results'
+                        ? <T>Search Results</T>
                         : showCategoryResults
                         ? activeCategoryLabel
-                        : 'All Apps'}
+                        : <T>All Apps</T>}
                     </h2>
                   </div>
                   {!showSearchResults && (
                     <p className="text-sm text-text-secondary">
-                      Sorted by <span className="font-medium text-text-primary">{activeSortLabel}</span>
+                      <T>Sorted by</T> <span className="font-medium text-text-primary">{activeSortLabel}</span>
                     </p>
                   )}
                 </div>
@@ -817,11 +818,11 @@ export default function AppCatalogPage() {
                       {isFetchingNextPage && (
                         <div className="flex items-center gap-3 text-text-secondary">
                           <Loader2 className="w-5 h-5 animate-spin text-accent-cyan" />
-                          <span className="text-sm">Loading more apps...</span>
+                          <span className="text-sm"><T>Loading more apps...</T></span>
                         </div>
                       )}
                       {!hasNextPage && allPackages.length > 0 && (
-                        <p className="text-text-muted text-sm">You&apos;ve seen all the apps</p>
+                        <p className="text-text-muted text-sm"><T>You&apos;ve seen all the apps</T></p>
                       )}
                     </div>
                   </>
@@ -832,12 +833,12 @@ export default function AppCatalogPage() {
                 <section className={mounted ? 'animate-fade-up stagger-4 space-y-8' : 'space-y-8 opacity-0'}>
                   <div className="flex items-center gap-2">
                     <Sparkles className="w-5 h-5 text-accent-cyan" />
-                    <h2 className="text-xl font-bold tracking-tight text-text-primary">Discover</h2>
+                    <h2 className="text-xl font-bold tracking-tight text-text-primary"><T>Discover</T></h2>
                   </div>
 
                   <div className="space-y-8">
                     <div className="space-y-4">
-                      <h3 className="text-sm font-medium uppercase tracking-wide text-text-muted">Featured</h3>
+                      <h3 className="text-sm font-medium uppercase tracking-wide text-text-muted"><T>Featured</T></h3>
                       <FeaturedApps
                         packages={featuredPackages}
                         onSelect={handleSelectPackage}
@@ -875,7 +876,7 @@ export default function AppCatalogPage() {
               />
               <div ref={mobileFilterRef} className="absolute left-0 top-0 bottom-0 w-[86%] max-w-sm bg-bg-base border-r border-overlay/10 shadow-2xl flex flex-col">
                 <div className="flex items-center justify-between px-4 py-3 border-b border-overlay/10">
-                  <h3 id="mobile-filters-title" className="text-sm font-semibold uppercase tracking-wide text-text-primary">Filters</h3>
+                  <h3 id="mobile-filters-title" className="text-sm font-semibold uppercase tracking-wide text-text-primary"><T>Filters</T></h3>
                   <button
                     onClick={() => {
                       setIsMobileFiltersOpen(false);
@@ -917,7 +918,7 @@ export default function AppCatalogPage() {
                 <Loader2 className="w-10 h-10 text-accent-cyan animate-spin mx-auto mb-4" />
                 <div className="absolute inset-0 w-10 h-10 mx-auto blur-xl bg-accent-cyan/30 animate-pulse-glow" />
               </div>
-              <p className="text-text-secondary">Loading package details...</p>
+              <p className="text-text-secondary"><T>Loading package details...</T></p>
             </div>
           </div>
         </div>
@@ -931,15 +932,15 @@ export default function AppCatalogPage() {
               <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-status-error/10 flex items-center justify-center">
                 <Package className="w-8 h-8 text-status-error" />
               </div>
-              <h3 className="text-text-primary font-medium mb-2">No installers found</h3>
+              <h3 className="text-text-primary font-medium mb-2"><T>No installers found</T></h3>
               <p className="text-text-secondary text-sm mb-4">
-                Unable to find installer information for this package version.
+                <T>Unable to find installer information for this package version.</T>
               </p>
               <button
                 onClick={handleCloseConfig}
                 className="px-4 py-2 bg-bg-elevated hover:bg-overlay/10 text-text-primary rounded-lg transition-colors"
               >
-                Close
+                <T>Close</T>
               </button>
             </div>
           </div>
@@ -950,20 +951,20 @@ export default function AppCatalogPage() {
       {isBulkSelectMode && selectedPackageIds.size > 0 && (
         <div className="fixed bottom-20 left-1/2 -translate-x-1/2 z-40 flex items-center gap-3 px-5 py-3 rounded-2xl bg-bg-elevated/95 backdrop-blur-md border border-overlay/10 shadow-2xl">
           <span className="text-sm font-medium text-text-primary whitespace-nowrap">
-            {selectedPackageIds.size} selected
+            {selectedPackageIds.size} <T>selected</T>
           </span>
           <div className="w-px h-5 bg-overlay/10" />
           <button
             onClick={handleSelectAllVisible}
             className="text-sm text-text-secondary hover:text-accent-cyan transition-colors whitespace-nowrap"
           >
-            Select All
+            <T>Select All</T>
           </button>
           <button
             onClick={handleClearBulkSelection}
             className="text-sm text-text-secondary hover:text-text-primary transition-colors whitespace-nowrap"
           >
-            Clear
+            <T>Clear</T>
           </button>
           <div className="w-px h-5 bg-overlay/10" />
           <button
@@ -974,12 +975,12 @@ export default function AppCatalogPage() {
             {isBulkAdding && bulkProgress ? (
               <>
                 <Loader2 className="w-4 h-4 animate-spin" />
-                Adding {bulkProgress.completed}/{bulkProgress.total}...
+                <T>Adding <Var>{bulkProgress.completed}</Var>/<Var>{bulkProgress.total}</Var>...</T>
               </>
             ) : (
               <>
                 <Check className="w-4 h-4" />
-                Quick Add All
+                <T>Quick Add All</T>
               </>
             )}
           </button>

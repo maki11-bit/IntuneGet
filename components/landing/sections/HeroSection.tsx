@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { Github, ArrowRight, Star, Users, Upload, BookOpen } from "lucide-react";
 import Link from "next/link";
+import { T, Var, useGT } from "gt-next";
 import { Badge } from "../ui/Badge";
 import { GradientOrb } from "../ui/GradientOrb";
 import { DeploymentFeed } from "../ui/DeploymentFeed";
@@ -16,6 +17,7 @@ import { springPresets } from "@/lib/animations/variants";
 const MotionLink = motion.create(Link);
 
 export function HeroSection() {
+  const t = useGT();
   const { stars } = useGitHubStats();
   const { signinClicks, appsDeployed, appsSupported } = useLandingStats();
   const shouldReduceMotion = useReducedMotion();
@@ -61,14 +63,14 @@ export function HeroSection() {
               transition={shouldReduceMotion ? { duration: 0 } : springPresets.bouncy}
             >
               <Badge icon={<Github className="h-4 w-4" />} variant="dark">
-                Free & Open Source
+                <T id="hero.badge">Free & Open Source</T>
               </Badge>
             </motion.div>
 
             {/* Headline - 1A: TextReveal with word-by-word blur effect */}
             <TextReveal
               as="h1"
-              text={"From Winget to\nIntune\u00A0in\u00A0Minutes"}
+              text={t("From Winget to\nIntune\u00A0in\u00A0Minutes")}
               className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-text-primary tracking-tight"
               animateOnMount
               delay={0.05}
@@ -78,9 +80,11 @@ export function HeroSection() {
             {/* Subheadline with authoritative statement */}
             <FadeIn delay={0.1} animateOnMount duration={0.4} direction="up">
               <p className="max-w-lg text-lg md:text-xl text-text-secondary leading-relaxed">
-                Search {supportedAppsDisplay}+ Winget packages, package automatically, and
-                deploy to Microsoft Intune without scripting. Built for IT teams
-                that want speed without hidden costs.
+                <T id="hero.subheadline">
+                  Search <Var>{supportedAppsDisplay}</Var>+ Winget packages, package automatically, and
+                  deploy to Microsoft Intune without scripting. Built for IT teams
+                  that want speed without hidden costs.
+                </T>
               </p>
             </FadeIn>
 
@@ -95,7 +99,7 @@ export function HeroSection() {
                     whileTap={shouldReduceMotion ? {} : { scale: 0.97 }}
                     transition={springPresets.snappy}
                   >
-                    Start Free Deployment
+                    <T id="hero.cta.deploy">Start Free Deployment</T>
                     <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                   </MotionLink>
                   <MotionLink
@@ -106,7 +110,7 @@ export function HeroSection() {
                     transition={springPresets.snappy}
                   >
                     <BookOpen className="h-5 w-5" />
-                    Read the Docs
+                    <T id="hero.cta.docs">Read the Docs</T>
                   </MotionLink>
                 </div>
                 <div className="flex items-center gap-4 text-sm">
@@ -114,7 +118,7 @@ export function HeroSection() {
                     href="/#how-it-works"
                     className="text-text-muted hover:text-text-secondary transition-colors"
                   >
-                    See How It Works
+                    <T id="hero.link.how">See How It Works</T>
                   </Link>
                   <motion.a
                     href="https://github.com/ugurkocde/IntuneGet"
@@ -125,13 +129,13 @@ export function HeroSection() {
                     transition={springPresets.snappy}
                   >
                     <Github className="h-4 w-4" />
-                    View on GitHub
+                    <T id="hero.link.github">View on GitHub</T>
                   </motion.a>
                   <Link
                     href="/docs/docker"
                     className="text-text-muted hover:text-text-secondary transition-colors"
                   >
-                    Self-host with Docker
+                    <T id="hero.link.docker">Self-host with Docker</T>
                   </Link>
                 </div>
               </div>
@@ -142,15 +146,15 @@ export function HeroSection() {
               <div className="flex items-center gap-4 text-sm text-text-muted">
                 <span className="flex items-center gap-1.5">
                   <Star className="w-3.5 h-3.5 text-amber-500" />
-                  {starsDisplay} stars
+                  <T id="hero.stats.stars"><Var>{starsDisplay}</Var> stars</T>
                 </span>
                 <span className="flex items-center gap-1.5">
                   <Users className="w-3.5 h-3.5 text-accent-cyan" />
-                  {signinsDisplay}+ active users
+                  <T id="hero.stats.users"><Var>{signinsDisplay}</Var>+ active users</T>
                 </span>
                 <span className="flex items-center gap-1.5">
                   <Upload className="w-3.5 h-3.5 text-emerald-500" />
-                  {appsDeployedDisplay}+ apps uploaded
+                  <T id="hero.stats.apps"><Var>{appsDeployedDisplay}</Var>+ apps uploaded</T>
                 </span>
               </div>
             </FadeIn>
@@ -161,7 +165,7 @@ export function HeroSection() {
           <FadeIn delay={0.2} animateOnMount duration={0.5} direction="right">
             <div className="space-y-3">
               <div className="inline-flex items-center rounded-full border border-overlay/10 bg-bg-elevated/85 px-3 py-1 text-xs font-medium text-text-secondary">
-                Live packaging simulation
+                <T id="hero.simulation">Live packaging simulation</T>
               </div>
               <DeploymentFeed mode="heroCalm" />
             </div>

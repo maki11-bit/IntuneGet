@@ -4,6 +4,10 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ChevronDown, Rocket, Cloud, Database, Container, ClipboardList, RefreshCw, Building2, FileText, ArrowRight } from "lucide-react";
+import { T } from "gt-next";
+
+const OPEN_DELAY = 150;
+const CLOSE_DELAY = 200;
 
 const setupLinks = [
   { href: "/docs/getting-started", label: "Getting Started", icon: Rocket },
@@ -18,9 +22,6 @@ const featureLinks = [
   { href: "/docs/msp", label: "MSP Features", icon: Building2 },
   { href: "/docs/api-reference", label: "API Reference", icon: FileText },
 ];
-
-const OPEN_DELAY = 150;
-const CLOSE_DELAY = 200;
 
 export function DocsDropdown() {
   const [isOpen, setIsOpen] = useState(false);
@@ -81,7 +82,7 @@ export function DocsDropdown() {
         aria-haspopup="true"
         onClick={() => setIsOpen((prev) => !prev)}
       >
-        <span>Docs</span>
+        <span><T id="docs.trigger">Docs</T></span>
         <motion.span
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
@@ -106,7 +107,7 @@ export function DocsDropdown() {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <span className="block text-[11px] font-semibold uppercase tracking-wider text-text-muted px-2 mb-2">
-                  Setup
+                  <T id="docs.heading.setup">Setup</T>
                 </span>
                 <div className="space-y-0.5">
                   {setupLinks.map((link) => {
@@ -119,7 +120,7 @@ export function DocsDropdown() {
                         className="flex items-center gap-2.5 px-2 py-2 rounded-lg text-sm text-text-secondary hover:text-accent-cyan hover:bg-overlay/[0.04] transition-colors duration-150"
                       >
                         <Icon className="h-4 w-4 flex-shrink-0 text-text-muted" />
-                        <span>{link.label}</span>
+                        <span><T>{link.label}</T></span>
                       </Link>
                     );
                   })}
@@ -127,7 +128,7 @@ export function DocsDropdown() {
               </div>
               <div>
                 <span className="block text-[11px] font-semibold uppercase tracking-wider text-text-muted px-2 mb-2">
-                  Features
+                  <T id="docs.heading.features">Features</T>
                 </span>
                 <div className="space-y-0.5">
                   {featureLinks.map((link) => {
@@ -140,7 +141,7 @@ export function DocsDropdown() {
                         className="flex items-center gap-2.5 px-2 py-2 rounded-lg text-sm text-text-secondary hover:text-accent-cyan hover:bg-overlay/[0.04] transition-colors duration-150"
                       >
                         <Icon className="h-4 w-4 flex-shrink-0 text-text-muted" />
-                        <span>{link.label}</span>
+                        <span><T>{link.label}</T></span>
                       </Link>
                     );
                   })}
@@ -153,7 +154,7 @@ export function DocsDropdown() {
                 onClick={() => setIsOpen(false)}
                 className="flex items-center justify-between px-2 py-2 rounded-lg text-sm font-medium text-text-secondary hover:text-accent-cyan hover:bg-overlay/[0.04] transition-colors duration-150"
               >
-                <span>View all documentation</span>
+                <span><T id="docs.view-all">View all documentation</T></span>
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>

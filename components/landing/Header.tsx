@@ -7,6 +7,8 @@ import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion
 import { Menu, X, Github, Star, Apple, ExternalLink, Book } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { DocsDropdown } from "./DocsDropdown";
+import { T } from "gt-next";
+import { LocaleSwitcher } from "./LocaleSwitcher";
 import { useMicrosoftAuth } from "@/hooks/useMicrosoftAuth";
 import { useProfileStore } from "@/stores/profile-store";
 
@@ -79,7 +81,7 @@ export function Header() {
         className={cn(
           "pointer-events-auto relative mx-auto transition-all duration-500 ease-spring",
           hasScrolled
-            ? "mt-3 max-w-4xl rounded-2xl border border-overlay/[0.06] shadow-soft-md"
+            ? "mt-3 w-fit max-w-[calc(100%-2rem)] rounded-2xl border border-overlay/[0.06] shadow-soft-md"
             : "max-w-full"
         )}
       >
@@ -98,7 +100,7 @@ export function Header() {
 
         <div className={cn(
           "relative mx-auto px-4 md:px-6 transition-all duration-500",
-          hasScrolled ? "max-w-4xl" : "max-w-7xl"
+          hasScrolled ? "" : "max-w-7xl"
         )}>
           <div className="flex h-14 items-center justify-between">
           {/* Logo */}
@@ -136,7 +138,7 @@ export function Header() {
                 href={link.href}
                 className="relative text-sm font-medium text-text-secondary hover:text-text-primary transition-colors duration-200 group"
               >
-                {link.label}
+                <T>{link.label}</T>
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent-cyan transition-all duration-300 group-hover:w-full" />
               </Link>
             ))}
@@ -148,7 +150,7 @@ export function Header() {
               className="relative text-sm font-medium text-text-secondary hover:text-text-primary transition-colors duration-200 group inline-flex items-center gap-1.5"
             >
               <Apple className="h-4 w-4" />
-              <span>macOS</span>
+              <span><T id="nav.macos">macOS</T></span>
               <ExternalLink className="h-3 w-3 opacity-50" />
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent-cyan transition-all duration-300 group-hover:w-full" />
             </a>
@@ -159,11 +161,12 @@ export function Header() {
               className="inline-flex items-center gap-2 text-sm font-medium text-text-secondary hover:text-text-primary transition-colors duration-200 px-3 py-1.5 rounded-lg border border-overlay/10 hover:border-overlay/15 hover:bg-overlay/[0.04]"
             >
               <Github className="h-4 w-4" />
-              <span>GitHub</span>
+              <span><T id="nav.github">GitHub</T></span>
               <span className="flex items-center gap-1 text-xs text-text-muted">
                 <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
               </span>
             </a>
+            <LocaleSwitcher />
             {isAuthenticated ? (
               <Link
                 href="/dashboard"
@@ -182,7 +185,7 @@ export function Header() {
                   "hover:bg-stone-800 shadow-soft hover:shadow-soft-md"
                 )}
               >
-                Get Started
+                <T id="nav.get-started">Get Started</T>
               </Link>
             )}
           </nav>
@@ -208,7 +211,7 @@ export function Header() {
         className={cn(
           "md:hidden pointer-events-auto mx-auto mt-2 transition-[max-width] duration-500",
           hasScrolled
-            ? "max-w-4xl px-0"
+            ? "max-w-5xl px-0"
             : "max-w-full px-0",
           !isMenuOpen && "pointer-events-none"
         )}
@@ -231,7 +234,7 @@ export function Header() {
               onClick={() => setIsMenuOpen(false)}
               className="text-lg font-medium text-text-secondary hover:text-accent-cyan transition-colors py-3"
             >
-              {link.label}
+              <T>{link.label}</T>
             </Link>
           ))}
           <Link
@@ -240,7 +243,7 @@ export function Header() {
             className="inline-flex items-center gap-2 text-lg font-medium text-text-secondary hover:text-accent-cyan transition-colors py-3"
           >
             <Book className="h-5 w-5" />
-            <span>Documentation</span>
+            <span><T id="nav.documentation">Documentation</T></span>
           </Link>
           <a
             href="https://intunebrew.com"
@@ -250,7 +253,7 @@ export function Header() {
             className="inline-flex items-center gap-2 text-lg font-medium text-text-secondary hover:text-accent-cyan transition-colors py-3"
           >
             <Apple className="h-5 w-5" />
-            <span>macOS Apps</span>
+            <span><T id="nav.macos-apps">macOS Apps</T></span>
             <ExternalLink className="h-4 w-4 opacity-50" />
           </a>
           <a
@@ -261,8 +264,9 @@ export function Header() {
             className="inline-flex items-center gap-2 text-lg font-medium text-text-secondary hover:text-accent-cyan transition-colors py-3"
           >
             <Github className="h-5 w-5" />
-            <span>GitHub</span>
+            <span><T id="nav.github">GitHub</T></span>
           </a>
+          <LocaleSwitcher />
           {isAuthenticated ? (
             <Link
               href="/dashboard"
@@ -270,7 +274,7 @@ export function Header() {
               className="group inline-flex items-center gap-3 px-4 py-3 rounded-lg mt-2 bg-stone-900 hover:bg-stone-800 transition-all duration-200"
             >
               <UserAvatar size="md" />
-              <span className="text-sm font-medium text-white">Dashboard</span>
+              <span className="text-sm font-medium text-white"><T id="nav.dashboard">Dashboard</T></span>
             </Link>
           ) : (
             <Link
@@ -283,7 +287,7 @@ export function Header() {
                 "hover:bg-stone-800"
               )}
             >
-              Get Started
+              <T id="nav.get-started">Get Started</T>
             </Link>
           )}
         </nav>
