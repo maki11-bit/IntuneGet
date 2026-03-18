@@ -104,6 +104,7 @@
   "03c68b2b6ec07dea": "L’automazione di Winget funziona per le applicazioni Win32 standard disponibili nel repository Winget, che include oltre 10.000 pacchetti che coprono i tipi di programma di installazione MSI, EXE e MSIX. Le applicazioni line-of-business personalizzate che non sono pubblicate su Winget richiedono ancora il packaging manuale. Tuttavia, la maggior parte del software aziendale comune, come browser, strumenti di produttività e utility, è disponibile tramite Winget.",
   "03e8c3ab183d67c9": "Alcune applicazioni aziendali, in particolare quelle con licenze complesse, dongle hardware o dipendenze da middleware personalizzato, vengono distribuite tramite canali specifici del fornitore e non sono disponibili in Winget. Per queste applicazioni, contatta il fornitore per ottenere un installer compatibile con Intune o una guida alla distribuzione. Molti fornitori di software aziendale hanno aggiornato la propria documentazione sulla distribuzione includendo istruzioni specifiche per Intune, man mano che sempre più organizzazioni migrano da SCCM. Se il fornitore mette a disposizione un installer MSI, Intune può distribuirlo direttamente senza wrapping Win32. Anche le applicazioni pacchettizzate in MSIX sono supportate nativamente in Intune.",
   "03f6ef91487f2039": "Configura i webhook a livello dell'organizzazione MSP per ricevere notifiche sugli eventi di distribuzione per tutti i tenant. I webhook supportano la verifica della firma HMAC per una maggiore sicurezza.",
+  "03fec657a331a502": "Ti serviranno le autorizzazioni appropriate nel tuo ambiente Entra ID e Intune per caricare e gestire applicazioni. In genere, questo richiede i ruoli di Amministratore Intune o Amministratore applicazioni. Forniamo documentazione dettagliata sulle autorizzazioni obbligatorie.",
   "041b6a8eb964e48e": "Esecuzione come servizio",
   "042929574dc48976": "Condivisione dei dati",
   "046d28d4f6667755": "Saltato -- requisito non soddisfatto",
@@ -244,6 +245,7 @@
   ],
   "0cf8bed9725818a3": "Tutti, Corrispondenza trovata, Corrispondenza parziale, Nessuna corrispondenza",
   "0d05620e2aa6a546": "Escludi selezionati",
+  "0d078472ac93dd2c": "IntuneGet è davvero gratis al 100%?",
   "0d0c95f5e5dac1f3": [
     "Percorso: ",
     {
@@ -491,6 +493,7 @@
     " e abilita i workflow"
   ],
   "1b5625b1b0732a1b": "Verrà creato un nuovo oggetto app in Intune",
+  "1b80dfd1cc195252": "Come posso distribuire app Winget in Intune senza scripting?",
   "1b8ae8ed9314385c": "Configura il comportamento degli aggiornamenti per app e tenant, attiva manualmente gli aggiornamenti e consulta l'intera cronologia di esecuzione degli aggiornamenti.",
   "1c0899356721c3a5": "Documentazione self-hosted",
   "1c3abad987cf3ad8": "Mantieni le assegnazioni durante gli aggiornamenti delle app",
@@ -687,6 +690,7 @@
   "2c8972af4bee48d7": "Account e connessioni",
   "2c89857398e171b4": "Stai valutando lo strumento per la prima volta",
   "2c9f15303f6643dd": "Provider",
+  "2d67fdd500a12668": "Sì! IntuneGet è completamente open source con licenza AGPL-3.0 e può essere ospitato autonomamente sulla tua infrastruttura usando Docker. Utilizza un database SQLite integrato, senza dipendenze esterne. Consulta la nostra documentazione per istruzioni dettagliate di configurazione oppure usa il nostro servizio ospitato per un'esperienza senza complicazioni.",
   "2d77ef6b0c95c7ba": "Gestisci ed esegui la distribuzione su più tenant cliente da un'unica Dashboard",
   "2d7b054617666ebb": [
     "Sei sicuro di voler annullare il caricamento di ",
@@ -813,6 +817,7 @@
   "36f43658721b3b54": "Importazione completata!",
   "3709efaffeb573ca": "Passaggio 4: comandi di installazione e disinstallazione (5-15 minuti)",
   "3712136bd63ca844": "In Intune esiste già un'app duplicata",
+  "371c12d4a7da2603": "Perché IntuneGet è gratis?",
   "374dac09151d4578": "In sospeso",
   "37bc039354d76d07": "Impostazioni di cache, sincronizzazione e archiviazione",
   "37d2da1cd118d4c9": "Invia notifiche a un canale Slack tramite Webhook in ingresso",
@@ -1184,6 +1189,7 @@
   "4c8df26c50ef7f9f": "La tua scelta in materia di consenso è gestita dal banner dei cookie e memorizzata in localStorage (non in un cookie) e rimane solo sul tuo dispositivo.",
   "4cdb8d1124e3c987": "Nessuna app trovata in base ai criteri selezionati",
   "4cef7b9d69871803": "Completamente gratis. Database SQLite incluso. GitHub Actions opzionale (2000 min/mese per i repository privati).",
+  "4d1210e2c1516120": "Essendo un progetto open source, il supporto viene fornito tramite la nostra community su GitHub. Puoi segnalare issue e ricevere aiuto da altri utenti. Abbiamo anche una documentazione completa che copre i casi d'uso più comuni e la risoluzione dei problemi.",
   "4d175cafdf252444": "AWS ALB, GCP LB o Azure App Gateway",
   "4d36fc364a4f965c": "IntuneGet è al 100% Gratis e open source. Distribuisci oltre 10.000 app Winget su Microsoft Intune senza spendere un centesimo.",
   "4d4b8149a0079e1b": "Per i team IT che hanno bisogno di accedere all'intero repository Winget con l'affidabilità e il controllo del packaging delle app Win32, IntuneGet fornisce il livello di automazione che collega questi due mondi. Il packaging IntuneWin automatico, la generazione intelligente delle regole di rilevamento e i criteri di aggiornamento configurabili eliminano il lavoro manuale, mantenendo al tempo stesso le funzionalità di gestione richieste dalle distribuzioni Intune in ambito aziendale.",
@@ -1205,6 +1211,7 @@
   "503855211a14e0ae": "Manuale",
   "504e653b9cd41667": "Torna alla schermata di benvenuto",
   "50c97a559ff6f346": "Come gestiamo i dati",
+  "51a25288dfa80baf": "Che cos'è IntuneGet e come funziona?",
   "522941b292693416": [
     "Configura i ",
     {
@@ -1277,6 +1284,7 @@
   "56868c35df3fef7a": "URI di reindirizzamento (tipo)",
   "56bf4407bad2f4c4": "- Sovranità completa dei dati: nulla lascia la tua rete",
   "56c04150bd448f6f": "Tipologie di criterio",
+  "56cd88fb349fd6ac": "Quali applicazioni sono supportate?",
   "56eeb1d09fbce945": "Questi tenant hanno concesso il consenso, ma non dispongono delle autorizzazioni Intune necessarie (DeviceManagementApps.ReadWrite.All). L'amministratore del cliente deve concedere nuovamente il consenso con le autorizzazioni corrette per abilitare la distribuzione delle app. Usa l'opzione \"Get Consent URL\" per ottenere un nuovo link di consenso.",
   "56f7c8794593a21c": "Comprimi tutto",
   "571b860620b3eab5": "Posso comunque personalizzare le distribuzioni quando uso l’automazione di Winget?",
@@ -1368,6 +1376,7 @@
     },
     ": non verrà più mostrato!"
   ],
+  "5f177fba4293ed50": "Posso eseguire IntuneGet in modalità self-hosted?",
   "5f35cdb6701a255d": "Automatica",
   "5f7cc1a3fd0f5e6d": "Aggiornamenti automatici abilitati",
   "5fa17439fb23ec0f": "attivato",
@@ -1441,6 +1450,7 @@
     "."
   ],
   "6563905b3021a4ef": "Cosa succede alle applicazioni SCCM che non sono disponibili in Winget?",
+  "6571950d68d99cd5": "IntuneGet supporta oltre 10.000 applicazioni disponibili nel repository Winget. Sono incluse applicazioni diffuse come browser, strumenti di produttività, ambienti di sviluppo e software aziendali. L'elenco è in continua crescita, man mano che nuove app vengono aggiunte a Winget.",
   "65774c00cf466a66": "Opzione self-hosted",
   "65a938f4bbde3afb": "Configura le preferenze di esportazione predefinite usate durante il download dei dati di distribuzione e dei report:",
   "65b05741b7a3f203": "Vuoi iniziare subito",
@@ -1461,6 +1471,7 @@
       "t": "strong"
     }
   ],
+  "680d8fb9a69f5e5b": "Le tue credenziali e i dati sensibili non lasciano mai il tuo ambiente. IntuneGet usa l'autenticazione sicura di Microsoft (Entra ID) e archivia solo i metadati minimi necessari per il servizio. Tutte le comunicazioni sono crittografate e puoi scegliere il self-hosted per avere il controllo completo.",
   "682491e28630c886": "La logica di aggiornamento applica soglie di errore, periodi di attesa e limiti di frequenza per ridurre il rischio nella distribuzione.",
   "68699c9ada72d3b9": "Se preferisci usare GitHub Actions per la pacchettizzazione, o vuoi averlo come opzione di riserva, segui questi passaggi:",
   "68730a76c6e2410a": "Comportamento",
@@ -1792,6 +1803,7 @@
     },
     " Prima di avviare qualsiasi distribuzione, IntuneGet verifica le autorizzazioni Microsoft Graph. In questo modo eviti la frustrazione di pacchettizzare un'applicazione per poi scoprire di non avere il permesso richiesto DeviceManagementApps.ReadWrite.All."
   ],
+  "7fa0bff4800c1c41": "La maggior parte degli utenti è operativa in meno di 5 minuti. Ti basta accedere con il tuo account Microsoft, concedere le autorizzazioni necessarie e puoi iniziare subito a distribuire app. La nostra guida introduttiva passo dopo passo ti accompagna durante l'intero processo.",
   "7fd49d31583cf514": [
     "I pacchetti Winget possono contenere diversi tipi di programmi di installazione (MSI, EXE, MSIX, bundle Burn). Ogni tipo richiede opzioni diverse per l'installazione silenziosa e strategie di rilevamento differenti. Un errore comune nella distribuzione manuale consiste nell'usare le opzioni MSI (",
     {
@@ -1942,6 +1954,7 @@
   "8a6d9c2e3d73f2b9": "Annulla caricamento",
   "8a6f35a565e07975": "Passaggio 3: configurare i metadati dell'app in Intune (5-10 minuti)",
   "8a99ef0eceaa5e8d": "Prima di iniziare, assicurati di avere un account per ciascuno di questi servizi:",
+  "8aed4b5f73512ad5": "IntuneGet elimina completamente la necessità di usare scripting. Ti basta cercare un'app tra le oltre 10.000 disponibili nel repository Winget, configurare le impostazioni di distribuzione tramite un'interfaccia visiva e fare clic su Distribuisci. IntuneGet gestisce automaticamente tutta la creare pacchetto applicativo, la conversione in IntuneWin e il caricamento nel tuo tenant Intune.",
   "8b0db77b529a014d": "Leggere e scrivere le applicazioni in Intune",
   "8b2bd77a69c7f3a9": [
     {
@@ -2104,6 +2117,7 @@
     "v": "v"
   },
   "933fbd17f283a401": "Buonasera",
+  "935eca5441ef3daa": "Quale supporto è disponibile?",
   "9383c5d8b489f1a3": "La regola dei requisiti rileva l'app tramite i metodi standard del registro di disinstallazione di Windows, non tramite l'indicatore del registro di IntuneGet. Ciò significa che funziona anche per le app installate al di fuori di IntuneGet (che è proprio il caso delle app rilevate/non gestite):",
   "939c1c7d2b118eb1": "Scopri le applicazioni installate sui tuoi dispositivi gestiti che non sono ancora distribuite tramite Intune. Associale ai pacchetti Winget e selezionale per la distribuzione.",
   "93bd39a2e3a563fc": [
@@ -2577,6 +2591,7 @@
     },
     "."
   ],
+  "b2615b73cacdc3ff": "Dove vengono memorizzati i miei dati?",
   "b272ba7e78a439b0": "Configura i comandi di installazione e disinstallazione con opzioni silenziose",
   "b27c9ba9c62967a8": "Il problema più comune nella distribuzione è rappresentato da regole di rilevamento errate. Se Intune non riesce a verificare che un'applicazione sia stata installata correttamente, segnalerà la distribuzione come non riuscita anche se l'app è presente sul dispositivo. Per gli installer basati su MSI, utilizza il codice prodotto MSI per il rilevamento. Per gli installer EXE, utilizza controlli sull'esistenza dei file (verifica il percorso dell'eseguibile principale) oppure il rilevamento tramite chiave di registro. IntuneGet seleziona automaticamente il metodo di rilevamento più affidabile in base al tipo di installer.",
   "b28797c4d6a51091": "Stato della corrispondenza",
@@ -2648,6 +2663,7 @@
   "b779784b402dc229": "Ogni endpoint webhook è firmato con un segreto HMAC. Il servizio ricevente può verificare la firma per assicurarsi che la richiesta provenga da IntuneGet. Le consegne non riuscite vengono ritentate automaticamente.",
   "b7846c7ceb82e6b6": "Condividi eventuali messaggi di errore pertinenti (oscura le informazioni sensibili)",
   "b7a907b6faa1a42a": "Controllo completo",
+  "b7db0911a4fa2f57": "IntuneGet è gratis e senza limiti di postazioni perché crediamo che ogni team IT debba avere accesso a ottimi strumenti di distribuzione. IntuneGet ti dà accesso a oltre 10.000 pacchetti Winget, è completamente open source con licenza AGPL-3.0 e supporta il self-hosted. Nessun vendor lock-in, nessun costo a sorpresa.",
   "b7e57aa5f25e083f": "Migra i portafogli applicativi SCCM esistenti in IntuneGet in quattro fasi: importazione, abbinamento, anteprima ed esecuzione.",
   "b854c5f17107a679": "Condividi questo link con il tuo amministratore globale:",
   "b897ad2ca85527b6": "Cancella tutti i filtri",
@@ -2746,6 +2762,7 @@
   "bf2d0b558ba2f5ff": "Autorizzazione",
   "bf3a6328eeb7b622": "La maggior parte degli endpoint richiede un token di accesso Microsoft:",
   "bf845736439f515b": "Consulta l'inventario e le assegnazioni delle app Win32",
+  "bf9c63d11131f943": "IntuneGet è lo strumento gratuito e open source leader per distribuire applicazioni Winget in Microsoft Intune. Crea automaticamente pacchetti applicativi dal repository di Winget (oltre 10.000 app) e li carica nel tuo ambiente Intune, semplificando il processo di distribuzione delle app con pochi clic. Non sono necessari scripting né creare pacchetto applicativo IntuneWin.",
   "bfd264b3de89241b": "Usa IntuneGet per la migrazione in blocco delle app",
   "bfe994c166e4202f": "23-48 ore",
   "c01c46ab3b465cfb": "Errori nelle Regole di rilevamento",
@@ -3068,6 +3085,7 @@
   "d7e15a5b74011fe0": "Questo processo manuale richiede in genere 1-2 ore per applicazione, inclusi i test. Per le organizzazioni che gestiscono decine o centinaia di applicazioni, il tempo necessario aumenta rapidamente.",
   "d7eeb21effefb77b": "Aggiornamenti completati con errori",
   "d88a086ea569bc7c": "Nome dell'organizzazione *",
+  "d8d81dbd2efecfb3": "Sì! IntuneGet è completamente gratis e open source, con licenza AGPL-3.0. Non ci sono costi nascosti, piani premium né carta di credito richiesta. Puoi usare tutte le funzionalità senza alcun costo, modificarlo in base alle tue esigenze e contribuire al suo sviluppo.",
   "d8dda39fab4cf365": "App non gestite rilevate sui tuoi dispositivi",
   "d8fcb9de53369c5d": "L'URI di reindirizzamento deve corrispondere esattamente, incluso il protocollo (https://), e non deve avere una barra finale.",
   "d9255526fe140ce9": "Controlla i log dell'endpoint di callback",
@@ -3234,6 +3252,7 @@
   "e41b3dfc8643d83d": ".env.local, Docker, Packager",
   "e425a1a2257cc5d0": "Percorso del file SQLite",
   "e43186fa3e566ffd": "Elencare i job di un utente o recuperare un singolo job",
+  "e452fae74784efb5": "Ho bisogno di autorizzazioni speciali per usare IntuneGet?",
   "e46213f892fa7c69": "Configura la tua istanza di IntuneGet con le impostazioni dell'account, la gestione delle autorizzazioni, le preferenze per le notifiche, le opzioni di esportazione e la gestione dei dati.",
   "e46ee9ab3e78e3f6": "Anteprima della migrazione",
   "e47f7f25a4c04b03": "Importa applicazioni",
@@ -3443,6 +3462,7 @@
     " - Confronta direttamente il nome dell'app rilevata con i nomi dei pacchetti Winget"
   ],
   "f4db0e350c053aad": "Controllo degli accessi API",
+  "f532f033847af54d": "Quanto tempo richiede la configurazione?",
   "f55618cc8fc6d8af": "L'app è già installata?",
   "f596d1521e225131": "Accedi con il tuo account aziendale",
   "f5a6de215502e5e1": "IntuneGet richiede le seguenti autorizzazioni per distribuire le applicazioni:",

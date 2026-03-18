@@ -104,6 +104,7 @@
   "03c68b2b6ec07dea": "Winget-automatisering werkt voor standaard Win32-apps die beschikbaar zijn in de Winget-repository, die meer dan 10.000 pakketten omvat voor MSI-, EXE- en MSIX-installertypen. Aangepaste line-of-business-apps die niet in Winget zijn gepubliceerd, vereisen nog steeds handmatige verpakking. De meeste gangbare bedrijfssoftware, zoals browsers, productiviteitstools en hulpprogramma's, is echter beschikbaar via Winget.",
   "03e8c3ab183d67c9": "Sommige enterprise-apps -- vooral apps met complexe licenties, hardwaredongles of afhankelijkheden van aangepaste middleware -- worden via leveranciersspecifieke kanalen gedistribueerd en zijn niet beschikbaar in Winget. Neem voor deze apps contact op met de leverancier voor een Intune-compatibele installer of handleiding voor implementatie. Veel leveranciers van enterprise-software hebben hun implementatiedocumentatie inmiddels bijgewerkt met Intune-specifieke instructies, nu steeds meer organisaties van SCCM migreren. Als de leverancier een MSI-installer levert, kan Intune die rechtstreeks implementeren zonder Win32-wrapping. Apps die als MSIX zijn verpakt, worden ook standaard ondersteund in Intune.",
   "03f6ef91487f2039": "Configureer webhooks op MSP-organisatieniveau om meldingen te ontvangen over implementatiegebeurtenissen in alle tenants. Webhooks ondersteunen HMAC-handtekeningverificatie voor extra beveiliging.",
+  "03fec657a331a502": "Je hebt de juiste machtigingen nodig in je Entra ID- en Intune-omgeving om applicaties te uploaden en te beheren. Meestal gaat het om de rollen Intune Administrator of Application Administrator. We bieden gedetailleerde documentatie over de vereiste machtigingen.",
   "041b6a8eb964e48e": "Als Dienst uitvoeren",
   "042929574dc48976": "Gegevensdeling",
   "046d28d4f6667755": "Overgeslagen -- voorwaarde niet vervuld",
@@ -244,6 +245,7 @@
   ],
   "0cf8bed9725818a3": "Alle, Match, Gedeeltelijke match, Geen match",
   "0d05620e2aa6a546": "Geselecteerde items uitsluiten",
+  "0d078472ac93dd2c": "Is IntuneGet echt 100% gratis?",
   "0d0c95f5e5dac1f3": [
     "Route: ",
     {
@@ -491,6 +493,7 @@
     " en schakel workflows in"
   ],
   "1b5625b1b0732a1b": "Er wordt een nieuw app-object aangemaakt in Intune",
+  "1b80dfd1cc195252": "Hoe implementeer ik Winget-apps in Intune zonder scripting?",
   "1b8ae8ed9314385c": "Configureer updategedrag per app en tenant, trigger updates handmatig en controleer de volledige uitvoeringsgeschiedenis van updates.",
   "1c0899356721c3a5": "Documentatie voor zelf hosten",
   "1c3abad987cf3ad8": "Toewijzingen behouden bij app-updates",
@@ -687,6 +690,7 @@
   "2c8972af4bee48d7": "Account en verbindingen",
   "2c89857398e171b4": "De tool voor het eerst evalueert",
   "2c9f15303f6643dd": "Provider",
+  "2d67fdd500a12668": "Ja! IntuneGet is volledig open source onder de AGPL-3.0-licentie en kan zelf gehost worden op je eigen infrastructuur met Docker. Het gebruikt een ingebouwde SQLite-database zonder externe afhankelijkheden. Bekijk onze documentatie voor gedetailleerde configuratie-instructies, of gebruik onze gehoste dienst voor een zorgeloze ervaring.",
   "2d77ef6b0c95c7ba": "Beheer en implementeer voor meerdere klanttenants vanuit één Dashboard",
   "2d7b054617666ebb": [
     "Weet je zeker dat je de upload voor ",
@@ -813,6 +817,7 @@
   "36f43658721b3b54": "Importeren voltooid!",
   "3709efaffeb573ca": "Stap 4: Installatie- en verwijderopdrachten (5-15 minuten)",
   "3712136bd63ca844": "Er bestaat al een dubbele app in Intune",
+  "371c12d4a7da2603": "Waarom is IntuneGet gratis?",
   "374dac09151d4578": "In behandeling",
   "37bc039354d76d07": "Instellingen voor cache, synchronisatie en opslag",
   "37d2da1cd118d4c9": "Stuur meldingen naar een Slack-kanaal via een inkomende webhook",
@@ -1183,6 +1188,7 @@
   "4c8df26c50ef7f9f": "Uw toestemmingskeuze wordt beheerd via de cookiebanner en opgeslagen in localStorage (geen cookie), en blijft alleen op uw apparaat.",
   "4cdb8d1124e3c987": "Geen Apps gevonden die aan je criteria voldoen",
   "4cef7b9d69871803": "Volledig gratis. SQLite-database inbegrepen. Optioneel GitHub Actions (2.000 min/maand voor privérepo's).",
+  "4d1210e2c1516120": "Als open source-project bieden we ondersteuning via onze GitHub-community. Je kunt issues indienen en hulp krijgen van andere gebruikers. We hebben ook uitgebreide documentatie voor veelvoorkomende scenario's en probleemoplossing.",
   "4d175cafdf252444": "AWS ALB, GCP LB of Azure Application Gateway",
   "4d36fc364a4f965c": "IntuneGet is 100% gratis en open source. Implementeer meer dan 10.000 Winget-apps in Microsoft Intune zonder ook maar een cent uit te geven.",
   "4d4b8149a0079e1b": "Voor IT-teams die toegang nodig hebben tot de volledige Winget-repository, met de betrouwbaarheid en controle van Win32-appverpakking, biedt IntuneGet de automatiseringslaag die deze twee werelden verbindt. Automatische IntuneWin-verpakking, intelligente generatie van detectieregels en configureerbaar updatebeleid nemen het handmatige werk weg, terwijl de beheerfuncties behouden blijven die enterprise-implementaties met Intune vereisen.",
@@ -1204,6 +1210,7 @@
   "503855211a14e0ae": "Handmatig",
   "504e653b9cd41667": "Terug naar het welkomstscherm",
   "50c97a559ff6f346": "Hoe we gegevens verwerken",
+  "51a25288dfa80baf": "Wat is IntuneGet en hoe werkt het?",
   "522941b292693416": [
     "Configureer ",
     {
@@ -1276,6 +1283,7 @@
   "56868c35df3fef7a": "Omleidings-URI (type)",
   "56bf4407bad2f4c4": "- Volledige datasoevereiniteit - niets verlaat je netwerk",
   "56c04150bd448f6f": "Beleidstypen",
+  "56cd88fb349fd6ac": "Welke applicaties worden ondersteund?",
   "56eeb1d09fbce945": "Deze tenants hebben toestemming gegeven, maar missen Intune-machtigingen (DeviceManagementApps.ReadWrite.All). De klantbeheerder moet opnieuw toestemming geven met de juiste machtigingen om app-implementaties mogelijk te maken. Gebruik de optie \"Toestemmings-URL ophalen\" om een nieuwe toestemmingslink te krijgen.",
   "56f7c8794593a21c": "Alles inklappen",
   "571b860620b3eab5": "Kan ik implementaties nog steeds aanpassen wanneer ik Winget-automatisering gebruik?",
@@ -1367,6 +1375,7 @@
     },
     " - deze wordt niet opnieuw weergegeven!"
   ],
+  "5f177fba4293ed50": "Kan ik IntuneGet zelf hosten?",
   "5f35cdb6701a255d": "Automatisch",
   "5f7cc1a3fd0f5e6d": "Automatische updates ingeschakeld",
   "5fa17439fb23ec0f": "ingeschakeld",
@@ -1440,6 +1449,7 @@
     "."
   ],
   "6563905b3021a4ef": "Wat gebeurt er met SCCM-applicaties die niet beschikbaar zijn in Winget?",
+  "6571950d68d99cd5": "IntuneGet ondersteunt meer dan 10.000+ applicaties die beschikbaar zijn in de Winget-repository. Daaronder vallen populaire software zoals browsers, productiviteitstools, ontwikkelomgevingen en bedrijfsapplicaties. De lijst groeit voortdurend naarmate er nieuwe apps aan Winget worden toegevoegd.",
   "65774c00cf466a66": "Optie voor zelf hosten",
   "65a938f4bbde3afb": "Configureer de standaard exportvoorkeuren die worden gebruikt bij het downloaden van implementatiegegevens en rapporten:",
   "65b05741b7a3f203": "Direct aan de slag wilt",
@@ -1460,6 +1470,7 @@
       "t": "strong"
     }
   ],
+  "680d8fb9a69f5e5b": "Je inloggegevens en gevoelige data verlaten je omgeving nooit. IntuneGet gebruikt veilige Microsoft-authenticatie (Entra ID) en slaat alleen de minimale metadata op die nodig zijn voor de Dienst. Alle communicatie is versleuteld en je kunt zelf hosten voor volledige controle.",
   "682491e28630c886": "De updatelogica past faaldrempels, cooldownvensters en snelheidslimieten toe om het implementatierisico te beperken.",
   "68699c9ada72d3b9": "Als je GitHub Actions liever gebruikt voor verpakking, of als terugvaloptie, volg dan deze stappen:",
   "68730a76c6e2410a": "Gedrag",
@@ -1793,6 +1804,7 @@
     },
     " Voordat een implementatie wordt gestart, controleert IntuneGet je Graph API-machtigingen. Zo voorkom je de frustratie dat je eerst een app verpakt om er daarna achter te komen dat je niet over de vereiste machtiging DeviceManagementApps.ReadWrite.All beschikt."
   ],
+  "7fa0bff4800c1c41": "De meeste gebruikers kunnen binnen 5 minuten aan de slag. Meld je eenvoudig aan met je Microsoft-account, verleen de vereiste machtigingen en je bent klaar om apps te implementeren. Onze stapsgewijze onboarding begeleidt je door het hele proces.",
   "7fd49d31583cf514": [
     "Winget-pakketten kunnen verschillende typen installatieprogramma's bevatten (MSI, EXE, MSIX, Burn-bundels). Elk type vereist andere switches voor stille installatie en detectiestrategieën. Een veelgemaakte fout bij handmatige implementatie is het gebruik van MSI-switches (",
     {
@@ -1943,6 +1955,7 @@
   "8a6d9c2e3d73f2b9": "Upload annuleren",
   "8a6f35a565e07975": "Stap 3: Appmetadata configureren in Intune (5-10 minuten)",
   "8a99ef0eceaa5e8d": "Zorg ervoor dat je, voordat je begint, accounts hebt voor deze services:",
+  "8aed4b5f73512ad5": "Met IntuneGet is scripting niet meer nodig. Zoek eenvoudig naar een app in de Winget-repository met meer dan 10.000 applicaties, configureer je implementatie-instellingen via een visuele interface en klik op implementeren. IntuneGet regelt automatisch het volledige verpakken, de IntuneWin-conversie en het uploaden naar je Intune-tenant.",
   "8b0db77b529a014d": "Intune-apps lezen en schrijven",
   "8b2bd77a69c7f3a9": [
     {
@@ -2105,6 +2118,7 @@
     "v": "v"
   },
   "933fbd17f283a401": "Goedenavond",
+  "935eca5441ef3daa": "Welke ondersteuning is beschikbaar?",
   "9383c5d8b489f1a3": "De vereisteregel detecteert de app met standaardmethoden uit het Windows-verwijderingsregister, niet met de IntuneGet-registermarkering. Dit betekent dat dit ook werkt voor apps die buiten IntuneGet zijn geïnstalleerd (precies het geval bij gedetecteerde/onbeheerde apps):",
   "939c1c7d2b118eb1": "Ontdek apps die op je beheerde apparaten zijn geïnstalleerd, maar nog niet via Intune zijn geïmplementeerd. Koppel ze aan Winget-pakketten en neem ze op voor implementatie.",
   "93bd39a2e3a563fc": [
@@ -2576,6 +2590,7 @@
     },
     "."
   ],
+  "b2615b73cacdc3ff": "Waar worden mijn gegevens opgeslagen?",
   "b272ba7e78a439b0": "Configureert installatie- en verwijderopdrachten met silent install-switches",
   "b27c9ba9c62967a8": "Het meest voorkomende implementatieprobleem zijn onjuiste detectieregels. Als Intune niet kan verifiëren dat een app correct is geïnstalleerd, rapporteert het de implementatie als mislukt, ook al is de app aanwezig op het apparaat. Gebruik voor MSI-gebaseerde installers de MSI-productcode voor detectie. Gebruik voor EXE-installers bestandscontroles op aanwezigheid (controleer het pad van het hoofduitvoerbare bestand) of detectie via registersleutels. IntuneGet selecteert automatisch de meest betrouwbare detectiemethode op basis van het type installer.",
   "b28797c4d6a51091": "Matchstatus",
@@ -2647,6 +2662,7 @@
   "b779784b402dc229": "Elk webhook-eindpunt wordt ondertekend met een HMAC-secret. De ontvangende dienst kan de handtekening verifiëren om te bevestigen dat het verzoek van IntuneGet afkomstig is. Mislukte leveringen worden automatisch opnieuw geprobeerd.",
   "b7846c7ceb82e6b6": "Deel relevante foutmeldingen (maak gevoelige informatie onleesbaar)",
   "b7a907b6faa1a42a": "Volledige controle",
+  "b7db0911a4fa2f57": "IntuneGet is gratis, zonder seat limits, omdat wij vinden dat elk IT-team toegang moet hebben tot uitstekende implementatietools. IntuneGet geeft je toegang tot 10.000+ Winget-pakketten, is volledig open source onder de AGPL-3.0-licentie en ondersteunt zelf hosten. Geen vendor lock-in, geen onverwachte kosten.",
   "b7e57aa5f25e083f": "Migreer bestaande SCCM-appportfolio's naar IntuneGet in vier fasen: importeren, matching, voorbeeld en uitvoering.",
   "b854c5f17107a679": "Deel deze link met je Global Administrator:",
   "b897ad2ca85527b6": "Alle filters wissen",
@@ -2743,6 +2759,7 @@
   "bf2d0b558ba2f5ff": "Machtiging",
   "bf3a6328eeb7b622": "Voor de meeste endpoints is een Microsoft-toegangstoken vereist:",
   "bf845736439f515b": "Win32-appinventaris en toewijzingen uitlezen",
+  "bf9c63d11131f943": "IntuneGet is de toonaangevende gratis open-source tool om Winget-applicaties in Microsoft Intune te implementeren. Het verpakt automatisch applicaties uit de Winget-repository (10.000+ apps) en uploadt ze naar je Intune-omgeving, zodat je het implementatieproces van apps met slechts een paar klikken stroomlijnt. Geen scripting of IntuneWin-verpakking nodig.",
   "bfd264b3de89241b": "IntuneGet gebruiken voor bulkmigratie van apps",
   "bfe994c166e4202f": "23-48 uur",
   "c01c46ab3b465cfb": "Fouten in detectieregels",
@@ -3065,6 +3082,7 @@
   "d7e15a5b74011fe0": "Dit handmatige proces duurt doorgaans 1 à 2 uur per app, inclusief testen. Voor organisaties die tientallen of honderden apps beheren, loopt de tijdsinvestering snel op.",
   "d7eeb21effefb77b": "Updates afgerond met fouten",
   "d88a086ea569bc7c": "Organisatienaam *",
+  "d8d81dbd2efecfb3": "Ja! IntuneGet is volledig gratis en open source onder de AGPL-3.0-licentie. Er zijn geen verborgen kosten, geen premiumlagen en er is geen creditcard nodig. Je kunt alle functies gratis gebruiken, het aanpassen aan je behoeften en bijdragen aan de verdere ontwikkeling.",
   "d8dda39fab4cf365": "Niet-beheerde apps gedetecteerd op uw apparaten",
   "d8fcb9de53369c5d": "De omleidings-URI moet exact overeenkomen, inclusief het protocol (https://) en zonder afsluitende slash.",
   "d9255526fe140ce9": "Controleer de logs van het callback-eindpunt",
@@ -3231,6 +3249,7 @@
   "e41b3dfc8643d83d": ".env.local, Docker, Packager",
   "e425a1a2257cc5d0": "Pad naar het SQLite-bestand",
   "e43186fa3e566ffd": "Jobs per gebruiker weergeven of één job ophalen",
+  "e452fae74784efb5": "Heb ik speciale machtigingen nodig om IntuneGet te gebruiken?",
   "e46213f892fa7c69": "Configureer je IntuneGet-instantie met accountinstellingen, machtigingsbeheer, meldingsvoorkeuren, exportopties en gegevensbeheer.",
   "e46ee9ab3e78e3f6": "Migratievoorbeeld",
   "e47f7f25a4c04b03": "Applicaties importeren",
@@ -3441,6 +3460,7 @@
     " - vergelijkt de naam van de gedetecteerde app rechtstreeks met Winget-pakketnamen"
   ],
   "f4db0e350c053aad": "API-toegangsbeheer",
+  "f532f033847af54d": "Hoe lang duurt de configuratie?",
   "f55618cc8fc6d8af": "Is de app al geïnstalleerd?",
   "f596d1521e225131": "Je aanmelden met je werkaccount",
   "f5a6de215502e5e1": "IntuneGet vereist de volgende machtigingen om applicaties te implementeren:",

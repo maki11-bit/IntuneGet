@@ -104,6 +104,7 @@
   "03c68b2b6ec07dea": "Winget otomasyonu, Winget deposunda mevcut olan standart Win32 uygulamaları için çalışır; buna MSI, EXE ve MSIX yükleyici türlerini kapsayan 10.000'den fazla paket dahildir. Winget'te yayımlanmayan özel iş uygulamaları ise hâlâ manuel paketleme gerektirir. Ancak tarayıcılar, üretkenlik araçları ve yardımcı programlar gibi yaygın kurumsal yazılımların çoğu Winget üzerinden mevcuttur.",
   "03e8c3ab183d67c9": "Bazı kurumsal uygulamalar — özellikle karmaşık lisanslama, donanım dongle'ları veya özel ara katman yazılımı bağımlılıkları olanlar — satıcıya özel kanallar üzerinden dağıtılır ve Winget'te bulunmaz. Bu uygulamalar için, satıcıyla iletişime geçerek Intune ile uyumlu bir yükleyici veya dağıtım rehberi talep edin. Daha fazla kuruluş SCCM'den geçiş yaptıkça, birçok kurumsal yazılım satıcısı dağıtım dokümantasyonunu Intune'a özel yönergeleri içerecek şekilde güncelledi. Satıcı bir MSI yükleyicisi sağlıyorsa, Intune bunu Win32 sarmalaması olmadan doğrudan dağıtabilir. MSIX olarak paketlenmiş uygulamalar da Intune tarafından yerel olarak desteklenir.",
   "03f6ef91487f2039": "Tüm kiracılardaki dağıtım olayları hakkında bildirim almak için webhook'ları MSP kuruluşu düzeyinde yapılandırın. Güvenlik için webhook'lar HMAC imza doğrulamasını destekler.",
+  "03fec657a331a502": "Uygulamaları yüklemek ve yönetmek için Entra ID ve Intune ortamınızda uygun izinlere sahip olmanız gerekir. Genellikle bu, Intune Administrator veya Application Administrator rollerini gerektirir. Gerekli izinlere ilişkin ayrıntılı dokümantasyon sunuyoruz.",
   "041b6a8eb964e48e": "Servis Olarak Çalıştırma",
   "042929574dc48976": "Veri Paylaşımı",
   "046d28d4f6667755": "Atlandı -- gereksinim karşılanmadı",
@@ -243,6 +244,7 @@
   ],
   "0cf8bed9725818a3": "Tümü, Eşleşen, Kısmi eşleşme, Eşleşme yok",
   "0d05620e2aa6a546": "Seçilenleri hariç tut",
+  "0d078472ac93dd2c": "IntuneGet gerçekten %100 ücretsiz mi?",
   "0d0c95f5e5dac1f3": [
     "Yol: ",
     {
@@ -489,6 +491,7 @@
     " sekmesine gidin ve iş akışlarını etkinleştirin"
   ],
   "1b5625b1b0732a1b": "Intune'da yeni bir uygulama nesnesi oluşturulacak",
+  "1b80dfd1cc195252": "Winget uygulamalarını komut dosyası yazmadan Intune'a nasıl dağıtabilirim?",
   "1b8ae8ed9314385c": "Güncelleme davranışını uygulama ve kiracı düzeyinde yapılandırın, güncellemeleri Manuel olarak tetikleyin ve tüm güncelleme yürütme geçmişini inceleyin.",
   "1c0899356721c3a5": "Kendi kendine barındırma dokümantasyonu",
   "1c3abad987cf3ad8": "Uygulama güncellemelerinde atamaları devral",
@@ -683,6 +686,7 @@
   "2c8972af4bee48d7": "Hesap ve bağlantı",
   "2c89857398e171b4": "Aracı ilk kez değerlendiriyorsunuz",
   "2c9f15303f6643dd": "Sağlayıcı",
+  "2d67fdd500a12668": "Evet! IntuneGet, AGPL-3.0 lisansı altında tamamen Açık kaynaktır ve Docker kullanılarak kendi altyapınızda Kendi kendine barındırılabilir. Sıfır harici bağımlılıkla gömülü bir SQLite veritabanı kullanır. Ayrıntılı kurulum talimatları için dokümantasyonumuza göz atın veya zahmetsiz bir deneyim için barındırılan hizmetimizi kullanın.",
   "2d77ef6b0c95c7ba": "Tek bir gösterge panelinden birden fazla müşteri kiracısını yönetin ve dağıtımları gerçekleştirin",
   "2d7b054617666ebb": [
     {
@@ -807,6 +811,7 @@
   "36f43658721b3b54": "İçe aktarma tamamlandı!",
   "3709efaffeb573ca": "Adım 4: Yükleme ve kaldırma komutları (5-15 dakika)",
   "3712136bd63ca844": "Intune'da yinelenen bir uygulama zaten var",
+  "371c12d4a7da2603": "IntuneGet neden ücretsiz?",
   "374dac09151d4578": "Beklemede",
   "37bc039354d76d07": "Önbellek, senkronizasyon ve depolama ayarları",
   "37d2da1cd118d4c9": "Gelen webhook aracılığıyla bir Slack kanalına bildirim gönderin",
@@ -1177,6 +1182,7 @@
   "4c8df26c50ef7f9f": "Onay tercihiniz çerez bildirimi tarafından yönetilir ve localStorage'da (çerez olarak değil) saklanır; yalnızca cihazınızda tutulur.",
   "4cdb8d1124e3c987": "Ölçütlerinizle eşleşen uygulama bulunamadı",
   "4cef7b9d69871803": "Tamamen ücretsiz. SQLite veritabanı dahildir. GitHub Actions isteğe bağlıdır (özel depolar için ayda 2000 dk.).",
+  "4d1210e2c1516120": "Açık kaynak bir proje olarak destek, GitHub topluluğumuz aracılığıyla sağlanır. Sorun bildirimleri oluşturabilir ve diğer kullanıcılardan yardım alabilirsiniz. Ayrıca yaygın kullanım senaryolarını ve sorun gidermeyi kapsayan kapsamlı dokümantasyonumuz da vardır.",
   "4d175cafdf252444": "AWS ALB, GCP LB veya Azure Application Gateway",
   "4d36fc364a4f965c": "IntuneGet %100 ücretsiz ve açık kaynaktır. 10.000'den fazla Winget uygulamasını Microsoft Intune'a tek kuruş ödemeden dağıtın.",
   "4d4b8149a0079e1b": "Win32 uygulama paketlemenin güvenilirliği ve kontrolüyle birlikte tam Winget deposuna erişime ihtiyaç duyan BT ekipleri için IntuneGet, bu iki dünyayı bir araya getiren otomasyon katmanını sunar. Otomatik IntuneWin paketleme, akıllı Algılama Kuralları oluşturma ve yapılandırılabilir güncelleme ilkeleri, kurumsal Intune dağıtımlarının gerektirdiği yönetim özelliklerini korurken manuel işi ortadan kaldırır.",
@@ -1198,6 +1204,7 @@
   "503855211a14e0ae": "Manuel",
   "504e653b9cd41667": "Karşılama ekranına dön",
   "50c97a559ff6f346": "Verileri Nasıl İşliyoruz",
+  "51a25288dfa80baf": "IntuneGet nedir ve nasıl çalışır?",
   "522941b292693416": [
     "Uygulamaları sepetinize eklerken ",
     {
@@ -1270,6 +1277,7 @@
   "56868c35df3fef7a": "Yeniden yönlendirme URI'si (tür)",
   "56bf4407bad2f4c4": "- Tam veri egemenliği - hiçbir veri ağınızın dışına çıkmaz",
   "56c04150bd448f6f": "İlke Türleri",
+  "56cd88fb349fd6ac": "Hangi uygulamalar destekleniyor?",
   "56eeb1d09fbce945": "Bu kiracılar onay verdi, ancak Intune izinleri (DeviceManagementApps.ReadWrite.All) eksik. Uygulama dağıtımlarını etkinleştirmek için müşteri yöneticisinin gerekli izinlerle yeniden onay vermesi gerekir. Yeni bir onay bağlantısı almak için \"Onay URL’sini Al\" seçeneğini kullanın.",
   "56f7c8794593a21c": "Tümünü Daralt",
   "571b860620b3eab5": "Winget otomasyonunu kullanırken dağıtımları yine de özelleştirebilir miyim?",
@@ -1361,6 +1369,7 @@
     },
     " - tekrar görüntülenmeyecektir!"
   ],
+  "5f177fba4293ed50": "IntuneGet için Kendi kendine barındırma yapabilir miyim?",
   "5f35cdb6701a255d": "Otomatik",
   "5f7cc1a3fd0f5e6d": "Otomatik Güncelleme Açık",
   "5fa17439fb23ec0f": "tetiklendi",
@@ -1434,6 +1443,7 @@
     " içinden çalıştırın."
   ],
   "6563905b3021a4ef": "Winget'te bulunmayan SCCM uygulamalarına ne olur?",
+  "6571950d68d99cd5": "IntuneGet, Winget deposunda mevcut olan 10.000'den fazla uygulamayı destekler. Buna tarayıcılar, üretkenlik araçları, geliştirme ortamları ve kurumsal uygulamalar gibi yaygın yazılımlar dahildir. Winget'e yeni uygulamalar eklendikçe bu liste sürekli büyür.",
   "65774c00cf466a66": "Kendi kendine barındırma seçeneği",
   "65a938f4bbde3afb": "Dağıtım verilerini ve raporları indirirken kullanılacak varsayılan dışa aktarma tercihlerini yapılandırın:",
   "65b05741b7a3f203": "Hemen başlamak istiyorsunuz",
@@ -1454,6 +1464,7 @@
     },
     " seçeneğine yeniden tıklayın"
   ],
+  "680d8fb9a69f5e5b": "Kimlik bilgileriniz ve hassas verileriniz asla ortamınızın dışına çıkmaz. IntuneGet, güvenli Microsoft kimlik doğrulamasını (Entra ID) kullanır ve yalnızca hizmet için gereken asgari meta verileri saklar. Tüm iletişim şifrelenir ve tam kontrol için Kendi kendine barındırmayı tercih edebilirsiniz.",
   "682491e28630c886": "Güncelleme mantığı, dağıtım riskini azaltmak için başarısızlık eşiklerini, bekleme pencerelerini ve oran sınırlamalarını uygular.",
   "68699c9ada72d3b9": "Paketleme için GitHub Actions'ı tercih ediyor veya yedek bir seçenek olarak kullanmak istiyorsanız şu adımları izleyin:",
   "68730a76c6e2410a": "Davranış",
@@ -1781,6 +1792,7 @@
     },
     " IntuneGet, herhangi bir dağıtımı başlatmadan önce Graph API izinlerinizi doğrular. Böylece bir uygulamayı paketledikten sonra gerekli DeviceManagementApps.ReadWrite.All iznine sahip olmadığınızı fark etmenin yol açtığı hayal kırıklığını yaşamazsınız."
   ],
+  "7fa0bff4800c1c41": "Çoğu kullanıcı 5 dakikadan kısa sürede kullanıma hazır hale gelir. Microsoft hesabınızla oturum açın, gerekli izinleri verin ve uygulamaları dağıtmaya başlayın. Adım adım başlangıç rehberimiz süreç boyunca size yol gösterir.",
   "7fd49d31583cf514": [
     "Winget paketleri farklı yükleyici türleri içerebilir (MSI, EXE, MSIX, Burn bundle'ları). Her tür, farklı sessiz kurulum parametreleri ve algılama stratejileri gerektirir. Manuel dağıtımda sık yapılan bir hata, farklı sessiz anahtarlar kullanan EXE tabanlı yükleyiciler için MSI anahtarlarının (",
     {
@@ -1931,6 +1943,7 @@
   "8a6d9c2e3d73f2b9": "Yüklemeyi İptal Et",
   "8a6f35a565e07975": "Adım 3: Intune'da uygulama meta verilerini yapılandırma (5-10 dakika)",
   "8a99ef0eceaa5e8d": "Başlamadan önce, aşağıdaki hizmetlerde hesabınız olduğundan emin olun:",
+  "8aed4b5f73512ad5": "IntuneGet, komut dosyası yazma ihtiyacını tamamen ortadan kaldırır. Winget deposundaki 10.000'den fazla uygulama arasından arama yapın, dağıtım ayarlarınızı görsel bir arayüzle yapılandırın ve dağıtımı başlatın. IntuneGet; paketleme işlemlerini, IntuneWin dönüşümünü ve Intune kiracınıza yüklemeyi otomatik olarak gerçekleştirir.",
   "8b0db77b529a014d": "Intune uygulamalarını okuma ve yazma",
   "8b2bd77a69c7f3a9": [
     {
@@ -2095,6 +2108,7 @@
     "v": "v"
   },
   "933fbd17f283a401": "İyi akşamlar",
+  "935eca5441ef3daa": "Hangi destek seçenekleri mevcut?",
   "9383c5d8b489f1a3": "Gereksinim kuralı, uygulamayı IntuneGet kayıt defteri işaretçisi yerine standart Windows kaldırma kayıt defteri yöntemleriyle algılar. Bu da IntuneGet dışında yüklenmiş uygulamalarda da çalıştığı anlamına gelir (keşfedilen/yönetilmeyen uygulamalarda durum tam olarak budur):",
   "939c1c7d2b118eb1": "Henüz Intune üzerinden dağıtılmayan, yönetilen cihazlarınıza yüklü uygulamaları keşfedin. Bunları Winget paketleriyle eşleştirin ve dağıtım için yönetin.",
   "93bd39a2e3a563fc": [
@@ -2565,6 +2579,7 @@
     },
     " içinde otomatik eşleştirmeyi çalıştırın."
   ],
+  "b2615b73cacdc3ff": "Verilerim nerede saklanır?",
   "b272ba7e78a439b0": "Kurulum ve kaldırma komutlarını sessiz kurulum anahtarlarıyla yapılandırır",
   "b27c9ba9c62967a8": "En yaygın Dağıtım sorunlarından biri, hatalı Algılama Kurallarıdır. Intune, bir uygulamanın başarıyla yüklendiğini doğrulayamazsa, uygulama cihazda mevcut olsa bile dağıtımı başarısız olarak bildirir. MSI tabanlı yükleyicilerde algılama için MSI ürün kodunu kullanın. EXE yükleyicilerde ise dosya varlığı denetimlerini (ana yürütülebilir dosyanın yolunu doğrulayın) veya kayıt defteri anahtarı algılamasını kullanın. IntuneGet, yükleyici türüne göre en güvenilir algılama yöntemini otomatik olarak seçer.",
   "b28797c4d6a51091": "Eşleşme durumu",
@@ -2636,6 +2651,7 @@
   "b779784b402dc229": "Her webhook uç noktası bir HMAC sırrıyla imzalanır. Alıcı hizmet, isteğin IntuneGet'ten geldiğini doğrulamak için imzayı doğrulayabilir. Başarısız teslimatlar otomatik olarak yeniden denenir.",
   "b7846c7ceb82e6b6": "İlgili hata mesajlarını paylaşın (hassas bilgileri gizleyin)",
   "b7a907b6faa1a42a": "Tam Kontrol",
+  "b7db0911a4fa2f57": "IntuneGet, koltuk sınırı olmadan ücretsizdir; çünkü her BT ekibinin harika dağıtım araçlarına erişmeyi hak ettiğine inanıyoruz. IntuneGet size 10.000+'den fazla Winget paketine erişim sağlar, AGPL-3.0 lisansı altında tamamen Açık kaynaktır ve Kendi kendine barındırmayı destekler. Tedarikçi bağımlılığı yok, sürpriz fatura yok.",
   "b7e57aa5f25e083f": "Mevcut SCCM uygulama portföylerinize IntuneGet'e dört aşamada geçiş yapın: içe aktarma, eşleştirme, önizleme ve yürütme.",
   "b854c5f17107a679": "Bu bağlantıyı Genel Yöneticinizle paylaşın:",
   "b897ad2ca85527b6": "Tüm filtreleri temizle",
@@ -2734,6 +2750,7 @@
   "bf2d0b558ba2f5ff": "İzin",
   "bf3a6328eeb7b622": "Çoğu uç nokta bir Microsoft erişim belirteci gerektirir:",
   "bf845736439f515b": "Win32 uygulama envanterini ve atamaları okuyun",
+  "bf9c63d11131f943": "IntuneGet, Winget uygulamalarını Microsoft Intune'a dağıtmak için önde gelen ücretsiz, Açık kaynak araçtır. Winget deposundaki uygulamaları (10.000+'den fazla uygulama) otomatik olarak paketler ve Intune ortamınıza yükleyerek uygulama dağıtım sürecinizi yalnızca birkaç tıklamayla kolaylaştırır. Komut dosyası yazmak veya IntuneWin paketleme gerekmez.",
   "bfd264b3de89241b": "Toplu Uygulama Geçişi için IntuneGet Kullanımı",
   "bfe994c166e4202f": "23-48 saat",
   "c01c46ab3b465cfb": "Algılama kuralı hataları",
@@ -3055,6 +3072,7 @@
   "d7e15a5b74011fe0": "Bu manuel süreç, testler de dahil olmak üzere genellikle uygulama başına 1-2 saat sürer. Onlarca veya yüzlerce uygulamayı yöneten kuruluşlar için gereken zaman hızla artar.",
   "d7eeb21effefb77b": "Güncellemeler hatalarla tamamlandı",
   "d88a086ea569bc7c": "Kuruluş adı *",
+  "d8d81dbd2efecfb3": "Evet! IntuneGet, AGPL-3.0 lisansı altında tamamen ücretsiz ve Açık kaynaktır. Gizli ücret yok, premium katman yok ve kredi kartı gerekmiyor. Tüm özellikleri hiçbir ücret ödemeden kullanabilir, ihtiyaçlarınıza göre uyarlayabilir ve geliştirilmesine katkıda bulunabilirsiniz.",
   "d8dda39fab4cf365": "Cihazlarınızın genelinde yönetilmeyen uygulamalar algılandı",
   "d8fcb9de53369c5d": "Yönlendirme URI'si tam olarak eşleşmelidir; buna protokol (https://) dahildir ve sonunda eğik çizgi olmamalıdır.",
   "d9255526fe140ce9": "Geri çağırma uç noktası günlüklerini kontrol edin",
@@ -3220,6 +3238,7 @@
   "e41b3dfc8643d83d": ".env.local, Docker, Paketleme",
   "e425a1a2257cc5d0": "SQLite dosyasının yolu",
   "e43186fa3e566ffd": "İşleri kullanıcıya göre listeleyin veya tek bir işi getirin",
+  "e452fae74784efb5": "IntuneGet'i kullanmak için özel izinlere ihtiyacım var mı?",
   "e46213f892fa7c69": "IntuneGet örneğinizi hesap ayarları, izin yönetimi, bildirim tercihleri, dışa aktarma seçenekleri ve veri yönetimiyle yapılandırın.",
   "e46ee9ab3e78e3f6": "Geçiş Önizlemesi",
   "e47f7f25a4c04b03": "Uygulamaları içe aktar",
@@ -3429,6 +3448,7 @@
     " - Keşfedilen uygulama adını doğrudan Winget paket adlarıyla karşılaştırır"
   ],
   "f4db0e350c053aad": "API erişim kontrolü",
+  "f532f033847af54d": "Kurulum ne kadar sürer?",
   "f55618cc8fc6d8af": "Uygulama zaten yüklü mü?",
   "f596d1521e225131": "İş hesabınızla oturum açın",
   "f5a6de215502e5e1": "IntuneGet, uygulamaları dağıtmak için aşağıdaki izinlere ihtiyaç duyar:",
