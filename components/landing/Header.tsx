@@ -129,7 +129,7 @@ export function Header() {
 
           {/* Desktop navigation */}
           <nav className={cn(
-            "hidden md:flex items-center transition-all duration-500",
+            "hidden md:flex items-center ml-8 transition-all duration-500",
             hasScrolled ? "gap-5" : "gap-8"
           )}>
             {navLinks.map((link) => (
