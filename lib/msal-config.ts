@@ -10,11 +10,10 @@ export const msalConfig: Configuration = {
     clientId: getPublicClientId(),
     authority: "https://login.microsoftonline.com/organizations",
     redirectUri:
-      typeof window !== "undefined" ? window.location.origin : "",
+      typeof window !== "undefined" ? `${window.location.origin}/redirect` : "",
   },
   cache: {
     cacheLocation: "sessionStorage",
-    storeAuthStateInCookie: false,
   },
   system: {
     loggerOptions: {

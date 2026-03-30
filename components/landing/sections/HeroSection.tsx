@@ -2,7 +2,8 @@
 
 import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { Github, ArrowRight, Star, Users, Upload, BookOpen } from "lucide-react";
+import { ArrowRight, Star, Users, Upload, BookOpen } from "lucide-react";
+import { Github } from "@/components/icons/brand-icons";
 import Link from "next/link";
 import { T, Var, useGT } from "gt-next";
 import { Badge } from "../ui/Badge";

@@ -1,7 +1,8 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, Github, Star, BookOpen } from "lucide-react";
+import { ArrowRight, Star, BookOpen } from "lucide-react";
+import { Github } from "@/components/icons/brand-icons";
 import Link from "next/link";
 import { T } from "gt-next";
 import { FadeIn } from "../animations/FadeIn";

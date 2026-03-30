@@ -5,7 +5,6 @@ import {
   Rocket,
   Cloud,
   Database,
-  Github,
   Container,
   HelpCircle,
   CheckCircle,
@@ -23,6 +22,7 @@ import {
   Package,
   SlidersHorizontal,
 } from "lucide-react";
+import { Github } from "@/components/icons/brand-icons";
 import {
   Callout,
   Table,

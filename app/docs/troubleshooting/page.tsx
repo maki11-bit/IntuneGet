@@ -5,10 +5,10 @@ import {
   AlertCircle,
   CheckCircle,
   HelpCircle,
-  Github,
   ExternalLink,
   ChevronDown,
 } from "lucide-react";
+import { Github } from "@/components/icons/brand-icons";
 import {
   Callout,
   CodeBlock,

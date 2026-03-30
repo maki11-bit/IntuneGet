@@ -363,7 +363,7 @@ export function DeploymentFeed({ className = "", mode = "default" }: DeploymentF
 
   const queueRef = useRef<AppDefinition[]>([]);
   const lastAppNameRef = useRef<string>("");
-  const tickRef = useRef<() => void>();
+  const tickRef = useRef<() => void>(undefined);
 
   const isMobile = viewportMode === "mobile";
   const isHeroCalm = mode === "heroCalm";

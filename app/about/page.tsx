@@ -2,7 +2,8 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { Header } from "@/components/landing/Header";
 import { Footer } from "@/components/landing/sections/Footer";
-import { Github, Linkedin, Heart, Target, Users, Code } from "lucide-react";
+import { Heart, Target, Users, Code } from "lucide-react";
+import { Github, Linkedin } from "@/components/icons/brand-icons";
 import { T } from "gt-next";
 
 export const metadata: Metadata = {

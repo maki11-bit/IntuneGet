@@ -11,7 +11,7 @@ interface CopyableCommandProps {
 
 export function CopyableCommand({ command, label }: CopyableCommandProps) {
   const [copied, setCopied] = useState(false);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   useEffect(() => {
     return () => {

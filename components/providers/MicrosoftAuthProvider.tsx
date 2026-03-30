@@ -4,6 +4,7 @@ import { MsalProvider } from "@azure/msal-react";
 import { PublicClientApplication } from "@azure/msal-browser";
 import { getMsalInstance } from "@/lib/msal-config";
 import { useEffect, useState, ReactNode } from "react";
+import { usePathname } from "next/navigation";
 
 interface MicrosoftAuthProviderProps {
   children: ReactNode;
@@ -12,11 +13,20 @@ interface MicrosoftAuthProviderProps {
 export function MicrosoftAuthProvider({
   children,
 }: MicrosoftAuthProviderProps) {
+  const pathname = usePathname();
   const [msalInstance, setMsalInstance] =
     useState<PublicClientApplication | null>(null);
   const [isInitialized, setIsInitialized] = useState(false);
 
+  // The /redirect page handles MSAL v5 redirect bridge and must not be
+  // wrapped in MsalProvider
+  const isRedirectPage = pathname === "/redirect";
+
   useEffect(() => {
+    if (isRedirectPage) {
+      setIsInitialized(true);
+      return;
+    }
     const initializeMsal = async () => {
       try {
         const instance = getMsalInstance();

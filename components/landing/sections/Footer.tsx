@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Github, Linkedin, ExternalLink, Apple, ShieldCheck, LucideIcon } from "lucide-react";
+import { ExternalLink, Apple, ShieldCheck, LucideIcon } from "lucide-react";
+import { Github, Linkedin } from "@/components/icons/brand-icons";
 import { T, Var } from "gt-next";
 import { FadeIn } from "../animations/FadeIn";
 import { StaggerContainer, StaggerItem } from "../animations/StaggerContainer";

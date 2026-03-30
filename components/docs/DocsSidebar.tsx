@@ -7,7 +7,6 @@ import {
   Rocket,
   Cloud,
   Database,
-  Github,
   Container,
   HelpCircle,
   ChevronRight,
@@ -20,6 +19,7 @@ import {
   Package,
   SlidersHorizontal,
 } from "lucide-react";
+import { Github } from "@/components/icons/brand-icons";
 import { cn } from "@/lib/utils";
 
 interface NavItem {

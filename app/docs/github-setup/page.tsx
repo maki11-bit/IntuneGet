@@ -1,7 +1,8 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { T } from "gt-next";
-import { ArrowRight, ExternalLink, Github, AlertCircle, DollarSign, Server } from "lucide-react";
+import { ArrowRight, ExternalLink, AlertCircle, DollarSign, Server } from "lucide-react";
+import { Github } from "@/components/icons/brand-icons";
 import {
   Callout,
   CodeBlock,

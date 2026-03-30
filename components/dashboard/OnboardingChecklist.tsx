@@ -21,7 +21,7 @@ interface ChecklistStep {
   id: string;
   title: string;
   description: string;
-  icon: React.ElementType;
+  icon: React.ComponentType<{ className?: string }>;
   href: string;
   isComplete: boolean;
 }

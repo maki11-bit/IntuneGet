@@ -53,7 +53,7 @@ export default function DashboardPage() {
   const attentionItems = useMemo(() => {
     const items: Array<{
       id: string;
-      icon: React.ElementType;
+      icon: React.ComponentType<{ className?: string }>;
       title: React.ReactNode;
       description: React.ReactNode;
       href: string;
@@ -362,7 +362,7 @@ function StatCard({
 }: {
   title: React.ReactNode;
   value: number;
-  icon: React.ElementType;
+  icon: React.ComponentType<{ className?: string }>;
   color: 'cyan' | 'success' | 'warning' | 'error';
   loading?: boolean;
   mounted?: boolean;
