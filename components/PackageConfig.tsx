@@ -25,12 +25,14 @@ import {
   Globe,
   Search,
   Shield,
+  Link2,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { AppIcon } from '@/components/AppIcon';
 import { AssignmentConfig } from '@/components/AssignmentConfig';
 import { CategoryConfig } from '@/components/CategoryConfig';
+import { DependencyConfig } from '@/components/DependencyConfig';
 import { EspProfileSelector } from '@/components/EspProfileSelector';
 import type { NormalizedPackage, NormalizedInstaller, WingetScope, WingetArchitecture, StoreManifestResponse } from '@/types/winget';
 import type {
@@ -38,6 +40,7 @@ import type {
   ProcessToClose,
   DetectionRule,
   RestartBehavior,
+  DeployMode,
   DialogPosition,
   DialogIcon,
   BalloonIcon,
@@ -45,6 +48,7 @@ import type {
   BalloonTipConfig,
 } from '@/types/psadt';
 import type { CartItem, IntuneAppCategorySelection, PackageAssignment } from '@/types/upload';
+import type { AppRelationship } from '@/types/intune';
 import type { EspProfileSelection } from '@/types/esp';
 import { DEFAULT_PSADT_CONFIG, getDefaultProcessesToClose } from '@/types/psadt';
 import { useCartStore, createStoreCartItem } from '@/stores/cart-store';
@@ -75,6 +79,7 @@ type ConfigSection =
   | 'assignment'
   | 'category'
   | 'esp'
+  | 'dependencies'
   | 'branding'
   | 'advanced';
 
@@ -167,6 +172,9 @@ export function PackageConfig({ package: pkg, installers, onClose, isDeployed = 
   const [espProfiles, setEspProfiles] = useState<EspProfileSelection[]>(
     deployedConfig?.espProfiles || []
   );
+  const [relationships, setRelationships] = useState<AppRelationship[]>(
+    deployedConfig?.relationships || []
+  );
 
   // UI state
   const [expandedSection, setExpandedSection] = useState<ConfigSection | null>(isStoreApp ? 'assignment' : 'detection');
@@ -174,7 +182,7 @@ export function PackageConfig({ package: pkg, installers, onClose, isDeployed = 
   const [addedToCartSuccess, setAddedToCartSuccess] = useState(false);
   const [configMode, setConfigMode] = useState<'quick' | 'advanced'>('quick');
 
-  const quickSections: ConfigSection[] = ['detection', 'assignment', 'category', 'esp'];
+  const quickSections: ConfigSection[] = ['detection', 'assignment', 'category', 'esp', 'dependencies'];
   const isQuickSection = (section: ConfigSection) => quickSections.includes(section);
   const visibleSections = configMode === 'quick' ? quickSections : null; // null = show all
 
@@ -290,6 +298,7 @@ export function PackageConfig({ package: pkg, installers, onClose, isDeployed = 
           assignments: assignments.length > 0 ? assignments : undefined,
           categories: categories.length > 0 ? categories : undefined,
           espProfiles: espProfiles.length > 0 ? espProfiles : undefined,
+          relationships: relationships.length > 0 ? relationships : undefined,
           ...(isDeployed ? { forceCreate: true } : {}),
         });
       } else {
@@ -322,6 +331,7 @@ export function PackageConfig({ package: pkg, installers, onClose, isDeployed = 
           assignments: assignments.length > 0 ? assignments : undefined,
           categories: categories.length > 0 ? categories : undefined,
           espProfiles: espProfiles.length > 0 ? espProfiles : undefined,
+          relationships: relationships.length > 0 ? relationships : undefined,
           localeCode: selectedLocale || undefined,
           iconPath: pkg.iconPath,
           ...(isDeployed ? { forceCreate: true } : {}),
@@ -758,6 +768,25 @@ export function PackageConfig({ package: pkg, installers, onClose, isDeployed = 
                 onToggle={() => toggleSection('behavior')}
               >
                 <div className="space-y-4">
+                  {/* Deploy Mode */}
+                  <div>
+                    <label className="block text-sm font-medium text-text-secondary mb-2">
+                      Deploy mode
+                    </label>
+                    <select
+                      value={config.deployMode || 'Silent'}
+                      onChange={(e) => updateConfig({ deployMode: e.target.value as DeployMode })}
+                      className="w-full px-3 py-2 bg-bg-elevated border border-overlay/15 rounded-lg text-text-primary text-sm"
+                    >
+                      <option value="Silent">Silent - No UI popups (recommended)</option>
+                      <option value="NonInteractive">Non-Interactive - Show progress only</option>
+                      <option value="Auto">Auto-detect (PSADT default)</option>
+                    </select>
+                    <p className="text-xs text-text-muted mt-1">
+                      Controls whether PSADT shows dialogs during installation. Silent is recommended for Intune.
+                    </p>
+                  </div>
+
                   {/* Processes to Close */}
                   <div>
                     <div className="flex items-center justify-between mb-2">
@@ -1533,13 +1562,26 @@ export function PackageConfig({ package: pkg, installers, onClose, isDeployed = 
                 />
               </ConfigSection>}
 
+              {/* Dependencies & Supersedence (quick + advanced, win32 only) */}
+              {!isStoreApp && (visibleSections === null || visibleSections.includes('dependencies')) && <ConfigSection
+                title="Dependencies & Supersedence"
+                icon={<Link2 className="w-4 h-4" />}
+                expanded={expandedSection === 'dependencies'}
+                onToggle={() => toggleSection('dependencies')}
+              >
+                <DependencyConfig
+                  relationships={relationships}
+                  onChange={setRelationships}
+                />
+              </ConfigSection>}
+
               {/* Teaser for quick mode (win32 only) */}
               {!isStoreApp && configMode === 'quick' && (
                 <button
                   onClick={() => setConfigMode('advanced')}
                   className="w-full py-3 px-4 rounded-lg border border-dashed border-overlay/15 text-sm text-text-secondary hover:text-text-primary hover:border-overlay/25 transition-colors text-center"
                 >
-                  8 more configuration sections available
+                  7 more configuration sections available
                 </button>
               )}
 

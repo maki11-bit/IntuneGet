@@ -266,7 +266,6 @@ function Get-PSADTAssetFileName {
 }
 
 # Extract config values with defaults
-$installMode = if ($psadtConfig.installMode) { $psadtConfig.installMode } else { 'Auto' }
 # Escape special PowerShell characters for embedding in generated script
 $silentSwitchesEscaped = $SilentSwitches -replace "'", "''" -replace '`', '``' -replace '\$', '`$'
 $uninstallCmd = $UninstallCommand -replace "'", "''" -replace '`', '``' -replace '\$', '`$'

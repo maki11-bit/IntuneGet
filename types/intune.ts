@@ -262,6 +262,20 @@ export interface MobileAppInstallTimeSettings {
   deadlineDateTime?: string;
 }
 
+// App relationship types for dependencies and supersedence
+export type AppRelationshipType = 'dependency' | 'supersedence';
+export type DependencyType = 'detect' | 'autoInstall';
+export type SupersedenceType = 'update' | 'replace';
+
+export interface AppRelationship {
+  relationshipType: AppRelationshipType;
+  targetId: string;           // Intune app ID of the target app
+  targetDisplayName: string;  // For UI display only (read-only in Graph API)
+  targetVersion?: string;     // For UI display only
+  dependencyType?: DependencyType;       // Required when relationshipType is 'dependency'
+  supersedenceType?: SupersedenceType;   // Required when relationshipType is 'supersedence'
+}
+
 // Graph API response types
 export interface GraphApiResponse<T> {
   '@odata.context'?: string;

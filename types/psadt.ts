@@ -17,6 +17,14 @@ export type RestartBehavior =
   | 'Prompt';          // Prompt user to restart
 
 /**
+ * PSADT deploy mode - controls UI visibility during installation
+ */
+export type DeployMode =
+  | 'Silent'           // No UI at all (recommended for Intune)
+  | 'NonInteractive'   // Shows progress but no user interaction required
+  | 'Auto';            // PSADT auto-detects based on session state
+
+/**
  * Detection rule type for Intune
  */
 export type DetectionType =
@@ -151,6 +159,9 @@ export interface PSADTConfig {
   // Restart handling
   restartBehavior: RestartBehavior;
 
+  // Deploy mode - controls PSADT v4 UI visibility
+  deployMode?: DeployMode;
+
   // Progress dialog (Show-ADTInstallationProgress)
   progressDialog: ProgressConfig;
 
@@ -209,6 +220,9 @@ export const DEFAULT_PSADT_CONFIG: PSADTConfig = {
 
   // Suppress restarts - let Intune handle restart scheduling
   restartBehavior: 'Suppress',
+
+  // Silent deploy mode - suppress all PSADT UI for Intune deployments
+  deployMode: 'Silent',
 
   // Progress dialog - disabled by default for silent deployments
   progressDialog: {

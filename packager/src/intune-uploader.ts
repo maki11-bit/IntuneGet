@@ -187,6 +187,10 @@ export class IntuneUploader {
     await onProgress?.(99, 'Applying categories...');
     await this.applyCategories(graphClient, app.id, job);
 
+    // Step 12: Apply app relationships (99%)
+    await onProgress?.(99, 'Applying app relationships...');
+    await this.applyRelationships(graphClient, app.id, job);
+
     await onProgress?.(100, 'Upload complete');
 
     const appUrl = `https://intune.microsoft.com/#view/Microsoft_Intune_Apps/SettingsMenu/~/0/appId/${app.id}`;
@@ -199,20 +203,45 @@ export class IntuneUploader {
   }
 
   /**
+   * Build install/uninstall command lines based on deploy mode from psadtConfig.
+   * When deployMode is absent (backward compat), no flag is added.
+   */
+  private buildCommandLines(job: PackagingJob): { install: string; uninstall: string } {
+    const packageConfig = this.asRecord(job.package_config);
+    let deployModeFlag = '';
+
+    if (packageConfig) {
+      const psadtConfig = this.asRecord(packageConfig.psadtConfig);
+      const deployMode = psadtConfig?.deployMode;
+      if (deployMode === 'Silent') {
+        deployModeFlag = ' -DeployMode Silent';
+      } else if (deployMode === 'NonInteractive') {
+        deployModeFlag = ' -DeployMode NonInteractive';
+      }
+    }
+
+    return {
+      install: `Invoke-AppDeployToolkit.exe${deployModeFlag}`,
+      uninstall: `Invoke-AppDeployToolkit.exe -DeploymentType Uninstall${deployModeFlag}`,
+    };
+  }
+
+  /**
    * Create Win32 LOB App in Intune
    */
   private async createWin32App(
     graphClient: GraphClient,
     job: PackagingJob
   ): Promise<{ id: string }> {
+    const commands = this.buildCommandLines(job);
     const appBody = {
       '@odata.type': '#microsoft.graph.win32LobApp',
       displayName: job.display_name,
       description: `${job.display_name} ${job.version} - Deployed via IntuneGet`,
       publisher: job.publisher,
       displayVersion: job.version,
-      installCommandLine: 'Invoke-AppDeployToolkit.exe',
-      uninstallCommandLine: 'Invoke-AppDeployToolkit.exe -DeploymentType Uninstall',
+      installCommandLine: commands.install,
+      uninstallCommandLine: commands.uninstall,
       applicableArchitectures: this.mapArchitecture(job.architecture),
       minimumSupportedWindowsRelease: 'v10_1903',
       runAs32Bit: false,
@@ -617,6 +646,97 @@ export class IntuneUploader {
       appId,
       categoryCount: categories.length,
       categoryIds: categories.map((category) => category.id),
+    });
+  }
+
+  private extractRelationships(
+    job: PackagingJob
+  ): Array<{
+    relationshipType: 'dependency' | 'supersedence';
+    targetId: string;
+    dependencyType?: string;
+    supersedenceType?: string;
+  }> {
+    const packageConfig = this.asRecord(job.package_config);
+    if (!packageConfig || !Array.isArray(packageConfig.relationships)) {
+      return [];
+    }
+
+    const parsed: Array<{
+      relationshipType: 'dependency' | 'supersedence';
+      targetId: string;
+      dependencyType?: string;
+      supersedenceType?: string;
+    }> = [];
+
+    for (const item of packageConfig.relationships) {
+      const rel = this.asRecord(item);
+      if (!rel || typeof rel.targetId !== 'string' || rel.targetId.length === 0) {
+        continue;
+      }
+
+      const relType = rel.relationshipType;
+      if (relType !== 'dependency' && relType !== 'supersedence') {
+        continue;
+      }
+
+      const depType = rel.dependencyType;
+      const supType = rel.supersedenceType;
+
+      parsed.push({
+        relationshipType: relType,
+        targetId: rel.targetId,
+        dependencyType: depType === 'detect' || depType === 'autoInstall' ? depType : undefined,
+        supersedenceType: supType === 'update' || supType === 'replace' ? supType : undefined,
+      });
+    }
+
+    return parsed;
+  }
+
+  private async applyRelationships(
+    graphClient: GraphClient,
+    appId: string,
+    job: PackagingJob
+  ): Promise<void> {
+    const relationships = this.extractRelationships(job);
+    if (relationships.length === 0) {
+      this.logger.debug('No relationships to apply', { appId });
+      return;
+    }
+
+    for (const rel of relationships) {
+      const body: Record<string, unknown> = {
+        targetId: rel.targetId,
+      };
+
+      if (rel.relationshipType === 'dependency') {
+        body['@odata.type'] = '#microsoft.graph.mobileAppDependency';
+        body.dependencyType = rel.dependencyType || 'autoInstall';
+      } else {
+        body['@odata.type'] = '#microsoft.graph.mobileAppSupersedence';
+        body.supersedenceType = rel.supersedenceType || 'update';
+      }
+
+      try {
+        await graphClient.post(
+          `/deviceAppManagement/mobileApps/${appId}/relationships`,
+          body
+        );
+      } catch (err) {
+        // Non-fatal: log warning but don't fail the deployment
+        this.logger.warn('Failed to apply relationship', {
+          appId,
+          targetId: rel.targetId,
+          type: rel.relationshipType,
+          error: err instanceof Error ? err.message : String(err),
+        });
+      }
+    }
+
+    this.logger.info('Applied relationships to app', {
+      appId,
+      relationshipCount: relationships.length,
     });
   }
 

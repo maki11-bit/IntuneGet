@@ -138,6 +138,7 @@ function createTestPreparation(
         deferTimes: 3,
         checkDiskSpace: false,
         restartBehavior: 'Suppress',
+        deployMode: 'Silent',
         progressDialog: { enabled: false },
         customPrompts: [],
         restartPrompt: { enabled: false, countdownSeconds: 600, countdownNoHideSeconds: 60 },

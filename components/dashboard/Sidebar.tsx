@@ -23,6 +23,7 @@ import {
   Lightbulb,
   PanelLeftClose,
   PanelLeftOpen,
+  History,
 } from 'lucide-react';
 import { T } from 'gt-next';
 import { cn } from '@/lib/utils';
@@ -223,6 +224,17 @@ export function Sidebar({ user, onSignOut }: SidebarProps) {
             </>
           )}
         </button>
+      </div>
+
+      {/* Changelog link */}
+      <div className="px-3 pb-1">
+        <SidebarNavItem
+          name={<T>Changelog</T>}
+          href="/changelog"
+          icon={History}
+          isCollapsed={isCollapsed}
+          onClick={closeMobile}
+        />
       </div>
 
       {/* User section */}

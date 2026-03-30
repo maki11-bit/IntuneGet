@@ -3,7 +3,7 @@
  * For package staging, job tracking, and deployment workflow
  */
 
-import type { DetectionRule, RequirementRule } from './intune';
+import type { DetectionRule, RequirementRule, AppRelationship } from './intune';
 import type { WingetArchitecture, WingetScope, WingetInstallerType } from './winget';
 import type { PSADTConfig } from './psadt';
 import type { EspProfileSelection } from './esp';
@@ -144,6 +144,9 @@ interface CartItemBase {
 
   // ESP profile configuration
   espProfiles?: EspProfileSelection[];
+
+  // App relationships (dependencies / supersedence)
+  relationships?: AppRelationship[];
 
   // Redeploy flag - skip duplicate detection during deployment
   forceCreate?: boolean;

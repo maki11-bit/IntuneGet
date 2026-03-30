@@ -41,7 +41,9 @@ export async function listEspProfiles(
   });
 
   if (!response.ok) {
-    throw new Error('Failed to list device enrollment configurations');
+    const errorBody = await response.json().catch(() => ({}));
+    const graphMsg = (errorBody as Record<string, Record<string, string>>)?.error?.message || response.statusText;
+    throw new Error(`Failed to list device enrollment configurations (${response.status}): ${graphMsg}`);
   }
 
   const data: GraphApiListResponse<DeviceEnrollmentConfiguration> =

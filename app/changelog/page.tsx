@@ -27,6 +27,58 @@ interface Release {
 
 const releases: Release[] = [
   {
+    version: "0.6.5",
+    date: "2026-03-30",
+    title: "App Dependencies & Supersedence, Changelog, and Bug Fixes",
+    type: "minor",
+    highlights: [
+      "App Dependencies & Supersedence: configure dependency and supersedence relationships for Win32 apps directly in IntuneGet, applied automatically via Microsoft Graph API after deployment",
+      "Changelog page redesigned with improved visual hierarchy, latest release highlighting, and GitHub-style timeline",
+      "Changelog link added to landing page navbar and dashboard sidebar for easy access",
+      "ESP profile error messages now show the actual Graph API error instead of a generic failure",
+      "Fixed ESP profile selector readability in light mode: selected items and warning banners now display correctly",
+      "ESP warning banner improved with actionable guidance when no required assignment is configured",
+      "Added DeviceManagementServiceConfig.Read.All to Entra ID setup documentation for ESP profile support",
+      "Fixed React 19 compatibility: upgraded @react-three/fiber, drei, and postprocessing to versions compatible with Next.js 15 vendored React",
+    ],
+  },
+  {
+    version: "0.6.4",
+    date: "2026-03-05",
+    title: "Multilanguage Support, App Dependencies & Improved Search",
+    type: "minor",
+    highlights: [
+      "Multilanguage support: auto-detect user language from browser settings with gt-next i18n across the entire app",
+      "App Dependencies & Supersedence: configure dependency and supersedence relationships for Win32 apps, applied via Graph API after deployment",
+      "Graph API rate limiting: automatic retry logic with token caching for 429 throttled requests",
+      "Deployment warnings: display partial success scenarios when assignments or categories fail but the app deploys",
+      "Search improvements: boost exact and prefix matches in full-text search ordering",
+      "Unmanaged app matching: prevent false partial matches in the discovered apps matcher",
+      "Preserve updateOnly assignments and requirement rules through the app update path",
+      "Fix intermittent error on the Unmanaged Apps page from stale state",
+      "Over 200 new app icons added via automated web icon extraction pipeline",
+    ],
+  },
+  {
+    version: "0.6.3",
+    date: "2026-02-25",
+    title: "Microsoft Store Apps, ESP Profiles & Language Variants",
+    type: "minor",
+    highlights: [
+      "Microsoft Store app support: deploy Store apps directly via the Display Catalog API without packaging",
+      "Enrollment Status Page (ESP) profile support: assign apps to ESP profiles during deployment",
+      "Language variant support: select locale-specific WinGet package variants for multilingual deployments",
+      "3D rotating package animation on the sign-in verification page",
+      "Fix MSP org creator role to owner instead of default operator",
+      "Fix empty client_id in Docker self-hosted MSAL authentication",
+      "Show proper error state when discovered apps fail to load",
+      "Strip locale tags from package names across all catalog views",
+      "Remove user email exposure from app suggestions list for privacy",
+      "Auto-update job cleanup and auto-dismiss from the dashboard",
+      "Replace Group.Read.All with less-privileged GroupMember.Read.All",
+    ],
+  },
+  {
     version: "0.6.2",
     date: "2026-02-16",
     title: "Package Testing Pipeline & Dashboard UX Overhaul",
@@ -203,17 +255,24 @@ const releases: Release[] = [
   },
 ];
 
-function VersionBadge({ type }: { type: Release["type"] }) {
+function VersionBadge({ type, isLatest }: { type: Release["type"]; isLatest?: boolean }) {
   const styles = {
-    major: "bg-accent-cyan/10 text-accent-cyan",
-    minor: "bg-emerald-500/10 text-emerald-600",
-    patch: "bg-overlay/[0.06] text-text-secondary",
+    major: "bg-accent-cyan/15 text-accent-cyan border border-accent-cyan/30",
+    minor: "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20",
+    patch: "bg-overlay/[0.06] text-text-muted border border-overlay/10",
   };
 
   return (
-    <span className={`inline-block px-2 py-0.5 text-xs font-medium rounded-full ${styles[type]}`}>
-      <T>{type}</T>
-    </span>
+    <div className="flex items-center gap-2">
+      <span className={`inline-block px-2.5 py-0.5 text-xs font-medium rounded-full ${styles[type]}`}>
+        <T>{type}</T>
+      </span>
+      {isLatest && (
+        <span className="inline-block px-2.5 py-0.5 text-xs font-semibold rounded-full bg-accent-cyan text-white">
+          <T>Latest</T>
+        </span>
+      )}
+    </div>
   );
 }
 
@@ -275,73 +334,110 @@ export default function ChangelogPage() {
           <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">
             <T>What&apos;s New in IntuneGet</T>
           </h1>
-          <p className="text-lg text-text-secondary">
+          <p className="text-lg text-text-secondary mb-6">
             <T>
               Track the latest updates, features, and improvements. IntuneGet is
               actively maintained and regularly updated with new capabilities.
             </T>
           </p>
+          <div className="flex items-center gap-4 text-sm">
+            <span className="inline-flex items-center gap-2 text-text-muted">
+              <span className="w-2 h-2 rounded-full bg-accent-cyan animate-pulse" />
+              <Var>{releases.length}</Var> <T>releases</T>
+            </span>
+            <a
+              href="https://github.com/ugurkocde/IntuneGet/releases"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-text-muted hover:text-accent-cyan transition-colors"
+            >
+              <T>View on GitHub</T>
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+          </div>
         </div>
 
         {/* Releases */}
         <div className="space-y-0">
-          {releases.map((release, index) => (
-            <div
-              key={release.version}
-              className="relative pl-8 pb-12 last:pb-0"
-            >
-              {/* Timeline line */}
-              {index < releases.length - 1 && (
-                <div className="absolute left-[11px] top-6 bottom-0 w-px bg-stone-200" />
-              )}
-              {/* Timeline dot */}
-              <div className="absolute left-0 top-1.5 w-[23px] h-[23px] rounded-full border-2 border-accent-cyan/40 bg-bg-elevated flex items-center justify-center">
-                <div className="w-2.5 h-2.5 rounded-full bg-accent-cyan" />
-              </div>
-
-              {/* Content */}
-              <div className="bg-bg-elevated rounded-xl border border-overlay/10 p-6 shadow-soft">
-                <div className="flex flex-wrap items-center gap-3 mb-3">
-                  <span className="font-mono text-lg font-bold text-text-primary">
-                    v<Var>{release.version}</Var>
-                  </span>
-                  <VersionBadge type={release.type} />
-                  <span className="text-sm text-text-muted"><Var>{release.date}</Var></span>
+          {releases.map((release, index) => {
+            const isLatest = index === 0;
+            return (
+              <div
+                key={release.version}
+                className="relative pl-8 pb-10 last:pb-0"
+              >
+                {/* Timeline line */}
+                {index < releases.length - 1 && (
+                  <div className="absolute left-[11px] top-6 bottom-0 w-px bg-overlay/15" />
+                )}
+                {/* Timeline dot */}
+                <div className={`absolute left-0 top-1.5 w-[23px] h-[23px] rounded-full border-2 ${
+                  isLatest ? 'border-accent-cyan bg-accent-cyan/10' : 'border-overlay/20 bg-bg-elevated'
+                } flex items-center justify-center`}>
+                  <div className={`w-2.5 h-2.5 rounded-full ${
+                    isLatest ? 'bg-accent-cyan' : 'bg-overlay/30'
+                  }`} />
                 </div>
-                <h2 className="text-lg font-semibold text-text-primary mb-3">
-                  <T>{release.title}</T>
-                </h2>
-                <ul className="space-y-2">
-                  {release.highlights.map((highlight) => (
-                    <li
-                      key={highlight}
-                      className="flex items-start gap-2 text-sm text-text-secondary"
-                    >
-                      <span className="w-1.5 h-1.5 rounded-full bg-accent-cyan mt-1.5 flex-shrink-0" />
-                      <T>{highlight}</T>
-                    </li>
-                  ))}
-                </ul>
+
+                {/* Content */}
+                <div className={`rounded-xl border p-6 transition-colors ${
+                  isLatest
+                    ? 'bg-bg-elevated border-accent-cyan/20 shadow-soft-md'
+                    : 'bg-bg-elevated/70 border-overlay/10 shadow-soft'
+                }`}>
+                  <div className="flex flex-wrap items-center gap-3 mb-2">
+                    <span className={`font-mono text-lg font-bold ${
+                      isLatest ? 'text-accent-cyan' : 'text-text-primary'
+                    }`}>
+                      v<Var>{release.version}</Var>
+                    </span>
+                    <VersionBadge type={release.type} isLatest={isLatest} />
+                  </div>
+                  <div className="flex items-center gap-2 mb-3">
+                    <time className="text-xs text-text-muted font-mono">
+                      <Var>{release.date}</Var>
+                    </time>
+                  </div>
+                  <h2 className="text-lg font-semibold text-text-primary mb-4">
+                    <T>{release.title}</T>
+                  </h2>
+                  <ul className="space-y-2.5">
+                    {release.highlights.map((highlight) => (
+                      <li
+                        key={highlight}
+                        className="flex items-start gap-2.5 text-sm text-text-secondary leading-relaxed"
+                      >
+                        <span className={`w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0 ${
+                          isLatest ? 'bg-accent-cyan' : 'bg-overlay/30'
+                        }`} />
+                        <T>{highlight}</T>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Footer CTA */}
-        <div className="mt-12 text-center">
-          <p className="text-text-muted text-sm">
-            <T>
-              View the full commit history on{" "}
-              <a
-                href="https://github.com/ugurkocde/IntuneGet/commits"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-accent-cyan hover:text-accent-cyan-dim transition-colors"
-              >
-                GitHub
-              </a>
-            </T>
+        <div className="mt-16 rounded-xl border border-overlay/10 bg-bg-elevated/50 p-8 text-center">
+          <p className="text-text-secondary text-sm mb-3">
+            <T>Want to see the full commit history?</T>
           </p>
+          <a
+            href="https://github.com/ugurkocde/IntuneGet/commits"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-overlay/15 bg-bg-elevated text-text-primary text-sm font-medium hover:border-accent-cyan/30 hover:text-accent-cyan transition-colors"
+          >
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+            <T>View on GitHub</T>
+          </a>
         </div>
       </main>
 

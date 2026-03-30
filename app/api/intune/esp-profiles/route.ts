@@ -67,9 +67,10 @@ export async function GET(request: NextRequest) {
       profiles,
       count: profiles.length,
     });
-  } catch {
+  } catch (err) {
+    console.error('[ESP Profiles] Error:', err instanceof Error ? err.message : err);
     return NextResponse.json(
-      { error: 'Failed to fetch ESP profiles' },
+      { error: err instanceof Error ? err.message : 'Failed to fetch ESP profiles' },
       { status: 500 }
     );
   }

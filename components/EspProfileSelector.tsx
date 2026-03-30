@@ -170,7 +170,7 @@ export function EspProfileSelector({
                           className={cn(
                             'w-full text-left px-3 py-2 rounded-lg border transition-colors flex items-center gap-2',
                             selected
-                              ? 'bg-blue-600/20 border-blue-500/40 text-blue-200'
+                              ? 'bg-blue-600/15 border-blue-500/40 text-blue-700 dark:text-blue-200'
                               : 'bg-bg-elevated/60 border-overlay/15 text-text-secondary hover:border-overlay/20 hover:bg-overlay/10'
                           )}
                         >
@@ -267,11 +267,12 @@ export function EspProfileSelector({
       </button>
 
       {showValidationWarning && (
-        <div className="flex items-start gap-2 rounded-lg border border-yellow-500/30 bg-yellow-500/10 px-3 py-2">
-          <AlertTriangle className="w-4 h-4 text-yellow-400 flex-shrink-0 mt-0.5" />
-          <p className="text-xs text-yellow-300">
-            ESP profiles only track required app installations. Consider adding a &quot;required&quot; assignment.
-          </p>
+        <div className="flex items-start gap-2 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2.5">
+          <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
+          <div className="text-xs text-amber-700 dark:text-amber-300">
+            <p className="font-medium mb-1">No &quot;required&quot; assignment configured</p>
+            <p>Intune ESP only tracks apps assigned as &quot;required&quot;. Go to the <strong>Assignments</strong> section above and add an assignment with intent set to <strong>Required</strong>, otherwise this app will not be tracked during Autopilot enrollment.</p>
+          </div>
         </div>
       )}
 
@@ -333,7 +334,7 @@ export function EspProfileSelector({
                       className={cn(
                         'w-full text-left px-3 py-2.5 rounded-lg border transition-colors flex items-center gap-2',
                         selected
-                          ? 'bg-blue-600/20 border-blue-500/40 text-blue-200'
+                          ? 'bg-blue-600/15 border-blue-500/40 text-blue-700 dark:text-blue-200'
                           : 'bg-bg-elevated/60 border-overlay/15 text-text-secondary hover:border-overlay/20 hover:bg-overlay/10'
                       )}
                     >

@@ -727,6 +727,64 @@ export async function syncAppCategories(
 }
 
 /**
+ * Apply app relationships (dependencies / supersedence) via Graph API.
+ * Non-fatal: logs warnings on failure but does not throw.
+ */
+export async function applyAppRelationships(
+  accessToken: string,
+  appId: string,
+  relationships: Array<{
+    relationshipType: 'dependency' | 'supersedence';
+    targetId: string;
+    dependencyType?: 'detect' | 'autoInstall';
+    supersedenceType?: 'update' | 'replace';
+  }>
+): Promise<string[]> {
+  const warnings: string[] = [];
+
+  for (const rel of relationships) {
+    const body: Record<string, unknown> = {
+      targetId: rel.targetId,
+    };
+
+    if (rel.relationshipType === 'dependency') {
+      body['@odata.type'] = '#microsoft.graph.mobileAppDependency';
+      body.dependencyType = rel.dependencyType || 'autoInstall';
+    } else {
+      body['@odata.type'] = '#microsoft.graph.mobileAppSupersedence';
+      body.supersedenceType = rel.supersedenceType || 'update';
+    }
+
+    try {
+      const response = await fetch(
+        `${GRAPH_API_BASE}/deviceAppManagement/mobileApps/${appId}/relationships`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(body),
+        }
+      );
+
+      if (!response.ok) {
+        const error = await response.json().catch(() => ({}));
+        const msg = `Failed to create ${rel.relationshipType} with target ${rel.targetId}: ${(error as Record<string, Record<string, string>>).error?.message || response.statusText}`;
+        console.error('[intune-api] Relationship error:', msg);
+        warnings.push(msg);
+      }
+    } catch (err) {
+      const msg = `Failed to create ${rel.relationshipType} with target ${rel.targetId}: ${err instanceof Error ? err.message : 'Unknown error'}`;
+      console.error('[intune-api] Relationship error:', msg);
+      warnings.push(msg);
+    }
+  }
+
+  return warnings;
+}
+
+/**
  * Get Intune portal URL for an app
  */
 export function getIntunePortalUrl(appId: string): string {

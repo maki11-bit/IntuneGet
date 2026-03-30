@@ -19,20 +19,23 @@ import {
   FolderTree,
   Palette,
   Shield,
+  Link2,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { AssignmentConfig } from '@/components/AssignmentConfig';
 import { CategoryConfig } from '@/components/CategoryConfig';
+import { DependencyConfig } from '@/components/DependencyConfig';
 import { EspProfileSelector } from '@/components/EspProfileSelector';
 import type { CartItem, StoreCartItem, IntuneAppCategorySelection, PackageAssignment } from '@/types/upload';
 import type { EspProfileSelection } from '@/types/esp';
 import { isStoreCartItem, isWin32CartItem } from '@/types/upload';
-import type { RequirementRule } from '@/types/intune';
+import type { RequirementRule, AppRelationship } from '@/types/intune';
 import type {
   PSADTConfig,
   ProcessToClose,
   RestartBehavior,
+  DeployMode,
   DialogPosition,
   DialogIcon,
   BalloonIcon,
@@ -58,6 +61,7 @@ type ConfigSection =
   | 'assignment'
   | 'category'
   | 'esp'
+  | 'dependencies'
   | 'branding'
   | 'advanced';
 
@@ -86,6 +90,9 @@ export function CartItemConfig({ item, onClose }: CartItemConfigProps) {
   );
   const [espProfiles, setEspProfiles] = useState<EspProfileSelection[]>(
     item.espProfiles || []
+  );
+  const [relationships, setRelationships] = useState<AppRelationship[]>(
+    item.relationships || []
   );
   const [installCommand, setInstallCommand] = useState(isWin32 ? item.installCommand : '');
   const [uninstallCommand, setUninstallCommand] = useState(isWin32 ? item.uninstallCommand : '');
@@ -156,6 +163,7 @@ export function CartItemConfig({ item, onClose }: CartItemConfigProps) {
           assignments: assignments.length > 0 ? assignments : undefined,
           categories: categories.length > 0 ? categories : undefined,
           espProfiles: espProfiles.length > 0 ? espProfiles : undefined,
+          relationships: relationships.length > 0 ? relationships : undefined,
           requirementRules,
           installCommand,
           uninstallCommand,
@@ -297,6 +305,25 @@ export function CartItemConfig({ item, onClose }: CartItemConfigProps) {
                 onToggle={() => toggleSection('behavior')}
               >
                 <div className="space-y-4">
+                  {/* Deploy Mode */}
+                  <div>
+                    <label className="block text-sm font-medium text-text-secondary mb-2">
+                      Deploy mode
+                    </label>
+                    <select
+                      value={config.deployMode || 'Silent'}
+                      onChange={(e) => updateConfig({ deployMode: e.target.value as DeployMode })}
+                      className="w-full px-3 py-2 bg-bg-elevated border border-overlay/15 rounded-lg text-text-primary text-sm"
+                    >
+                      <option value="Silent">Silent - No UI popups (recommended)</option>
+                      <option value="NonInteractive">Non-Interactive - Show progress only</option>
+                      <option value="Auto">Auto-detect (PSADT default)</option>
+                    </select>
+                    <p className="text-xs text-text-muted mt-1">
+                      Controls whether PSADT shows dialogs during installation. Silent is recommended for Intune.
+                    </p>
+                  </div>
+
                   {/* Processes to Close */}
                   <div>
                     <div className="flex items-center justify-between mb-2">
@@ -1028,6 +1055,19 @@ export function CartItemConfig({ item, onClose }: CartItemConfigProps) {
                   hasRequiredAssignment={assignments.some((a) => a.intent === 'required')}
                 />
               </ConfigSection>
+
+              {/* Dependencies & Supersedence (win32 only) */}
+              {isWin32 && <ConfigSection
+                title="Dependencies & Supersedence"
+                icon={<Link2 className="w-4 h-4" />}
+                expanded={expandedSection === 'dependencies'}
+                onToggle={() => toggleSection('dependencies')}
+              >
+                <DependencyConfig
+                  relationships={relationships}
+                  onChange={setRelationships}
+                />
+              </ConfigSection>}
 
               {/* Branding (win32 only) */}
               {isWin32 && <ConfigSection

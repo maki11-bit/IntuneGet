@@ -924,8 +924,9 @@ jobs:
             "Content-Type" = "application/json"
           }
 
-          # Parse PSADT config for restart behavior
+          # Parse PSADT config for restart behavior and deploy mode
           $restartBehavior = "suppress"  # Default
+          $deployModeFlag = ""  # Default: no flag (backward compat)
           if ($env:PSADT_CONFIG -and $env:PSADT_CONFIG -ne '{}') {
             try {
               $psadtConfig = $env:PSADT_CONFIG | ConvertFrom-Json -AsHashtable
@@ -940,8 +941,19 @@ jobs:
                 }
                 Write-Host "Restart behavior set to: $restartBehavior"
               }
+              if ($psadtConfig.deployMode) {
+                $deployModeFlag = switch ($psadtConfig.deployMode) {
+                  'Silent' { ' -DeployMode Silent' }
+                  'NonInteractive' { ' -DeployMode NonInteractive' }
+                  'Auto' { '' }
+                  default { '' }
+                }
+                if ($deployModeFlag) {
+                  Write-Host "Deploy mode flag: $($deployModeFlag.Trim())"
+                }
+              }
             } catch {
-              Write-Host "Warning: Could not parse PSADT config for restart behavior, using default"
+              Write-Host "Warning: Could not parse PSADT config for restart behavior/deploy mode, using defaults"
             }
           }
 
@@ -1147,8 +1159,8 @@ jobs:
             description = $descriptionWithSource
             largeIcon = $largeIcon
             fileName = "$env:PACKAGE_FILENAME"
-            installCommandLine = "Invoke-AppDeployToolkit.exe"
-            uninstallCommandLine = "Invoke-AppDeployToolkit.exe -DeploymentType Uninstall"
+            installCommandLine = "Invoke-AppDeployToolkit.exe$deployModeFlag"
+            uninstallCommandLine = "Invoke-AppDeployToolkit.exe -DeploymentType Uninstall$deployModeFlag"
             applicableArchitectures = $mappedApplicableArchitecture
             installExperience = @{
               runAsAccount = if ($env:INSTALL_SCOPE -eq "user") { "user" } else { "system" }
