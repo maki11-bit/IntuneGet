@@ -27,6 +27,9 @@ export interface WorkflowInputs {
   espProfiles?: string; // JSON-serialized EspProfileSelection[]
   installScope?: 'machine' | 'user'; // Install scope for per-user vs per-machine
   forceCreate?: boolean; // Skip duplicate check and force create new app
+  sourceIntuneAppId?: string; // Previous app ID for assignment carry-over
+  carryOverAssignments?: boolean; // Copy assignments from previous app
+  removeAssignmentsFromPreviousApp?: boolean; // Remove assignments from previous app after carry-over
 }
 
 export interface GitHubActionsConfig {
@@ -141,6 +144,9 @@ export async function triggerPackagingWorkflow(
           espProfiles: inputs.espProfiles || '[]',
           installScope: inputs.installScope || 'machine',
           forceCreate: inputs.forceCreate ? 'true' : 'false',
+          sourceIntuneAppId: inputs.sourceIntuneAppId || '',
+          carryOverAssignments: inputs.carryOverAssignments ? 'true' : 'false',
+          removeAssignmentsFromPreviousApp: inputs.removeAssignmentsFromPreviousApp ? 'true' : 'false',
         },
       },
     }),

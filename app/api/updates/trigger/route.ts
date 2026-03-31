@@ -351,6 +351,8 @@ export async function POST(request: NextRequest) {
 
             // If no explicit migration config was stored on the packaging job,
             // fall back to the user's global carryOverAssignments setting.
+            // Note: createPackagingJob() also re-reads the global setting at
+            // trigger time, so the value here is for policy record consistency.
             if (!assignmentMigration) {
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               const { data: userSettingsRow, error: settingsError } = await (supabase as any)
@@ -498,6 +500,18 @@ export async function POST(request: NextRequest) {
 
             const deploymentConfig = policy.deployment_config as unknown as DeploymentConfig;
 
+            // Read the user's current global carry-over setting directly
+            // instead of relying on the stored policy value (which may be stale).
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const { data: carryOverRow } = await (supabase as any)
+              .from('user_settings')
+              .select('settings')
+              .eq('user_id', user.userId)
+              .maybeSingle();
+            const currentCarryOver = Boolean(
+              (carryOverRow?.settings as Record<string, unknown> | null)?.carryOverAssignments
+            );
+
             const workflowInputs: WorkflowInputs = {
               jobId: triggerResult.packagingJobId,
               tenantId: req.tenant_id,
@@ -533,6 +547,9 @@ export async function POST(request: NextRequest) {
                 : undefined,
               installScope: (deploymentConfig.installScope === 'user' ? 'user' : 'machine') as 'machine' | 'user',
               forceCreate: deploymentConfig.forceCreateNewApp !== false,
+              sourceIntuneAppId: installerInfo.currentIntuneAppId || undefined,
+              carryOverAssignments: currentCarryOver,
+              removeAssignmentsFromPreviousApp: currentCarryOver,
             };
 
             const isBatch = updateRequests.length > 1;

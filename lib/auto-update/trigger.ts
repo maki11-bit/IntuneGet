@@ -343,6 +343,28 @@ export class AutoUpdateTrigger {
   }
 
   /**
+   * Read the user's current global carryOverAssignments setting.
+   * This is the single source of truth, not the stored policy value.
+   */
+  private async getUserCarryOverSetting(userId: string): Promise<boolean> {
+    const { data, error } = await this.supabase
+      .from('user_settings')
+      .select('settings')
+      .eq('user_id', userId)
+      .maybeSingle();
+
+    if (error) {
+      console.warn(
+        `Failed to read user_settings for ${userId}: ${error.message}`
+      );
+      return false;
+    }
+
+    const settings = data?.settings as Record<string, unknown> | null;
+    return Boolean(settings?.carryOverAssignments);
+  }
+
+  /**
    * Create a packaging job for the update
    */
   private async createPackagingJob(
@@ -353,9 +375,14 @@ export class AutoUpdateTrigger {
     const config = policy.deployment_config as DeploymentConfig;
     const assignments = normalizeAssignments(config);
     const categories = normalizeCategories(config);
-    const assignmentMigration = config.assignmentMigration || {
-      carryOverAssignments: false,
-      removeAssignmentsFromPreviousApp: false,
+
+    // Always re-read the user's current global setting instead of trusting
+    // the stored policy value, which may be stale if the user toggled the
+    // setting after the policy was created.
+    const globalCarryOver = await this.getUserCarryOverSetting(policy.user_id);
+    const assignmentMigration = {
+      carryOverAssignments: globalCarryOver,
+      removeAssignmentsFromPreviousApp: globalCarryOver,
     };
     const sourceIntuneAppId = updateInfo.currentIntuneAppId || null;
 
