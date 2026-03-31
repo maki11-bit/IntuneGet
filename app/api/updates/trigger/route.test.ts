@@ -85,6 +85,36 @@ function createTriggerSupabaseMocks(policy: AppUpdatePolicy): TriggerSupabaseMoc
         };
       }
 
+      if (table === 'upload_history') {
+        const uploadChain: Record<string, ReturnType<typeof vi.fn>> = {
+          select: vi.fn(),
+          eq: vi.fn(),
+          order: vi.fn(),
+          limit: vi.fn(),
+          maybeSingle: vi.fn().mockResolvedValue({ data: null, error: null }),
+        };
+        for (const key of Object.keys(uploadChain)) {
+          if (key !== 'maybeSingle') {
+            uploadChain[key].mockReturnValue(uploadChain);
+          }
+        }
+        return { select: uploadChain.select };
+      }
+
+      if (table === 'user_settings') {
+        const settingsChain: Record<string, ReturnType<typeof vi.fn>> = {
+          select: vi.fn(),
+          eq: vi.fn(),
+          maybeSingle: vi.fn().mockResolvedValue({ data: null, error: null }),
+        };
+        for (const key of Object.keys(settingsChain)) {
+          if (key !== 'maybeSingle') {
+            settingsChain[key].mockReturnValue(settingsChain);
+          }
+        }
+        return { select: settingsChain.select };
+      }
+
       throw new Error(`Unexpected table used in test: ${table}`);
     },
   };

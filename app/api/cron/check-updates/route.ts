@@ -134,9 +134,22 @@ async function processAutoUpdates(
         continue;
       }
 
-      // Add current version to installer info
+      // Add current version to installer info.
+      // Look up the most recent upload_history record to get the current
+      // Intune app ID, since update_check_results.intune_app_id can be stale
+      // if the app was redeployed since the last update check.
       installerInfo.currentVersion = update.current_version;
-      installerInfo.currentIntuneAppId = update.intune_app_id;
+      const { data: latestUploadForCron } = await supabase
+        .from('upload_history')
+        .select('intune_app_id')
+        .eq('user_id', update.user_id)
+        .eq('intune_tenant_id', update.tenant_id)
+        .eq('winget_id', update.winget_id)
+        .order('deployed_at', { ascending: false })
+        .limit(1)
+        .maybeSingle();
+      installerInfo.currentIntuneAppId =
+        latestUploadForCron?.intune_app_id || update.intune_app_id;
 
       // Trigger the auto-update
       const triggerResult = await autoUpdateTrigger.triggerAutoUpdate(

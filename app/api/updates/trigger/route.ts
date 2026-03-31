@@ -476,7 +476,21 @@ export async function POST(request: NextRequest) {
         }
 
         installerInfo.currentVersion = updateResult.current_version;
-        installerInfo.currentIntuneAppId = updateResult.intune_app_id;
+
+        // Look up the most recent upload_history record to get the current
+        // Intune app ID. The update_check_results.intune_app_id can be stale
+        // if the app was redeployed (forceCreate) since the last update check.
+        const { data: latestUpload } = await supabase
+          .from('upload_history')
+          .select('intune_app_id')
+          .eq('user_id', user.userId)
+          .eq('intune_tenant_id', req.tenant_id)
+          .eq('winget_id', req.winget_id)
+          .order('deployed_at', { ascending: false })
+          .limit(1)
+          .maybeSingle();
+        installerInfo.currentIntuneAppId =
+          latestUpload?.intune_app_id || updateResult.intune_app_id;
 
         // Trigger the update (creates packaging job + history record in DB)
         // Manual triggers skip rate limits since the user explicitly confirmed
