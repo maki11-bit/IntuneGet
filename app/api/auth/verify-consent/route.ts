@@ -21,7 +21,7 @@ import {
   logPermissions,
 } from '@/lib/permission-logger';
 
-type ConsentErrorType = 'missing_credentials' | 'network_error' | 'consent_not_granted' | 'insufficient_intune_permissions' | null;
+type ConsentErrorType = 'missing_credentials' | 'network_error' | 'consent_not_granted' | 'insufficient_intune_permissions' | 'consent_propagating' | null;
 
 interface PermissionStatus {
   deviceManagementApps: boolean | null;
@@ -53,7 +53,7 @@ interface GraphVerificationResult {
  * FAIL-CLOSED: Returns { verified: false, error } on any error condition.
  * This prevents users from bypassing consent verification.
  */
-async function verifyConsentWithGraph(tenantId: string): Promise<GraphVerificationResult> {
+async function verifyConsentWithGraph(tenantId: string, justConsented = false): Promise<GraphVerificationResult> {
   const clientId = process.env.AZURE_CLIENT_ID || process.env.AZURE_AD_CLIENT_ID || process.env.NEXT_PUBLIC_AZURE_AD_CLIENT_ID;
   const clientSecret = process.env.AZURE_CLIENT_SECRET || process.env.AZURE_AD_CLIENT_SECRET;
 
@@ -108,18 +108,24 @@ async function verifyConsentWithGraph(tenantId: string): Promise<GraphVerificati
             deviceManagementServiceConfig: tokenRoles.includes('DeviceManagementServiceConfig.ReadWrite.All'),
           };
 
-          // Log the verification failure
+          // If consent was just granted, Microsoft can take minutes to propagate
+          // the role claims into new service-principal tokens. Return a distinct
+          // error so the UI can show an actionable "still propagating" message.
+          const errorType: ConsentErrorType = justConsented
+            ? 'consent_propagating'
+            : 'insufficient_intune_permissions';
+
           logPermissionVerification(
             '/api/auth/verify-consent',
             tenantId,
             false,
             permissionStatus,
-            'insufficient_intune_permissions'
+            errorType
           );
 
           return {
             verified: false,
-            error: 'insufficient_intune_permissions',
+            error: errorType,
             permissions: permissionStatus,
           };
         }
@@ -239,17 +245,24 @@ async function verifyConsentWithGraph(tenantId: string): Promise<GraphVerificati
       // Determine overall verification status
       const hasRequiredPermission = permissions.deviceManagementApps === true;
 
-      // Log final verification result
+      // Honor the just-consented hint on the live-API-test path too. If JWT
+      // decode succeeded but rolled through here because the test also checks
+      // live Graph, or if decode failed (catch above), we still want a fresh
+      // consent to surface the propagating state rather than "insufficient".
+      const fallthroughError: ConsentErrorType = justConsented
+        ? 'consent_propagating'
+        : 'insufficient_intune_permissions';
+
       logPermissionVerification(
         '/api/auth/verify-consent',
         tenantId,
         hasRequiredPermission,
         permissions,
-        hasRequiredPermission ? undefined : 'insufficient_intune_permissions'
+        hasRequiredPermission ? undefined : fallthroughError
       );
 
       if (!hasRequiredPermission && permissions.deviceManagementApps === false) {
-        return { verified: false, error: 'insufficient_intune_permissions', permissions };
+        return { verified: false, error: fallthroughError, permissions };
       }
 
       return { verified: hasRequiredPermission, permissions };
@@ -421,11 +434,16 @@ export async function POST(request: NextRequest): Promise<NextResponse<ConsentVe
 
     tenantId = tenantResolution.tenantId;
 
+    // Hint from the client indicating admin consent was just granted.
+    // Lets us distinguish Microsoft's role-claim propagation delay from a
+    // genuine "insufficient permissions" scenario.
+    const justConsented = new URL(request.url).searchParams.get('justConsented') === 'true';
+
     // First, check if we have a cached consent record in the database
     const hasStoredConsent = await checkStoredConsent(tenantId);
     if (hasStoredConsent) {
       // Re-verify to ensure consent is still valid (handles revocation)
-      const reVerifyResult = await verifyConsentWithGraph(tenantId);
+      const reVerifyResult = await verifyConsentWithGraph(tenantId, justConsented);
       if (!reVerifyResult.verified) {
         // Clear stale cache
         await clearStoredConsent(tenantId);
@@ -436,9 +454,11 @@ export async function POST(request: NextRequest): Promise<NextResponse<ConsentVe
             ? 'Admin consent has been revoked or expired.'
             : reVerifyResult.error === 'insufficient_intune_permissions'
               ? 'Intune permissions not granted. Please re-grant admin consent to include DeviceManagementApps.ReadWrite.All permission.'
-              : reVerifyResult.error === 'missing_credentials'
-                ? 'Server configuration error. Contact administrator.'
-                : 'Unable to verify consent. Please check your connection and try again.',
+              : reVerifyResult.error === 'consent_propagating'
+                ? 'Consent was granted. Microsoft is still propagating the new permissions to tokens - this typically takes 5-15 minutes. Please check again shortly.'
+                : reVerifyResult.error === 'missing_credentials'
+                  ? 'Server configuration error. Contact administrator.'
+                  : 'Unable to verify consent. Please check your connection and try again.',
           cachedResult: false,
           error: reVerifyResult.error,
           permissions: reVerifyResult.permissions,
@@ -454,7 +474,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<ConsentVe
     }
 
     // No cached record - verify by trying to get a token
-    const verifyResult = await verifyConsentWithGraph(tenantId);
+    const verifyResult = await verifyConsentWithGraph(tenantId, justConsented);
 
     if (verifyResult.verified) {
       // Store the consent record for future checks
@@ -470,9 +490,11 @@ export async function POST(request: NextRequest): Promise<NextResponse<ConsentVe
           ? 'Admin consent not granted. A Global Administrator must grant consent.'
           : verifyResult.error === 'insufficient_intune_permissions'
             ? 'Intune permissions not granted. Please re-grant admin consent to include DeviceManagementApps.ReadWrite.All permission.'
-            : verifyResult.error === 'missing_credentials'
-              ? 'Server configuration error. Contact administrator.'
-              : 'Unable to verify consent. Please check your connection and try again.',
+            : verifyResult.error === 'consent_propagating'
+              ? 'Consent was granted. Microsoft is still propagating the new permissions to tokens - this typically takes 5-15 minutes. Please check again shortly.'
+              : verifyResult.error === 'missing_credentials'
+                ? 'Server configuration error. Contact administrator.'
+                : 'Unable to verify consent. Please check your connection and try again.',
       cachedResult: false,
       error: verifyResult.error,
       permissions: verifyResult.permissions,

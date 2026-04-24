@@ -55,6 +55,41 @@ export function PermissionStatusIndicator({
     );
   }
 
+  // Consent just granted, Microsoft propagating role claims
+  if (error === 'consent_propagating') {
+    return (
+      <div className="flex items-start gap-3 p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg">
+        <Loader2 className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5 animate-spin" />
+        <div className="flex-1">
+          <p className="text-blue-400 text-sm font-medium">
+            Finalizing permissions
+          </p>
+          <p className="text-blue-400/70 text-xs mt-1">
+            {errorMessage || 'Admin consent was granted. Microsoft is still propagating the new permissions (5-15 minutes).'}
+          </p>
+          <div className="flex gap-2 mt-3">
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={onRetry}
+              disabled={isRetrying}
+              className="border-blue-400/30 text-blue-400 hover:bg-blue-400/10 text-xs h-7 px-3"
+            >
+              {isRetrying ? (
+                <Loader2 className="w-3 h-3 animate-spin" />
+              ) : (
+                <>
+                  <RefreshCw className="w-3 h-3 mr-1" />
+                  Check Again
+                </>
+              )}
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   // Error states
   if (error === 'consent_not_granted') {
     return (

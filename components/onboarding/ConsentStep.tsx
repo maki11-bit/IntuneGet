@@ -15,14 +15,15 @@ import { T } from "gt-next";
 import { Button } from '@/components/ui/button';
 import { useMicrosoftAuth } from '@/hooks/useMicrosoftAuth';
 import { getShareableConsentUrl } from '@/lib/onboarding-utils';
+import { clearConsentPending, isConsentPending } from '@/components/AdminConsentBanner';
 
 interface ConsentStepProps {
   onNext: () => void;
   onBack: () => void;
 }
 
-type ConsentStatus = 'checking' | 'not_granted' | 'granted' | 'network_error' | 'config_error' | 'insufficient_permissions';
-type ConsentErrorType = 'missing_credentials' | 'network_error' | 'consent_not_granted' | 'insufficient_intune_permissions' | null;
+type ConsentStatus = 'checking' | 'not_granted' | 'granted' | 'network_error' | 'config_error' | 'insufficient_permissions' | 'propagating';
+type ConsentErrorType = 'missing_credentials' | 'network_error' | 'consent_not_granted' | 'insufficient_intune_permissions' | 'consent_propagating' | null;
 
 interface ConsentVerifyResult {
   verified: boolean;
@@ -48,7 +49,14 @@ export function ConsentStep({ onNext, onBack }: ConsentStepProps) {
         return { verified: false, error: 'network_error' };
       }
 
-      const response = await fetch('/api/auth/verify-consent', {
+      // Forward the just-consented hint so Microsoft's role-claim propagation
+      // delay surfaces as a "please wait" state instead of "insufficient perms".
+      const consentPending = isConsentPending();
+      const url = consentPending
+        ? '/api/auth/verify-consent?justConsented=true'
+        : '/api/auth/verify-consent';
+
+      const response = await fetch(url, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -64,6 +72,7 @@ export function ConsentStep({ onNext, onBack }: ConsentStepProps) {
       const result = await response.json();
 
       if (result.verified === true) {
+        if (consentPending) clearConsentPending();
         return { verified: true };
       }
 
@@ -95,6 +104,8 @@ export function ConsentStep({ onNext, onBack }: ConsentStepProps) {
         setStatus('network_error');
       } else if (result.error === 'insufficient_intune_permissions') {
         setStatus('insufficient_permissions');
+      } else if (result.error === 'consent_propagating') {
+        setStatus('propagating');
       } else {
         setStatus('not_granted');
       }
@@ -138,6 +149,8 @@ export function ConsentStep({ onNext, onBack }: ConsentStepProps) {
       setStatus('network_error');
     } else if (result.error === 'insufficient_intune_permissions') {
       setStatus('insufficient_permissions');
+    } else if (result.error === 'consent_propagating') {
+      setStatus('propagating');
     } else {
       setStatus('not_granted');
     }
@@ -257,6 +270,43 @@ export function ConsentStep({ onNext, onBack }: ConsentStepProps) {
             )}
           </Button>
         </div>
+      </div>
+    );
+  }
+
+  // Consent just granted, Microsoft is still propagating role claims
+  if (status === 'propagating') {
+    return (
+      <div className="text-center max-w-2xl mx-auto">
+        <div className="mb-8">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-blue-500/10 rounded-2xl">
+            <Loader2 className="w-10 h-10 text-blue-400 animate-spin" />
+          </div>
+        </div>
+        <h1 className="text-2xl font-bold text-text-primary mb-4">
+          <T>Finalizing Setup</T>
+        </h1>
+        <p className="text-text-muted mb-6">
+          <T>Admin consent was granted successfully. Microsoft is still propagating
+          the new permissions to tokens — this typically takes 5 to 15 minutes.</T>
+        </p>
+        <Button
+          onClick={handleVerify}
+          disabled={isVerifying}
+          className="bg-blue-500 hover:bg-blue-600 text-white"
+        >
+          {isVerifying ? (
+            <>
+              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+              <T>Checking...</T>
+            </>
+          ) : (
+            <>
+              <RefreshCw className="w-4 h-4 mr-2" />
+              <T>Check Again</T>
+            </>
+          )}
+        </Button>
       </div>
     );
   }

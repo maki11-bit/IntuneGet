@@ -6,35 +6,64 @@ import { Loader2, CheckCircle2, XCircle } from 'lucide-react';
 import { T, Var } from "gt-next";
 import { Button } from '@/components/ui/button';
 import { useMicrosoftAuth } from '@/hooks/useMicrosoftAuth';
-import { markConsentGranted, verifyConsentApi } from '@/components/AdminConsentBanner';
+import { markConsentGranted, markConsentPending, verifyConsentApiDetailed } from '@/components/AdminConsentBanner';
 
 function ConsentCallbackContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { signIn, isAuthenticated, getAccessToken } = useMicrosoftAuth();
-  const [status, setStatus] = useState<'processing' | 'verifying' | 'success' | 'error'>('processing');
+  const { signIn, isAuthenticated, getAccessToken, refreshToken } = useMicrosoftAuth();
+  const [status, setStatus] = useState<'processing' | 'verifying' | 'success' | 'error' | 'propagating'>('processing');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [statusMessage, setStatusMessage] = useState('Processing admin consent...');
 
   /**
-   * Verify consent via API after sign-in
+   * Verify consent via API after sign-in.
+   * Returns { verified, error, message } so the caller can distinguish between
+   * genuine failures and Microsoft's post-consent propagation delay.
    */
-  const verifyConsentAfterSignIn = useCallback(async (): Promise<boolean> => {
+  const verifyConsentAfterSignIn = useCallback(async (): Promise<{
+    verified: boolean;
+    error?: string | null;
+    message?: string;
+  }> => {
     try {
-      const token = await getAccessToken();
+      // Force-refresh the MSAL token so new scopes from fresh admin consent are
+      // included. Without this, the cached token may still reflect pre-consent state.
+      const token = (await refreshToken()) || (await getAccessToken());
       if (!token) {
         console.warn('No access token available for verification');
-        return true; // Proceed anyway
+        return {
+          verified: false,
+          error: 'network_error',
+          message: 'Could not acquire an access token. Please sign in again.',
+        };
       }
-      return await verifyConsentApi(token);
+      // justConsented hint lets the API return a friendlier "propagating" error
+      // instead of "insufficient permissions" during Microsoft's role-claim delay.
+      const result = await verifyConsentApiDetailed(token, { justConsented: true });
+      return {
+        verified: result.verified === true,
+        error: result.error,
+        message: result.message,
+      };
     } catch {
-      console.warn('Error verifying consent, proceeding anyway');
-      return true;
+      console.warn('Error verifying consent');
+      return {
+        verified: false,
+        error: 'network_error',
+        message: 'Unable to verify consent. Please check your connection and try again.',
+      };
     }
-  }, [getAccessToken]);
+  }, [getAccessToken, refreshToken]);
 
   useEffect(() => {
-    // Check for error in URL params (admin consent can fail)
+    // When the effect re-runs (e.g., because `isAuthenticated` flipped
+    // false → true after MSAL finished rehydrating), the old run's cleanup
+    // sets `cancelled = true` so its pending async work doesn't commit state.
+    // The new run then proceeds cleanly without two concurrent flows racing
+    // on markConsentGranted() / router.push().
+    let cancelled = false;
+
     const error = searchParams.get('error');
     const errorDescription = searchParams.get('error_description');
 
@@ -44,29 +73,44 @@ function ConsentCallbackContent() {
       return;
     }
 
-    // Admin consent URL redirect was successful!
-    // The admin_consent parameter indicates success from Entra ID
-    const adminConsent = searchParams.get('admin_consent');
-    if (adminConsent === 'True' || !error) {
-      // Mark consent as granted in localStorage (will be verified after sign-in)
-      markConsentGranted();
-    }
+    const handleVerificationFailure = (result: { error?: string | null; message?: string }) => {
+      if (cancelled) return;
+      if (result.error === 'consent_propagating') {
+        // Consent was actually granted; Microsoft is still propagating role
+        // claims. Record a time-bounded pending flag so subsequent banner
+        // checks surface the same "please wait" message instead of flipping
+        // to "re-grant consent".
+        markConsentPending();
+        setStatus('propagating');
+        setErrorMessage(
+          result.message ||
+          'Consent was granted. Microsoft is still propagating the new permissions (5-15 minutes). Please check again shortly from the Settings page.'
+        );
+        return;
+      }
+      setStatus('error');
+      setErrorMessage(
+        result.message || 'Admin consent was not granted. Please ensure a Global Administrator grants consent.'
+      );
+    };
 
-    // Now sign in the user if not already authenticated
     const completeSetup = async () => {
       if (isAuthenticated) {
-        // Already signed in - verify consent via API
+        if (cancelled) return;
         setStatus('verifying');
         setStatusMessage('Verifying organization access...');
 
-        const verified = await verifyConsentAfterSignIn();
-        if (verified) {
+        const result = await verifyConsentAfterSignIn();
+        if (cancelled) return;
+        if (result.verified) {
+          markConsentGranted();
           setStatus('success');
           setStatusMessage('Your organization is now connected.');
-          setTimeout(() => router.push('/onboarding?step=3'), 1500);
+          setTimeout(() => {
+            if (!cancelled) router.push('/onboarding?step=3');
+          }, 1500);
         } else {
-          setStatus('error');
-          setErrorMessage('Admin consent was not granted. Please ensure a Global Administrator grants consent.');
+          handleVerificationFailure(result);
         }
         return;
       }
@@ -75,34 +119,43 @@ function ConsentCallbackContent() {
       setStatusMessage('Signing you in...');
       try {
         const success = await signIn();
+        if (cancelled) return;
         if (success) {
-          // Now verify consent
           setStatus('verifying');
           setStatusMessage('Verifying organization access...');
 
-          const verified = await verifyConsentAfterSignIn();
-          if (verified) {
+          const result = await verifyConsentAfterSignIn();
+          if (cancelled) return;
+          if (result.verified) {
+            markConsentGranted();
             setStatus('success');
             setStatusMessage('Your organization is now connected.');
-            setTimeout(() => router.push('/onboarding?step=3'), 1500);
+            setTimeout(() => {
+              if (!cancelled) router.push('/onboarding?step=3');
+            }, 1500);
           } else {
-            setStatus('error');
-            setErrorMessage('Admin consent was not granted. Please ensure a Global Administrator grants consent.');
+            handleVerificationFailure(result);
           }
         } else {
-          // Sign-in was cancelled - still redirect to sign-in page
-          // (consent was granted, they can sign in later)
+          // Sign-in was cancelled - redirect to sign-in page without marking consent
           setStatus('success');
-          setStatusMessage('Consent recorded. Please sign in to continue.');
-          setTimeout(() => router.push('/auth/signin'), 1500);
+          setStatusMessage('Please sign in to continue.');
+          setTimeout(() => {
+            if (!cancelled) router.push('/auth/signin');
+          }, 1500);
         }
       } catch {
+        if (cancelled) return;
         setStatus('error');
         setErrorMessage('Failed to complete sign in. Please try again.');
       }
     };
 
     completeSetup();
+
+    return () => {
+      cancelled = true;
+    };
   }, [searchParams, signIn, isAuthenticated, router, verifyConsentAfterSignIn]);
 
   return (
@@ -129,6 +182,26 @@ function ConsentCallbackContent() {
             <p className="text-text-muted">
               <T><Var>{statusMessage}</Var></T>
             </p>
+          </>
+        )}
+
+        {status === 'propagating' && (
+          <>
+            <Loader2 className="h-12 w-12 text-blue-400 animate-spin mx-auto mb-4" />
+            <h2 className="text-xl font-semibold text-text-primary mb-2">
+              <T>Finalizing Setup</T>
+            </h2>
+            <p className="text-text-muted mb-4">
+              <T><Var>{errorMessage || 'Consent was granted. Microsoft is still propagating the new permissions - this typically takes 5 to 15 minutes.'}</Var></T>
+            </p>
+            <div className="space-y-2">
+              <Button
+                onClick={() => router.push('/dashboard/settings?tab=permissions')}
+                className="w-full bg-blue-600 hover:bg-blue-700"
+              >
+                <T>Go to Settings</T>
+              </Button>
+            </div>
           </>
         )}
 

@@ -73,6 +73,11 @@ export default function DashboardLayout({
       if (!isOnboardingComplete) {
         if (errorType === 'network_error' || errorType === 'missing_credentials') {
           setShowRetryBanner(true);
+        } else if (errorType === 'consent_propagating') {
+          // Consent is actually granted; Microsoft is still propagating. Keep
+          // the user on the dashboard with a banner rather than bouncing them
+          // to the onboarding re-consent flow every few seconds.
+          setShowRetryBanner(true);
         } else if (errorType === 'consent_not_granted') {
           router.push('/onboarding');
         } else {
@@ -175,7 +180,43 @@ export default function DashboardLayout({
         </header>
 
         {/* Consent Verification Retry Banner */}
-        {showRetryBanner && (
+        {showRetryBanner && errorType === 'consent_propagating' && (
+          <div className="bg-blue-500/10 border-b border-blue-500/20 px-4 lg:px-6 py-3">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+              <div className="flex items-start sm:items-center gap-3 min-w-0">
+                <Loader2 className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5 sm:mt-0 animate-spin" />
+                <div className="min-w-0">
+                  <p className="text-sm font-medium text-blue-200">
+                    <T>Finalizing organization setup</T>
+                  </p>
+                  <p className="text-xs text-blue-200/70">
+                    <T>Admin consent was granted. Microsoft is still propagating permissions (5-15 minutes).</T>
+                  </p>
+                </div>
+              </div>
+              <Button
+                onClick={handleRetry}
+                disabled={isRetrying}
+                size="sm"
+                className="bg-blue-500 hover:bg-blue-600 text-white font-medium flex-shrink-0 w-full sm:w-auto"
+              >
+                {isRetrying ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    <T>Checking...</T>
+                  </>
+                ) : (
+                  <>
+                    <RefreshCw className="w-4 h-4 mr-2" />
+                    <T>Check Again</T>
+                  </>
+                )}
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {showRetryBanner && errorType !== 'consent_propagating' && (
           <div className="bg-amber-500/10 border-b border-amber-500/20 px-4 lg:px-6 py-3">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
               <div className="flex items-start sm:items-center gap-3 min-w-0">

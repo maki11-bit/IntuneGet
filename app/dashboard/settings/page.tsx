@@ -28,14 +28,24 @@ import { useTheme } from '@/components/providers/ThemeProvider';
 import { useUserSettings } from '@/components/providers/UserSettingsProvider';
 import { cn } from '@/lib/utils';
 import { useCartStore } from '@/stores/cart-store';
+import { clearConsentPending, isConsentPending } from '@/components/AdminConsentBanner';
 
 type SettingsTab = 'general' | 'permissions' | 'notifications' | 'exports' | 'data';
 type PreferenceKey = 'theme' | 'cart' | 'assignments';
+
+type PermissionErrorType =
+  | 'missing_credentials'
+  | 'network_error'
+  | 'consent_not_granted'
+  | 'insufficient_intune_permissions'
+  | 'consent_propagating'
+  | null;
 
 interface PermissionStatusState {
   checked: boolean;
   checking: boolean;
   lastChecked?: Date;
+  errorType?: PermissionErrorType;
   permissions: {
     deviceManagementApps: boolean | null;
     userRead: boolean | null;
@@ -134,7 +144,17 @@ export default function SettingsPage() {
         return;
       }
 
-      const response = await fetch('/api/auth/verify-consent', {
+      // Forward the just-consented hint so a propagation delay after a fresh
+      // admin-consent grant is surfaced as a distinct state instead of the
+      // misleading "permissions missing / re-grant" warning.
+      // Capture once to avoid a race where the 20-min window self-clears
+      // between the URL decision and the post-fetch clear.
+      const consentPending = isConsentPending();
+      const url = consentPending
+        ? '/api/auth/verify-consent?justConsented=true'
+        : '/api/auth/verify-consent';
+
+      const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -143,10 +163,15 @@ export default function SettingsPage() {
       });
       const result = await response.json();
 
+      if (result.verified && consentPending) {
+        clearConsentPending();
+      }
+
       setPermissionStatus({
         checked: true,
         checking: false,
         lastChecked: new Date(),
+        errorType: (result.error as PermissionErrorType) ?? null,
         permissions: {
           deviceManagementApps: result.permissions?.deviceManagementApps ?? (result.verified ? true : null),
           userRead: result.permissions?.userRead ?? true,
@@ -571,7 +596,17 @@ export default function SettingsPage() {
                       </p>
                     )}
 
-                    {permissionStatus?.permissions.deviceManagementApps === false && (
+                    {permissionStatus?.errorType === 'consent_propagating' && (
+                      <div className="mt-4 p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg flex items-start gap-3">
+                        <Loader2 className="w-4 h-4 text-blue-400 animate-spin mt-0.5 flex-shrink-0" />
+                        <p className="text-sm text-blue-400">
+                          <T>Admin consent was granted. Microsoft is still propagating the new permissions to tokens — this typically takes 5 to 15 minutes. Click &quot;Check Permissions&quot; again shortly.</T>
+                        </p>
+                      </div>
+                    )}
+
+                    {permissionStatus?.errorType !== 'consent_propagating' &&
+                      permissionStatus?.permissions.deviceManagementApps === false && (
                       <div className="mt-4 p-3 bg-status-warning/10 border border-status-warning/20 rounded-lg">
                         <p className="text-sm text-status-warning mb-2">
                           <T>Intune permission is missing. A Global Administrator needs to re-grant consent.</T>
@@ -586,7 +621,8 @@ export default function SettingsPage() {
                       </div>
                     )}
 
-                    {permissionStatus?.permissions.deviceManagementManagedDevices === false && (
+                    {permissionStatus?.errorType !== 'consent_propagating' &&
+                      permissionStatus?.permissions.deviceManagementManagedDevices === false && (
                       <div className="mt-4 p-3 bg-status-warning/10 border border-status-warning/20 rounded-lg">
                         <p className="text-sm text-status-warning mb-2">
                           <T>Discovered Apps permission is missing. The Discovered Apps feature requires this permission. A Global Administrator needs to re-grant consent.</T>
@@ -601,7 +637,8 @@ export default function SettingsPage() {
                       </div>
                     )}
 
-                    {permissionStatus?.permissions.deviceManagementServiceConfig === false && (
+                    {permissionStatus?.errorType !== 'consent_propagating' &&
+                      permissionStatus?.permissions.deviceManagementServiceConfig === false && (
                       <div className="mt-4 p-3 bg-status-warning/10 border border-status-warning/20 rounded-lg">
                         <p className="text-sm text-status-warning mb-2">
                           <T>ESP profile permission is missing. Adding apps to Enrollment Status Page profiles requires this permission. A Global Administrator needs to re-grant consent.</T>

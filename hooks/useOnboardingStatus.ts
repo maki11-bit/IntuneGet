@@ -7,8 +7,9 @@ import {
   markOnboardingComplete,
   clearOnboardingCache,
 } from '@/lib/onboarding-utils';
+import { clearConsentPending, isConsentPending } from '@/components/AdminConsentBanner';
 
-export type OnboardingErrorType = 'network_error' | 'consent_not_granted' | 'missing_credentials' | null;
+export type OnboardingErrorType = 'network_error' | 'consent_not_granted' | 'missing_credentials' | 'consent_propagating' | 'insufficient_intune_permissions' | null;
 
 interface ConsentVerifyResult {
   verified: boolean;
@@ -52,7 +53,14 @@ export function useOnboardingStatus(): OnboardingStatus {
         return { verified: false, error: 'network_error' };
       }
 
-      const response = await fetch('/api/auth/verify-consent', {
+      // Forward the just-consented hint so propagation delay is distinguished
+      // from genuine insufficient permissions.
+      const consentPending = isConsentPending();
+      const url = consentPending
+        ? '/api/auth/verify-consent?justConsented=true'
+        : '/api/auth/verify-consent';
+
+      const response = await fetch(url, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -70,6 +78,7 @@ export function useOnboardingStatus(): OnboardingStatus {
       const result = await response.json();
 
       if (result.verified === true) {
+        if (consentPending) clearConsentPending();
         setError(null);
         setErrorType(null);
         return { verified: true };

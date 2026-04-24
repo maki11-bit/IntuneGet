@@ -4,10 +4,12 @@ import { useCallback, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useMicrosoftAuth } from '@/hooks/useMicrosoftAuth';
 import { useMspOptional } from '@/hooks/useMspOptional';
+import { clearConsentPending, isConsentPending } from '@/components/AdminConsentBanner';
 
 export type PermissionErrorType =
   | 'consent_not_granted'
   | 'insufficient_intune_permissions'
+  | 'consent_propagating'
   | 'network_error'
   | 'missing_credentials'
   | null;
@@ -31,7 +33,12 @@ export function usePermissionStatus() {
       return { verified: false, tenantId: '', message: 'No token', error: 'network_error' };
     }
 
-    const response = await fetch('/api/auth/verify-consent', {
+    const consentPending = isConsentPending();
+    const url = consentPending
+      ? '/api/auth/verify-consent?justConsented=true'
+      : '/api/auth/verify-consent';
+
+    const response = await fetch(url, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -44,7 +51,9 @@ export function usePermissionStatus() {
       return { verified: false, tenantId: '', message: 'Server error', error: 'network_error' };
     }
 
-    return response.json();
+    const result = await response.json();
+    if (result?.verified === true && consentPending) clearConsentPending();
+    return result;
   }, [getAccessToken, isMspUser, selectedTenantId]);
 
   const { data, isLoading, refetch, isFetching } = useQuery({
@@ -54,6 +63,11 @@ export function usePermissionStatus() {
     staleTime: 5 * 60 * 1000, // 5 minutes
     gcTime: 10 * 60 * 1000,
     retry: 1,
+    // When Microsoft is still propagating role claims after a fresh consent,
+    // re-check every 60s so the UI clears the "Finalizing permissions" state
+    // as soon as propagation completes — without requiring manual retries.
+    refetchInterval: (query) =>
+      query.state.data?.error === 'consent_propagating' ? 60 * 1000 : false,
   });
 
   const status: PermissionStatusType = useMemo(() => {

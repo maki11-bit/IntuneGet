@@ -7,13 +7,26 @@ import { useMicrosoftAuth } from '@/hooks/useMicrosoftAuth';
 
 const CONSENT_STORAGE_KEY = 'intuneget_consent_granted';
 const CONSENT_CACHE_KEY = 'intuneget_consent_verified_at';
-const CACHE_DURATION_MS = 24 * 60 * 60 * 1000; // 24 hours
+// Short cache prevents API spam during rapid navigation while ensuring stale state clears quickly.
+// Previously 24h, which caused divergence when permissions changed or propagation was delayed.
+const CACHE_DURATION_MS = 5 * 60 * 1000; // 5 minutes
+
+// Time-bounded hint that consent was just granted and Microsoft may still be
+// propagating role claims into new tokens. While this flag is active, the
+// client sends `justConsented=true` so the API can surface a "propagating"
+// message instead of hard-failing with "insufficient permissions".
+// Capped so a stuck client can't keep the user in the waiting state forever.
+// Stored in localStorage so the flag survives tab close/reopen during the
+// propagation window (otherwise a user who closes the tab after consent and
+// reopens the app would incorrectly see "re-grant consent").
+const CONSENT_PENDING_KEY = 'intuneget_consent_pending_at';
+const CONSENT_PENDING_MAX_MS = 20 * 60 * 1000; // 20 minutes
 
 interface AdminConsentBannerProps {
   onConsentGranted?: () => void;
 }
 
-type ConsentErrorType = 'missing_credentials' | 'network_error' | 'consent_not_granted' | 'insufficient_intune_permissions' | null;
+type ConsentErrorType = 'missing_credentials' | 'network_error' | 'consent_not_granted' | 'insufficient_intune_permissions' | 'consent_propagating' | null;
 
 interface ConsentVerificationResult {
   verified: boolean;
@@ -40,14 +53,20 @@ export function AdminConsentBanner({ onConsentGranted }: AdminConsentBannerProps
   const [errorType, setErrorType] = useState<ConsentErrorType>(null);
 
   /**
-   * Verify consent via API
+   * Verify consent via API.
+   * Pass `justConsented: true` within the post-consent window so the API can
+   * distinguish Microsoft's role-claim propagation delay from genuine
+   * insufficient-permission failures.
    */
-  const verifyConsentViaApi = useCallback(async (): Promise<ConsentVerificationResult> => {
+  const verifyConsentViaApi = useCallback(async (opts?: { justConsented?: boolean }): Promise<ConsentVerificationResult> => {
     try {
       const token = await getAccessToken();
       if (!token) return { verified: false, tenantId: '', message: 'No token', error: 'network_error' };
 
-      const response = await fetch('/api/auth/verify-consent', {
+      const url = opts?.justConsented
+        ? '/api/auth/verify-consent?justConsented=true'
+        : '/api/auth/verify-consent';
+      const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -98,16 +117,19 @@ export function AdminConsentBanner({ onConsentGranted }: AdminConsentBannerProps
       return;
     }
 
-    // Verify via API
+    // Verify via API. If consent was just granted, signal that to the API so
+    // it returns the propagation-specific error instead of "insufficient".
     const checkConsent = async () => {
       setIsVerifying(true);
-      const result = await verifyConsentViaApi();
+      const consentPending = isConsentPending();
+      const result = await verifyConsentViaApi({ justConsented: consentPending });
       setIsVerifying(false);
 
       if (result.verified) {
-        // Update localStorage cache
+        // Update localStorage cache and clear pending flag
         localStorage.setItem(CONSENT_STORAGE_KEY, 'true');
         localStorage.setItem(CONSENT_CACHE_KEY, Date.now().toString());
+        if (consentPending) clearConsentPending();
         setIsVisible(false);
         setErrorType(null);
         onConsentGranted?.();
@@ -142,14 +164,19 @@ export function AdminConsentBanner({ onConsentGranted }: AdminConsentBannerProps
   };
 
   const handleAlreadyGranted = async () => {
-    // User claims consent was already granted - verify via API
+    // User claims consent was already granted - verify via API.
+    // Forward the pending hint so "Check Again" on the propagating banner
+    // doesn't immediately flip to the amber "re-grant" UI just because
+    // Microsoft hasn't propagated role claims yet.
     setIsVerifying(true);
-    const result = await verifyConsentViaApi();
+    const consentPending = isConsentPending();
+    const result = await verifyConsentViaApi({ justConsented: consentPending });
     setIsVerifying(false);
 
     if (result.verified) {
       localStorage.setItem(CONSENT_STORAGE_KEY, 'true');
       localStorage.setItem(CONSENT_CACHE_KEY, Date.now().toString());
+      if (consentPending) clearConsentPending();
       setIsVisible(false);
       setErrorType(null);
       onConsentGranted?.();
@@ -172,6 +199,42 @@ export function AdminConsentBanner({ onConsentGranted }: AdminConsentBannerProps
   }
 
   if (!isVisible) return null;
+
+  // Special UI for consent propagation delay (consent just granted, roles not yet in token)
+  if (errorType === 'consent_propagating') {
+    return (
+      <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-4 mb-6">
+        <div className="flex items-start gap-3">
+          <div className="p-2 bg-blue-500/20 rounded-lg">
+            <Loader2 className="w-5 h-5 text-blue-400 animate-spin" />
+          </div>
+          <div className="flex-1">
+            <h3 className="font-medium text-text-primary mb-1">
+              Finalizing Setup
+            </h3>
+            <p className="text-sm text-text-secondary mb-4">
+              Admin consent was granted successfully. Microsoft is still propagating the new permissions to your tokens - this typically takes <strong className="text-blue-400">5 to 15 minutes</strong>. Please click below to check again shortly.
+            </p>
+            <Button
+              onClick={handleAlreadyGranted}
+              size="sm"
+              className="bg-blue-500 hover:bg-blue-600 text-white font-medium"
+              disabled={isVerifying}
+            >
+              {isVerifying ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  Checking...
+                </>
+              ) : (
+                'Check Again'
+              )}
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   // Special UI for insufficient Intune permissions (existing users who need to re-consent)
   if (errorType === 'insufficient_intune_permissions') {
@@ -358,12 +421,66 @@ export function clearConsentStatus() {
 }
 
 /**
+ * Mark consent as pending propagation. Call this right after an admin-consent
+ * redirect returns but the verify-consent API reports role claims not yet
+ * present in the client credentials token.
+ */
+export function markConsentPending() {
+  if (typeof window !== 'undefined') {
+    localStorage.setItem(CONSENT_PENDING_KEY, Date.now().toString());
+  }
+}
+
+/**
+ * Clear the pending flag (call after successful verification).
+ */
+export function clearConsentPending() {
+  if (typeof window !== 'undefined') {
+    localStorage.removeItem(CONSENT_PENDING_KEY);
+  }
+}
+
+/**
+ * Is consent currently awaiting Microsoft's propagation? Returns false and
+ * self-clears after the max window so users aren't stuck on "please wait"
+ * indefinitely if permissions were never really granted.
+ */
+export function isConsentPending(): boolean {
+  if (typeof window === 'undefined') return false;
+  const pendingAt = localStorage.getItem(CONSENT_PENDING_KEY);
+  if (!pendingAt) return false;
+  const elapsed = Date.now() - parseInt(pendingAt, 10);
+  if (Number.isNaN(elapsed) || elapsed >= CONSENT_PENDING_MAX_MS) {
+    localStorage.removeItem(CONSENT_PENDING_KEY);
+    return false;
+  }
+  return true;
+}
+
+/**
  * Verify consent via API
  * This is the authoritative check - uses client credentials to verify
  */
-export async function verifyConsentApi(accessToken: string): Promise<boolean> {
+export async function verifyConsentApi(
+  accessToken: string,
+  opts?: { justConsented?: boolean }
+): Promise<boolean> {
+  const result = await verifyConsentApiDetailed(accessToken, opts);
+  return result.verified === true;
+}
+
+/**
+ * Verify consent via API and return full result (including error type and message)
+ */
+export async function verifyConsentApiDetailed(
+  accessToken: string,
+  opts?: { justConsented?: boolean }
+): Promise<ConsentVerificationResult> {
   try {
-    const response = await fetch('/api/auth/verify-consent', {
+    const url = opts?.justConsented
+      ? '/api/auth/verify-consent?justConsented=true'
+      : '/api/auth/verify-consent';
+    const response = await fetch(url, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${accessToken}`,
@@ -371,11 +488,12 @@ export async function verifyConsentApi(accessToken: string): Promise<boolean> {
       },
     });
 
-    if (!response.ok) return false;
+    if (!response.ok) {
+      return { verified: false, tenantId: '', message: 'Request failed', error: 'network_error' };
+    }
 
-    const result = await response.json();
-    return result.verified === true;
+    return await response.json();
   } catch {
-    return false;
+    return { verified: false, tenantId: '', message: 'Error', error: 'network_error' };
   }
 }
